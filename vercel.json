@@ -1,9 +1,0 @@
-{
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    { "source": "/dashboard", "destination": "/xenontv-dashboard.html" },
-    { "source": "/identifiants", "destination": "/xenontv-identifiants-v2.html" },
-    { "source": "/bug", "destination": "/xenontv-bug.html" }
-  ]
-}
