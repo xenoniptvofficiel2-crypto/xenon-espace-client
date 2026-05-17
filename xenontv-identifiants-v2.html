@@ -570,45 +570,21 @@ body {
   const OLD_DOMAINS = ['benflixe.com','mega862.com','luxevpn.xyz','eldervpn.xyz','megaxeno.com','xenontv2.xyz','xenonsdns.com','megsmart.xyz','xeno'];
 
   
-// Vérification session simple
+// Vérification session
   function checkSession() {
     const email = sessionStorage.getItem('xenon_user_email');
-    if (!email) {
-      window.location.href = 'index.html';
-      return null;
-    }
+    if (!email) { window.location.href = 'index.html'; return null; }
     return email;
   }
-  if (Date.now() - parseInt(ts) > 8 * 60 * 60 * 1000) { sessionStorage.clear(); window.location.href = 'index.html'; return null; }
-  const raw = email + '|' + ts + '|XENON_SECRET_2026';
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
-  const expected = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-  if (token !== expected) { sessionStorage.clear(); window.location.href = 'index.html'; return null; }
-  return email;
-}
 
-  // Init session sécurisée
   let sessionEmail = '';
-  const _email = checkSession(); if (_email) { const email = _email;
-    if (!email) return;
-    sessionEmail = email;
-    document.getElementById('userEmail').textContent = email;
-    document.getElementById('userInitial').textContent = email.charAt(0).toUpperCase();
-    // Charge les identifiants automatiquement
-    if (typeof loadCredentials === 'function') loadCredentials(email);
-  });
-
-  function copyText(btn, val) {
-    if (!val) return;
-    navigator.clipboard.writeText(val).then(() => {
-      const orig = btn.textContent;
-      btn.textContent = '✓ Copié !';
-      btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
-    });
+  const _s = checkSession();
+  if (_s) {
+    sessionEmail = _s;
+    if (document.getElementById('userEmail')) document.getElementById('userEmail').textContent = _s;
+    if (document.getElementById('userInitial')) document.getElementById('userInitial').textContent = _s.charAt(0).toUpperCase();
   }
-  function openModal(id) { document.getElementById(id).classList.add('open'); }
-  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
   });
