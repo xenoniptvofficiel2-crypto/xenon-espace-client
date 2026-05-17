@@ -600,21 +600,63 @@ body {
   }
 
   function buildCard(acc, idx, total) {
-    const label = total > 1 ? 'Accès ' + (idx+1) + ' / ' + total : 'Accès trouvé';
+    const label = total > 1 ? `Accès ${idx+1} / ${total}` : 'Accès trouvé';
     const displayUrl = 'http://app.megsmart.xyz';
     const sub = getSubdomain(acc.url || '');
-    const smartUrl = sub ? 'http://' + sub + '.xenonssmart.com' : null;
+    const smartUrl = sub ? `http://${sub}.xenonssmart.com` : null;
 
     const repairIos = needsRepair(acc.url)
-      ? '<button class="repair-btn" onclick="openModal('modalIos')">🔧 Réparer</button>' : '';
+      ? `<button class="repair-btn" onclick="openModal('modalIos')">🔧 Réparer</button>` : '';
 
-    const rowUrl = '<div class="cred-row"><div class="cred-type-tag">📱</div><div class="cred-inner"><div class="cred-label">URL — Android / iOS</div><div class="cred-value">' + displayUrl + '</div></div><div class="cred-actions"><button class="copy-btn" onclick="copyText(this,'' + displayUrl + '')">Copier</button>' + repairIos + '</div></div>';
+    const rowUrl = `
+      <div class="cred-row">
+        <div class="cred-type-tag">📱</div>
+        <div class="cred-inner">
+          <div class="cred-label">URL — Android / iOS</div>
+          <div class="cred-value">${displayUrl}</div>
+        </div>
+        <div class="cred-actions">
+          <button class="copy-btn" onclick="copyText(this,'${displayUrl}')">Copier</button>
+          ${repairIos}
+        </div>
+      </div>`;
 
-    const rowSmart = smartUrl ? '<div class="cred-row"><div class="cred-type-tag">📺</div><div class="cred-inner"><div class="cred-label">URL — Samsung TV / LG</div><div class="cred-value">' + smartUrl + '</div></div><div class="cred-actions"><button class="copy-btn" onclick="copyText(this,'' + smartUrl.replace(/'/g,"\'") + '')">Copier</button><button class="repair-btn" onclick="openModal('modalSmart')">🔧 Réparer</button></div></div>' : '';
+    const rowSmart = smartUrl ? `
+      <div class="cred-row">
+        <div class="cred-type-tag">📺</div>
+        <div class="cred-inner">
+          <div class="cred-label">URL — Samsung TV / LG</div>
+          <div class="cred-value">${smartUrl}</div>
+        </div>
+        <div class="cred-actions">
+          <button class="copy-btn" onclick="copyText(this,'${smartUrl}')">Copier</button>
+          <button class="repair-btn" onclick="openModal('modalSmart')">🔧 Réparer</button>
+        </div>
+      </div>` : '';
 
-    const rowUser = acc.username ? '<div class="cred-row"><div class="cred-type-tag">👤</div><div class="cred-inner"><div class="cred-label">Nom d'utilisateur</div><div class="cred-value">' + acc.username + '</div></div><div class="cred-actions"><button class="copy-btn" onclick="copyText(this,'' + acc.username.replace(/'/g,"\'") + '')">Copier</button></div></div>' : '';
+    const rowUser = acc.username ? `
+      <div class="cred-row">
+        <div class="cred-type-tag">👤</div>
+        <div class="cred-inner">
+          <div class="cred-label">Nom d'utilisateur</div>
+          <div class="cred-value">${acc.username}</div>
+        </div>
+        <div class="cred-actions">
+          <button class="copy-btn" onclick="copyText(this,'${acc.username}')">Copier</button>
+        </div>
+      </div>` : '';
 
-    const rowPass = acc.password ? '<div class="cred-row"><div class="cred-type-tag">🔒</div><div class="cred-inner"><div class="cred-label">Mot de passe</div><div class="cred-value">' + acc.password + '</div></div><div class="cred-actions"><button class="copy-btn" onclick="copyText(this,'' + acc.password.replace(/'/g,"\'") + '')">Copier</button></div></div>' : '';
+    const rowPass = acc.password ? `
+      <div class="cred-row">
+        <div class="cred-type-tag">🔒</div>
+        <div class="cred-inner">
+          <div class="cred-label">Mot de passe</div>
+          <div class="cred-value">${acc.password}</div>
+        </div>
+        <div class="cred-actions">
+          <button class="copy-btn" onclick="copyText(this,'${acc.password}')">Copier</button>
+        </div>
+      </div>` : '';
 
     let m3uRow = '';
     if (acc.m3u) {
@@ -625,19 +667,52 @@ body {
         path = path.replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
         m3u = 'http://app.megsmart.xyz' + path;
       } catch(e) {
-        m3u = m3u.replace(/^https?:\/\/[^\/]+/, 'http://app.megsmart.xyz').replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
+        m3u = m3u.replace(/^https?:\/\/[^\/]+/, 'http://app.megsmart.xyz')
+                 .replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
       }
-      const sm = m3u.replace(/'/g,"\'");
-      m3uRow = '<div class="section-divider">Fichier M3U</div><div class="m3u-row"><div style="font-size:1.2rem;flex-shrink:0;margin-top:2px">📂</div><div class="m3u-inner"><div class="cred-label" style="margin-bottom:6px">Lien M3U</div><div class="m3u-url">' + m3u + '</div><a class="m3u-dl" href="' + m3u + '" target="_blank">⬇ Télécharger le fichier M3U</a></div><div style="flex-shrink:0"><button class="copy-btn" onclick="copyText(this,'' + sm + '')">Copier</button></div></div>';
+      m3uRow = `
+        <div class="section-divider">Fichier M3U</div>
+        <div class="m3u-row">
+          <div style="font-size:1.2rem;flex-shrink:0;margin-top:2px">📂</div>
+          <div class="m3u-inner">
+            <div class="cred-label" style="margin-bottom:6px">Lien M3U</div>
+            <div class="m3u-url">${m3u}</div>
+            <a class="m3u-dl" href="${m3u}" target="_blank">⬇ Télécharger le fichier M3U</a>
+          </div>
+          <div style="flex-shrink:0">
+            <button class="copy-btn" onclick="copyText(this,'${m3u}')">Copier</button>
+          </div>
+        </div>`;
     }
 
-    return '<div class="success-banner"><div class="success-dot"></div><span class="success-text">Accès trouvé et vérifié</span><span class="access-count">' + total + ' accès</span></div>'
-      + '<div class="access-card"><div class="ac-header"><span class="ac-badge">' + label + '</span><span style="font-size:0.72rem;color:#555;font-style:italic">' + (acc.subject || '') + '</span><span class="ac-date">Créé le ' + formatDate(acc.date) + '</span></div>'
-      + '<div class="ac-body"><div class="section-divider">Connexion</div>' + rowUrl + rowSmart
-      + '<div class="section-divider">Identifiants</div>' + rowUser + rowPass + m3uRow
-      + '<div class="ac-notice">💡 Reconnectez-vous avec ces identifiants. Utilisez <strong>🔧 Réparer</strong> si l'URL ne fonctionne plus. Support via <a href="https://xenontv.fr/help" target="_blank">notre application d'assistance</a>.</div>'
-      + '</div></div>';
+    return `
+      <div class="success-banner">
+        <div class="success-dot"></div>
+        <span class="success-text">Accès trouvé et vérifié</span>
+        <span class="access-count">${total} accès</span>
+      </div>
+      <div class="access-card">
+        <div class="ac-header">
+          <span class="ac-badge">${label}</span>
+          <span style="font-size:0.72rem;color:#555;font-style:italic">${acc.subject || ''}</span>
+          <span class="ac-date">Créé le ${formatDate(acc.date)}</span>
+        </div>
+        <div class="ac-body">
+          <div class="section-divider">Connexion</div>
+          ${rowUrl}
+          ${rowSmart}
+          <div class="section-divider">Identifiants</div>
+          ${rowUser}
+          ${rowPass}
+          ${m3uRow}
+          <div class="ac-notice">
+            💡 Reconnectez-vous avec ces identifiants. Utilisez <strong>🔧 Réparer</strong> si l'URL ne fonctionne plus.
+            Support via <a href="https://xenontv.fr/help" target="_blank">notre application d'assistance</a>.
+          </div>
+        </div>
+      </div>`;
   }
+
 
   async function loadIdentifiants() {
     if (!sessionEmail) { window.location.href = 'index.html'; return; }
