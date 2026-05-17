@@ -545,11 +545,13 @@
     const pages = {
       identifiants: 'xenontv-identifiants-v2.html',
       bug:          'xenontv-bug.html',
-      parrainage:   '#',
+      parrainage:   'https://parrainagexenon.vercel.app/',
     };
     const url = pages[section];
-    if (url && url !== '#') window.location.href = url;
-    else alert('Section "' + section + '" — bientôt disponible !');
+    if (url && url !== '#') {
+      if (url.startsWith('http')) window.open(url, '_blank');
+      else window.location.href = url;
+    } else alert('Section "' + section + '" — bientôt disponible !');
   }
 </script>
 
