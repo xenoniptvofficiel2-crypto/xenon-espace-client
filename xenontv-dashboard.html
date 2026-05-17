@@ -531,36 +531,10 @@
 </footer>
 
 <script>
-
-  // ── Vérification session sécurisée ──
-  // Vérification session simple
+  // ── Vérification session
   function checkSession() {
     const email = sessionStorage.getItem('xenon_user_email');
-    if (!email) {
-      window.location.href = 'index.html';
-      return null;
-    }
-    return email;
-  }
-
-    // Vérifie que la session n'a pas plus de 8 heures
-    if (Date.now() - parseInt(ts) > 8 * 60 * 60 * 1000) {
-      sessionStorage.clear();
-      window.location.href = 'index.html';
-      return null;
-    }
-
-    // Recompute le token et compare
-    const raw = email + '|' + ts + '|XENON_SECRET_2026';
-    const buf  = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
-    const expected = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-
-    if (token !== expected) {
-      sessionStorage.clear();
-      window.location.href = 'index.html';
-      return null;
-    }
-
+    if (!email) { window.location.href = 'index.html'; return null; }
     return email;
   }
 
@@ -575,15 +549,15 @@
     if (url && url !== '#') {
       if (url.startsWith('http')) window.open(url, '_blank');
       else window.location.href = url;
-    } else alert('Section "' + section + '" — bientôt disponible !');
+    }
   }
 
-  // ── Init sécurisé
-  const _email = checkSession(); if (_email) { const email = _email;
-    if (!email) return;
+  // ── Init
+  const email = checkSession();
+  if (email) {
     document.getElementById('userEmail').textContent = email;
     document.getElementById('userInitial').textContent = email.charAt(0).toUpperCase();
-  });
+  }
 </script>
 
 </body>
