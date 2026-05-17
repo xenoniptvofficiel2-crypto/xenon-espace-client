@@ -4,490 +4,556 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>XENON TV — Mes Identifiants</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --red: #e50914;
-    --red2: #ff2233;
-    --black: #000;
-    --bg: #0a0a0a;
-    --surface: #111;
-    --surface2: #181818;
-    --surface3: #1f1f1f;
-    --border: rgba(255,255,255,0.07);
-    --border2: rgba(255,255,255,0.12);
-    --text: #fff;
-    --muted: #888;
-    --mono: 'DM Mono', monospace;
-    --green: #22c55e;
-  }
+:root {
+  --red: #e50914;
+  --red2: #ff2233;
+  --bg: #080808;
+  --s1: #111;
+  --s2: #161616;
+  --s3: #1c1c1c;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.11);
+  --text: #f0f0f0;
+  --muted: #777;
+  --green: #22c55e;
+  --mono: 'DM Mono', monospace;
+}
 
-  body {
-    font-family: 'Montserrat', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-  }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
 
-  /* ══ TOPBAR ══ */
-  .topbar {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(0,0,0,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 48px;
-    height: 60px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .topbar-left { display: flex; align-items: center; gap: 16px; }
-  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 3px; color: #fff; text-decoration: none; }
-  .logo span { color: var(--red); }
-  .back-btn {
-    display: flex; align-items: center; gap: 6px;
-    background: transparent; border: 1px solid var(--border2);
-    color: var(--muted); padding: 6px 14px; border-radius: 6px;
-    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px;
-    text-transform: uppercase; cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    transition: all 0.2s; text-decoration: none;
-  }
-  .back-btn:hover { border-color: #fff; color: #fff; }
-  .topbar-right { display: flex; align-items: center; gap: 12px; }
-  .user-pill {
-    display: flex; align-items: center; gap: 8px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border); padding: 5px 12px 5px 7px;
-    border-radius: 20px; font-size: 0.75rem; font-weight: 600; color: #ccc;
-  }
-  .user-avatar {
-    width: 22px; height: 22px; background: var(--red); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.65rem; font-weight: 800; color: #fff;
-  }
+/* ══ TOPBAR ══ */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(8,8,8,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; color: #fff; text-decoration: none; }
+.logo span { color: var(--red); }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.back-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: transparent; border: 1px solid var(--border2);
+  color: var(--muted); padding: 6px 16px; border-radius: 6px;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px;
+  text-transform: uppercase; cursor: pointer;
+  font-family: 'Montserrat', sans-serif; text-decoration: none;
+  transition: all 0.2s;
+}
+.back-btn:hover { border-color: #fff; color: #fff; }
+.user-chip {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--s2); border: 1px solid var(--border2);
+  padding: 5px 14px 5px 6px; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 600; color: #ccc;
+}
+.user-av {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--red); display: flex; align-items: center; justify-content: center;
+  font-size: 0.68rem; font-weight: 800; color: #fff; flex-shrink: 0;
+}
 
-  /* ══ PAGE HEADER ══ */
-  .page-header {
-    padding: 40px 48px 32px;
-    border-bottom: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(229,9,20,0.05) 0%, transparent 100%);
-    display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
-    flex-wrap: wrap;
-  }
-  .page-header-left {}
-  .page-eyebrow {
-    font-size: 0.68rem; font-weight: 700; letter-spacing: 3px;
-    text-transform: uppercase; color: var(--red); margin-bottom: 8px;
-  }
-  .page-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.6rem; letter-spacing: 3px; line-height: 1;
-    margin-bottom: 8px;
-  }
-  .page-sub { font-size: 0.85rem; color: var(--muted); line-height: 1.6; max-width: 480px; }
+/* ══ HERO BAND ══ */
+.hero-band {
+  background: linear-gradient(135deg, #110000 0%, #0a0a0a 60%, #080808 100%);
+  border-bottom: 1px solid rgba(229,9,20,0.12);
+  padding: 36px 48px 32px;
+  position: relative; overflow: hidden;
+}
+.hero-band::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--red) 0%, var(--red2) 40%, transparent 100%);
+}
+.hero-band::before {
+  content: '🔑';
+  position: absolute; right: 48px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 6rem; opacity: 0.06;
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--red); margin-bottom: 6px;
+}
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.8rem; letter-spacing: 3px; line-height: 1;
+  margin-bottom: 8px;
+}
+.hero-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
 
-  /* ══ MAIN ══ */
-  .page-main { padding: 36px 48px 60px; max-width: 900px; }
+/* ══ MAIN ══ */
+.main { padding: 32px 48px 0; max-width: 820px; }
 
-  /* ══ SEARCH BLOCK ══ */
-  .search-block {
-    background: var(--surface);
-    border: 1px solid var(--border2);
-    border-radius: 14px;
-    padding: 28px 28px;
-    margin-bottom: 32px;
-    position: relative;
-    overflow: hidden;
-  }
-  .search-block::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--red), transparent);
-  }
-  .search-block-title {
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--muted); margin-bottom: 16px;
-  }
-  .search-row { display: flex; gap: 10px; align-items: stretch; }
-  .search-input {
-    flex: 1; padding: 14px 18px;
-    background: var(--surface2); border: 1px solid var(--border2);
-    border-radius: 8px; color: #fff; font-size: 0.95rem;
-    font-family: 'Montserrat', sans-serif; outline: none;
-    transition: border-color 0.2s;
-  }
-  .search-input::placeholder { color: #444; }
-  .search-input:focus { border-color: rgba(229,9,20,0.5); }
-  .search-btn {
-    background: var(--red); color: #fff; border: none;
-    padding: 14px 28px; border-radius: 8px;
-    font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
-    text-transform: uppercase; font-family: 'Montserrat', sans-serif;
-    cursor: pointer; transition: background 0.2s, transform 0.1s;
-    white-space: nowrap;
-  }
-  .search-btn:hover { background: var(--red2); }
-  .search-btn:active { transform: scale(0.98); }
-  .search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .search-btn.loading { position: relative; color: transparent; }
-  .search-btn.loading::after {
-    content: ''; position: absolute; top: 50%; left: 50%;
-    width: 16px; height: 16px; margin: -8px 0 0 -8px;
-    border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
-    border-radius: 50%; animation: spin 0.7s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+/* ══ SUCCESS BANNER ══ */
+.success-banner {
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(34,197,94,0.06);
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: 10px; padding: 12px 18px;
+  margin-bottom: 28px;
+  animation: fadeDown 0.4s ease;
+}
+@keyframes fadeDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+.success-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink:0; box-shadow: 0 0 8px rgba(34,197,94,0.5); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+.success-text { font-size: 0.8rem; color: #4ade80; font-weight: 600; }
+.access-count {
+  margin-left: auto; background: rgba(34,197,94,0.12);
+  border: 1px solid rgba(34,197,94,0.3); color: var(--green);
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 1px;
+  text-transform: uppercase; padding: 3px 12px; border-radius: 20px;
+}
 
-  /* ══ STATES ══ */
-  .state { display: none; }
-  .state.visible { display: block; animation: fadeUp 0.3s ease; }
-  @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+/* ══ ACCESS CARD ══ */
+.access-card {
+  background: var(--s1);
+  border: 1px solid var(--border2);
+  border-radius: 16px; overflow: hidden;
+  margin-bottom: 16px;
+  animation: fadeUp 0.4s ease;
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
 
-  /* Error */
-  .error-box {
-    background: rgba(229,9,20,0.06); border: 1px solid rgba(229,9,20,0.3);
-    border-radius: 10px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 14px;
-  }
-  .error-ico {
-    width: 26px; height: 26px; border-radius: 50%; background: var(--red);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.75rem; font-weight: 800; color: #fff; flex-shrink: 0; margin-top: 1px;
-  }
-  .error-body { flex: 1; }
-  .error-title { font-size: 0.88rem; font-weight: 700; color: #ff6b6b; margin-bottom: 4px; }
-  .error-text { font-size: 0.8rem; color: #cc4444; line-height: 1.6; }
+.ac-header {
+  background: var(--s2);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 22px;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.ac-badge {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25);
+  color: var(--green); font-size: 0.68rem; font-weight: 800;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 12px; border-radius: 20px;
+}
+.ac-badge::before { content:'✓'; }
+.ac-date { font-size: 0.73rem; color: var(--muted); margin-left: auto; }
 
-  /* Help box */
-  .help-box {
-    background: rgba(234,179,8,0.06); border: 1px solid rgba(234,179,8,0.3);
-    border-radius: 10px; padding: 14px 18px; margin-top: 14px;
-    display: flex; align-items: flex-start; gap: 12px;
-  }
-  .help-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
-  .help-box p { font-size: 0.8rem; color: #ccc; line-height: 1.6; }
-  .help-box a { color: #fbbf24; font-weight: 700; text-decoration: underline; }
+/* ══ SECTIONS ══ */
+.ac-body { padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; }
+.section-divider {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.62rem; font-weight: 800; letter-spacing: 2.5px;
+  text-transform: uppercase; color: #333;
+  margin: 6px 0 2px;
+}
+.section-divider::before, .section-divider::after {
+  content:''; flex:1; height: 1px; background: var(--border);
+}
 
-  /* Loader dots */
-  .loader-dots { display: none; align-items: center; gap: 6px; padding: 28px 0; justify-content: center; }
-  .loader-dots.visible { display: flex; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); animation: bounce 1.2s ease-in-out infinite; }
-  .dot:nth-child(2) { animation-delay: 0.2s; }
-  .dot:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes bounce { 0%,80%,100%{opacity:0.2;transform:scale(0.8)} 40%{opacity:1;transform:scale(1)} }
+/* ══ CRED ROW ══ */
+.cred-row {
+  display: flex; align-items: center; gap: 0;
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.cred-row:hover { border-color: rgba(229,9,20,0.2); }
+.cred-type-tag {
+  background: var(--s3);
+  border-right: 1px solid var(--border);
+  padding: 0 14px; align-self: stretch;
+  display: flex; align-items: center;
+  min-width: 44px; justify-content: center;
+  font-size: 1rem;
+}
+.cred-inner {
+  flex: 1; padding: 13px 16px; min-width: 0;
+}
+.cred-label {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: #444; margin-bottom: 4px;
+}
+.cred-value {
+  font-family: var(--mono); font-size: 0.9rem;
+  color: #e8e8e8; word-break: break-all; line-height: 1.4;
+}
+.cred-actions {
+  padding: 0 14px; display: flex; gap: 6px;
+  flex-shrink: 0; align-items: center; border-left: 1px solid var(--border);
+  align-self: stretch;
+}
 
-  /* ══ RESULT CARD ══ */
-  .results-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
-  }
-  .results-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem; letter-spacing: 2px;
-  }
-  .results-count {
-    background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);
-    color: var(--green); font-size: 0.72rem; font-weight: 700;
-    letter-spacing: 1px; text-transform: uppercase;
-    padding: 4px 12px; border-radius: 20px;
-  }
+/* ══ M3U ROW ══ */
+.m3u-row {
+  background: rgba(34,197,94,0.03);
+  border: 1px solid rgba(34,197,94,0.12);
+  border-radius: 10px; padding: 14px 16px;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.m3u-inner { flex: 1; min-width: 0; }
+.m3u-url {
+  font-family: var(--mono); font-size: 0.75rem;
+  color: #4ade80; word-break: break-all; line-height: 1.55;
+  margin-bottom: 10px;
+}
+.m3u-dl {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25);
+  color: #4ade80; font-size: 0.72rem; font-weight: 700;
+  padding: 7px 16px; border-radius: 6px; text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  transition: background 0.2s;
+}
+.m3u-dl:hover { background: rgba(34,197,94,0.15); }
 
-  .access-card {
-    background: var(--surface);
-    border: 1px solid var(--border2);
-    border-radius: 14px;
-    overflow: hidden;
-    margin-bottom: 16px;
-    animation: fadeUp 0.4s ease both;
-  }
-  .access-card:nth-child(2) { animation-delay: 0.05s; }
-  .access-card:nth-child(3) { animation-delay: 0.1s; }
+/* ══ BUTTONS ══ */
+.copy-btn {
+  background: transparent; border: 1px solid var(--border2);
+  color: var(--muted); padding: 6px 14px; border-radius: 6px;
+  font-size: 0.7rem; font-weight: 700; cursor: pointer;
+  font-family: 'Montserrat', sans-serif; letter-spacing: 0.3px;
+  transition: all 0.2s; white-space: nowrap;
+}
+.copy-btn:hover { border-color: rgba(229,9,20,0.4); color: #fff; }
+.copy-btn.copied { border-color: var(--green); color: var(--green); background: rgba(34,197,94,0.06); }
+.repair-btn {
+  display: flex; align-items: center; gap: 5px;
+  background: linear-gradient(135deg, var(--red), var(--red2));
+  border: none; color: #fff; padding: 6px 14px; border-radius: 6px;
+  font-size: 0.7rem; font-weight: 700; cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  transition: opacity 0.2s; white-space: nowrap;
+}
+.repair-btn:hover { opacity: 0.85; }
+
+/* ══ NOTICE ══ */
+.ac-notice {
+  background: rgba(234,179,8,0.05); border: 1px solid rgba(234,179,8,0.18);
+  border-radius: 8px; padding: 12px 16px;
+  font-size: 0.76rem; color: #b8922a; line-height: 1.65;
+  margin-top: 8px;
+}
+.ac-notice a { color: #d4aa30; font-weight: 700; text-decoration: underline; }
+
+/* ══ BOTTOM MENU CARDS ══ */
+.bottom-section {
+  padding: 40px 48px 60px;
+  max-width: 820px;
+}
+.bottom-label {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.bottom-label::after { content:''; flex:1; height:1px; background: var(--border); }
+
+.bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.bottom-card {
+  position: relative; border-radius: 12px; overflow: hidden;
+  min-height: 160px; cursor: pointer; text-decoration: none;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  transition: transform 0.25s, box-shadow 0.25s;
+  color: #fff;
+}
+.bottom-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+.bottom-card:hover .bc-btn { background: var(--red2); }
+.bc-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transition: transform 0.35s;
+}
+.bottom-card:hover .bc-bg { transform: scale(1.06); }
+.bc-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.1) 100%);
+}
+.bc-tint { position: absolute; inset: 0; opacity: 0.22; }
+.bc-content { position: relative; z-index: 2; padding: 20px 18px; }
+.bc-icon { font-size: 1.6rem; margin-bottom: 8px; display: block; }
+.bc-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem;
+  letter-spacing: 1.5px; line-height: 1.1; margin-bottom: 6px;
+  color: #fff;
+}
+.bc-desc { font-size: 0.72rem; color: rgba(255,255,255,0.65); line-height: 1.5; margin-bottom: 12px; }
+.bc-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--red); color: #fff; border: none;
+  padding: 7px 16px; border-radius: 20px;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; font-family: 'Montserrat', sans-serif;
+  transition: background 0.2s; pointer-events: none;
+}
+
+/* ══ MODAL REPAIR ══ */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.88); z-index: 200;
+  align-items: center; justify-content: center;
+  padding: 20px; backdrop-filter: blur(4px);
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--s1); border: 1px solid rgba(229,9,20,0.25);
+  border-top: 3px solid var(--red); border-radius: 14px;
+  padding: 28px 24px; max-width: 460px; width: 100%;
+  animation: fadeUp 0.25s ease; max-height: 88vh; overflow-y: auto;
+}
+.modal-title { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:2px; margin-bottom:6px; }
+.modal-sub { font-size:0.8rem; color:var(--muted); margin-bottom:20px; line-height:1.6; }
+.url-block { background:var(--s2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:8px; }
+.url-block-label { font-size:0.6rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#444; margin-bottom:8px; }
+.url-old { font-family:var(--mono); font-size:0.8rem; color:#ff6666; text-decoration:line-through; word-break:break-all; }
+.url-new { font-family:var(--mono); font-size:0.85rem; color:#4ade80; word-break:break-all; margin-bottom:10px; }
+.url-warning { background:rgba(234,179,8,0.07); border:1px solid rgba(234,179,8,0.2); border-radius:8px; padding:10px 14px; font-size:0.76rem; color:#b8922a; line-height:1.6; margin:10px 0; }
+.modal-close { width:100%; margin-top:10px; background:var(--s2); border:1px solid var(--border); border-radius:8px; padding:12px; font-size:0.8rem; color:var(--muted); cursor:pointer; font-family:'Montserrat',sans-serif; font-weight:600; transition:all 0.2s; }
+.modal-close:hover { border-color:var(--red); color:#ff6b6b; }
+
+/* ══ RESPONSIVE ══ */
+
+/* Tablette */
+@media (max-width: 1024px) {
+  .main { max-width: 100%; }
+  .bottom-section { max-width: 100%; }
+}
+
+/* Mobile large */
+@media (max-width: 900px) {
+  .topbar { padding: 0 16px; }
+  .hero-band { padding: 24px 16px 20px; }
+  .hero-band::before { display: none; }
+  .hero-title { font-size: 2rem; }
+  .main { padding: 18px 16px 0; }
+  .bottom-section { padding: 24px 16px 40px; }
+  .bottom-grid { grid-template-columns: 1fr; gap: 10px; }
+  .bottom-card { min-height: 140px; }
+  .cred-actions { padding: 0 10px; }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  /* Topbar */
+  .topbar { padding: 0 14px; height: 54px; }
+  .logo { font-size: 1.5rem; }
+  .back-btn { padding: 5px 10px; font-size: 0.68rem; }
+  .user-chip span { display: none; }
+  .user-chip { padding: 4px 8px 4px 4px; }
+
+  /* Hero */
+  .hero-band { padding: 20px 14px 18px; }
+  .hero-title { font-size: 1.7rem; letter-spacing: 2px; }
+  .hero-sub { font-size: 0.78rem; }
+
+  /* Main */
+  .main { padding: 14px 14px 0; }
+  .bottom-section { padding: 20px 14px 36px; }
+
+  /* Success banner */
+  .success-banner { padding: 10px 14px; }
+  .success-text { font-size: 0.75rem; }
+  .access-count { font-size: 0.62rem; padding: 2px 10px; }
 
   /* Card header */
-  .ac-header {
-    background: var(--surface2);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 22px;
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    flex-wrap: wrap;
-  }
-  .ac-header-left { display: flex; align-items: center; gap: 10px; }
-  .ac-badge {
-    display: flex; align-items: center; gap: 6px;
-    background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);
-    color: var(--green); font-size: 0.7rem; font-weight: 700;
-    letter-spacing: 1px; text-transform: uppercase;
-    padding: 4px 12px; border-radius: 20px;
-  }
-  .ac-badge::before { content: '✓'; font-size: 0.75rem; }
-  .ac-date { font-size: 0.75rem; color: var(--muted); }
-  .ac-subject { font-size: 0.75rem; color: #555; font-style: italic; max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ac-header { padding: 10px 14px; gap: 8px; }
+  .ac-date { margin-left: 0; }
 
   /* Card body */
-  .ac-body { padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .ac-body { padding: 14px 14px; gap: 7px; }
 
-  /* Section labels */
-  .ac-section-label {
-    font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
-    text-transform: uppercase; color: #444; margin: 4px 0 8px;
-    display: flex; align-items: center; gap: 8px;
+  /* Cred row — stack vertically */
+  .cred-row { flex-wrap: wrap; }
+  .cred-type-tag {
+    min-width: 40px; padding: 0 12px;
+    border-right: 1px solid var(--border);
+    align-self: auto; height: auto; padding: 12px;
   }
-  .ac-section-label::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
-  }
-
-  /* Credential row */
-  .cred-row {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 18px;
-    display: flex; align-items: center; gap: 14px;
-    transition: border-color 0.2s;
-  }
-  .cred-row:hover { border-color: rgba(229,9,20,0.25); }
-  .cred-icon { font-size: 1.1rem; flex-shrink: 0; }
-  .cred-left { flex: 1; min-width: 0; }
-  .cred-label {
-    font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px;
-    text-transform: uppercase; color: #555; margin-bottom: 4px;
-  }
-  .cred-value {
-    font-family: var(--mono); font-size: 0.92rem;
-    color: #e8e8e8; word-break: break-all; line-height: 1.4;
-  }
-  .cred-actions { display: flex; gap: 6px; flex-shrink: 0; }
-
-  /* Copy button */
-  .copy-btn {
-    background: transparent; border: 1px solid var(--border2);
-    color: var(--muted); padding: 6px 14px; border-radius: 6px;
-    font-size: 0.72rem; font-weight: 600; cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    transition: all 0.2s; white-space: nowrap;
-  }
-  .copy-btn:hover { border-color: var(--red); color: #fff; }
-  .copy-btn.copied { border-color: var(--green); color: var(--green); }
-
-  /* Repair button */
-  .repair-btn {
-    background: linear-gradient(135deg, var(--red), var(--red2));
-    border: none; color: #fff; padding: 6px 14px; border-radius: 6px;
-    font-size: 0.72rem; font-weight: 700; cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    transition: opacity 0.2s; white-space: nowrap;
-  }
-  .repair-btn:hover { opacity: 0.85; }
-
-  /* M3U row */
-  .m3u-row {
-    background: rgba(34,197,94,0.04);
-    border: 1px solid rgba(34,197,94,0.15);
-    border-radius: 10px; padding: 14px 18px;
-    display: flex; align-items: flex-start; gap: 14px;
-  }
-  .m3u-url {
-    font-family: var(--mono); font-size: 0.78rem;
-    color: #4ade80; word-break: break-all; line-height: 1.5;
-    margin-bottom: 8px;
-  }
-  .m3u-dl {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);
-    color: #4ade80; font-size: 0.72rem; font-weight: 700;
-    padding: 6px 14px; border-radius: 6px; text-decoration: none;
-    transition: background 0.2s;
-  }
-  .m3u-dl:hover { background: rgba(34,197,94,0.2); }
-
-  /* Card footer */
-  .ac-footer {
+  .cred-inner { padding: 12px 12px; }
+  .cred-value { font-size: 0.82rem; }
+  .cred-actions {
+    border-left: none;
     border-top: 1px solid var(--border);
-    padding: 16px 22px;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 12px;
-    background: var(--surface2);
+    width: 100%; padding: 8px 14px;
+    justify-content: flex-end;
+    align-self: auto;
   }
-  .ac-footer-links { display: flex; gap: 12px; flex-wrap: wrap; }
-  .footer-link {
-    display: flex; align-items: center; gap: 6px;
-    color: var(--muted); text-decoration: none;
-    font-size: 0.75rem; font-weight: 600;
-    transition: color 0.2s;
-  }
-  .footer-link:hover { color: #fff; }
-  .footer-link-icon {
-    width: 22px; height: 22px; border-radius: 50%;
-    background: var(--surface3); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.65rem;
-  }
-  .ac-notice {
-    background: rgba(234,179,8,0.08); border: 1px solid rgba(234,179,8,0.25);
-    border-radius: 8px; padding: 10px 14px;
-    font-size: 0.75rem; color: #d4aa20; line-height: 1.6;
-  }
-  .ac-notice a { color: #fbbf24; font-weight: 700; text-decoration: underline; }
 
-  /* ══ MODAL REPAIR ══ */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.88); z-index: 200;
-    align-items: center; justify-content: center;
-    padding: 20px; backdrop-filter: blur(4px);
-  }
-  .modal-overlay.open { display: flex; }
-  .modal-box {
-    background: var(--surface); border: 1px solid rgba(229,9,20,0.3);
-    border-top: 3px solid var(--red); border-radius: 14px;
-    padding: 28px 26px; max-width: 480px; width: 100%;
-    animation: fadeUp 0.25s ease;
-    max-height: 90vh; overflow-y: auto;
-  }
-  .modal-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem; letter-spacing: 2px; margin-bottom: 6px;
-  }
-  .modal-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 22px; line-height: 1.6; }
-  .url-block {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
-  }
-  .url-block-label {
-    font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px;
-    text-transform: uppercase; color: #555; margin-bottom: 8px;
-  }
-  .url-old { font-family: var(--mono); font-size: 0.82rem; color: #ff6666; text-decoration: line-through; word-break: break-all; }
-  .url-new { font-family: var(--mono); font-size: 0.88rem; color: #4ade80; word-break: break-all; margin-bottom: 10px; }
-  .url-warning {
-    background: rgba(234,179,8,0.08); border: 1px solid rgba(234,179,8,0.25);
-    border-radius: 8px; padding: 10px 14px; font-size: 0.78rem;
-    color: #d4aa20; line-height: 1.6; margin: 12px 0;
-  }
-  .modal-close {
-    width: 100%; margin-top: 12px; background: var(--surface2);
-    border: 1px solid var(--border); border-radius: 8px;
-    padding: 12px; font-size: 0.82rem; color: var(--muted);
-    cursor: pointer; font-family: 'Montserrat', sans-serif;
-    font-weight: 600; transition: all 0.2s;
-  }
-  .modal-close:hover { border-color: var(--red); color: #ff6b6b; }
+  /* M3U */
+  .m3u-row { flex-wrap: wrap; padding: 12px 14px; gap: 8px; }
+  .m3u-url { font-size: 0.7rem; }
 
-  /* ══ RESPONSIVE ══ */
-  @media (max-width: 768px) {
-    .topbar { padding: 0 18px; }
-    .page-header { padding: 26px 18px 20px; }
-    .page-title { font-size: 1.9rem; }
-    .page-main { padding: 22px 18px 40px; }
-    .search-row { flex-direction: column; }
-    .search-btn { width: 100%; padding: 14px; }
-    .ac-header { flex-direction: column; align-items: flex-start; }
-    .cred-row { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .cred-actions { width: 100%; justify-content: flex-end; }
-    .ac-footer { flex-direction: column; }
-    .user-pill { display: none; }
-  }
+  /* Section divider */
+  .section-divider { font-size: 0.58rem; }
+
+  /* Notice */
+  .ac-notice { font-size: 0.72rem; padding: 10px 12px; }
+
+  /* Bottom cards */
+  .bottom-card { min-height: 120px; }
+  .bc-content { padding: 14px; }
+  .bc-icon { font-size: 1.3rem; margin-bottom: 5px; }
+  .bc-title { font-size: 1.15rem; }
+  .bc-desc { font-size: 0.68rem; margin-bottom: 10px; }
+  .bc-btn { font-size: 0.62rem; padding: 6px 12px; }
+
+  /* Modal */
+  .modal-box { padding: 22px 16px; }
+  .url-new { font-size: 0.78rem; }
+}
+
+/* Très petit mobile */
+@media (max-width: 380px) {
+  .hero-title { font-size: 1.5rem; }
+  .cred-value { font-size: 0.76rem; }
+  .logo { font-size: 1.35rem; }
+}
 </style>
 </head>
 <body>
 
-<!-- ══ TOPBAR ══ -->
+<!-- TOPBAR -->
 <header class="topbar">
-  <div class="topbar-left">
+  <div style="display:flex;align-items:center;gap:14px">
     <a class="logo" href="#">XENON<span>TV</span></a>
-    <a class="back-btn" href="xenontv-dashboard.html">← Mon espace</a>
+    <a class="back-btn" href="#">← Mon espace</a>
   </div>
   <div class="topbar-right">
-    <div class="user-pill">
-      <div class="user-avatar" id="userInitial">?</div>
-      <span id="userEmail">abonné</span>
+    <div class="user-chip">
+      <div class="user-av" id="userInitial">?</div>
+      <span id="userEmail">Chargement...</span>
     </div>
   </div>
 </header>
 
-<!-- ══ PAGE HEADER ══ -->
-<div class="page-header">
-  <div class="page-header-left">
-    <p class="page-eyebrow">Espace abonné</p>
-    <h1 class="page-title">🔑 MES IDENTIFIANTS</h1>
-    <p class="page-sub">Retrouvez votre URL, nom d'utilisateur et mot de passe XENON TV liés à votre adresse e-mail.</p>
-  </div>
+<!-- HERO BAND -->
+<div class="hero-band">
+  <p class="hero-eyebrow">Espace abonné</p>
+  <h1 class="hero-title">🔑 MES IDENTIFIANTS</h1>
+  <p class="hero-sub">Retrouvez vos accès XENON TV — URL, identifiants et fichier M3U.</p>
 </div>
 
-<!-- ══ MAIN ══ -->
-<main class="page-main">
+<!-- MAIN -->
+<main class="main">
 
-  <!-- Loader -->
-  <div class="loader-dots" id="loader">
-    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+  <!-- Dynamic content injected by JS -->
+  <div id="loaderDots" style="display:flex;align-items:center;gap:6px;padding:40px 0;justify-content:center">
+    <div style="width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.2s ease-in-out infinite"></div>
+    <div style="width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.2s ease-in-out infinite;animation-delay:0.2s"></div>
+    <div style="width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.2s ease-in-out infinite;animation-delay:0.4s"></div>
   </div>
-
-  <!-- Error state -->
-  <div class="state" id="stateError">
-    <div class="error-box">
-      <div class="error-ico">!</div>
-      <div class="error-body">
-        <p class="error-title">Aucun accès trouvé</p>
-        <p class="error-text" id="errorText">Vérifiez l'adresse e-mail saisie ou contactez notre support.</p>
+  <div id="errorBox" style="display:none">
+    <div style="background:rgba(229,9,20,0.06);border:1px solid rgba(229,9,20,0.3);border-radius:10px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
+      <div style="width:26px;height:26px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;color:#fff;flex-shrink:0">!</div>
+      <div>
+        <p style="font-size:0.88rem;font-weight:700;color:#ff6b6b;margin-bottom:4px">Erreur</p>
+        <p id="errorText" style="font-size:0.8rem;color:#cc4444;line-height:1.6">Impossible de charger vos identifiants.</p>
       </div>
     </div>
-    <div class="help-box" id="helpBox">
-      <span class="help-box-icon">💡</span>
-      <p>Votre mail n'est pas reconnu, vous n'avez plus accès au mail, le code n'arrive pas ?<br>
-      <a href="https://xenontv.fr/help" target="_blank">Contactez notre support ici →</a></p>
+    <div style="background:rgba(234,179,8,0.06);border:1px solid rgba(234,179,8,0.3);border-radius:10px;padding:14px 18px;margin-top:12px;font-size:0.8rem;color:#ccc;line-height:1.6">
+      💡 Besoin d'aide ? <a href="https://xenontv.fr/help" target="_blank" style="color:#fbbf24;font-weight:700;text-decoration:underline">Contactez notre support →</a>
     </div>
   </div>
-
-  <!-- Results state -->
-  <div class="state" id="stateResult">
-    <div class="results-header">
-      <span class="results-title">Vos accès XENON TV</span>
-      <span class="results-count" id="resultsCount">1 accès trouvé</span>
-    </div>
-    <div id="accessList"></div>
-  </div>
+  <div id="resultContainer"></div>
 
 </main>
 
-<!-- ══ MODAL RÉPARER IOS/ANDROID ══ -->
+<!-- BOTTOM MENU CARDS -->
+<div class="bottom-section">
+  <div class="bottom-label">Autres services</div>
+  <div class="bottom-grid">
+
+    <!-- Corriger ma ligne -->
+    <a class="bottom-card" href="https://www.xenoniptv.co/corriger-ma-ligne" target="_blank">
+      <div class="bc-bg" style="background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=75')"></div>
+      <div class="bc-tint" style="background:linear-gradient(135deg,#1a3a6b,#0d1f3c)"></div>
+      <div class="bc-overlay"></div>
+      <div class="bc-content">
+        <span class="bc-icon">🛠️</span>
+        <div class="bc-title">Corriger ma ligne</div>
+        <p class="bc-desc">Diagnostic et réparation de votre connexion IPTV.</p>
+        <span class="bc-btn">Accéder →</span>
+      </div>
+    </a>
+
+    <!-- Tutoriels -->
+    <a class="bottom-card" href="https://www.xenoniptv.co/tutoriels" target="_blank">
+      <div class="bc-bg" style="background-image:url('https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&q=75')"></div>
+      <div class="bc-tint" style="background:linear-gradient(135deg,#92400e,#451a03)"></div>
+      <div class="bc-overlay"></div>
+      <div class="bc-content">
+        <span class="bc-icon">📚</span>
+        <div class="bc-title">Tutoriels</div>
+        <p class="bc-desc">Guides d'installation pour tous vos appareils.</p>
+        <span class="bc-btn">Voir les guides →</span>
+      </div>
+    </a>
+
+    <!-- Assistance 24/7 -->
+    <a class="bottom-card" href="https://xenontv.fr/help" target="_blank">
+      <div class="bc-bg" style="background-image:url('https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=600&q=75')"></div>
+      <div class="bc-tint" style="background:linear-gradient(135deg,#0f5132,#052e16)"></div>
+      <div class="bc-overlay"></div>
+      <div class="bc-badge-24" style="position:absolute;top:14px;right:14px;z-index:3;background:rgba(229,9,20,0.9);color:#fff;font-size:0.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:20px;">24 / 7</div>
+      <div class="bc-overlay"></div>
+      <div class="bc-content">
+        <span class="bc-icon">💬</span>
+        <div class="bc-title">Assistance en direct</div>
+        <p class="bc-desc">Un agent disponible à toute heure, réponse en moins de 5 min.</p>
+        <span class="bc-btn">Contacter →</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- MODAL RÉPARER iOS/Android -->
 <div class="modal-overlay" id="modalIos" onclick="if(event.target===this)closeModal('modalIos')">
   <div class="modal-box">
     <div class="modal-title">🔧 Réparer mon URL</div>
-    <p class="modal-sub">Votre ancien serveur ne fonctionne plus. Utilisez les nouveaux URLs XENON TV ci-dessous.</p>
+    <p class="modal-sub">Votre ancien serveur ne fonctionne plus. Utilisez les nouveaux URLs XENON TV.</p>
     <div class="url-block">
       <div class="url-block-label">Votre ancien URL</div>
-      <div class="url-old" id="iosOldUrl"></div>
+      <div class="url-old">http://app.megsmart.xyz</div>
     </div>
-    <div style="text-align:center;font-size:1.2rem;color:var(--muted);padding:4px 0;">↓</div>
+    <div style="text-align:center;padding:4px 0;color:var(--muted);font-size:1.1rem">↓</div>
     <div class="url-block">
       <div class="url-block-label">Nouvel URL recommandé — Android / iOS</div>
-      <div class="url-new" id="iosNewUrl"></div>
-      <button class="copy-btn" onclick="copyText(this, document.getElementById('iosNewUrl').textContent)">Copier</button>
-    </div>
-    <div class="url-block">
-      <div class="url-block-label">URL alternatif 1</div>
       <div class="url-new">http://app.meg1xeno.xyz</div>
       <button class="copy-btn" onclick="copyText(this,'http://app.meg1xeno.xyz')">Copier</button>
     </div>
     <div class="url-block">
-      <div class="url-block-label">URL alternatif 2</div>
+      <div class="url-block-label">Alternatif 1</div>
       <div class="url-new">http://app.meg2xeno.xyz</div>
       <button class="copy-btn" onclick="copyText(this,'http://app.meg2xeno.xyz')">Copier</button>
+    </div>
+    <div class="url-block">
+      <div class="url-block-label">Alternatif 2</div>
+      <div class="url-new">http://app.meg4xeno.xyz</div>
+      <button class="copy-btn" onclick="copyText(this,'http://app.meg4xeno.xyz')">Copier</button>
     </div>
     <div class="url-warning">⚠️ Utilisez bien <strong>http://</strong> et non https://</div>
     <button class="modal-close" onclick="closeModal('modalIos')">Fermer</button>
   </div>
 </div>
 
-<!-- ══ MODAL RÉPARER SAMSUNG/LG ══ -->
+<!-- MODAL RÉPARER Samsung/LG -->
 <div class="modal-overlay" id="modalSmart" onclick="if(event.target===this)closeModal('modalSmart')">
   <div class="modal-box">
     <div class="modal-title">🔧 Réparer URL Samsung / LG</div>
     <p class="modal-sub">Votre serveur Smart TV ne fonctionne plus. Utilisez les nouveaux URLs XENON TV.</p>
     <div class="url-block">
       <div class="url-block-label">Nouvel URL recommandé — Samsung / LG</div>
-      <div class="url-new" id="smartNewUrl"></div>
-      <button class="copy-btn" onclick="copyText(this, document.getElementById('smartNewUrl').textContent)">Copier</button>
+      <div class="url-new">http://pthswewq.xenonssmart.com</div>
+      <button class="copy-btn" onclick="copyText(this,'http://pthswewq.xenonssmart.com')">Copier</button>
     </div>
     <div class="url-block">
       <div class="url-block-label">URL alternatif</div>
@@ -500,226 +566,104 @@
 </div>
 
 <script>
-  const API_URL   = 'https://accesxtv-backend.vercel.app/api/search';
+  const API_URL = 'https://accesxtv-backend.vercel.app/api/search';
   const OLD_DOMAINS = ['benflixe.com','mega862.com','luxevpn.xyz','eldervpn.xyz','megaxeno.com','xenontv2.xyz','xenonsdns.com','megsmart.xyz','xeno'];
 
-  // ── Init user info from session
+  // Init session
   const sessionEmail = sessionStorage.getItem('xenon_user_email') || '';
   if (sessionEmail) {
     document.getElementById('userEmail').textContent = sessionEmail;
     document.getElementById('userInitial').textContent = sessionEmail.charAt(0).toUpperCase();
   }
 
-  // ── Helpers
-  function showState(id) {
-    ['stateError','stateResult'].forEach(s => document.getElementById(s).classList.remove('visible'));
-    if (id) document.getElementById(id).classList.add('visible');
-  }
-  function setLoading(on) {
-    document.getElementById('loader').classList.toggle('visible', on);
-  }
-  function formatDate(d) {
-    try { return new Date(d).toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' }); }
-    catch(e) { return d; }
-  }
-  function getSubdomain(url) {
-    try {
-      const full = url.startsWith('http') ? url : 'http://' + url;
-      return new URL(full).hostname.split('.')[0];
-    } catch(e) { return null; }
-  }
-  function needsRepair(url) {
-    if (!url) return false;
-    return OLD_DOMAINS.some(d => url.includes(d));
-  }
   function copyText(btn, val) {
     if (!val) return;
     navigator.clipboard.writeText(val).then(() => {
       const orig = btn.textContent;
-      btn.textContent = '✓ Copié';
+      btn.textContent = '✓ Copié !';
       btn.classList.add('copied');
       setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
     });
   }
+  function openModal(id) { document.getElementById(id).classList.add('open'); }
   function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-  function openModalIos(oldUrl) {
-    const sub = getSubdomain(oldUrl);
-    document.getElementById('iosOldUrl').textContent = oldUrl;
-    document.getElementById('iosNewUrl').textContent = sub ? 'http://' + sub + '.xenonsdns.com' : oldUrl;
-    document.getElementById('modalIos').classList.add('open');
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+  });
+
+  function getSubdomain(url) {
+    try { return new URL(url.startsWith('http') ? url : 'http://'+url).hostname.split('.')[0]; } catch(e) { return null; }
   }
-  function openModalSmart(androidUrl) {
-    const sub = getSubdomain(androidUrl);
-    document.getElementById('smartNewUrl').textContent = sub ? 'http://' + sub + '.xenonssmart.com' : 'http://app.megxeno.xyz';
-    document.getElementById('modalSmart').classList.add('open');
+  function needsRepair(url) { return url && OLD_DOMAINS.some(d => url.includes(d)); }
+  function formatDate(d) {
+    try { return new Date(d).toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}); } catch(e) { return d; }
   }
 
-  // ── Build result card
-  function buildCard(acc, index, total) {
-    const label = total > 1 ? `Accès ${index + 1} / ${total}` : 'Accès trouvé';
-
-    // URL Android/iOS
+  function buildCard(acc, idx, total) {
+    const label = total > 1 ? 'Accès ' + (idx+1) + ' / ' + total : 'Accès trouvé';
     const displayUrl = 'http://app.megsmart.xyz';
-    const repairIosBtn = needsRepair(acc.url)
-      ? `<button class="repair-btn" onclick="openModalIos('${(acc.url||'').replace(/'/g,"\\'")}')">🔧 Réparer</button>` : '';
-    const rowUrl = `
-      <div class="cred-row">
-        <span class="cred-icon">📱</span>
-        <div class="cred-left">
-          <div class="cred-label">URL — Android / iOS</div>
-          <div class="cred-value">${displayUrl}</div>
-        </div>
-        <div class="cred-actions">
-          <button class="copy-btn" onclick="copyText(this,'${displayUrl}')">Copier</button>
-          ${repairIosBtn}
-        </div>
-      </div>`;
-
-    // URL Samsung/LG
     const sub = getSubdomain(acc.url || '');
     const smartUrl = sub ? 'http://' + sub + '.xenonssmart.com' : null;
-    const rowSmart = smartUrl ? `
-      <div class="cred-row">
-        <span class="cred-icon">📺</span>
-        <div class="cred-left">
-          <div class="cred-label">URL — Samsung TV / LG</div>
-          <div class="cred-value">${smartUrl}</div>
-        </div>
-        <div class="cred-actions">
-          <button class="copy-btn" onclick="copyText(this,'${smartUrl.replace(/'/g,"\\'")}')">Copier</button>
-          <button class="repair-btn" onclick="openModalSmart('${(acc.url||'').replace(/'/g,"\\'")}')">🔧 Réparer</button>
-        </div>
-      </div>` : '';
 
-    // Username
-    const rowUser = acc.username ? `
-      <div class="cred-row">
-        <span class="cred-icon">👤</span>
-        <div class="cred-left">
-          <div class="cred-label">Nom d'utilisateur</div>
-          <div class="cred-value">${acc.username}</div>
-        </div>
-        <div class="cred-actions">
-          <button class="copy-btn" onclick="copyText(this,'${acc.username.replace(/'/g,"\\'")}')">Copier</button>
-        </div>
-      </div>` : '';
+    const repairIos = needsRepair(acc.url)
+      ? '<button class="repair-btn" onclick="openModal('modalIos')">🔧 Réparer</button>' : '';
 
-    // Password
-    const rowPass = acc.password ? `
-      <div class="cred-row">
-        <span class="cred-icon">🔒</span>
-        <div class="cred-left">
-          <div class="cred-label">Mot de passe</div>
-          <div class="cred-value">${acc.password}</div>
-        </div>
-        <div class="cred-actions">
-          <button class="copy-btn" onclick="copyText(this,'${acc.password.replace(/'/g,"\\'")}')">Copier</button>
-        </div>
-      </div>` : '';
+    const rowUrl = '<div class="cred-row"><div class="cred-type-tag">📱</div><div class="cred-inner"><div class="cred-label">URL — Android / iOS</div><div class="cred-value">' + displayUrl + '</div></div><div class="cred-actions"><button class="copy-btn" onclick="copyText(this,'' + displayUrl + '')">Copier</button>' + repairIos + '</div></div>';
 
-    // M3U
+    const rowSmart = smartUrl ? '<div class="cred-row"><div class="cred-type-tag">📺</div><div class="cred-inner"><div class="cred-label">URL — Samsung TV / LG</div><div class="cred-value">' + smartUrl + '</div></div><div class="cred-actions"><button class="copy-btn" onclick="copyText(this,'' + smartUrl.replace(/'/g,"\'") + '')">Copier</button><button class="repair-btn" onclick="openModal('modalSmart')">🔧 Réparer</button></div></div>' : '';
+
+    const rowUser = acc.username ? '<div class="cred-row"><div class="cred-type-tag">👤</div><div class="cred-inner"><div class="cred-label">Nom d'utilisateur</div><div class="cred-value">' + acc.username + '</div></div><div class="cred-actions"><button class="copy-btn" onclick="copyText(this,'' + acc.username.replace(/'/g,"\'") + '')">Copier</button></div></div>' : '';
+
+    const rowPass = acc.password ? '<div class="cred-row"><div class="cred-type-tag">🔒</div><div class="cred-inner"><div class="cred-label">Mot de passe</div><div class="cred-value">' + acc.password + '</div></div><div class="cred-actions"><button class="copy-btn" onclick="copyText(this,'' + acc.password.replace(/'/g,"\'") + '')">Copier</button></div></div>' : '';
+
     let m3uRow = '';
     if (acc.m3u) {
       let m3u = acc.m3u;
       try {
-        const full = m3u.startsWith('http') ? m3u : 'http://' + m3u;
-        const u = new URL(full);
+        const u = new URL(m3u.startsWith('http') ? m3u : 'http://'+m3u);
         let path = u.pathname + u.search;
         path = path.replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
         m3u = 'http://app.megsmart.xyz' + path;
       } catch(e) {
         m3u = m3u.replace(/^https?:\/\/[^\/]+/, 'http://app.megsmart.xyz').replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
       }
-      const safeM3u = m3u.replace(/'/g, "\\'");
-      m3uRow = `
-        <div class="m3u-row">
-          <span class="cred-icon">📂</span>
-          <div class="cred-left">
-            <div class="cred-label">Fichier M3U</div>
-            <div class="m3u-url">${m3u}</div>
-            <a class="m3u-dl" href="${m3u}" target="_blank">⬇ Télécharger le fichier M3U</a>
-          </div>
-          <div class="cred-actions">
-            <button class="copy-btn" onclick="copyText(this,'${safeM3u}')">Copier</button>
-          </div>
-        </div>`;
+      const sm = m3u.replace(/'/g,"\'");
+      m3uRow = '<div class="section-divider">Fichier M3U</div><div class="m3u-row"><div style="font-size:1.2rem;flex-shrink:0;margin-top:2px">📂</div><div class="m3u-inner"><div class="cred-label" style="margin-bottom:6px">Lien M3U</div><div class="m3u-url">' + m3u + '</div><a class="m3u-dl" href="' + m3u + '" target="_blank">⬇ Télécharger le fichier M3U</a></div><div style="flex-shrink:0"><button class="copy-btn" onclick="copyText(this,'' + sm + '')">Copier</button></div></div>';
     }
 
-    return `
-      <div class="access-card">
-        <div class="ac-header">
-          <div class="ac-header-left">
-            <span class="ac-badge">${label}</span>
-            <span class="ac-date">Créé le ${formatDate(acc.date)}</span>
-          </div>
-          <span class="ac-subject">${acc.subject || ''}</span>
-        </div>
-        <div class="ac-body">
-          <div class="ac-section-label">Connexion</div>
-          ${rowUrl}
-          ${rowSmart}
-          <div class="ac-section-label">Identifiants</div>
-          ${rowUser}
-          ${rowPass}
-          ${m3uRow ? `<div class="ac-section-label">Fichier M3U</div>${m3uRow}` : ''}
-        </div>
-        <div class="ac-footer">
-          <div class="ac-notice">
-            💡 Reconnectez-vous avec ces identifiants. Utilisez <strong>🔧 Réparer</strong> si l'URL ne fonctionne plus.
-            Support disponible via <a href="https://xenontv.fr/help" target="_blank">notre application d'assistance</a>.
-          </div>
-          <div class="ac-footer-links">
-            <a href="https://www.xenoniptv.co/tutoriels" target="_blank" class="footer-link">
-              <span class="footer-link-icon">📚</span> Tutoriels
-            </a>
-            <a href="https://xenontv.fr/help" target="_blank" class="footer-link">
-              <span class="footer-link-icon">💬</span> Assistance
-            </a>
-          </div>
-        </div>
-      </div>`;
+    return '<div class="success-banner"><div class="success-dot"></div><span class="success-text">Accès trouvé et vérifié</span><span class="access-count">' + total + ' accès</span></div>'
+      + '<div class="access-card"><div class="ac-header"><span class="ac-badge">' + label + '</span><span style="font-size:0.72rem;color:#555;font-style:italic">' + (acc.subject || '') + '</span><span class="ac-date">Créé le ' + formatDate(acc.date) + '</span></div>'
+      + '<div class="ac-body"><div class="section-divider">Connexion</div>' + rowUrl + rowSmart
+      + '<div class="section-divider">Identifiants</div>' + rowUser + rowPass + m3uRow
+      + '<div class="ac-notice">💡 Reconnectez-vous avec ces identifiants. Utilisez <strong>🔧 Réparer</strong> si l'URL ne fonctionne plus. Support via <a href="https://xenontv.fr/help" target="_blank">notre application d'assistance</a>.</div>'
+      + '</div></div>';
   }
 
-  // ── fetchAndDisplay
-  async function fetchAndDisplay(email) {
-    setLoading(true);
-    showState(null);
+  async function loadIdentifiants() {
+    if (!sessionEmail) { window.location.href = 'index.html'; return; }
     try {
-      const res = await fetch(API_URL + '?email=' + encodeURIComponent(email));
+      const res = await fetch(API_URL + '?email=' + encodeURIComponent(sessionEmail));
       const data = await res.json();
+      document.getElementById('loaderDots').style.display = 'none';
       if (!data || !data.found) {
-        showState('stateError');
-        document.getElementById('errorText').textContent = 'Aucun accès trouvé pour cet e-mail. Contactez le support.';
+        document.getElementById('errorBox').style.display = 'block';
+        document.getElementById('errorText').textContent = 'Aucun accès trouvé pour ' + sessionEmail + '.';
         return;
       }
       const accesses = data.accesses || [];
-      document.getElementById('resultsCount').textContent =
-        accesses.length > 1 ? accesses.length + ' accès trouvés' : '1 accès trouvé';
-      document.getElementById('accessList').innerHTML =
-        accesses.map((acc, i) => buildCard(acc, i, accesses.length)).join('');
-      showState('stateResult');
-    } catch(err) {
-      showState('stateError');
+      document.getElementById('resultContainer').innerHTML = accesses.map((a,i) => buildCard(a, i, accesses.length)).join('');
+    } catch(e) {
+      document.getElementById('loaderDots').style.display = 'none';
+      document.getElementById('errorBox').style.display = 'block';
       document.getElementById('errorText').textContent = 'Erreur de connexion. Vérifiez votre connexion internet.';
-    } finally {
-      setLoading(false);
     }
   }
 
-  // ── Auto-load on page open
-  document.addEventListener('DOMContentLoaded', function() {
-    if (sessionEmail) {
-      fetchAndDisplay(sessionEmail);
-    } else {
-      window.location.href = 'index.html';
-    }
-  });
+  document.addEventListener('DOMContentLoaded', loadIdentifiants);
 
-  // ── Expose
   window.copyText = copyText;
+  window.openModal = openModal;
   window.closeModal = closeModal;
-  window.openModalIos = openModalIos;
-  window.openModalSmart = openModalSmart;
 </script>
 </body>
 </html>
