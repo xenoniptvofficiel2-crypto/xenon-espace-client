@@ -503,7 +503,6 @@
   const API_URL   = 'https://accesxtv-backend.vercel.app/api/search';
   const OLD_DOMAINS = ['benflixe.com','mega862.com','luxevpn.xyz','eldervpn.xyz','megaxeno.com','xenontv2.xyz','xenonsdns.com','megsmart.xyz','xeno'];
 
-
   // ── Init user info from session
   const sessionEmail = sessionStorage.getItem('xenon_user_email') || '';
   if (sessionEmail) {
@@ -518,9 +517,6 @@
   }
   function setLoading(on) {
     document.getElementById('loader').classList.toggle('visible', on);
-    const btn = document.getElementById('searchBtn');
-    btn.disabled = on;
-    btn.classList.toggle('loading', on);
   }
   function formatDate(d) {
     try { return new Date(d).toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' }); }
@@ -684,21 +680,46 @@
       </div>`;
   }
 
-  // Auto-load — client already authenticated via landing page
-  window.addEventListener('DOMContentLoaded', () => {
+  // ── fetchAndDisplay
+  async function fetchAndDisplay(email) {
+    setLoading(true);
+    showState(null);
+    try {
+      const res = await fetch(API_URL + '?email=' + encodeURIComponent(email));
+      const data = await res.json();
+      if (!data || !data.found) {
+        showState('stateError');
+        document.getElementById('errorText').textContent = 'Aucun accès trouvé pour cet e-mail. Contactez le support.';
+        return;
+      }
+      const accesses = data.accesses || [];
+      document.getElementById('resultsCount').textContent =
+        accesses.length > 1 ? accesses.length + ' accès trouvés' : '1 accès trouvé';
+      document.getElementById('accessList').innerHTML =
+        accesses.map((acc, i) => buildCard(acc, i, accesses.length)).join('');
+      showState('stateResult');
+    } catch(err) {
+      showState('stateError');
+      document.getElementById('errorText').textContent = 'Erreur de connexion. Vérifiez votre connexion internet.';
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // ── Auto-load on page open
+  document.addEventListener('DOMContentLoaded', function() {
     if (sessionEmail) {
       fetchAndDisplay(sessionEmail);
     } else {
-      window.location.href = 'xenontv-landing.html';
+      window.location.href = 'index.html';
     }
   });
 
-    // Expose for onclick + DOMContentLoaded
+  // ── Expose
   window.copyText = copyText;
   window.closeModal = closeModal;
   window.openModalIos = openModalIos;
   window.openModalSmart = openModalSmart;
-  window.fetchAndDisplay = fetchAndDisplay;
 </script>
 </body>
 </html>
