@@ -735,7 +735,7 @@ async function checkSession() {
   async function loadIdentifiants() {
     if (!sessionEmail) { window.location.href = 'index.html'; return; }
     try {
-      const res = await fetch(API_URL + '?email=' + encodeURIComponent(sessionEmail), { headers: {   'X-Api-Key': XENON_API_KEY } });
+      const res = await fetch(API_URL + '?email=' + encodeURIComponent(sessionEmail));
       const data = await res.json();
       document.getElementById('loaderDots').style.display = 'none';
       if (!data || !data.found) {
