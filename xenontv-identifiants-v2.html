@@ -573,7 +573,8 @@ body {
 // Vérification session
   function checkSession() {
     const email = sessionStorage.getItem('xenon_user_email');
-    if (!email) { window.location.href = 'index.html'; return null; }
+    const token = sessionStorage.getItem('xenon_session_token');
+    if (!email || !token) { window.location.href = 'index.html'; return null; }
     return email;
   }
 
