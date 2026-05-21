@@ -323,7 +323,7 @@ body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(
 
 <script>
 const API_URL  = 'https://accesxtv-backend.vercel.app/api/proxy';
-const ALT_URLS = ['http://app.meg1xeno.xyz', 'http://app.meg2xeno.xyz', 'http://app.meg3xeno.xyz'];
+const ALT_URLS = ['http://app.megsmart.xyz', 'http://app.meg1xeno.xyz', 'http://app.meg2xeno.xyz'];
 
 // ── Vérification session
 function checkSession() {
@@ -381,9 +381,9 @@ document.getElementById('chromecast-steps').innerHTML  = buildGenericSteps('pane
 // ── CREDENTIALS LOADER
 const credLoaded = {};
 function fixUrl(url) {
-  if (!url) return 'http://app.megsmart.xyz';
-  try { const u = new URL(url.startsWith('http') ? url : 'http://' + url); return 'http://app.megsmart.xyz' + u.pathname + u.search; }
-  catch(e) { return 'http://app.megsmart.xyz'; }
+  if (!url) return 'http://app.xenmeg22.xyz';
+  try { const u = new URL(url.startsWith('http') ? url : 'http://' + url); return 'http://app.xenmeg22.xyz' + u.pathname + u.search; }
+  catch(e) { return 'http://app.xenmeg22.xyz'; }
 }
 
 function loadCreds(cwId) {
@@ -432,7 +432,11 @@ function openRepair(cwId, originalUrl) {
   if (!modal) return;
   let path = '';
   try { const u = new URL(originalUrl.startsWith('http') ? originalUrl : 'http://' + originalUrl); path = u.pathname + u.search; } catch(e) {}
-  ALT_URLS.forEach((a, i) => { const el = document.getElementById(`repUrl${i+1}-${cwId}`); if (el) el.textContent = a + path; });
+  // Smart TV → wesmrt.com, autres → ALT_URLS
+  const repairUrls = cwId === 'smarttv'
+    ? ['http://wesmrt.com', 'http://app.megsmart.xyz', 'http://app.meg1xeno.xyz']
+    : ALT_URLS;
+  repairUrls.forEach((a, i) => { const el = document.getElementById(`repUrl${i+1}-${cwId}`); if (el) el.textContent = a + path; });
   modal.classList.add('open');
 }
 function closeModal(id) { const el = document.getElementById(id); if (el) el.classList.remove('open'); }
