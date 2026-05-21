@@ -598,6 +598,11 @@ body {
     try { return new Date(d).toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}); } catch(e) { return d; }
   }
 
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
   function buildCard(acc, idx, total) {
     const label = total > 1 ? `Accès ${idx+1} / ${total}` : 'Accès trouvé';
     const displayUrl = 'http://app.xenmeg22.xyz';
@@ -638,10 +643,10 @@ body {
         <div class="cred-type-tag">👤</div>
         <div class="cred-inner">
           <div class="cred-label">Nom d'utilisateur</div>
-          <div class="cred-value">${acc.username}</div>
+          <div class="cred-value">${escHtml(acc.username)}</div>
         </div>
         <div class="cred-actions">
-          <button class="copy-btn" onclick="copyText(this,'${acc.username}')">Copier</button>
+          <button class="copy-btn" onclick="copyText(this,'${escHtml(acc.username)}')">Copier</button>
         </div>
       </div>` : '';
 
@@ -650,10 +655,10 @@ body {
         <div class="cred-type-tag">🔒</div>
         <div class="cred-inner">
           <div class="cred-label">Mot de passe</div>
-          <div class="cred-value">${acc.password}</div>
+          <div class="cred-value">${escHtml(acc.password)}</div>
         </div>
         <div class="cred-actions">
-          <button class="copy-btn" onclick="copyText(this,'${acc.password}')">Copier</button>
+          <button class="copy-btn" onclick="copyText(this,'${escHtml(acc.password)}')">Copier</button>
         </div>
       </div>` : '';
 
