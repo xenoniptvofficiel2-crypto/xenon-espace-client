@@ -1240,6 +1240,7 @@
 <script>
   const BACKEND = 'https://accesxtv-backend.vercel.app';
   let currentEmail = '';
+  let currentCodeToken = '';
   let resendInterval = null;
 
   // ─── Ouvre le popup ───
@@ -1307,6 +1308,7 @@
 
       if (res.ok && data.sent) {
         currentEmail = email;
+        currentCodeToken = data.codeToken || '';
         document.getElementById('emailDisplay').textContent = email;
         clearOtp();
         goStep(2);
@@ -1341,7 +1343,7 @@
     btn.disabled = true;
 
     try {
-      const res = await fetch(`${BACKEND}/api/sendcode?email=${encodeURIComponent(currentEmail)}&code=${code}`);
+      const res = await fetch(`${BACKEND}/api/sendcode?email=${encodeURIComponent(currentEmail)}&code=${code}&codeToken=${encodeURIComponent(currentCodeToken)}`);
       const data = await res.json();
 
       if (res.ok && data.success) {
@@ -1385,7 +1387,9 @@
 
   async function sendCodeSilent() {
     try {
-      await fetch(`${BACKEND}/api/sendcode?email=${encodeURIComponent(currentEmail)}`);
+      const r = await fetch(`${BACKEND}/api/sendcode?email=${encodeURIComponent(currentEmail)}`);
+      const d = await r.json();
+      if (d.codeToken) currentCodeToken = d.codeToken;
     } catch (e) {}
   }
 
@@ -1567,4 +1571,3 @@
 
 </body>
 </html>
- 
