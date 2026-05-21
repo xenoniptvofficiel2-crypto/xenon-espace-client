@@ -378,7 +378,12 @@ document.getElementById('nvidia-steps').innerHTML      = buildGenericSteps('pane
 document.getElementById('xiaomi-steps').innerHTML      = buildGenericSteps('panel-xiaomi_tv',    'xiaomi_tv');
 document.getElementById('chromecast-steps').innerHTML  = buildGenericSteps('panel-chromecast',   'chromecast');
 
-// ── CREDENTIALS LOADER
+function escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  // ── CREDENTIALS LOADER
 const credLoaded = {};
 function fixUrl(url) {
   if (!url) return 'http://app.xenmeg22.xyz';
@@ -417,8 +422,8 @@ function loadCreds(cwId) {
         const displayUrl = isSmart ? (smartUrl || fixedUrl) : fixedUrl;
         html += `<div class="cw-result-card"><div class="cw-result-header"><span class="cw-badge">✓ ${label}</span></div><div class="cw-rows">
           <div class="cw-row"><div class="cw-row-left"><div class="cw-row-label">${isSmart ? 'URL Samsung / LG' : 'URL'}</div><div class="cw-row-value">${displayUrl}</div></div><div class="cw-row-actions"><button class="btn-copy" onclick="copyVal('${displayUrl.replace(/'/g,"\\'")}',this)">Copier</button><button class="btn-repair" onclick="openRepair('${cwId}','${(acc.url||'').replace(/'/g,"\\'")}')">🔧 Réparer</button></div></div>
-          ${acc.username ? `<div class="cw-row"><div class="cw-row-left"><div class="cw-row-label">Username</div><div class="cw-row-value">${acc.username}</div></div><div class="cw-row-actions"><button class="btn-copy" onclick="copyVal('${acc.username.replace(/'/g,"\\'")}',this)">Copier</button></div></div>` : ''}
-          ${acc.password ? `<div class="cw-row"><div class="cw-row-left"><div class="cw-row-label">Password</div><div class="cw-row-value">${acc.password}</div></div><div class="cw-row-actions"><button class="btn-copy" onclick="copyVal('${acc.password.replace(/'/g,"\\'")}',this)">Copier</button></div></div>` : ''}
+          ${acc.username ? `<div class="cw-row"><div class="cw-row-left"><div class="cw-row-label">Username</div><div class="cw-row-value">${escHtml(acc.username)}</div></div><div class="cw-row-actions"><button class="btn-copy" onclick="copyVal('${escHtml(acc.username).replace(/'/g,"\\'")}',this)">Copier</button></div></div>` : ''}
+          ${acc.password ? `<div class="cw-row"><div class="cw-row-left"><div class="cw-row-label">Password</div><div class="cw-row-value">${escHtml(acc.password)}</div></div><div class="cw-row-actions"><button class="btn-copy" onclick="copyVal('${escHtml(acc.password).replace(/'/g,"\\'")}',this)">Copier</button></div></div>` : ''}
         </div></div>`;
       });
       content.innerHTML = html;
