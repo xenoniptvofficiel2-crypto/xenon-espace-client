@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Guide TV – XENON TV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080808;--bg2:#0e0e0e;--bg3:#141414;
+  --card:#161616;--card2:#1c1c1c;
+  --bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.14);
+  --red:#dc1e3c;--red2:#ff3355;
+  --txt:#f0f0f0;--mu:#666;--mu2:#3a3a3a;
+  --green:#00c87a;--mono:'Courier New',monospace;
+  --r:10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Montserrat',sans-serif;min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
+
+/* ── HEADER ── */
+.hdr{
+  position:sticky;top:0;z-index:200;
+  background:rgba(8,8,8,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bd);
+  height:52px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;gap:8px;
+}
+.hdr-l{display:flex;align-items:center;gap:10px;min-width:0;overflow:hidden;flex:1}
+.back{
+  display:flex;align-items:center;gap:5px;text-decoration:none;flex-shrink:0;
+  color:var(--mu);font-size:11px;font-weight:600;letter-spacing:.4px;
+  padding:5px 9px;border:1px solid var(--bd);border-radius:6px;
+  transition:all .18s;white-space:nowrap;
+}
+.back:hover{color:var(--txt);border-color:var(--bd2)}
+.back svg{width:12px;height:12px;flex-shrink:0}
+.htitle{
+  font-family:'Bebas Neue',sans-serif;font-size:18px;
+  letter-spacing:2px;line-height:1;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;
+}
+.htitle em{color:var(--red);font-style:normal}
+.hdr-r{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.badge{
+  display:flex;align-items:center;gap:4px;
+  background:rgba(220,30,60,.1);border:1px solid rgba(220,30,60,.22);
+  border-radius:5px;padding:3px 7px;
+  font-size:9px;font-weight:700;letter-spacing:1px;color:var(--red2);
+}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--red2);animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+.clk{font-size:11px;font-weight:600;color:var(--mu);font-family:var(--mono);letter-spacing:.5px}
+
+/* ── SEARCH ── */
+.sbar{
+  background:var(--bg2);border-bottom:1px solid var(--bd);
+  padding:9px 14px;display:flex;align-items:center;gap:8px;
+}
+.swrap{flex:1;position:relative;display:flex;align-items:center}
+.sico{position:absolute;left:10px;pointer-events:none;width:14px;height:14px;color:var(--mu2)}
+.sinp{
+  width:100%;background:var(--card);border:1px solid var(--bd);border-radius:8px;
+  padding:9px 32px 9px 32px;
+  font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;
+  color:var(--txt);outline:none;transition:border-color .18s;-webkit-appearance:none;
+}
+.sinp::placeholder{color:var(--mu2)}
+.sinp:focus{border-color:rgba(220,30,60,.35)}
+.sx{
+  position:absolute;right:8px;background:none;border:none;
+  color:var(--mu);cursor:pointer;font-size:14px;padding:4px;
+  display:none;line-height:1;transition:color .15s;
+}
+.sx:hover{color:var(--red2)}
+.sx.on{display:block}
+.sct{flex-shrink:0;font-size:11px;font-weight:600;color:var(--mu);white-space:nowrap;min-width:52px;text-align:right}
+.sct.ok{color:var(--green)}
+
+/* ── FILTERS ── */
+.fbar{
+  background:var(--bg2);border-bottom:1px solid var(--bd);
+  padding:8px 14px;display:flex;align-items:center;gap:6px;
+  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.fbar::-webkit-scrollbar{display:none}
+.chip{
+  flex-shrink:0;padding:5px 12px;border-radius:20px;
+  border:1px solid var(--bd2);background:transparent;
+  color:var(--mu);font-family:'Montserrat',sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:.3px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;-webkit-appearance:none;
+}
+.chip:hover{color:var(--txt);border-color:rgba(255,255,255,.22)}
+.chip.on{background:var(--red);border-color:var(--red);color:#fff}
+
+/* ── MAIN ── */
+.main{padding:12px 14px 70px;max-width:980px;margin:0 auto}
+
+/* ── DATES ── */
+.dates{
+  display:flex;align-items:center;gap:6px;margin-bottom:14px;
+  overflow-x:auto;scrollbar-width:none;padding-bottom:2px;
+}
+.dates::-webkit-scrollbar{display:none}
+.dbtn{
+  flex-shrink:0;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--bd);background:var(--card);color:var(--mu);
+  font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;
+  cursor:pointer;transition:all .18s;text-align:center;line-height:1.4;
+  -webkit-appearance:none;
+}
+.dbtn .dn{display:block;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--mu2)}
+.dbtn:hover{border-color:var(--bd2);color:var(--txt)}
+.dbtn.on{background:var(--card2);border-color:var(--red);color:#fff}
+.dbtn.on .dn{color:rgba(255,255,255,.35)}
+
+/* ── SECTION LABEL ── */
+.slbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mu2);margin-bottom:10px}
+
+/* ── EVENTS SLIDER ── */
+.ev-section{
+  background:var(--bg2);border-bottom:1px solid var(--bd);
+  padding:12px 0 14px;
+}
+.ev-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 14px;margin-bottom:10px;
+}
+.ev-title{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mu2)}
+.ev-hint{font-size:10px;color:var(--mu2)}
+.ev-track{
+  display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;padding:0 14px 4px;
+}
+.ev-track::-webkit-scrollbar{display:none}
+.ev-card{
+  flex-shrink:0;width:162px;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--bd);background:var(--card);
+  transition:border-color .2s,transform .2s;cursor:default;position:relative;
+}
+.ev-card:hover{border-color:var(--bd2);transform:translateY(-2px)}
+.ev-img{width:162px;height:101px;object-fit:cover;display:block;background:var(--bg3)}
+.ev-ph{
+  width:162px;height:101px;background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;font-size:32px;
+}
+.ev-body{padding:8px 10px 10px}
+.ev-sport{font-size:8px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--red2);margin-bottom:3px}
+.ev-name{font-size:12px;font-weight:700;color:var(--txt);line-height:1.3;margin-bottom:4px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ev-meta{font-size:10px;color:var(--mu);line-height:1.5}
+.ev-ch{
+  display:inline-flex;align-items:center;gap:4px;margin-top:5px;
+  background:rgba(220,30,60,.1);border:1px solid rgba(220,30,60,.2);
+  border-radius:4px;padding:2px 6px;font-size:9px;font-weight:700;color:var(--red2);
+}
+.ev-badge{
+  position:absolute;top:7px;left:7px;
+  background:rgba(8,8,8,.82);backdrop-filter:blur(4px);
+  border:1px solid var(--bd2);border-radius:4px;
+  padding:2px 6px;font-size:8px;font-weight:700;letter-spacing:.5px;color:var(--txt);
+}
+.ev-badge.live{background:var(--red);border-color:var(--red);color:#fff}
+@media(max-width:600px){
+  .ev-card{width:148px}
+  .ev-img,.ev-ph{width:148px;height:93px}
+}
+
+/* ── EPG LIST ── */
+.epg-list{display:flex;flex-direction:column;gap:9px}
+
+/* ── ROW — Desktop 3 cols ── */
+.erow{
+  display:grid;grid-template-columns:76px 1fr 1fr;
+  background:var(--card);border:1px solid var(--bd);
+  border-radius:var(--r);overflow:hidden;
+  transition:border-color .18s;
+}
+.erow:hover{border-color:var(--bd2)}
+
+/* Channel cell */
+.ech{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:8px 5px;gap:5px;background:var(--card2);
+  border-right:1px solid var(--bd);
+}
+.elogo{
+  width:38px;height:38px;border-radius:7px;background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;
+}
+.elogo img{width:34px;height:34px;object-fit:contain;display:block}
+.ech-info{display:flex;flex-direction:column;align-items:center;gap:1px}
+.eabbr{
+  font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:.5px;
+  color:var(--txt);text-align:center;line-height:1.1;padding:0 2px;
+}
+.echname{
+  font-size:8px;font-weight:600;letter-spacing:.2px;color:var(--mu);
+  text-align:center;max-width:68px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+
+/* Slot cell */
+.eslot{
+  display:flex;align-items:center;gap:9px;padding:9px 11px;
+  border-right:1px solid var(--bd);position:relative;overflow:hidden;min-height:72px;
+}
+.eslot:last-child{border-right:none}
+.eslot.live{background:rgba(220,30,60,.025)}
+.thumb{
+  width:52px;height:40px;border-radius:5px;background:var(--bg3);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;font-size:16px;opacity:.4;
+}
+.thumb img{width:52px;height:40px;object-fit:cover;border-radius:5px;opacity:1}
+.sinfo{flex:1;min-width:0}
+.stime{font-size:9px;font-weight:700;letter-spacing:.5px;color:var(--mu);font-family:var(--mono);margin-bottom:2px}
+.eslot.live .stime{color:var(--red2)}
+.stitle{
+  font-size:12px;font-weight:600;color:var(--txt);line-height:1.3;margin-bottom:1px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.scat{font-size:9px;font-weight:500;color:var(--mu2);letter-spacing:.2px}
+.ltag{
+  position:absolute;top:5px;right:5px;
+  background:var(--red);color:#fff;
+  font-size:7px;font-weight:700;letter-spacing:1px;padding:2px 5px;border-radius:3px;
+}
+.ntag{position:absolute;top:5px;right:5px;font-size:7px;font-weight:700;letter-spacing:.8px;color:var(--mu2)}
+.pbar{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--bd)}
+.pbar-fill{height:100%;background:var(--red);border-radius:1px;transition:width .5s}
+.hl{color:var(--red2);font-weight:700}
+
+/* ── MOBILE ≤ 600px ── */
+@media(max-width:600px){
+  body{font-size:14px}
+  .main{padding:10px 10px 70px}
+  .hdr{padding:0 12px;height:48px}
+  .htitle{font-size:16px}
+  .sbar,.fbar,.ev-header{padding-left:12px;padding-right:12px}
+  .sinp{font-size:12px;padding:8px 28px 8px 30px}
+
+  /* Card layout : channel header + slots empilés */
+  .erow{display:block}
+  .ech{
+    flex-direction:row;justify-content:flex-start;
+    padding:9px 12px;gap:10px;
+    border-right:none;border-bottom:1px solid var(--bd);
+  }
+  .elogo{width:30px;height:30px}
+  .elogo img{width:26px;height:26px}
+  .ech-info{flex-direction:row;align-items:baseline;gap:6px}
+  .eabbr{font-size:13px;text-align:left}
+  .echname{font-size:9px;text-align:left;max-width:none;color:var(--mu)}
+
+  .eslot{
+    padding:10px 12px;min-height:unset;
+    border-right:none;border-bottom:1px solid var(--bd);
+  }
+  .eslot:last-child{border-bottom:none}
+  .thumb{width:48px;height:36px}
+  .thumb img{width:48px;height:36px}
+  .stitle{font-size:13px;white-space:normal;line-height:1.35}
+  .stime{font-size:10px}
+  .scat{font-size:10px}
+  .ltag,.ntag{top:8px;right:8px;font-size:8px}
+}
+
+/* ── STATES ── */
+.loading{display:flex;flex-direction:column;align-items:center;padding:60px 20px;gap:14px}
+.spin{
+  width:30px;height:30px;border:2px solid var(--bd);border-top-color:var(--red);
+  border-radius:50%;animation:spin .7s linear infinite
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading p{font-size:11px;color:var(--mu);font-weight:600;letter-spacing:.5px}
+.empty{text-align:center;padding:60px 20px}
+.empty-ico{font-size:28px;margin-bottom:10px}
+.empty h3{font-size:14px;font-weight:600;margin-bottom:6px}
+.empty p{font-size:11px;color:var(--mu);margin-bottom:16px}
+.retry-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--card2);border:1px solid var(--bd2);border-radius:8px;
+  padding:7px 18px;font-size:11px;font-weight:600;color:var(--txt);
+  cursor:pointer;font-family:'Montserrat',sans-serif;transition:all .2s;
+}
+.retry-btn:hover{border-color:var(--red);color:var(--red2)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-l">
+    <a href="/dashboard" class="back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Mon espace
+    </a>
+    <div class="htitle">XENON<em>TV</em> · Programme</div>
+  </div>
+  <div class="hdr-r">
+    <div class="badge"><div class="dot"></div>DIRECT</div>
+    <div class="clk" id="clk">--:--</div>
+  </div>
+</header>
+
+<!-- SEARCH -->
+<div class="sbar">
+  <div class="swrap">
+    <svg class="sico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input class="sinp" id="sinp" type="search" placeholder="Émission, film, chaîne…" autocomplete="off" autocorrect="off" spellcheck="false" inputmode="search">
+    <button class="sx" id="sx" aria-label="Effacer">✕</button>
+  </div>
+  <div class="sct" id="sct"></div>
+</div>
+
+<!-- FILTERS -->
+<div class="fbar">
+  <button class="chip on" data-cat="all">Toutes</button>
+  <button class="chip" data-cat="sport">⚽ Sport</button>
+  <button class="chip" data-cat="film">🎬 Cinéma</button>
+  <button class="chip" data-cat="info">📡 Info</button>
+  <button class="chip" data-cat="serie">📺 Séries</button>
+  <button class="chip" data-cat="divert">🎭 Divertissement</button>
+  <button class="chip" data-cat="doc">🔍 Documentaire</button>
+  <button class="chip" data-cat="musique">🎵 Musique</button>
+  <button class="chip" data-cat="jeunesse">🧸 Jeunesse</button>
+</div>
+
+<!-- EVENTS SLIDER -->
+<div class="ev-section" id="evSection" style="display:none">
+  <div class="ev-header">
+    <div class="ev-title">🏆 Événements sport à venir</div>
+    <div class="ev-hint">← glisser →</div>
+  </div>
+  <div class="ev-track" id="evTrack"></div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="dates" id="dates"></div>
+  <div class="slbl" id="slbl">Programmes · En cours et à suivre</div>
+  <div id="epg"><div class="loading"><div class="spin"></div><p>Chargement…</p></div></div>
+</main>
+
+<script>
+'use strict';
+
+// ── CLOCK ──
+const clkEl=document.getElementById('clk');
+function tick(){
+  const n=new Date();
+  clkEl.textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+}
+tick();setInterval(tick,30000);
+
+// ── DATES ──
+const DAYS=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+const MONTHS=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+let selDay=0;
+function buildDates(){
+  const el=document.getElementById('dates');
+  el.innerHTML='';
+  for(let i=0;i<6;i++){
+    const d=new Date();d.setDate(d.getDate()+i);
+    const b=document.createElement('button');
+    b.className='dbtn'+(i===0?' on':'');
+    b.dataset.i=i;
+    b.innerHTML='<span class="dn">'+(i===0?'Auj.':DAYS[d.getDay()])+'</span>'+d.getDate()+' '+MONTHS[d.getMonth()];
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.dbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');selDay=i;
+      if(i===0)loadEPG();else render();
+    });
+    el.appendChild(b);
+  }
+}
+buildDates();
+
+// ── FILTERS ──
+let cat='all';
+document.querySelectorAll('.chip').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');cat=b.dataset.cat;render();
+  });
+});
+
+// ── SEARCH ──
+let q='';
+const sinpEl=document.getElementById('sinp');
+const sxEl=document.getElementById('sx');
+const sctEl=document.getElementById('sct');
+let searchTimer=null;
+sinpEl.addEventListener('input',()=>{
+  clearTimeout(searchTimer);
+  searchTimer=setTimeout(()=>{
+    q=sinpEl.value.trim().toLowerCase();
+    sxEl.classList.toggle('on',q.length>0);
+    render();
+  },150);
+});
+sxEl.addEventListener('click',()=>{
+  sinpEl.value='';q='';
+  sxEl.classList.remove('on');
+  sinpEl.focus();render();
+});
+
+// ── HELPERS ──
+const ICONS={
+  'information':'📡','info':'📡','journal':'📡',
+  'sport':'⚽','foot':'⚽','arts martiaux':'🥋',
+  'film':'🎬','cinéma':'🎬','cinema':'🎬',
+  'série':'📺','serie':'📺','fiction':'📺',
+  'divertissement':'🎭','variété':'🎭','jeu':'🎮',
+  'documentaire':'🔍','découverte':'🔍','reportage':'🔍',
+  'jeunesse':'🧸','enfant':'🧸',
+  'musique':'🎵',
+  'magazine':'📰',
+};
+function ico(c){
+  const k=(c||'').toLowerCase();
+  for(const[kk,v] of Object.entries(ICONS))if(k.includes(kk))return v;
+  return'📺';
+}
+
+function matchCat(p,f){
+  if(!p||f==='all')return true;
+  const c=((p.cat||p.category||'')).toLowerCase();
+  if(f==='sport')   return c.includes('sport')||c.includes('foot')||c.includes('rugby')||c.includes('tennis')||c.includes('cycl')||c.includes('martial')||c.includes('basket');
+  if(f==='film')    return c.includes('film')||c.includes('cin')||c.includes('action')||c.includes('aventure')||c.includes('comédie');
+  if(f==='info')    return c.includes('info')||c.includes('news')||c.includes('journal')||c.includes('magazine');
+  if(f==='serie')   return c.includes('sér')||c.includes('serie')||c.includes('fiction');
+  if(f==='divert')  return c.includes('divert')||c.includes('varié')||c.includes('jeu')||c.includes('téléréalité');
+  if(f==='doc')     return c.includes('doc')||c.includes('report')||c.includes('découv')||c.includes('animalier')||c.includes('société');
+  if(f==='musique') return c.includes('musiqu');
+  if(f==='jeunesse')return c.includes('jeun')||c.includes('enfant')||c.includes('animé')||c.includes('série tv');
+  return false;
+}
+
+function matchQ(row,q){
+  if(!q)return true;
+  const fields=[
+    row.ch||'',
+    (row.cur&&row.cur.title)||'',
+    (row.nxt&&row.nxt.title)||'',
+    (row.cur&&(row.cur.cat||row.cur.category))||'',
+  ];
+  return fields.some(f=>f.toLowerCase().includes(q));
+}
+
+function hl(t,q){
+  if(!t||!q)return t||'';
+  const i=t.toLowerCase().indexOf(q);
+  if(i<0)return t;
+  return t.slice(0,i)+'<span class="hl">'+t.slice(i,i+q.length)+'</span>'+t.slice(i+q.length);
+}
+
+function fmt(ms){
+  if(!ms&&ms!==0)return'--:--';
+  const d=new Date(ms);
+  return String(d.getHours()).padStart(2,'0')+'h'+String(d.getMinutes()).padStart(2,'0');
+}
+
+// ── DATA ──
+let DATA=[];
+
+// ── ROW HTML ──
+function rowHTML(row){
+  const logo=row.logo||null;
+  const logoH=logo
+    ?`<div class="elogo"><img src="${logo}" alt="${row.ch}" loading="lazy" onerror="this.style.display='none'"></div>`
+    :`<div class="elogo">${ico(row.cur&&(row.cur.cat||row.cur.category))}</div>`;
+
+  // current slot
+  const cur=row.cur||{};
+  const nxt=row.nxt||null;
+  const prog=cur.progress||0;
+  const curCat=cur.cat||cur.category||'';
+  const nxtCat=nxt?nxt.cat||nxt.category||'':'';
+
+  const curThumb=cur.icon
+    ?`<div class="thumb"><img src="${cur.icon}" alt="" loading="lazy" onerror="this.parentNode.innerHTML='${ico(curCat)}'"></div>`
+    :`<div class="thumb">${ico(curCat)}</div>`;
+
+  const nxtThumb=nxt&&nxt.icon
+    ?`<div class="thumb"><img src="${nxt.icon}" alt="" loading="lazy" onerror="this.parentNode.innerHTML='${ico(nxtCat)}'"></div>`
+    :`<div class="thumb">${ico(nxtCat)}</div>`;
+
+  const pb=prog>0?`<div class="pbar"><div class="pbar-fill" style="width:${Math.round(prog)}%"></div></div>`:'';
+
+  const nxtSlot=nxt
+    ?`<div class="eslot">
+        ${nxtThumb}
+        <div class="sinfo">
+          <div class="stime">${nxt.startFmt||fmt(nxt.start)} → ${nxt.stopFmt||fmt(nxt.stop)}</div>
+          <div class="stitle">${hl(nxt.title||'—',q)}</div>
+          <div class="scat">${hl(nxtCat,q)}</div>
+        </div>
+        <span class="ntag">APRÈS</span>
+      </div>`
+    :`<div class="eslot"><div class="sinfo"><div class="scat" style="color:var(--mu2)">—</div></div></div>`;
+
+  return`<div class="erow">
+    <div class="ech">
+      ${logoH}
+      <div class="ech-info">
+        <span class="eabbr">${hl(row.ch||'',q)}</span>
+        <span class="echname">${hl(row.ch||'',q)}</span>
+      </div>
+    </div>
+    <div class="eslot live">
+      ${curThumb}
+      <div class="sinfo">
+        <div class="stime">${cur.startFmt||fmt(cur.start)} → ${cur.stopFmt||fmt(cur.stop)}</div>
+        <div class="stitle">${hl(cur.title||'—',q)}</div>
+        <div class="scat">${hl(curCat,q)}</div>
+      </div>
+      <span class="ltag">LIVE</span>
+      ${pb}
+    </div>
+    ${nxtSlot}
+  </div>`;
+}
+
+// ── RENDER ──
+function render(){
+  const el=document.getElementById('epg');
+  const rows=DATA.filter(r=>{
+    const cOk=cat==='all'?true:matchCat(r.cur,cat)||matchCat(r.nxt,cat);
+    return cOk&&matchQ(r,q);
+  });
+
+  const total=DATA.length;
+  const shown=rows.length;
+  if(q||cat!=='all'){
+    sctEl.textContent=shown+' / '+total;
+    sctEl.className='sct'+(shown>0?' ok':'');
+  }else{
+    sctEl.textContent=total+' chaînes';
+    sctEl.className='sct';
+  }
+
+  if(!rows.length){
+    el.innerHTML=`<div class="empty">
+      <div class="empty-ico">📭</div>
+      <h3>Aucun résultat</h3>
+      <p>${q?`Rien pour "<strong>${q}</strong>"`:'Aucune chaîne pour ce filtre.'}</p>
+      ${q?`<button class="retry-btn" onclick="document.getElementById('sx').click()">✕ Effacer</button>`:''}
+    </div>`;
+    return;
+  }
+  el.innerHTML='<div class="epg-list">'+rows.map(rowHTML).join('')+'</div>';
+}
+
+// ── SLIDER SPORT ──
+function daysUntil(ms){
+  const d=new Date(ms);d.setHours(0,0,0,0);
+  const n=new Date();n.setHours(0,0,0,0);
+  return Math.round((d-n)/864e5);
+}
+function badgeTxt(days){
+  if(days<0)return null;
+  if(days===0)return{t:"AUJOURD'HUI",live:true};
+  if(days===1)return{t:'DEMAIN',live:false};
+  if(days<=7) return{t:'DANS '+days+'J',live:false};
+  return{t:'J+'+days,live:false};
+}
+
+function buildSlider(sportEvents){
+  const track=document.getElementById('evTrack');
+  const section=document.getElementById('evSection');
+  if(!sportEvents||!sportEvents.length){section.style.display='none';return;}
+  section.style.display='';
+  track.innerHTML=sportEvents.map(ev=>{
+    const days=daysUntil(ev.start);
+    const b=badgeTxt(days);
+    if(!b)return'';
+    const dateStr=new Date(ev.start).toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
+    const cat=(ev.category||'Sport').replace(/\b\w/g,l=>l.toUpperCase());
+    const imgH=ev.icon
+      ?`<img class="ev-img" src="${ev.icon}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+      :'';
+    const phH=`<div class="ev-ph"${ev.icon?' style="display:none"':''}>🏆</div>`;
+    return`<div class="ev-card">
+      <div class="ev-badge${b.live?' live':''}">${b.t}</div>
+      ${imgH}${phH}
+      <div class="ev-body">
+        <div class="ev-sport">${cat}</div>
+        <div class="ev-name">${ev.title||'—'}</div>
+        <div class="ev-meta">📅 ${dateStr} · 🕐 ${ev.startFmt||'--:--'}</div>
+        <div class="ev-ch">📺 ${ev.chName||''}</div>
+      </div>
+    </div>`;
+  }).filter(Boolean).join('');
+}
+
+// ── DEMO FALLBACK ──
+function demo(){
+  function T(h,m){const d=new Date();d.setHours(h,m,0,0);return d.getTime();}
+  function pct(s,e){return Math.max(0,Math.min(100,(Date.now()-s)/(e-s)*100));}
+  function fmtT(h,m){return String(h).padStart(2,'0')+'h'+String(m).padStart(2,'0');}
+  const R=[
+    {ch:'TF1',       logo:'https://www.programme-tv.net/imgre/fit/~2~channel~f2b6de26acc4dc3e.png/480x480/quality/100/tf1.png',
+      cur:{title:'JT 20H', category:'Information', start:T(20,0),stop:T(21,15),startFmt:fmtT(20,0),stopFmt:fmtT(21,15),progress:pct(T(20,0),T(21,15))},
+      nxt:{title:'Koh-Lanta',category:'Divertissement',start:T(21,15),stop:T(23,10),startFmt:fmtT(21,15),stopFmt:fmtT(23,10)}},
+    {ch:'France 2',  logo:'https://www.programme-tv.net/imgre/fit/~2~channel~606394a5b095653a.png/480x480/quality/100/france-2.png',
+      cur:{title:'Journal de 20H',category:'Information',start:T(20,0),stop:T(21,20),startFmt:fmtT(20,0),stopFmt:fmtT(21,20),progress:pct(T(20,0),T(21,20))},
+      nxt:{title:'Don\'t Look Up',category:'Film',start:T(21,20),stop:T(23,40),startFmt:fmtT(21,20),stopFmt:fmtT(23,40)}},
+    {ch:'France 3',  logo:'https://www.programme-tv.net/imgre/fit/~2~channel~61eebbb6e38360ae.png/480x480/quality/100/france-3.png',
+      cur:{title:'Un si grand soleil',category:'Série',start:T(20,55),stop:T(21,50),startFmt:fmtT(20,55),stopFmt:fmtT(21,50),progress:pct(T(20,55),T(21,50))},
+      nxt:{title:'Soir 3',category:'Information',start:T(21,50),stop:T(22,30),startFmt:fmtT(21,50),stopFmt:fmtT(22,30)}},
+    {ch:'M6',        logo:'https://www.programme-tv.net/imgre/fit/~2~channel~46c2dbade9ac9fed.png/480x480/quality/100/m6.png',
+      cur:{title:'Capital',category:'Magazine',start:T(21,5),stop:T(23,10),startFmt:fmtT(21,5),stopFmt:fmtT(23,10),progress:pct(T(21,5),T(23,10))},
+      nxt:{title:'Zone Interdite',category:'Magazine',start:T(23,10),stop:T(0,20),startFmt:fmtT(23,10),stopFmt:fmtT(0,20)}},
+    {ch:'Arte',      logo:'https://www.programme-tv.net/imgre/fit/~2~channel~d6bb7624abff43ac.png/480x480/quality/100/arte.png',
+      cur:{title:'Arte Journal',category:'Information',start:T(19,45),stop:T(20,15),startFmt:fmtT(19,45),stopFmt:fmtT(20,15),progress:pct(T(19,45),T(20,15))},
+      nxt:{title:'Documentaire Arte',category:'Documentaire',start:T(20,15),stop:T(21,50),startFmt:fmtT(20,15),stopFmt:fmtT(21,50)}},
+    {ch:'Canal+',    logo:'https://www.programme-tv.net/imgre/fit/~2~channel~897223a57e2e8ae5.png/480x480/quality/100/canal.png',
+      cur:{title:'Le Grand Journal',category:'Divertissement',start:T(19,0),stop:T(20,0),startFmt:fmtT(19,0),stopFmt:fmtT(20,0),progress:pct(T(19,0),T(20,0))},
+      nxt:{title:'Film Canal+',category:'Film',start:T(21,0),stop:T(23,20),startFmt:fmtT(21,0),stopFmt:fmtT(23,20)}},
+    {ch:'BFM TV',    logo:'https://www.programme-tv.net/imgre/fit/~2~channel~9048e02338fb1134.png/480x480/quality/100/bfmtv.png',
+      cur:{title:'BFM Story',category:'Information',start:T(20,0),stop:T(21,0),startFmt:fmtT(20,0),stopFmt:fmtT(21,0),progress:pct(T(20,0),T(21,0))},
+      nxt:{title:'La Nuit BFM',category:'Information',start:T(21,0),stop:T(5,0),startFmt:fmtT(21,0),stopFmt:fmtT(5,0)}},
+    {ch:'Eurosport 1',logo:'https://www.programme-tv.net/imgre/fit/~2~channel~277882f801bd3f7b.png/480x480/quality/100/eurosport-1.png',
+      cur:{title:'Roland-Garros',category:'Sport',start:T(10,0),stop:T(21,0),startFmt:fmtT(10,0),stopFmt:fmtT(21,0),progress:pct(T(10,0),T(21,0))},
+      nxt:{title:'Tennis résumé',category:'Sport',start:T(21,0),stop:T(23,0),startFmt:fmtT(21,0),stopFmt:fmtT(23,0)}},
+  ];
+  return R;
+}
+
+// ── LOAD EPG ──
+async function loadEPG(){
+  const el=document.getElementById('epg');
+  el.innerHTML='<div class="loading"><div class="spin"></div><p>Chargement…</p></div>';
+  document.getElementById('evTrack').innerHTML='';
+
+  try{
+    const res=await fetch('https://accesxtv-backend-7kog.vercel.app/api/epg');
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const json=await res.json();
+
+    // Normalise grid : logo depuis API si disponible
+    DATA=(json.grid||[]).map(row=>({
+      ch: row.ch||row.chName||'',
+      logo: row.logo||null,
+      cur: row.cur||{},
+      nxt: row.nxt||null,
+    }));
+
+    buildSlider(json.sports||[]);
+    render();
+
+    const now=new Date();
+    const lbl=selDay===0
+      ?`En cours · ${String(now.getHours()).padStart(2,'0')}h${String(now.getMinutes()).padStart(2,'0')} — ${DATA.length} chaînes`
+      :`Programmes du ${now.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})}`;
+    document.getElementById('slbl').textContent=lbl;
+
+  }catch(e){
+    console.warn('EPG API error:',e.message);
+    DATA=demo();
+    buildSlider([]);
+    render();
+    document.getElementById('slbl').textContent='Mode démo — API EPG indisponible';
+  }
+}
+
+loadEPG();
+setInterval(loadEPG,5*60*1000);
+</script>
+</body>
+</html>
