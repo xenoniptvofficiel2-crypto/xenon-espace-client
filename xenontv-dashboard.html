@@ -384,6 +384,123 @@
     .header-title { font-size: 1.8rem; }
     .card-title { font-size: 1.5rem; }
   }
+
+  /* ── TV SECTION ── */
+  .tv-section {
+    margin-bottom: 32px;
+  }
+  .tv-section-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    margin-bottom: 12px;
+  }
+  .tv-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .tv-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: #111;
+    min-height: 158px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: border-color .2s, transform .2s;
+    cursor: default;
+  }
+  .tv-card:hover { border-color: rgba(229,9,20,0.35); transform: translateY(-2px); }
+  .tv-card-gradient {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(to top, rgba(0,0,0,.97) 0%, rgba(0,0,0,.5) 55%, transparent 100%);
+  }
+  .tv-card-body {
+    position: relative; z-index: 3;
+    padding: 14px 16px 16px;
+  }
+  .tv-card-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.58rem; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 3px 7px; border-radius: 3px; margin-bottom: 7px;
+  }
+  .tag-live { background: rgba(229,9,20,.15); border: 1px solid rgba(229,9,20,.3); color: #ff4455; }
+  .tag-soon { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: #555; }
+  .tag-dot { width: 5px; height: 5px; border-radius: 50%; background: #ff4455; animation: tvdot 1.4s ease-in-out infinite; flex-shrink:0; }
+  @keyframes tvdot { 0%,100%{opacity:1} 50%{opacity:.1} }
+  .tv-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; letter-spacing: 1.5px; line-height: 1; color: #fff; margin-bottom: 4px;
+  }
+  .tv-card-desc { font-size: 0.72rem; color: #666; line-height: 1.5; margin-bottom: 11px; }
+  .tv-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 7px 14px; border-radius: 4px;
+    font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 700;
+    letter-spacing: .5px; text-decoration: none; cursor: pointer; border: none; transition: all .18s;
+  }
+  .btn-red-tv { background: var(--red); color: #fff; }
+  .btn-red-tv:hover { background: var(--red2); }
+  .btn-ghost-tv {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    color: #444; cursor: default;
+  }
+  /* Slider logos */
+  .ch-slider-wrap {
+    position: absolute; inset: 0; z-index: 2; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-start;
+    padding-top: 13px; gap: 7px; pointer-events: none;
+  }
+  .ch-row {
+    display: flex; gap: 7px; width: max-content;
+    animation: chScrollL 28s linear infinite;
+  }
+  .ch-row.rev { animation: chScrollR 32s linear infinite; }
+  @keyframes chScrollL { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  @keyframes chScrollR { 0%{transform:translateX(-50%)} 100%{transform:translateX(0)} }
+  .ch-logo {
+    width: 44px; height: 30px; border-radius: 5px;
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,.07);
+    display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;
+  }
+  .ch-logo img { width: 36px; height: 24px; object-fit: contain; opacity: .7; }
+  /* VOD posters */
+  .vod-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: linear-gradient(135deg, #0d0d1a 0%, #1a0a14 50%, #0a0a0a 100%);
+  }
+  .vod-grid {
+    position: absolute; top: 0; right: 0; bottom: 0;
+    width: 50%; z-index: 1;
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px; padding: 8px 8px 8px 0; align-items: center; overflow: hidden;
+  }
+  .vod-grid::before {
+    content: ''; position: absolute; top: 0; left: -1px; bottom: 0; width: 50px; z-index: 2;
+    background: linear-gradient(to right, #111, transparent);
+  }
+  .vod-poster {
+    border-radius: 4px; overflow: hidden; aspect-ratio: 2/3;
+    border: 1px solid rgba(255,255,255,.06);
+    display: flex; align-items: center; justify-content: center; font-size: 14px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.5);
+  }
+  .vod-poster img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .75; }
+  .vod-poster:nth-child(2) { margin-top: -12px; }
+  .vod-poster:nth-child(4) { margin-top: 8px; }
+  .vod-poster:nth-child(6) { margin-top: -6px; }
+  @media (max-width: 768px) {
+    .tv-cards { grid-template-columns: 1fr; }
+    .tv-card { min-height: 130px; }
+    .vod-grid { display: none; }
+    .tv-card-title { font-size: 1.3rem; }
+  }
 </style>
 </head>
 <body>
@@ -435,6 +552,43 @@
       <div class="status-dot green"></div>
       <span class="status-label">VOD</span>
       <span class="status-value">+50 000 contenus</span>
+    </div>
+  </div>
+
+
+  <!-- ── TV & NOUVEAUTÉS ── -->
+  <div class="tv-section">
+    <p class="tv-section-label">Contenu &amp; Programmes</p>
+    <div class="tv-cards">
+
+      <!-- Programmes TV -->
+      <div class="tv-card">
+        <div class="ch-slider-wrap">
+          <div class="ch-row" id="chRow1"></div>
+          <div class="ch-row rev" id="chRow2"></div>
+        </div>
+        <div class="tv-card-gradient"></div>
+        <div class="tv-card-body">
+          <div class="tv-card-tag tag-live"><div class="tag-dot"></div>EN DIRECT</div>
+          <div class="tv-card-title">Programmes TV</div>
+          <div class="tv-card-desc">Guide des 400+ chaînes. En cours, à venir, sport en direct.</div>
+          <a href="xenontv-programme" class="tv-btn btn-red-tv">Voir le guide →</a>
+        </div>
+      </div>
+
+      <!-- Nouveautés -->
+      <div class="tv-card">
+        <div class="vod-bg"></div>
+        <div class="vod-grid" id="vodGrid"></div>
+        <div class="tv-card-gradient"></div>
+        <div class="tv-card-body">
+          <div class="tv-card-tag tag-soon">⏳ BIENTÔT</div>
+          <div class="tv-card-title">Nouveautés</div>
+          <div class="tv-card-desc">Films et séries récents disponibles sur XENON TV.</div>
+          <button class="tv-btn btn-ghost-tv" disabled>Bientôt disponible</button>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -559,6 +713,56 @@
     document.getElementById('userEmail').textContent = email;
     document.getElementById('userInitial').textContent = email.charAt(0).toUpperCase();
   }
+
+  // ── TV Section : slider logos + VOD posters ──
+  (function(){
+    const LOGOS=[
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~f2b6de26acc4dc3e.png/480x480/quality/100/tf1.png',n:'TF1'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~606394a5b095653a.png/480x480/quality/100/france-2.png',n:'F2'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~46c2dbade9ac9fed.png/480x480/quality/100/m6.png',n:'M6'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~897223a57e2e8ae5.png/480x480/quality/100/canal.png',n:'Canal+'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~d6bb7624abff43ac.png/480x480/quality/100/arte.png',n:'Arte'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~9048e02338fb1134.png/480x480/quality/100/bfmtv.png',n:'BFM'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~277882f801bd3f7b.png/480x480/quality/100/eurosport-1.png',n:'Euro1'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~8884f09c3361af44.png/480x480/quality/100/bein-sports-1.png',n:'beIN1'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~e08d0f4124b46a3e.png/480x480/quality/100/rmc-sport-1.png',n:'RMC'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~2b97b0fb1264c28d.png/480x480/quality/100/canal-sport.png',n:'C+Sport'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~61eebbb6e38360ae.png/480x480/quality/100/france-3.png',n:'F3'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~5f611b705ca3f017.png/480x480/quality/100/france-5.png',n:'F5'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~15acfc705e2d4dd8.png/480x480/quality/100/w9.png',n:'W9'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~952ec4ae63b20c1b.png/480x480/quality/100/cnews.png',n:'CNews'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~1314d39cfeea2a5c.png/480x480/quality/100/lci-la-chaine-info.png',n:'LCI'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~059a8175b83117fd.png/480x480/quality/100/gulli.png',n:'Gulli'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~b2c9618d914140d0.png/480x480/quality/100/tmc.png',n:'TMC'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~71e551462d6114e5.png/480x480/quality/100/tfx.png',n:'TFX'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~335ee2c06aacae64.png/480x480/quality/100/canal-foot.png',n:'C+Foot'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~82089336e45e2d47.png/480x480/quality/100/canal-ligue-1.png',n:'C+L1'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~2fa633f39d6c3033.png/480x480/quality/100/bein-sports-2.png',n:'beIN2'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~d5aee128665b32a9.png/480x480/quality/100/bein-sports-3.png',n:'beIN3'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~196acf0142c66a68.png/480x480/quality/100/eurosport-2.png',n:'Euro2'},
+      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~0b078790aeb2d121.png/480x480/quality/100/canal-cinema.png',n:'C+Ciné'},
+    ];
+    function mkL(l){return '<div class="ch-logo"><img src="'+l.s+'" alt="'+l.n+'" loading="lazy" onerror="this.style.opacity=0"></div>';}
+    const r1=LOGOS.slice(0,12),r2=LOGOS.slice(12);
+    const e1=document.getElementById('chRow1'),e2=document.getElementById('chRow2');
+    if(e1) e1.innerHTML=[...r1,...r1].map(mkL).join('');
+    if(e2) e2.innerHTML=[...r2,...r2].map(mkL).join('');
+
+    // Posters TMDB tendances
+    const TK="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkODJlMTQ4YjI4Njg2MThkOTMyZWJiYWFhZDM4YmNjYiIsIm5iZiI6MTc3OTAyOTcwOS45OTcsInN1YiI6IjZhMDlkNmNkY2RlOWZhYTcxNzc2N2Y2NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yBBMAJCUXKWDOJjVDCXMMa2Q5yWnMVLFGA4O8efYXh0";
+    const vEl=document.getElementById('vodGrid');
+    if(vEl){
+      fetch('https://api.themoviedb.org/3/trending/movie/week?language=fr-FR',{headers:{Authorization:'Bearer '+TK}})
+        .then(r=>r.json()).then(d=>{
+          vEl.innerHTML=(d.results||[]).slice(0,6).map(i=>
+            i.poster_path
+              ?'<div class="vod-poster"><img src="https://image.tmdb.org/t/p/w185'+i.poster_path+'" alt="" loading="lazy"></div>'
+              :'<div class="vod-poster" style="background:#1a1a2e">🎬</div>'
+          ).join('');
+        }).catch(()=>{vEl.innerHTML='<div class="vod-poster" style="background:#1a1a2e">🎬</div>'.repeat(6);});
+    }
+  })();
+
 </script>
 
 </body>
