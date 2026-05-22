@@ -1005,18 +1005,24 @@ window.addEventListener('resize',updateArrows);
   // Touch swipe sur le slider À venir
   const outer=document.querySelector('.slider-outer');
   if(outer){
-    let sx=0;
-    outer.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+    let sx=0, sy=0, swiping=false;
+    outer.addEventListener('touchstart',e=>{
+      sx=e.touches[0].clientX;
+      sy=e.touches[0].clientY;
+      swiping=false;
+    },{passive:true});
+    outer.addEventListener('touchmove',e=>{
+      const dx=Math.abs(e.touches[0].clientX-sx);
+      const dy=Math.abs(e.touches[0].clientY-sy);
+      // Swipe horizontal détecté → bloquer le scroll vertical
+      if(dx>dy&&dx>8){swiping=true;e.preventDefault();}
+    },{passive:false});
     outer.addEventListener('touchend',e=>{
+      if(!swiping)return;
       const dx=e.changedTouches[0].clientX-sx;
       if(Math.abs(dx)>40) slide(dx<0?1:-1);
     },{passive:true});
   }
-  // Scroll tactile natif sur grille dispo (pas de slider, grid scroll naturel)
-  // Empêche le zoom double-tap sur les cards
-  document.querySelectorAll('.dcard,.bcard').forEach(el=>{
-    el.addEventListener('touchend',e=>{e.preventDefault();el.click();},{passive:false});
-  });
 })();
 
 // ── SECTION DISPO — fetch films récents ──
