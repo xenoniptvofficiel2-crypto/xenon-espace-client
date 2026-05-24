@@ -394,6 +394,67 @@ body::after {
 .toast.ok { color: var(--green); border-color: rgba(34,197,94,0.3); }
 .toast.err { color: var(--red2); border-color: rgba(220,30,60,0.3); }
 
+.confirm-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 2000;
+  display: none; align-items: center; justify-content: center;
+  padding: 1rem;
+}
+.confirm-overlay.visible { display: flex; }
+
+.confirm-popup {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-top: 3px solid var(--green);
+  border-radius: 12px;
+  width: 100%; max-width: 440px;
+  padding: 36px 28px 28px;
+  position: relative;
+  text-align: center;
+  animation: pop 0.25s ease;
+}
+
+.confirm-close {
+  position: absolute; top: 14px; right: 14px;
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); padding: 4px; border-radius: 4px;
+  display: flex; transition: color 0.15s;
+}
+.confirm-close:hover { color: var(--text); }
+
+.confirm-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(34,197,94,0.12);
+  border: 2px solid rgba(34,197,94,0.35);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.confirm-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem; letter-spacing: 2px;
+  color: #fff; margin-bottom: 12px;
+}
+
+.confirm-body {
+  font-size: 13px; color: var(--muted);
+  line-height: 1.7; font-weight: 300;
+  margin-bottom: 24px;
+}
+.confirm-body strong { color: var(--text); font-weight: 500; }
+
+.confirm-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 11px 28px;
+  background: var(--green); border: none; border-radius: 6px;
+  color: #fff; font-family: 'Montserrat', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; cursor: pointer;
+  transition: all 0.2s;
+}
+.confirm-btn:hover { background: #16a34a; transform: translateY(-1px); }
+
 .platforms-strip {
   margin-top: 10px;
   background: var(--surface);
@@ -635,6 +696,25 @@ body::after {
   </div>
 </div>
 
+<!-- POPUP CONFIRMATION -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-popup">
+    <button class="confirm-close" onclick="document.getElementById('confirmOverlay').classList.remove('visible')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="confirm-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </div>
+    <div class="confirm-title" id="confirmTitle">Demande soumise</div>
+    <div class="confirm-body" id="confirmBody">
+      <strong>Votre demande a été soumise.</strong><br><br>
+      Chaque demande est traitée au fur et à mesure par notre équipe VOD.<br>
+      Merci pour votre patience et votre contribution !
+    </div>
+    <button class="confirm-btn" onclick="document.getElementById('confirmOverlay').classList.remove('visible')">Fermer</button>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -765,7 +845,9 @@ clearBtn.addEventListener('click', clearSel);
 btnAjout.addEventListener('click', () => {
   if(!selected) return;
   saveRequest('ajout', {title:selected.title, year:selected.year, category:selected.category});
-  showToast('Demande envoyée : ' + selected.title, 'ok');
+  document.getElementById('confirmTitle').textContent = 'Demande soumise';
+  document.getElementById('confirmBody').innerHTML = '<strong>Votre demande a été soumise.</strong><br><br>Chaque demande est traitée au fur et à mesure par notre équipe VOD.<br>Merci pour votre patience et votre contribution !';
+  document.getElementById('confirmOverlay').classList.add('visible');
   clearSel();
 });
 
@@ -791,7 +873,9 @@ btnValider.addEventListener('click', () => {
     issues, comment: commentArea.value.trim()
   });
   overlay.classList.remove('visible');
-  showToast('Signalement enregistré — merci !', 'ok');
+  document.getElementById('confirmTitle').textContent = 'Signalement enregistré';
+  document.getElementById('confirmBody').innerHTML = '<strong>Votre signalement a bien été enregistré.</strong><br><br>Chaque demande est traitée au fur et à mesure par notre équipe VOD.<br>Merci pour votre patience et votre contribution !';
+  document.getElementById('confirmOverlay').classList.add('visible');
 });
 
 document.addEventListener('keydown', e => {
