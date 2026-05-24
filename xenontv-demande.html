@@ -572,7 +572,7 @@ function showToast(msg, type='ok'){
 
 // Envoi direct au backend — 1 requête par demande, email récupéré depuis la session
 function getClientEmail(){
-  return sessionStorage.getItem('userEmail') || sessionStorage.getItem('email') || '';
+  return sessionStorage.getItem('xenon_user_email') || '';
 }
 
 async function saveRequest(type, data){
@@ -710,4 +710,3 @@ document.addEventListener('keydown', e => {
 </script>
 </body>
 </html>
- 
