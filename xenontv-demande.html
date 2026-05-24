@@ -394,6 +394,29 @@ body::after {
 .toast.ok { color: var(--green); border-color: rgba(34,197,94,0.3); }
 .toast.err { color: var(--red2); border-color: rgba(220,30,60,0.3); }
 
+.platforms-strip {
+  margin-top: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--red);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.platforms-label {
+  font-size: 11px; font-weight: 500; color: var(--text);
+  letter-spacing: 0.03em; margin-bottom: 14px; line-height: 1.5;
+}
+.platforms-logos {
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+}
+.platforms-logos img {
+  height: 18px; width: auto; object-fit: contain;
+  filter: brightness(0) invert(1); opacity: 0.55;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+.platforms-logos img:hover { opacity: 0.9; }
+
 .header-page-title {
   font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
   text-transform: uppercase; color: var(--muted);
@@ -517,8 +540,24 @@ body::after {
   </div>
 
   <div class="info-strip">
-    <strong>Comment ça marche ?</strong> Cherchez un titre dans la barre de recherche, sélectionnez-le, puis cliquez sur le bouton correspondant. Toutes les demandes sont transmises à l'équipe XENON TV et regroupées dans un rapport quotidien.<br><br>
+    <strong>Comment ça marche ?</strong> Cherchez un titre dans la barre de recherche, sélectionnez-le, puis cliquez sur le bouton correspondant. Toutes les demandes sont transmises à l'équipe XENON TV et regroupées dans un rapport quotidien.
+  </div>
+
+  <div class="info-strip" style="margin-top:10px;">
     <strong>PS :</strong> Les demandes sont traitées au fur et à mesure par notre équipe. Aucune demande n'est ignorée ; sur certains titres il faut de la patience (sur les nouveautés notamment).
+  </div>
+
+  <div class="platforms-strip">
+    <div class="platforms-label">Toutes les plateformes sont prises en charge — y compris les sorties cinéma et les anciens titres</div>
+    <div class="platforms-logos">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg" alt="Prime Video">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" alt="Disney+">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple TV+">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Canal%2B.svg/320px-Canal%2B.svg.png" alt="Canal+">
+      <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/9d/Logo_OCS.svg/320px-Logo_OCS.svg.png" alt="OCS">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Paramount_Network_logo.svg/320px-Paramount_Network_logo.svg.png" alt="Paramount+">
+    </div>
   </div>
 
 </div>
