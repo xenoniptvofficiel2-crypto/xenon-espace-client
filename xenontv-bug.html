@@ -893,6 +893,7 @@ function loadCreds(cwId) {
       if (!data.found) { errTxt.innerHTML = 'Identifiants introuvables. <a href="https://xenontv.fr/help" target="_blank">Contactez le support →</a>'; errEl.classList.add('show'); return; }
       const accesses = data.accesses || [];
       let html = '';
+      const isM3U = cwId === 'smartone' || cwId === 'hotiptv';
       accesses.forEach((acc, i) => {
         const label = accesses.length > 1 ? `Accès ${i+1} / ${accesses.length}` : 'Accès trouvé';
         const fixedUrl = fixUrl(acc.url);
@@ -900,11 +901,25 @@ function loadCreds(cwId) {
         const smartUrl = sub ? `http://${sub}.xenonssmart.com` : null;
         const isSmart = cwId === 'smarttv';
         const displayUrl = isSmart ? (smartUrl || fixedUrl) : fixedUrl;
-        html += `<div class="cw-result-card"><div class="cw-result-header"><span class="cw-badge">✓ ${label}</span></div><div class="cw-rows">
-          <div class="cw-row"><div class="cw-row-left"><div class="cw-row-label">${isSmart ? 'URL Samsung / LG' : 'URL'}</div><div class="cw-row-value">${displayUrl}</div></div><div class="cw-row-actions"><button class="btn-copy" onclick="copyVal('${displayUrl.replace(/'/g,"\\'")}',this)">Copier</button><button class="btn-repair" onclick="openRepair('${cwId}','${(acc.url||'').replace(/'/g,"\\'")}')">🔧 Réparer</button></div></div>
-          ${acc.username ? `<div class="cw-row"><div class="cw-row-left"><div class="cw-row-label">Username</div><div class="cw-row-value">${escHtml(acc.username)}</div></div><div class="cw-row-actions"><button class="btn-copy" onclick="copyVal('${escHtml(acc.username).replace(/'/g,"\\'")}',this)">Copier</button></div></div>` : ''}
-          ${acc.password ? `<div class="cw-row"><div class="cw-row-left"><div class="cw-row-label">Password</div><div class="cw-row-value">${escHtml(acc.password)}</div></div><div class="cw-row-actions"><button class="btn-copy" onclick="copyVal('${escHtml(acc.password).replace(/'/g,"\\'")}',this)">Copier</button></div></div>` : ''}
-        </div></div>`;
+
+        if (isM3U) {
+          let baseUrl = '';
+          try { const u = new URL(acc.url.startsWith('http') ? acc.url : 'http://' + acc.url); baseUrl = u.origin; } catch(e) { baseUrl = fixedUrl; }
+          const m3uUrl = acc.username && acc.password
+            ? `${baseUrl}/get.php?username=${encodeURIComponent(acc.username)}&password=${encodeURIComponent(acc.password)}&type=m3u_plus`
+            : fixedUrl;
+          const m3uSafe = m3uUrl.replace(/'/g, "\'");
+          html += `<div class="cw-result-card"><div class="cw-result-header"><span class="cw-badge">✓ ${label}</span></div><div class="cw-rows">
+            <div class="cw-row"><div class="cw-row-left"><div class="cw-row-label">🔗 Lien M3U XENON TV</div><div class="cw-row-value" style="font-size:0.72rem;word-break:break-all">${m3uUrl}</div></div><div class="cw-row-actions"><button class="btn-copy" onclick="copyVal('${m3uSafe}',this)">Copier</button></div></div>
+            <div class="cw-row" style="background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2)"><div class="cw-row-left"><div class="cw-row-label" style="color:#f59e0b">⚠️ Important</div><div class="cw-row-value" style="font-size:0.74rem;color:#fbbf24">Vérifiez que le lien commence bien par <strong>http://</strong> et non https:// — retirez le "s" si besoin après avoir copié.</div></div></div>
+          </div></div>`;
+        } else {
+          html += `<div class="cw-result-card"><div class="cw-result-header"><span class="cw-badge">✓ ${label}</span></div><div class="cw-rows">
+            <div class="cw-row"><div class="cw-row-left"><div class="cw-row-label">${isSmart ? 'URL Samsung / LG' : 'URL'}</div><div class="cw-row-value">${displayUrl}</div></div><div class="cw-row-actions"><button class="btn-copy" onclick="copyVal('${displayUrl.replace(/'/g,"\'")}',this)">Copier</button><button class="btn-repair" onclick="openRepair('${cwId}','${(acc.url||'').replace(/'/g,"\'")}')">🔧 Réparer</button></div></div>
+            ${acc.username ? `<div class="cw-row"><div class="cw-row-left"><div class="cw-row-label">Username</div><div class="cw-row-value">${escHtml(acc.username)}</div></div><div class="cw-row-actions"><button class="btn-copy" onclick="copyVal('${escHtml(acc.username).replace(/'/g,"\'")}',this)">Copier</button></div></div>` : ''}
+            ${acc.password ? `<div class="cw-row"><div class="cw-row-left"><div class="cw-row-label">Password</div><div class="cw-row-value">${escHtml(acc.password)}</div></div><div class="cw-row-actions"><button class="btn-copy" onclick="copyVal('${escHtml(acc.password).replace(/'/g,"\'")}',this)">Copier</button></div></div>` : ''}
+          </div></div>`;
+        }
       });
       content.innerHTML = html;
       resEl.classList.add('show');
