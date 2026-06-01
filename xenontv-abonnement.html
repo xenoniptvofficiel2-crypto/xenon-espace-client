@@ -440,8 +440,8 @@ async function load() {
   try {
     // Passer le token directement — subscription.js s'occupe de tout côté serveur
     const url = SUB_API + '?token=' + encodeURIComponent(sessionToken);
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok && res.status !== 304) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (!data.success) throw new Error(data.error || 'Erreur API');
     render(data.subscriptions || []);
