@@ -148,22 +148,16 @@ body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(
 .modal-close { width: 100%; margin-top: 8px; background: var(--s2); border: 1px solid var(--border); border-radius: 7px; padding: 11px; font-size: 0.78rem; color: var(--muted2); cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600; transition: all 0.2s; }
 .modal-close:hover { border-color: var(--red); color: #ff6b6b; }
 .page-end { height: 48px; }
-@media (max-width: 768px) {
-  .topbar { padding: 0 16px; } .hero-band { padding: 20px 16px 18px; } .hero-band::before { display: none; }
-  .hero-title { font-size: 1.8rem; } .wizard { padding: 18px 16px 0; } .progress-bar { padding: 12px 14px; }
-  .ps-label { display: none; } .device-grid { grid-template-columns: repeat(3, 1fr); }
-  .error-types { grid-template-columns: repeat(2, 1fr); } .step-btn { width: 100%; justify-content: center; }
-  .alt-btns { flex-direction: column; } .user-chip span { display: none; }
-}
-@media (max-width: 400px) { .device-grid { grid-template-columns: repeat(2, 1fr); } .hero-title { font-size: 1.5rem; } }
+/* ═══ NOUVEAU FLOW — styles desktop ═══ */
 
-
-/* ═══ NOUVEAU FLOW ═══ */
+/* Intro souci */
 .souci-intro { text-align:center; padding: 24px 0 18px; }
 .souci-intro-icon { font-size: 2.8rem; margin-bottom: 8px; }
 .souci-intro-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 5px; }
 .souci-intro-sub { font-size: 0.82rem; color: var(--muted2); }
-.souci-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 8px; }
+
+/* Souci cards — 3 colonnes desktop */
+.souci-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 8px; }
 .souci-card { background: var(--s1); border: 1px solid var(--border2); border-radius: 12px; padding: 18px 12px 14px; display: flex; flex-direction: column; align-items: center; gap: 7px; cursor: pointer; transition: all 0.22s; text-align: center; -webkit-tap-highlight-color: transparent; position: relative; overflow: hidden; }
 .souci-card:hover { transform: translateY(-2px); }
 .souci-card.red:hover   { border-color: rgba(229,9,20,0.5); box-shadow: 0 8px 24px rgba(229,9,20,0.1); }
@@ -172,10 +166,11 @@ body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(
 .souci-card.green:hover { border-color: rgba(34,197,94,0.5); box-shadow: 0 8px 24px rgba(34,197,94,0.1); }
 .souci-card:active { transform: translateY(0); }
 .souci-icon { font-size: 2rem; line-height: 1; }
-.souci-name { font-size: 0.8rem; font-weight: 800; color: var(--text); line-height: 1.3; }
+.souci-name { font-size: 0.82rem; font-weight: 800; color: var(--text); line-height: 1.3; }
 .souci-detail { font-size: 0.68rem; color: var(--muted2); line-height: 1.4; }
 .souci-arrow { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; margin-top: 2px; background: rgba(229,9,20,0.1); color: var(--red); }
 .souci-card:hover .souci-arrow { background: var(--red); color: #fff; }
+
 /* Device cards avec logo */
 .device-btn-v2 { background: var(--s1); border: 1px solid var(--border2); border-radius: 12px; padding: 0; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: all 0.22s; -webkit-tap-highlight-color: transparent; }
 .device-btn-v2:hover { border-color: rgba(229,9,20,0.45); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
@@ -187,6 +182,7 @@ body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(
 .device-info { padding: 8px 8px 10px; border-top: 1px solid var(--border); }
 .device-name-v2 { font-size: 0.68rem; font-weight: 800; color: var(--muted2); text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.35; text-align:center; }
 .device-btn-v2.active .device-name-v2 { color: var(--red); }
+
 /* App cards avec logo */
 .app-btn-v2 { background: var(--s1); border: 1px solid var(--border2); border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
 .app-btn-v2:hover { border-color: rgba(229,9,20,0.35); background: var(--s2); }
@@ -199,6 +195,7 @@ body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(
 .app-sub-v2 { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
 .app-btn-v2.active .app-name-v2 { color: var(--red); }
 .app-badge { background: rgba(229,9,20,0.1); border: 1px solid rgba(229,9,20,0.2); color: var(--red); font-size: 0.6rem; font-weight: 800; padding: 2px 7px; border-radius: 20px; letter-spacing: .5px; white-space:nowrap; }
+
 /* Qualité buffering */
 .quality-tip { background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.2); border-radius: 10px; padding: 14px 16px; margin: 10px 0; }
 .quality-tip-title { font-size: 0.78rem; font-weight: 800; color: #93c5fd; margin-bottom: 8px; }
@@ -209,9 +206,89 @@ body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(
 .qpill.fhd  { background:rgba(139,92,246,0.1); border-color:rgba(139,92,246,0.3); color:#a78bfa; }
 .qpill.hevc { background:rgba(249,115,22,0.1); border-color:rgba(249,115,22,0.3); color:#fb923c; }
 .quality-tip-text { font-size: 0.78rem; color: #93c5fd; line-height: 1.6; }
-@media (max-width: 500px) {
-  .souci-grid { grid-template-columns: repeat(2,1fr); }
-  .device-grid { grid-template-columns: repeat(2,1fr) !important; }
+
+@media (max-width: 768px) {
+  /* Topbar */
+  .topbar { padding: 0 12px; height: 50px; }
+  .logo { font-size: 1.3rem; }
+  .back-btn { padding: 5px 10px; font-size: 0.65rem; }
+  .user-chip span { display: none; }
+  /* Hero */
+  .hero-band { padding: 18px 14px 16px; }
+  .hero-band::before { display: none; }
+  .hero-title { font-size: 1.6rem; }
+  .hero-sub { font-size: 0.78rem; }
+  /* Wizard */
+  .wizard { padding: 14px 12px 0; }
+  .progress-bar { padding: 10px 12px; }
+  .ps-label { display: none; }
+  .ps-num { width: 24px; height: 24px; font-size: 0.65rem; }
+  .ps-sep { width: 16px; margin: 0 3px; }
+  /* Breadcrumb */
+  .bc-back { padding: 5px 10px; font-size: 0.68rem; }
+  /* Souci cards — 2 colonnes mobile */
+  .souci-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .souci-card { padding: 14px 10px 12px; }
+  .souci-icon { font-size: 1.6rem; }
+  .souci-name { font-size: 0.75rem; }
+  .souci-detail { font-size: 0.63rem; }
+  .souci-intro-title { font-size: 1.4rem; }
+  /* Device grid — 3 colonnes mobile */
+  .device-grid { grid-template-columns: repeat(3, 1fr); gap: 7px; }
+  .device-img-wrap { height: 58px; padding: 8px; }
+  .device-info { padding: 6px 6px 8px; }
+  .device-name-v2 { font-size: 0.6rem; }
+  /* App grid — 1 colonne mobile */
+  .app-grid { flex-direction: column; gap: 7px; }
+  .app-btn-v2 { padding: 10px 12px; }
+  .app-logo-wrap { width: 36px; height: 36px; }
+  .app-name-v2 { font-size: 0.82rem; }
+  /* Section */
+  .section-group { margin-bottom: 18px; }
+  /* Panels */
+  .panel-header { padding: 12px 14px; gap: 10px; }
+  .panel-header-title { font-size: 0.9rem; }
+  .panel-header-sub { font-size: 0.72rem; }
+  /* Steps */
+  .step-card-header { padding: 11px 14px 10px; gap: 8px; }
+  .step-card-title { font-size: 0.84rem; }
+  .step-num { width: 24px; height: 24px; font-size: 0.68rem; }
+  .step-body { padding: 12px 14px 14px; }
+  .step-text { font-size: 0.82rem; }
+  .step-list li { font-size: 0.79rem; }
+  /* Boutons */
+  .step-btn { width: 100%; justify-content: center; font-size: 0.72rem; padding: 9px 14px; }
+  .alt-btns { flex-direction: column; gap: 7px; }
+  /* Notes */
+  .note, .note.orange, .note.green, .note.blue { font-size: 0.78rem; padding: 9px 12px; }
+  /* Widget identifiants */
+  .cw-header { padding: 9px 12px; }
+  .cw-header-title { font-size: 0.7rem; }
+  .cw-rows { padding: 6px 8px; gap: 5px; }
+  .cw-row { padding: 7px 10px; }
+  .cw-row-label { font-size: 0.56rem; }
+  .cw-row-value { font-size: 0.76rem; word-break: break-all; }
+  .btn-copy, .btn-repair { padding: 4px 8px; font-size: 0.62rem; }
+  /* Modal */
+  .modal-box { padding: 18px 14px; }
+  .modal-title { font-size: 1.1rem; }
+  .modal-url-val { font-size: 0.72rem; }
+  /* Qualité */
+  .quality-tip-title, .quality-tip-text { font-size: 0.74rem; }
+  .qpill { font-size: 0.68rem; padding: 3px 9px; }
+  /* Divers */
+  .error-types { grid-template-columns: repeat(2, 1fr); }
+  .page-end { height: 32px; }
+}
+
+@media (max-width: 400px) {
+  .device-grid { grid-template-columns: repeat(2, 1fr); }
+  .souci-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-title { font-size: 1.4rem; }
+  .device-img-wrap { height: 50px; }
+  .device-name-v2 { font-size: 0.56rem; }
+  .step-card-title { font-size: 0.8rem; }
+  .cw-row-value { font-size: 0.7rem; }
 }
 
 </style>
