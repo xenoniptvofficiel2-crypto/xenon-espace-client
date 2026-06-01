@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XENON TV — Mon Abonnement</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#e50914;--red2:#ff2233;--bg:#080808;--s1:#101010;--s2:#161616;
+  --s3:#1c1c1c;--s4:#222;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);
+  --text:#f0f0f0;--muted:#555;--muted2:#888;--green:#22c55e;--orange:#f97316;
+  --font:'Montserrat',sans-serif;--mono:'DM Mono',monospace;
+}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ── TOPBAR ── */
+.topbar{position:fixed;top:0;left:0;right:0;height:52px;background:rgba(8,8,8,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:50}
+.topbar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(229,9,20,.4),transparent)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:3px;color:#fff;text-decoration:none;line-height:1}
+.logo span{color:var(--red)}
+.back-btn{display:flex;align-items:center;gap:5px;color:var(--muted2);font-size:0.68rem;font-weight:700;text-decoration:none;padding:5px 11px;border-radius:6px;border:1px solid var(--border);background:var(--s1);transition:all .2s;letter-spacing:.5px;text-transform:uppercase}
+.back-btn:hover{color:#fff;border-color:var(--border2)}
+.user-chip{display:flex;align-items:center;gap:7px;background:var(--s2);border:1px solid var(--border2);padding:4px 11px 4px 5px;border-radius:20px}
+.user-av{width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;font-size:0.65rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+.user-email{font-size:0.72rem;color:var(--muted2);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── PAGE ── */
+.page{max-width:600px;margin:0 auto;padding:68px 16px 48px}
+
+/* ── HEADER ── */
+.page-header{padding:28px 0 24px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.page-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:3px;line-height:1;margin-bottom:8px}
+.page-sub{font-size:0.8rem;color:var(--muted2);line-height:1.6}
+
+/* ── LOADER ── */
+.loader{padding:48px 0;display:flex;flex-direction:column;align-items:center;gap:14px}
+.loader-ring{width:40px;height:40px;border:2px solid var(--s3);border-top-color:var(--red);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-txt{font-size:0.78rem;color:var(--muted2);letter-spacing:.5px}
+
+/* ── ERREUR ── */
+.err-box{background:rgba(229,9,20,.06);border:1px solid rgba(229,9,20,.18);border-radius:12px;padding:24px;text-align:center}
+.err-icon{font-size:2rem;margin-bottom:10px}
+.err-title{font-size:0.95rem;font-weight:700;color:#ff6b6b;margin-bottom:6px}
+.err-sub{font-size:0.78rem;color:var(--muted2);line-height:1.6;margin-bottom:16px}
+.btn-retry{background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:0.75rem;font-weight:700;font-family:var(--font);cursor:pointer;letter-spacing:.5px;text-transform:uppercase;transition:background .2s}
+.btn-retry:hover{background:var(--red2)}
+
+/* ── CONTENU ── */
+.content{animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HERO STATUS ── */
+.status-hero{background:var(--s1);border:1px solid var(--border2);border-radius:16px;overflow:hidden;margin-bottom:12px;position:relative}
+.status-hero-top{padding:20px 22px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.status-label{font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px}
+.status-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;color:var(--text)}
+.status-badge{display:flex;align-items:center;gap:6px;padding:6px 13px;border-radius:20px;font-size:0.68rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.status-badge.active{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:var(--green)}
+.status-badge.active .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.status-badge.expired{background:rgba(229,9,20,.1);border:1px solid rgba(229,9,20,.25);color:#ff6b6b}
+.status-badge.soon{background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.25);color:var(--orange)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── BARRE PROGRESSION ── */
+.prog-wrap{padding:0 22px 20px}
+.prog-dates{display:flex;justify-content:space-between;margin-bottom:6px}
+.prog-date{font-size:0.62rem;color:var(--muted);font-family:var(--mono)}
+.prog-track{height:5px;background:var(--s3);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.prog-fill.green{background:linear-gradient(90deg,#15803d,var(--green))}
+.prog-fill.orange{background:linear-gradient(90deg,#c2410c,var(--orange))}
+.prog-fill.red{background:linear-gradient(90deg,#991b1b,var(--red))}
+.prog-remaining{font-size:0.7rem;color:var(--muted2);text-align:right;margin-top:5px}
+
+/* ── GRID DATES ── */
+.dates-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.date-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.date-card-label{font-size:0.58rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px}
+.date-card-value{font-size:0.92rem;font-weight:700;color:var(--text);line-height:1.3}
+.date-card-value.red{color:#ff6b6b}
+.date-card-value.orange{color:var(--orange)}
+.date-card-value.green{color:var(--green)}
+.date-card-sub{font-size:0.65rem;color:var(--muted);margin-top:3px;font-family:var(--mono)}
+
+/* ── ALERTE ── */
+.alert{border-radius:10px;padding:12px 15px;margin-bottom:12px;display:flex;gap:10px;align-items:flex-start}
+.alert.orange{background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.2)}
+.alert.red{background:rgba(229,9,20,.07);border:1px solid rgba(229,9,20,.2)}
+.alert-ico{font-size:1rem;flex-shrink:0;margin-top:1px}
+.alert-txt{font-size:0.76rem;line-height:1.6}
+.alert.orange .alert-txt{color:rgba(249,115,22,.9)}
+.alert.red .alert-txt{color:rgba(255,107,107,.9)}
+.alert-txt strong{display:block;margin-bottom:1px;font-weight:700}
+
+/* ── BOUTON RENEW ── */
+.btn-renew{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--red);color:#fff;border:none;border-radius:10px;padding:14px 20px;font-size:0.78rem;font-weight:800;font-family:var(--font);cursor:pointer;text-decoration:none;transition:all .2s;letter-spacing:.8px;text-transform:uppercase;width:100%;margin-bottom:24px}
+.btn-renew:hover{background:var(--red2);transform:translateY(-1px);box-shadow:0 8px 20px rgba(229,9,20,.25)}
+
+/* ── NAVIGATEUR MULTI-ACCÈS ── */
+.access-nav{display:flex;align-items:center;justify-content:space-between;background:var(--s1);border:1px solid var(--border2);border-radius:12px;padding:10px 14px;margin-bottom:12px;gap:10px}
+.acc-btn{width:34px;height:34px;border-radius:8px;background:var(--s3);border:1px solid var(--border2);color:var(--text);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;font-family:var(--font)}
+.acc-btn:hover:not(:disabled){background:var(--s4);border-color:var(--border2);color:#fff}
+.acc-btn:disabled{opacity:.25;cursor:not-allowed}
+.acc-label{flex:1;text-align:center}
+.acc-count{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;color:var(--text);display:block;line-height:1.2}
+.acc-user{font-family:var(--mono);font-size:0.68rem;color:var(--muted2);display:block;margin-top:2px}
+
+/* ── SHORTCUTS ── */
+.shortcuts-label{font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.shortcuts{display:flex;flex-direction:column;gap:8px}
+.shortcut{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:14px 16px;display:flex;align-items:center;gap:13px;text-decoration:none;transition:all .2s;cursor:pointer}
+.shortcut:hover{border-color:var(--border2);background:var(--s2);transform:translateX(3px)}
+.sc-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.sc-text{flex:1}
+.sc-title{font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:2px}
+.sc-sub{font-size:0.68rem;color:var(--muted2)}
+.sc-arrow{font-size:0.9rem;color:var(--muted);transition:transform .2s}
+.shortcut:hover .sc-arrow{transform:translateX(3px);color:var(--muted2)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  /* Topbar */
+  .topbar{padding:0 12px;height:48px}
+  .logo{font-size:1.25rem}
+  .back-btn{padding:4px 9px;font-size:0.62rem}
+  .user-email{display:none}
+  .user-av{width:22px;height:22px;font-size:0.6rem}
+
+  /* Page */
+  .page{padding:60px 12px 40px}
+  .page-header{padding:20px 0 18px;margin-bottom:18px}
+  .page-title{font-size:1.9rem;letter-spacing:2px}
+  .page-sub{font-size:0.76rem}
+
+  /* Navigateur accès */
+  .access-nav{padding:8px 11px;margin-bottom:10px}
+  .acc-btn{width:30px;height:30px;font-size:1.1rem}
+  .acc-count{font-size:1rem}
+  .acc-user{font-size:0.62rem}
+
+  /* Carte statut */
+  .status-hero-top{flex-direction:row;align-items:center;gap:8px;padding:14px 14px 12px;flex-wrap:wrap}
+  .status-name{font-size:1.2rem}
+  .status-badge{font-size:0.62rem;padding:5px 10px}
+  .prog-wrap{padding:0 14px 14px}
+  .prog-remaining{font-size:0.65rem}
+
+  /* Grille dates */
+  .dates-grid{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+  .date-card{padding:12px 13px;border-radius:10px}
+  .date-card-label{font-size:0.55rem}
+  .date-card-value{font-size:0.82rem}
+  .date-card-sub{font-size:0.6rem}
+
+  /* Alertes */
+  .alert{padding:10px 12px;border-radius:9px;margin-bottom:10px}
+  .alert-txt{font-size:0.72rem}
+
+  /* Bouton renew */
+  .btn-renew{padding:12px 16px;font-size:0.72rem;margin-bottom:18px;border-radius:9px}
+
+  /* Raccourcis */
+  .shortcuts-label{font-size:0.55rem}
+  .shortcut{padding:12px 13px;border-radius:9px}
+  .sc-icon{width:32px;height:32px;font-size:0.9rem;border-radius:7px}
+  .sc-title{font-size:0.78rem}
+  .sc-sub{font-size:0.64rem}
+
+  /* Loader / erreur */
+  .loader{padding:36px 0}
+  .err-box{padding:20px 14px}
+}
+
+@media(max-width:380px){
+  .page-title{font-size:1.65rem}
+  .dates-grid{grid-template-columns:1fr 1fr}
+  .date-card-value{font-size:0.76rem}
+  .status-name{font-size:1.05rem}
+  .acc-count{font-size:0.9rem}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div style="display:flex;align-items:center;gap:10px">
+    <a class="logo" href="xenontv-dashboard">XENON<span>TV</span></a>
+    <a class="back-btn" href="xenontv-dashboard">← Mon espace</a>
+  </div>
+  <div class="user-chip">
+    <div class="user-av" id="userInitial">?</div>
+    <span class="user-email" id="userEmail">—</span>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="page-header">
+    <div class="page-eyebrow">Espace abonné</div>
+    <div class="page-title">MON ABONNEMENT</div>
+    <div class="page-sub">Statut, dates et durée restante de votre ligne XENON TV.</div>
+  </div>
+
+  <!-- LOADER -->
+  <div id="stateLoader" class="loader">
+    <div class="loader-ring"></div>
+    <div class="loader-txt">Chargement de votre abonnement…</div>
+  </div>
+
+  <!-- ERREUR -->
+  <div id="stateError" class="err-box" style="display:none">
+    <div class="err-icon">⚠️</div>
+    <div class="err-title" id="errTitle">Erreur</div>
+    <div class="err-sub" id="errSub">Impossible de charger votre abonnement.</div>
+    <button class="btn-retry" onclick="load()">↺ Réessayer</button>
+  </div>
+
+  <!-- CONTENU -->
+  <div id="content" class="content" style="display:none"></div>
+
+</div>
+
+<script>
+const XENON_API  = 'https://accesxtv-backend.vercel.app/api/proxy';
+const SUB_API    = 'https://accesxtv-backend.vercel.app/api/subscription';
+
+const sessionEmail = sessionStorage.getItem('xenon_user_email') || '';
+const sessionToken = sessionStorage.getItem('xenon_session_token') || '';
+
+if (sessionEmail) {
+  document.getElementById('userEmail').textContent = sessionEmail;
+  document.getElementById('userInitial').textContent = sessionEmail.charAt(0).toUpperCase();
+} else {
+  document.getElementById('userEmail').textContent = 'Non connecté';
+}
+
+function fmtDate(str) {
+  if (!str) return '—';
+  const d = new Date(str);
+  return isNaN(d) ? str : d.toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric'});
+}
+function fmtDateShort(str) {
+  if (!str) return '—';
+  const d = new Date(str);
+  return isNaN(d) ? str : d.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});
+}
+function daysLeft(str) {
+  if (!str) return null;
+  const d = new Date(str);
+  return isNaN(d) ? null : Math.ceil((d - Date.now()) / 86400000);
+}
+function progress(start, end) {
+  if (!start || !end) return 0;
+  const s = new Date(start), e = new Date(end), n = Date.now();
+  if (isNaN(s) || isNaN(e)) return 0;
+  return Math.min(100, Math.max(0, Math.round(((n - s) / (e - s)) * 100)));
+}
+
+function showErr(title, sub) {
+  document.getElementById('stateLoader').style.display = 'none';
+  document.getElementById('stateError').style.display = 'block';
+  document.getElementById('errTitle').textContent = title;
+  document.getElementById('errSub').textContent = sub;
+}
+
+let allSubs = [];
+let curIdx  = 0;
+
+function renderSub(idx) {
+  const sub = allSubs[idx];
+  const total = allSubs.length;
+  const remaining = daysLeft(sub.expired_at);
+  const pct = progress(sub.created_at, sub.expired_at);
+  const isExpired = remaining !== null && remaining <= 0;
+  const isSoon = remaining !== null && remaining > 0 && remaining <= 14;
+  const isActive = !isExpired && (sub.active === true || sub.active === 1 || sub.status === 'active' || remaining > 0);
+  const statusClass = isExpired ? 'expired' : isSoon ? 'soon' : 'active';
+  const statusLabel = isExpired ? '⛔ Expiré' : isSoon ? '⏰ Expire bientôt' : '✓ Actif';
+  const progClass = pct > 85 ? 'red' : pct > 65 ? 'orange' : 'green';
+  const expClass = isExpired ? 'red' : isSoon ? 'orange' : 'green';
+
+  let html = '';
+
+  // Navigateur multi-accès
+  if (total > 1) {
+    html += `<div class="access-nav">
+      <button class="acc-btn" onclick="switchSub(-1)" ${idx === 0 ? 'disabled' : ''}>‹</button>
+      <div class="acc-label">
+        <span class="acc-count">Accès ${idx + 1} / ${total}</span>
+        ${sub.username ? `<span class="acc-user">${sub.username}</span>` : ''}
+      </div>
+      <button class="acc-btn" onclick="switchSub(1)" ${idx === total - 1 ? 'disabled' : ''}>›</button>
+    </div>`;
+  }
+
+  // Carte statut
+  html += `<div class="status-hero">
+    <div class="status-hero-top">
+      <div>
+        <div class="status-label">Statut de la ligne${total === 1 && sub.username ? ' · ' + sub.username : ''}</div>
+        <div class="status-name">XENON TV</div>
+      </div>
+      <div class="status-badge ${statusClass}">
+        ${isActive && !isExpired && !isSoon ? '<span class="dot"></span>' : ''}
+        ${statusLabel}
+      </div>
+    </div>
+    ${!isExpired ? `<div class="prog-wrap">
+      <div class="prog-dates">
+        <span class="prog-date">${fmtDateShort(sub.created_at)}</span>
+        <span class="prog-date">${fmtDateShort(sub.expired_at)}</span>
+      </div>
+      <div class="prog-track">
+        <div class="prog-fill ${progClass}" id="progFill" style="width:0%"></div>
+      </div>
+      <div class="prog-remaining">${remaining !== null ? (100 - pct) + '% restant · ' + remaining + ' jour' + (remaining > 1 ? 's' : '') : ''}</div>
+    </div>` : ''}
+  </div>
+
+  <div class="dates-grid">
+    <div class="date-card">
+      <div class="date-card-label">📅 Création</div>
+      <div class="date-card-value">${fmtDate(sub.created_at)}</div>
+    </div>
+    <div class="date-card">
+      <div class="date-card-label">🏁 Expiration</div>
+      <div class="date-card-value ${expClass}">${fmtDate(sub.expired_at)}</div>
+      ${remaining !== null && !isExpired ? `<div class="date-card-sub">${remaining}j restants</div>` : ''}
+    </div>
+  </div>`;
+
+  if (isSoon) html += `<div class="alert orange"><div class="alert-ico">⏰</div><div class="alert-txt"><strong>Expiration dans ${remaining} jour${remaining > 1 ? 's' : ''}</strong>Renouvelez pour ne pas perdre l'accès à vos chaînes.</div></div>`;
+  if (isExpired) html += `<div class="alert red"><div class="alert-ico">⛔</div><div class="alert-txt"><strong>Abonnement expiré</strong>Votre accès est suspendu. Renouvelez pour retrouver vos chaînes.</div></div>`;
+
+  html += `<a class="btn-renew" href="https://xenontv.fr/help" target="_blank">🔄 Renouveler mon abonnement</a>
+  <div class="shortcuts-label">Autres services</div>
+  <div class="shortcuts">
+    <a class="shortcut" href="xenontv-identifiants-v2">
+      <div class="sc-icon" style="background:rgba(229,9,20,.1)">🔑</div>
+      <div class="sc-text"><div class="sc-title">Récupérer mes identifiants</div><div class="sc-sub">URL, username, mot de passe, lien M3U</div></div>
+      <div class="sc-arrow">›</div>
+    </a>
+    <a class="shortcut" href="xenontv-bug">
+      <div class="sc-icon" style="background:rgba(59,130,246,.1)">🛠️</div>
+      <div class="sc-text"><div class="sc-title">Corriger mon bug de connexion</div><div class="sc-sub">Diagnostic guidé par appareil et application</div></div>
+      <div class="sc-arrow">›</div>
+    </a>
+    <a class="shortcut" href="https://xenontv.fr/help" target="_blank">
+      <div class="sc-icon" style="background:rgba(34,197,94,.1)">🎬</div>
+      <div class="sc-text"><div class="sc-title">Demander un film ou une série</div><div class="sc-sub">Signaler un contenu manquant ou demander un ajout</div></div>
+      <div class="sc-arrow">›</div>
+    </a>
+  </div>`;
+
+  const el = document.getElementById('content');
+  el.innerHTML = html;
+  el.style.display = 'block';
+  document.getElementById('stateLoader').style.display = 'none';
+
+  const fill = document.getElementById('progFill');
+  if (fill) setTimeout(() => fill.style.width = pct + '%', 80);
+}
+
+function switchSub(dir) {
+  const next = curIdx + dir;
+  if (next < 0 || next >= allSubs.length) return;
+  curIdx = next;
+  const el = document.getElementById('content');
+  el.style.animation = 'none';
+  el.offsetHeight; // reflow
+  el.style.animation = 'fadeUp .25s ease';
+  renderSub(curIdx);
+}
+
+function render(subs) {
+  if (!subs || subs.length === 0) { showErr('Aucun abonnement trouvé', 'Aucune ligne active trouvée.'); return; }
+  allSubs = subs;
+  curIdx  = 0;
+  renderSub(0);
+}
+
+async function load() {
+  document.getElementById('stateLoader').style.display = 'flex';
+  document.getElementById('stateError').style.display = 'none';
+  document.getElementById('content').style.display = 'none';
+
+  // Étape 1 : récupérer le username via le proxy Xenon
+  let xenonUsername = null;
+  if (sessionToken) {
+    try {
+      const r = await fetch(XENON_API + '?token=' + encodeURIComponent(sessionToken));
+      const d = await r.json();
+      if (d.found && d.accesses?.[0]?.username) xenonUsername = d.accesses[0].username;
+    } catch(e) {}
+  }
+
+  // Étape 2 : appeler le proxy backend Vercel → MegaOTT (côté serveur, pas de CORS)
+  try {
+    let url = SUB_API;
+    if (xenonUsername) url += '?username=' + encodeURIComponent(xenonUsername);
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+
+    if (!data.success) throw new Error(data.error || 'Erreur API');
+    render(data.subscriptions || []);
+  } catch(err) {
+    console.error(err);
+    showErr('Impossible de charger', 'Vérifiez votre connexion et réessayez. Si le problème persiste, contactez le support.');
+  }
+}
+
+load();
+</script>
+</body>
+</html>
