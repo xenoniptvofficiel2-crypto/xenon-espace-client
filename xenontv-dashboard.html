@@ -610,22 +610,21 @@
 
 
   <!-- ── ÉTAT DU COMPTE ── -->
-  <div class="account-section">
+  <div class="tv-section">
     <p class="tv-section-label">État du compte</p>
-    <div class="account-card">
-      <div class="acc-card-left">
-        <div class="acc-card-icon" style="width:56px;height:56px;border-radius:10px;overflow:hidden;padding:0;background:transparent;border:none;">
-          <img src="https://github.com/xenoniptvofficiel2-crypto/xenon-espace-client/blob/main/ChatGPT%20Image%201%20juin%202026,%2020_02_59.png?raw=true" alt="Abonnement" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+    <div class="tv-cards" style="grid-template-columns:1fr">
+      <div class="tv-card" style="cursor:pointer" onclick="goTo('abonnement')">
+        <div style="position:absolute;inset:0;background-image:url('https://github.com/xenoniptvofficiel2-crypto/xenon-espace-client/blob/main/ChatGPT%20Image%201%20juin%202026,%2020_02_59.png?raw=true');background-size:cover;background-position:center;opacity:0.35"></div>
+        <div class="tv-card-gradient"></div>
+        <div class="tv-card-body">
+          <div class="tv-card-tag" style="background:rgba(229,9,20,0.15);border:1px solid rgba(229,9,20,0.35);color:#ff6b6b">
+            <span id="accBadgeDot" style="width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite;display:inline-block"></span>
+            <span id="accBadgeText">Actif</span>
+          </div>
+          <div class="tv-card-title">ÉTAT DU COMPTE</div>
+          <div class="tv-card-desc" id="accSubInfo">Voir l'état de votre abonnement et le nombre de jours restants</div>
+          <button class="tv-btn btn-red-tv" onclick="goTo('abonnement')">Accéder →</button>
         </div>
-        <div>
-          <div class="acc-card-label">Mon abonnement</div>
-          <div class="acc-card-title">XENON TV</div>
-          <div class="acc-card-sub" id="accSubInfo">Chargement...</div>
-        </div>
-      </div>
-      <div class="acc-card-right">
-        <span class="acc-card-badge" id="accBadge"><span class="bdot"></span> Actif</span>
-        <button class="acc-card-btn" onclick="goTo('abonnement')">Accéder →</button>
       </div>
     </div>
   </div>
@@ -811,17 +810,21 @@
       const remaining = expTs ? Math.ceil((expTs - Date.now()) / 86400000) : null;
       const isExpired = remaining !== null && remaining <= 0;
       const isSoon = remaining !== null && remaining > 0 && remaining <= 14;
-      const badge = document.getElementById('accBadge');
-      const subInfo = document.getElementById('accSubInfo');
+      const dot    = document.getElementById('accBadgeDot');
+      const badgeTxt = document.getElementById('accBadgeText');
+      const subInfo  = document.getElementById('accSubInfo');
       if (isExpired) {
-        badge.className = 'acc-card-badge exp'; badge.innerHTML = '⛔ Expiré';
-        subInfo.innerHTML = '<span class="days exp">Abonnement expiré</span>';
+        if (dot) dot.style.background = '#e50914';
+        if (badgeTxt) badgeTxt.textContent = 'Expiré';
+        if (subInfo) subInfo.textContent = 'Votre abonnement a expiré — cliquez pour renouveler';
       } else if (isSoon) {
-        badge.className = 'acc-card-badge warn'; badge.innerHTML = '<span class="bdot"></span> Expire bientôt';
-        subInfo.innerHTML = 'Expire dans <span class="days warn">' + remaining + ' jours</span>';
+        if (dot) dot.style.background = '#f97316';
+        if (badgeTxt) badgeTxt.textContent = 'Expire bientôt';
+        if (subInfo) subInfo.textContent = 'Expire dans ' + remaining + ' jour' + (remaining > 1 ? 's' : '') + ' — cliquez pour voir';
       } else if (remaining !== null) {
-        badge.className = 'acc-card-badge'; badge.innerHTML = '<span class="bdot"></span> Actif';
-        subInfo.innerHTML = '<span class="days">' + remaining + ' jours</span> restants';
+        if (dot) dot.style.background = '#22c55e';
+        if (badgeTxt) badgeTxt.textContent = 'Actif';
+        if (subInfo) subInfo.textContent = remaining + ' jours restants — cliquez pour voir le détail';
       }
     } catch(e) {}
   }
