@@ -283,27 +283,19 @@ let curIdx  = 0;
 function renderSub(idx) {
   const sub = allSubs[idx];
   const total = allSubs.length;
-  // Compatibilité player_api (exp_date) et MegaOTT (expired_at)
-  const expiry   = sub.exp_date || sub.expired_at || null;
+  const expiry    = sub.exp_date || sub.expired_at || null;
   const createdAt = sub.created_at || null;
   const remaining = daysLeft(expiry);
-  // Si createdAt est un timestamp Unix brut (< 2100 en secondes), le convertir
-  // sinon utiliser remaining/365 comme estimation de progression
-  let pct = 0;
-  if (createdAt && expiry) {
-    pct = progress(createdAt, expiry);
-  }
-  if (pct === 0 && remaining !== null && !isExpired) {
-    // Fallback : estimer sur 365 jours
-    const totalDays = 365;
-    const elapsed = totalDays - remaining;
-    pct = Math.min(100, Math.max(0, Math.round((elapsed / totalDays) * 100)));
-  }
   const isExpired = remaining !== null && remaining <= 0;
   const isSoon    = remaining !== null && remaining > 0 && remaining <= 14;
   const isActive  = !isExpired && (sub.active === true || sub.active === 1 || sub.status === 'active' || remaining > 0);
   const statusClass = isExpired ? 'expired' : isSoon ? 'soon' : 'active';
   const statusLabel = isExpired ? '⛔ Expiré' : isSoon ? '⏰ Expire bientôt' : '✓ Actif';
+  // Progression : depuis created_at si dispo, sinon estimation sur 365j
+  let pct = progress(createdAt, expiry);
+  if (pct === 0 && remaining !== null && !isExpired) {
+    pct = Math.min(100, Math.max(0, Math.round(((365 - remaining) / 365) * 100)));
+  }
   const progClass = pct > 85 ? 'red' : pct > 65 ? 'orange' : 'green';
   const expClass  = isExpired ? 'red' : isSoon ? 'orange' : 'green';
 
