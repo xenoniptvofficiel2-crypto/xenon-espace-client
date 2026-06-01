@@ -112,8 +112,13 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font);min-hei
 /* ── SHORTCUTS ── */
 .shortcuts-label{font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .shortcuts{display:flex;flex-direction:column;gap:8px}
-.shortcut{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:14px 16px;display:flex;align-items:center;gap:13px;text-decoration:none;transition:all .2s;cursor:pointer}
+.shortcut{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:14px 16px;display:flex;align-items:center;gap:13px;text-decoration:none;transition:border-color .2s,background .2s,transform .2s,opacity .15s;cursor:pointer}
 .shortcut:hover{border-color:var(--border2);background:var(--s2);transform:translateX(3px)}
+.shortcut:active{opacity:.5;transform:scale(.98)}
+
+/* Transition page */
+.page-transition-out{animation:pageOut .18s ease forwards}
+@keyframes pageOut{to{opacity:0;transform:translateY(-6px)}}
 .sc-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
 .sc-text{flex:1}
 .sc-title{font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:2px}
@@ -188,8 +193,8 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font);min-hei
 
 <header class="topbar">
   <div style="display:flex;align-items:center;gap:10px">
-    <a class="logo" href="xenontv-dashboard">XENON<span>TV</span></a>
-    <a class="back-btn" href="xenontv-dashboard">← Mon espace</a>
+    <a class="logo" href="javascript:void(0)" onclick="navigate('xenontv-dashboard')">XENON<span>TV</span></a>
+    <a class="back-btn" href="javascript:void(0)" onclick="navigate('xenontv-dashboard')">← Mon espace</a>
   </div>
   <div class="user-chip">
     <div class="user-av" id="userInitial">?</div>
@@ -226,6 +231,12 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font);min-hei
 
 <script>
 const SUB_API = 'https://accesxtv-backend.vercel.app/api/subscription';
+
+// Navigation avec transition propre
+function navigate(url) {
+  document.querySelector('.page').classList.add('page-transition-out');
+  setTimeout(() => { window.location.href = url; }, 180);
+}
 
 const sessionEmail = sessionStorage.getItem('xenon_user_email') || '';
 const sessionToken = sessionStorage.getItem('xenon_session_token') || '';
@@ -303,8 +314,9 @@ function renderSub(idx) {
   html += `<div class="status-hero">
     <div class="status-hero-top">
       <div>
-        <div class="status-label">Statut de la ligne${total === 1 && sub.username ? ' · ' + sub.username : ''}</div>
+        <div class="status-label">Statut · <strong style="color:#ccc;font-weight:700">${sub.username || ''}</strong></div>
         <div class="status-name">XENON TV</div>
+        <div id="offerBadge"></div>
       </div>
       <div class="status-badge ${statusClass}">
         ${isActive && !isExpired && !isSoon ? '<span class="dot"></span>' : ''}
@@ -338,21 +350,35 @@ function renderSub(idx) {
   if (isSoon) html += `<div class="alert orange"><div class="alert-ico">⏰</div><div class="alert-txt"><strong>Expiration dans ${remaining} jour${remaining > 1 ? 's' : ''}</strong>Renouvelez pour ne pas perdre l'accès à vos chaînes.</div></div>`;
   if (isExpired) html += `<div class="alert red"><div class="alert-ico">⛔</div><div class="alert-txt"><strong>Abonnement expiré</strong>Votre accès est suspendu. Renouvelez pour retrouver vos chaînes.</div></div>`;
 
-  html += `<a class="btn-renew" href="https://xenontv.fr/help" target="_blank">🔄 Renouveler mon abonnement</a>
-  <div class="shortcuts-label">Autres services</div>
+  html += `<a class="btn-renew" href="https://api.whatsapp.com/send?phone=33751485712&text=Je%20souhaite%20renouveler%20mon%20abonnement%20XENON%20TV%20et%20profitez%20de%20mes%20avantages." target="_blank">🔄 Renouveler mon abonnement</a>
+  <div class="shortcuts-label">Connexion &amp; Dépannage</div>
   <div class="shortcuts">
-    <a class="shortcut" href="xenontv-identifiants-v2">
+    <a class="shortcut" href="javascript:void(0)" onclick="navigate('xenontv-identifiants-v2')">
       <div class="sc-icon" style="background:rgba(229,9,20,.1)">🔑</div>
       <div class="sc-text"><div class="sc-title">Récupérer mes identifiants</div><div class="sc-sub">URL, username, mot de passe, lien M3U</div></div>
       <div class="sc-arrow">›</div>
     </a>
-    <a class="shortcut" href="xenontv-bug">
+    <a class="shortcut" href="javascript:void(0)" onclick="navigate('xenontv-bug')">
       <div class="sc-icon" style="background:rgba(59,130,246,.1)">🛠️</div>
       <div class="sc-text"><div class="sc-title">Corriger mon bug de connexion</div><div class="sc-sub">Diagnostic guidé par appareil et application</div></div>
       <div class="sc-arrow">›</div>
     </a>
-    <a class="shortcut" href="https://xenontv.fr/help" target="_blank">
-      <div class="sc-icon" style="background:rgba(34,197,94,.1)">🎬</div>
+  </div>
+
+  <div class="shortcuts-label" style="margin-top:18px">Autres services</div>
+  <div class="shortcuts">
+    <a class="shortcut" href="javascript:void(0)" onclick="navigate('xenontv-programme')">
+      <div class="sc-icon" style="background:rgba(239,68,68,.1)">📺</div>
+      <div class="sc-text"><div class="sc-title">Programmes TV</div><div class="sc-sub">Guide des 400+ chaînes en direct</div></div>
+      <div class="sc-arrow">›</div>
+    </a>
+    <a class="shortcut" href="javascript:void(0)" onclick="navigate('xenontv-nouveautes')">
+      <div class="sc-icon" style="background:rgba(245,158,11,.1)">🎬</div>
+      <div class="sc-text"><div class="sc-title">Nouveautés Films &amp; Séries</div><div class="sc-sub">Derniers ajouts disponibles sur XENON TV</div></div>
+      <div class="sc-arrow">›</div>
+    </a>
+    <a class="shortcut" href="javascript:void(0)" onclick="navigate('xenontv-demande')">
+      <div class="sc-icon" style="background:rgba(34,197,94,.1)">🎥</div>
       <div class="sc-text"><div class="sc-title">Demander un film ou une série</div><div class="sc-sub">Signaler un contenu manquant ou demander un ajout</div></div>
       <div class="sc-arrow">›</div>
     </a>
@@ -363,8 +389,15 @@ function renderSub(idx) {
   el.style.display = 'block';
   document.getElementById('stateLoader').style.display = 'none';
 
-  const fill = document.getElementById('progFill');
-  if (fill) setTimeout(() => fill.style.width = pct + '%', 80);
+  // Badge offre
+  const ob = document.getElementById('offerBadge');
+  if (ob) { ob.textContent = offerName; ob.style.cssText = `color:${offerColor};background:${offerBg};border:1px solid ${offerColor}33;padding:3px 10px;border-radius:20px;font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:2px;font-weight:800;display:inline-flex;align-items:center;margin-top:5px;`; }
+
+  // Animer barre — double rAF garantit que le DOM est peint avant
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const fill = document.getElementById('progFill');
+    if (fill) fill.style.width = pct + '%';
+  }));
 }
 
 function switchSub(dir) {
