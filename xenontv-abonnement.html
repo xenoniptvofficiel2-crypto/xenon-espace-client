@@ -225,8 +225,7 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font);min-hei
 </div>
 
 <script>
-const XENON_API  = 'https://accesxtv-backend.vercel.app/api/proxy';
-const SUB_API    = 'https://accesxtv-backend.vercel.app/api/subscription';
+const SUB_API = 'https://accesxtv-backend.vercel.app/api/subscription';
 
 const sessionEmail = sessionStorage.getItem('xenon_user_email') || '';
 const sessionToken = sessionStorage.getItem('xenon_session_token') || '';
@@ -273,8 +272,11 @@ let curIdx  = 0;
 function renderSub(idx) {
   const sub = allSubs[idx];
   const total = allSubs.length;
-  const remaining = daysLeft(sub.expired_at);
-  const pct = progress(sub.created_at, sub.expired_at);
+  // Compatibilité player_api (exp_date) et MegaOTT (expired_at)
+  const expiry = sub.exp_date || sub.expired_at || null;
+  const createdAt = sub.created_at || null;
+  const remaining = daysLeft(expiry);
+  const pct = progress(createdAt, expiry);
   const isExpired = remaining !== null && remaining <= 0;
   const isSoon = remaining !== null && remaining > 0 && remaining <= 14;
   const isActive = !isExpired && (sub.active === true || sub.active === 1 || sub.status === 'active' || remaining > 0);
@@ -311,8 +313,8 @@ function renderSub(idx) {
     </div>
     ${!isExpired ? `<div class="prog-wrap">
       <div class="prog-dates">
-        <span class="prog-date">${fmtDateShort(sub.created_at)}</span>
-        <span class="prog-date">${fmtDateShort(sub.expired_at)}</span>
+        <span class="prog-date">${fmtDateShort(createdAt)}</span>
+        <span class="prog-date">${fmtDateShort(expiry)}</span>
       </div>
       <div class="prog-track">
         <div class="prog-fill ${progClass}" id="progFill" style="width:0%"></div>
@@ -324,12 +326,12 @@ function renderSub(idx) {
   <div class="dates-grid">
     <div class="date-card">
       <div class="date-card-label">📅 Création</div>
-      <div class="date-card-value">${fmtDate(sub.created_at)}</div>
+      <div class="date-card-value">${fmtDate(createdAt)}</div>
     </div>
     <div class="date-card">
       <div class="date-card-label">🏁 Expiration</div>
-      <div class="date-card-value ${expClass}">${fmtDate(sub.expired_at)}</div>
-      ${remaining !== null && !isExpired ? `<div class="date-card-sub">${remaining}j restants</div>` : ''}
+      <div class="date-card-value ${expClass}">${fmtDate(expiry)}</div>
+      ${remaining !== null && !isExpired && remaining !== null ? `<div class="date-card-sub">${remaining}j restants</div>` : ''}
     </div>
   </div>`;
 
@@ -388,25 +390,17 @@ async function load() {
   document.getElementById('stateError').style.display = 'none';
   document.getElementById('content').style.display = 'none';
 
-  // Étape 1 : récupérer le username via le proxy Xenon
-  let xenonUsername = null;
-  if (sessionToken) {
-    try {
-      const r = await fetch(XENON_API + '?token=' + encodeURIComponent(sessionToken));
-      const d = await r.json();
-      if (d.found && d.accesses?.[0]?.username) xenonUsername = d.accesses[0].username;
-    } catch(e) {}
+  if (!sessionToken) {
+    showErr('Non connecté', 'Connectez-vous depuis votre espace abonné pour voir votre abonnement.');
+    return;
   }
 
-  // Étape 2 : appeler le proxy backend Vercel → MegaOTT (côté serveur, pas de CORS)
   try {
-    let url = SUB_API;
-    if (xenonUsername) url += '?username=' + encodeURIComponent(xenonUsername);
-
+    // Passer le token directement — subscription.js s'occupe de tout côté serveur
+    const url = SUB_API + '?token=' + encodeURIComponent(sessionToken);
     const res = await fetch(url);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-
     if (!data.success) throw new Error(data.error || 'Erreur API');
     render(data.subscriptions || []);
   } catch(err) {
