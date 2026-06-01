@@ -284,17 +284,30 @@ function renderSub(idx) {
   const sub = allSubs[idx];
   const total = allSubs.length;
   // Compatibilité player_api (exp_date) et MegaOTT (expired_at)
-  const expiry = sub.exp_date || sub.expired_at || null;
+  const expiry   = sub.exp_date || sub.expired_at || null;
   const createdAt = sub.created_at || null;
   const remaining = daysLeft(expiry);
-  const pct = progress(createdAt, expiry);
+  // Si createdAt est un timestamp Unix brut (< 2100 en secondes), le convertir
+  // sinon utiliser remaining/365 comme estimation de progression
+  let pct = 0;
+  if (createdAt && expiry) {
+    pct = progress(createdAt, expiry);
+  }
+  if (pct === 0 && remaining !== null && !isExpired) {
+    // Fallback : estimer sur 365 jours
+    const totalDays = 365;
+    const elapsed = totalDays - remaining;
+    pct = Math.min(100, Math.max(0, Math.round((elapsed / totalDays) * 100)));
+  }
   const isExpired = remaining !== null && remaining <= 0;
-  const isSoon = remaining !== null && remaining > 0 && remaining <= 14;
-  const isActive = !isExpired && (sub.active === true || sub.active === 1 || sub.status === 'active' || remaining > 0);
+  const isSoon    = remaining !== null && remaining > 0 && remaining <= 14;
+  const isActive  = !isExpired && (sub.active === true || sub.active === 1 || sub.status === 'active' || remaining > 0);
   const statusClass = isExpired ? 'expired' : isSoon ? 'soon' : 'active';
   const statusLabel = isExpired ? '⛔ Expiré' : isSoon ? '⏰ Expire bientôt' : '✓ Actif';
   const progClass = pct > 85 ? 'red' : pct > 65 ? 'orange' : 'green';
-  const expClass = isExpired ? 'red' : isSoon ? 'orange' : 'green';
+  const expClass  = isExpired ? 'red' : isSoon ? 'orange' : 'green';
+
+
 
   let html = '';
 
@@ -316,7 +329,7 @@ function renderSub(idx) {
       <div>
         <div class="status-label">Statut · <strong style="color:#ccc;font-weight:700">${sub.username || ''}</strong></div>
         <div class="status-name">XENON TV</div>
-        <div id="offerBadge"></div>
+
       </div>
       <div class="status-badge ${statusClass}">
         ${isActive && !isExpired && !isSoon ? '<span class="dot"></span>' : ''}
@@ -337,8 +350,8 @@ function renderSub(idx) {
 
   <div class="dates-grid">
     <div class="date-card">
-      <div class="date-card-label">📅 Création</div>
-      <div class="date-card-value">${fmtDate(createdAt)}</div>
+      <div class="date-card-label">👤 Username</div>
+      <div class="date-card-value" style="font-family:var(--mono);font-size:0.85rem">${sub.username || '—'}</div>
     </div>
     <div class="date-card">
       <div class="date-card-label">🏁 Expiration</div>
@@ -388,10 +401,6 @@ function renderSub(idx) {
   el.innerHTML = html;
   el.style.display = 'block';
   document.getElementById('stateLoader').style.display = 'none';
-
-  // Badge offre
-  const ob = document.getElementById('offerBadge');
-  if (ob) { ob.textContent = offerName; ob.style.cssText = `color:${offerColor};background:${offerBg};border:1px solid ${offerColor}33;padding:3px 10px;border-radius:20px;font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:2px;font-weight:800;display:inline-flex;align-items:center;margin-top:5px;`; }
 
   // Animer barre — double rAF garantit que le DOM est peint avant
   requestAnimationFrame(() => requestAnimationFrame(() => {
