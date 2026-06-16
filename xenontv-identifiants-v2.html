@@ -522,13 +522,13 @@ body {
     <p class="modal-sub">Votre ancien serveur ne fonctionne plus. Utilisez les nouveaux URLs XENON TV.</p>
     <div class="url-block">
       <div class="url-block-label">Votre ancien URL</div>
-      <div class="url-old">http://app.megsmart.xyz</div>
+      <div class="url-old">http://app.xentvsat.com</div>
     </div>
     <div style="text-align:center;padding:4px 0;color:var(--muted);font-size:1.1rem">↓</div>
     <div class="url-block">
       <div class="url-block-label">Nouvel URL recommandé — Android / iOS</div>
-      <div class="url-new">http://app.megsmart.xyz</div>
-      <button class="copy-btn" onclick="copyText(this,'http://app.megsmart.xyz')">Copier</button>
+      <div class="url-new">http://app.xentvsat.com</div>
+      <button class="copy-btn" onclick="copyText(this,'http://app.xentvsat.com')">Copier</button>
     </div>
     <div class="url-block">
       <div class="url-block-label">Alternatif 1</div>
@@ -567,7 +567,7 @@ body {
 
 <script>
   const API_URL = 'https://accesxtv-backend.vercel.app/api/proxy';
-  const OLD_DOMAINS = ['benflixe.com','mega862.com','luxevpn.xyz','eldervpn.xyz','megaxeno.com','xenontv2.xyz','xenonsdns.com','megsmart.xyz','xeno'];
+  const OLD_DOMAINS = ['benflixe.com','mega862.com','luxevpn.xyz','eldervpn.xyz','megaxeno.com','xenontv2.xyz','xenonsdns.com','xentvsat.com','xeno'];
 
   
 // Vérification session
@@ -605,7 +605,7 @@ body {
 
   function buildCard(acc, idx, total) {
     const label = total > 1 ? `Accès ${idx+1} / ${total}` : 'Accès trouvé';
-    const displayUrl = 'http://app.xenmeg22.xyz';
+    const displayUrl = 'http://app.xentvsat.com';
     const sub = getSubdomain(acc.url || '');
     const smartUrl = sub ? `http://${sub}.xenonssmart.com` : null;
 
@@ -669,9 +669,9 @@ body {
         const u = new URL(m3u.startsWith('http') ? m3u : 'http://'+m3u);
         let path = u.pathname + u.search;
         path = path.replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
-        m3u = 'http://app.megsmart.xyz' + path;
+        m3u = 'http://app.xentvsat.com' + path;
       } catch(e) {
-        m3u = m3u.replace(/^https?:\/\/[^\/]+/, 'http://app.megsmart.xyz')
+        m3u = m3u.replace(/^https?:\/\/[^\/]+/, 'http://app.xentvsat.com')
                  .replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
       }
       m3uRow = `
