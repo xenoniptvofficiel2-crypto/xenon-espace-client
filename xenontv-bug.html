@@ -866,9 +866,9 @@ function escHtml(str) {
   // ── CREDENTIALS LOADER
 const credLoaded = {};
 function fixUrl(url) {
-  if (!url) return 'http://app.xenmeg22.xyz';
-  try { const u = new URL(url.startsWith('http') ? url : 'http://' + url); return 'http://app.xenmeg22.xyz' + u.pathname + u.search; }
-  catch(e) { return 'http://app.xenmeg22.xyz'; }
+  if (!url) return 'http://app.xentvsat.com';
+  try { const u = new URL(url.startsWith('http') ? url : 'http://' + url); return 'http://app.xentvsat.com' + u.pathname + u.search; }
+  catch(e) { return 'http://app.xentvsat.com'; }
 }
 
 function loadCreds(cwId) {
