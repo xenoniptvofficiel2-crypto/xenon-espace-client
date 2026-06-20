@@ -482,6 +482,8 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
 
 .vod-reset{background:none;border:1px solid var(--border);border-radius:7px;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:all .18s;flex-shrink:0}
 .vod-reset:hover{color:var(--red2);border-color:rgba(229,9,20,.4)}
+.vod-reset.hide{display:none}
+.f-cat .vod-select{max-width:300px}
 
 /* Badge pays sur la card (préfixe conservé) */
 .dcard-country{position:absolute;top:6px;left:6px;background:rgba(0,0,0,.8);backdrop-filter:blur(4px);border:1px solid var(--border2);border-radius:4px;padding:2px 6px;font-size:.55rem;font-weight:700;letter-spacing:.4px;color:#fff;display:flex;align-items:center;gap:3px;z-index:2}
@@ -493,17 +495,75 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
 .vod-more .mc{font-size:.62rem;color:rgba(255,255,255,.4);font-weight:600}
 .vod-more:hover .mc{color:rgba(255,255,255,.85)}
 
+/* Encadré rouge « signaler / demander un titre » */
+.report-box{display:flex;align-items:center;gap:13px;margin:0 40px 16px;padding:12px 16px;background:linear-gradient(90deg,rgba(229,9,20,.14),rgba(229,9,20,.04));border:1px solid rgba(229,9,20,.4);border-left:3px solid var(--red);border-radius:10px;text-decoration:none;color:var(--text);transition:background .18s,border-color .18s}
+.report-box:hover{background:rgba(229,9,20,.2);border-color:var(--red)}
+.report-box-ico{font-size:1.25rem;flex-shrink:0;line-height:1}
+.report-box-txt{flex:1;min-width:0}
+.report-box-txt b{display:block;font-size:.8rem;font-weight:800;letter-spacing:.2px;margin-bottom:2px}
+.report-box-txt span{display:block;font-size:.7rem;color:var(--muted);line-height:1.45}
+.report-box-arrow{flex-shrink:0;font-size:1.2rem;color:var(--red2);transition:transform .18s}
+.report-box:hover .report-box-arrow{transform:translateX(3px)}
+
+/* Bouton signalement dans la modale */
+.modal-report{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;padding:11px 16px;background:rgba(229,9,20,.12);border:1px solid rgba(229,9,20,.45);border-radius:8px;text-decoration:none;color:#ff7788;font-family:'Montserrat',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.3px;transition:background .18s,border-color .18s,color .18s;text-align:center}
+.modal-report:hover{background:var(--red);border-color:var(--red);color:#fff}
+.modal-report svg{width:14px;height:14px;fill:currentColor;flex-shrink:0}
+
+/* Animation de chargement « bibliothèque XENON TV » */
+.vod-loading{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:60px 20px 50px;text-align:center}
+.vod-loading-bars{display:flex;align-items:flex-end;gap:5px;height:36px}
+.vod-loading-bars span{width:5px;height:8px;border-radius:3px;background:linear-gradient(180deg,var(--red2),var(--red));animation:vodbar 1s ease-in-out infinite}
+.vod-loading-bars span:nth-child(2){animation-delay:.12s}
+.vod-loading-bars span:nth-child(3){animation-delay:.24s}
+.vod-loading-bars span:nth-child(4){animation-delay:.36s}
+.vod-loading-bars span:nth-child(5){animation-delay:.48s}
+@keyframes vodbar{0%,100%{height:8px;opacity:.45}50%{height:36px;opacity:1}}
+.vod-loading-txt{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:2.5px;color:#ddd;text-transform:uppercase}
+.vod-loading-txt em{color:var(--red);font-style:normal}
+.vod-loading-sub{font-size:.68rem;letter-spacing:1px;color:rgba(255,255,255,.28);text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:6px}
+.vod-loading-sub::after{content:'';width:14px;height:14px;border:2px solid rgba(255,255,255,.18);border-top-color:var(--red);border-radius:50%;animation:sh 0.7s linear infinite;display:inline-block}
+@media(prefers-reduced-motion:reduce){.vod-loading-bars span{animation:none;height:22px}.vod-loading-sub::after{animation:none}}
+
+/* CTA « demander l'ajout » sur recherche sans résultat */
+.vod-empty-cta{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:10px 20px;background:var(--red);border:1px solid var(--red);border-radius:8px;color:#fff;text-decoration:none;font-family:'Montserrat',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.4px;transition:background .18s,transform .18s}
+.vod-empty-cta:hover{background:var(--red2);transform:translateY(-1px)}
+
 @media(max-width:768px){
   .section-vod{padding:14px 0 44px}
-  .vod-controls{padding:0 14px;gap:10px}
-  .vod-type-btns{width:100%}
-  .vod-type-btn{flex:1;text-align:center;padding:7px 8px;font-size:.68rem}
+  .vod-controls{padding:0 14px;gap:11px}
+  /* Ligne 1 : recherche en haut, type pleine largeur, reset à droite */
+  .vod-row1{gap:8px}
   .vod-search-wrap{max-width:100%;flex:1 1 100%;order:-1}
-  .vod-selects{width:100%}
-  .vod-field{flex:1;min-width:0}
-  .vod-select{flex:1;min-width:0;width:100%}
+  .vod-type-btns{flex:1 1 auto}
+  .vod-type-btn{flex:1;text-align:center;padding:8px 8px;font-size:.68rem}
+  .vod-reset{flex:0 0 auto;padding:8px 12px;font-size:.6rem}
+  /* Ligne 2 : Catégorie pleine largeur, Année + Tri à 50/50 */
+  .vod-selects{width:100%;gap:8px}
+  .vod-field{align-items:center;justify-content:space-between}
+  .vod-field label{flex-shrink:0;min-width:62px}
+  .vod-field.f-cat{flex:1 1 100%}
+  .vod-field.f-year,.vod-field.f-sort{flex:1 1 calc(50% - 4px)}
+  .vod-field.f-year label,.vod-field.f-sort label{min-width:auto}
+  .vod-select{flex:1;min-width:0;width:100%;max-width:none;padding-top:9px;padding-bottom:9px}
+  /* Chips : scroll horizontal confortable */
+  .vod-chips{gap:6px}
+  .vod-chip{padding:6px 12px;font-size:.68rem}
+  .vod-chips-label{position:sticky;left:0;background:var(--bg);padding-right:4px;z-index:1}
   .vod-more-wrap{padding:18px 14px 0}
-  .vod-reset{order:2}
+  /* Encadré signalement mobile */
+  .report-box{margin:0 14px 14px;gap:10px;padding:11px 13px}
+  .report-box-txt b{font-size:.76rem}
+  .report-box-txt span{font-size:.66rem}
+  /* Grille VOD : 3 colonnes sur mobile (l'id l'emporte sur .dispo-grid) */
+  #vodGrid{grid-template-columns:repeat(3,1fr);gap:8px}
+}
+@media(max-width:340px){
+  #vodGrid{grid-template-columns:repeat(2,1fr);gap:6px}
+}
+@media(max-width:420px){
+  .vod-field.f-year,.vod-field.f-sort{flex:1 1 100%}
+  .vod-field label{min-width:62px}
 }
 
 </style>
@@ -613,20 +673,20 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
         <input class="vod-search-inp" id="vodSearch" type="search" placeholder="Rechercher dans le catalogue…" autocomplete="off" autocorrect="off" spellcheck="false" inputmode="search">
         <button class="vod-search-clr" id="vodSearchClr" aria-label="Effacer">✕</button>
       </div>
-      <button class="vod-reset" onclick="resetVodFilters()">Réinitialiser</button>
+      <button class="vod-reset" id="vodReset" onclick="resetVodFilters()">✕ Réinitialiser</button>
     </div>
 
     <!-- Ligne 2 : catégorie / année / tri -->
     <div class="vod-selects">
-      <div class="vod-field">
+      <div class="vod-field f-cat">
         <label for="vodCat">Catégorie</label>
         <select class="vod-select" id="vodCat" onchange="setVodFilter('cat',this.value)"><option value="all">Toutes</option></select>
       </div>
-      <div class="vod-field">
+      <div class="vod-field f-year">
         <label for="vodYear">Année</label>
         <select class="vod-select" id="vodYear" onchange="setVodFilter('year',this.value)"><option value="all">Toutes</option></select>
       </div>
-      <div class="vod-field">
+      <div class="vod-field f-sort">
         <label for="vodSort">Trier</label>
         <select class="vod-select" id="vodSort" onchange="setVodFilter('sort',this.value)">
           <option value="recent">Plus récents</option>
@@ -651,6 +711,16 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
       <button class="vod-chip" data-r="8" onclick="setVodRating(this)">⭐ 8+</button>
     </div>
   </div>
+
+  <!-- Signaler un titre qui ne fonctionne pas — navigation interne (même onglet) -->
+  <a href="xenontv-demande" class="report-box">
+    <span class="report-box-ico">🔧</span>
+    <span class="report-box-txt">
+      <b>Un titre manque, est indisponible ou ne fonctionne pas&nbsp;?</b>
+      <span>Demande l'ajout d'un film ou d'une série, ou signale un problème — l'équipe s'en occupe.</span>
+    </span>
+    <span class="report-box-arrow" aria-hidden="true">→</span>
+  </a>
 
   <!-- Warning qualité -->
   <div class="warning" style="margin-bottom:16px">
@@ -686,6 +756,10 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
       <div class="modal-title" id="mTitle"></div>
       <div class="modal-rating" id="mRating"></div>
       <div class="modal-overview" id="mOverview"></div>
+      <a href="xenontv-demande" class="modal-report">
+        <svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+        Demander ce titre ou signaler un problème
+      </a>
     </div>
   </div>
 </div>
@@ -1101,9 +1175,11 @@ let vodKind   = 'movie';                              // 'movie' | 'tv'
 let vodStore  = { movie:[], tv:[] };                  // items normalisés
 let vodCats   = { movie:{}, tv:{} };                  // {category_id: name}
 let vodLoaded = { movie:false, tv:false };
-let vodF      = { cat:'all', country:'all', year:'all', rating:0, sort:'recent', q:'' };
+let vodF      = { cat:'all', country:'FR', year:'all', rating:0, sort:'recent', q:'' };
 let vodShown  = VOD_PAGE;
 let vodGen    = 0;                                     // jeton anti-render obsolète
+let vodDefaultCountry = 'FR';                          // pays appliqué par défaut (FR si présent)
+let vodLoadTimer = null;                                // timer du loader « bibliothèque »
 const VOD_BY_ID  = new Map();                         // uid -> item
 const tmdbCache  = new Map();                          // clé -> données TMDB
 
@@ -1119,6 +1195,24 @@ const COUNTRIES = {
   AF:['🌍','Afrique'],SE:['🇸🇪','Suède'],FI:['🇫🇮','Finlande'],NO:['🇳🇴','Norvège'],DK:['🇩🇰','Danemark'],
 };
 function countryMeta(code){ if(!code) return ['🏳️','Autre']; const c=code.toUpperCase(); return COUNTRIES[c]||['🏳️',c]; }
+
+// ── Ordre des pays : FR TOUJOURS en premier, puis priorité, puis alpha ──
+const COUNTRY_ORDER=['FR','FRENCH','VF','VFF','EN','US','UK','VOSTFR','AR','DZ','AL','MA','TN','EG','ES','LAT','MX','IT','DE','PT','BR','TR','IN','HI','NL','RU','KU','PL','RO','GR','SE','FI','NO','DK','AF'];
+function countryRank(code){ if(code==='FR') return -1; const i=COUNTRY_ORDER.indexOf(code); return i===-1?900:i; }
+function countrySort(a,b){
+  if(a==='??') return 1; if(b==='??') return -1;       // « Autres » en dernier
+  const ra=countryRank(a), rb=countryRank(b);
+  if(ra!==rb) return ra-rb;
+  return a.localeCompare(b);
+}
+// Extrait le préfixe pays d'un NOM DE CATÉGORIE (ex: "FR| ACTION" -> {code:'FR',label:'ACTION'})
+function parseCatCountry(name){
+  const s=String(name||'').trim();
+  let m=s.match(/^\s*([A-Za-z]{2,5})\s*[|｜]\s*(.+)$/);
+  if(!m) m=s.match(/^\s*([A-Za-z]{2,4})\s*[-–—]\s+(.+)$/);
+  if(m) return {code:m[1].toUpperCase(), label:m[2].trim()};
+  return {code:null, label:s};
+}
 
 // ── Nettoyage des noms Xtream ──
 const QUALITY_RE=/\b(4K|UHD|HDR|HD|FHD|SD|MULTI|VFF?|VF2?|VOSTFR?|VOST|VO|TRUEFRENCH|FRENCH|SUBFRENCH)\b/gi;
@@ -1162,7 +1256,7 @@ function normVod(it, kind){
 async function loadVod(kind){
   vodKind=kind;
   if(vodLoaded[kind]){ afterVodLoad(); return; }
-  showVodSkeletons();
+  showVodLoading();
   const catAction = kind==='movie' ? 'get_vod_categories' : 'get_series_categories';
   const listAction= kind==='movie' ? 'get_vod_streams'    : 'get_series';
   try{
@@ -1187,6 +1281,11 @@ async function loadVod(kind){
 // ── Après chargement d'un type : reconstruit filtres + rend ──
 function afterVodLoad(){
   vodShown=VOD_PAGE;
+  // Pays par défaut = FR s'il existe dans ce catalogue, sinon « Tous »
+  const present=new Set(vodStore[vodKind].map(i=>i.country).filter(Boolean));
+  vodDefaultCountry = present.has('FR') ? 'FR' : 'all';
+  // Si le pays courant n'existe pas (ex: au chargement, ou type sans FR) → on retombe sur le défaut
+  if(vodF.country!=='all' && !present.has(vodF.country)) vodF.country = vodDefaultCountry;
   buildCatOptions();
   buildCountryChips();
   buildYearOptions();
@@ -1198,24 +1297,45 @@ function buildCatOptions(){
   const data=vodStore[vodKind], cmap=vodCats[vodKind];
   const counts={};
   data.forEach(i=>{ counts[i.catId]=(counts[i.catId]||0)+1; });
-  const ids=Object.keys(counts).filter(id=>cmap[id]).sort((a,b)=>counts[b]-counts[a]);
+  const ids=Object.keys(counts).filter(id=>cmap[id]);
+  // Groupement par pays à partir du préfixe du nom de catégorie
+  const groups={};                                    // code -> [{id,label,count}]
+  ids.forEach(id=>{
+    const {code,label}=parseCatCountry(cmap[id]);
+    const key=code||'??';
+    (groups[key]=groups[key]||[]).push({id,label,count:counts[id]});
+  });
+  const codes=Object.keys(groups).sort(countrySort);  // FR d'abord, « Autres » en dernier
+  let html='<option value="all">Toutes les catégories</option>';
+  codes.forEach(code=>{
+    const items=groups[code].sort((a,b)=>b.count-a.count || a.label.localeCompare(b.label,'fr'));
+    const [flag,clabel]= code==='??' ? ['🗂','Autres'] : countryMeta(code);
+    html+=`<optgroup label="${flag} ${escAttr(clabel)}">`+
+      items.map(it=>`<option value="${it.id}">${escAttr(it.label)} (${it.count})</option>`).join('')+
+      '</optgroup>';
+  });
   const sel=document.getElementById('vodCat');
-  sel.innerHTML='<option value="all">Toutes les catégories</option>'+
-    ids.map(id=>`<option value="${id}">${escAttr(cmap[id])} (${counts[id]})</option>`).join('');
-  sel.value = vodF.cat;
-  if(sel.value!==vodF.cat){ vodF.cat='all'; sel.value='all'; }
+  sel.innerHTML=html;
+  // restaure la sélection si elle existe encore, sinon « Toutes »
+  const exists=ids.includes(vodF.cat);
+  sel.value = exists? vodF.cat : 'all';
+  if(!exists) vodF.cat='all';
 }
 function buildCountryChips(){
   const data=vodStore[vodKind];
   const counts={};
   data.forEach(i=>{ const c=i.country||'??'; counts[c]=(counts[c]||0)+1; });
-  const codes=Object.keys(counts).filter(c=>c!=='??').sort((a,b)=>counts[b]-counts[a]);
+  // FR toujours en tête, puis par volume décroissant
+  const codes=Object.keys(counts).filter(c=>c!=='??').sort((a,b)=>{
+    if(a==='FR') return -1; if(b==='FR') return 1;
+    return counts[b]-counts[a] || a.localeCompare(b);
+  });
   const wrap=document.getElementById('vodCountries');
   let html='<span class="vod-chips-label">Pays</span>'+
     `<button class="vod-chip ${vodF.country==='all'?'on':''}" data-c="all" onclick="setVodCountry(this)">Tous</button>`;
   codes.forEach(c=>{
     const [flag,label]=countryMeta(c);
-    html+=`<button class="vod-chip ${vodF.country===c?'on':''}" data-c="${c}" onclick="setVodCountry(this)">${flag} ${label} <span class="cnt">${counts[c]}</span></button>`;
+    html+=`<button class="vod-chip ${vodF.country===c?'on':''}" data-c="${c}" onclick="setVodCountry(this)">${flag} ${escHtml(label)} <span class="cnt">${counts[c]}</span></button>`;
   });
   wrap.innerHTML=html;
 }
@@ -1254,6 +1374,15 @@ function showVodSkeletons(){
   ).join('');
   document.getElementById('vodMoreWrap').innerHTML='';
 }
+function showVodLoading(){
+  document.getElementById('vodGrid').innerHTML=
+    '<div class="vod-loading">'+
+      '<div class="vod-loading-bars"><span></span><span></span><span></span><span></span><span></span></div>'+
+      '<div class="vod-loading-txt">Recherche dans la bibliothèque <em>XENON TV</em></div>'+
+      '<div class="vod-loading-sub">Chargement</div>'+
+    '</div>';
+  document.getElementById('vodMoreWrap').innerHTML='';
+}
 function vodEmpty(ico,title,sub){
   return `<div class="empty" style="grid-column:1/-1"><div class="empty-ico">${ico}</div><h3>${title}</h3><p>${sub||''}</p></div>`;
 }
@@ -1286,17 +1415,30 @@ function renderVod(){
   const gen=++vodGen;
   const filtered=vodFiltered();
   const cnt=document.getElementById('vodCount');
-  const active = vodF.q||vodF.cat!=='all'||vodF.country!=='all'||vodF.year!=='all'||vodF.rating>0;
+  const active = vodF.q||vodF.cat!=='all'||vodF.country!==vodDefaultCountry||vodF.year!=='all'||vodF.rating>0;
   cnt.textContent = filtered.length+(active?(' résultat'+(filtered.length>1?'s':'')):' titres');
   cnt.className = 'vod-count'+(active?' hit':'');
 
   // recherche : indicateur dans le champ
   const clr=document.getElementById('vodSearchClr');
   if(clr) clr.classList.toggle('on', vodF.q.length>0);
+  // reset visible uniquement si au moins un filtre est actif
+  const rst=document.getElementById('vodReset');
+  if(rst) rst.classList.toggle('hide', !active);
 
   const grid=document.getElementById('vodGrid');
   if(!filtered.length){
-    grid.innerHTML=vodEmpty('🎬','Aucun résultat','Essayez une autre combinaison de filtres.');
+    const term=(document.getElementById('vodSearch').value||'').trim();
+    if(term){
+      grid.innerHTML=`<div class="empty" style="grid-column:1/-1">
+        <div class="empty-ico">🔍</div>
+        <h3>Titre introuvable dans le catalogue</h3>
+        <p>« ${escHtml(term)} » n'est pas (encore) disponible sur XENON TV.<br>Tu peux en demander l'ajout à l'équipe — on s'en occupe.</p>
+        <a href="xenontv-demande" class="vod-empty-cta">＋ Demander l'ajout de ce titre</a>
+      </div>`;
+    } else {
+      grid.innerHTML=vodEmpty('🎬','Aucun résultat','Essayez une autre combinaison de filtres.');
+    }
     document.getElementById('vodMoreWrap').innerHTML='';
     return;
   }
@@ -1386,14 +1528,24 @@ function switchVod(kind){
   if(vodKind===kind&&vodLoaded[kind]) return;
   document.getElementById('vBtnFilm').classList.toggle('on',kind==='movie');
   document.getElementById('vBtnSerie').classList.toggle('on',kind==='tv');
-  // reset filtres propres au type
-  vodF.cat='all'; vodF.country='all'; vodF.year='all';
+  // reset filtres propres au type (le pays repassera au défaut FR dans afterVodLoad)
+  vodF.cat='all'; vodF.country='FR'; vodF.year='all';
   document.getElementById('vodSearch').value=''; vodF.q='';
   document.getElementById('vodSearchClr').classList.remove('on');
   document.querySelectorAll('#vodRatings .vod-chip').forEach(c=>c.classList.toggle('on',c.dataset.r==='0')); vodF.rating=0;
   loadVod(kind);
 }
-function setVodFilter(key,val){ vodF[key]=val; vodShown=VOD_PAGE; renderVod(); }
+function setVodFilter(key,val){
+  vodF[key]=val; vodShown=VOD_PAGE;
+  // Clic sur une catégorie → petite animation « recherche bibliothèque » puis rendu
+  if(key==='cat'){
+    showVodLoading();
+    clearTimeout(vodLoadTimer);
+    vodLoadTimer=setTimeout(renderVod, 450);
+  } else {
+    renderVod();
+  }
+}
 function setVodCountry(btn){
   document.querySelectorAll('#vodCountries .vod-chip').forEach(c=>c.classList.remove('on'));
   btn.classList.add('on'); vodF.country=btn.dataset.c; vodShown=VOD_PAGE; renderVod();
@@ -1403,13 +1555,13 @@ function setVodRating(btn){
   btn.classList.add('on'); vodF.rating=parseFloat(btn.dataset.r)||0; vodShown=VOD_PAGE; renderVod();
 }
 function resetVodFilters(){
-  vodF={cat:'all',country:'all',year:'all',rating:0,sort:'recent',q:''};
+  vodF={cat:'all',country:vodDefaultCountry,year:'all',rating:0,sort:'recent',q:''};
   document.getElementById('vodSearch').value='';
   document.getElementById('vodSearchClr').classList.remove('on');
   document.getElementById('vodSort').value='recent';
   document.getElementById('vodCat').value='all';
   document.getElementById('vodYear').value='all';
-  document.querySelectorAll('#vodCountries .vod-chip').forEach(c=>c.classList.toggle('on',c.dataset.c==='all'));
+  document.querySelectorAll('#vodCountries .vod-chip').forEach(c=>c.classList.toggle('on',c.dataset.c===vodDefaultCountry));
   document.querySelectorAll('#vodRatings .vod-chip').forEach(c=>c.classList.toggle('on',c.dataset.r==='0'));
   vodShown=VOD_PAGE; renderVod();
 }
