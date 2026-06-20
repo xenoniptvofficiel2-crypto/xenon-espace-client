@@ -442,6 +442,70 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
   .dispo-grid{grid-template-columns:repeat(2,1fr)}
   .hero-title{font-size:1.3rem}
 }
+
+/* ══════════════════ SECTION CATALOGUE VOD (Xtream) ══════════════════ */
+.section-vod{padding:18px 0 56px;border-top:1px solid var(--border)}
+.vod-controls{padding:0 40px;margin-bottom:14px;display:flex;flex-direction:column;gap:11px}
+.vod-row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.vod-type-btns{display:flex;gap:6px;flex-shrink:0}
+.vod-type-btn{padding:7px 18px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:all .18s;-webkit-appearance:none}
+.vod-type-btn:hover{color:var(--text);border-color:rgba(255,255,255,.25)}
+.vod-type-btn.on{background:var(--red);border-color:var(--red);color:#fff}
+.vod-search-wrap{position:relative;display:flex;align-items:center;flex:1;max-width:340px}
+.vod-search-ico{position:absolute;left:10px;width:14px;height:14px;color:rgba(255,255,255,.25);pointer-events:none}
+.vod-search-inp{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 30px 8px 32px;font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:500;color:var(--text);outline:none;transition:border-color .18s;-webkit-appearance:none}
+.vod-search-inp::placeholder{color:rgba(255,255,255,.2)}
+.vod-search-inp:focus{border-color:rgba(229,9,20,.4)}
+.vod-search-clr{position:absolute;right:8px;background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:13px;padding:4px;display:none;line-height:1}
+.vod-search-clr.on{display:block}
+.vod-search-clr:hover{color:var(--red2)}
+.vod-count{font-size:.68rem;font-weight:600;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.vod-count.hit{color:#00c87a}
+
+/* Selects (catégorie / année / tri) */
+.vod-selects{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.vod-field{display:flex;align-items:center;gap:6px}
+.vod-field label{font-size:.6rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.vod-select{background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:600;padding:6px 26px 6px 10px;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;max-width:240px;text-overflow:ellipsis}
+.vod-select:focus{border-color:rgba(229,9,20,.4)}
+.vod-select option{background:#161616;color:#fff}
+
+/* Chips (pays / note) */
+.vod-chips{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;padding-bottom:1px;align-items:center}
+.vod-chips::-webkit-scrollbar{display:none}
+.vod-chips-label{font-size:.6rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);flex-shrink:0;margin-right:3px}
+.vod-chip{flex-shrink:0;padding:5px 11px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:.66rem;font-weight:600;cursor:pointer;transition:all .18s;-webkit-appearance:none;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.vod-chip:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+.vod-chip.on{background:rgba(229,9,20,.15);border-color:rgba(229,9,20,.5);color:#ff7788}
+.vod-chip .cnt{font-size:.56rem;color:rgba(255,255,255,.28);font-weight:600}
+.vod-chip.on .cnt{color:rgba(255,120,136,.7)}
+
+.vod-reset{background:none;border:1px solid var(--border);border-radius:7px;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:all .18s;flex-shrink:0}
+.vod-reset:hover{color:var(--red2);border-color:rgba(229,9,20,.4)}
+
+/* Badge pays sur la card (préfixe conservé) */
+.dcard-country{position:absolute;top:6px;left:6px;background:rgba(0,0,0,.8);backdrop-filter:blur(4px);border:1px solid var(--border2);border-radius:4px;padding:2px 6px;font-size:.55rem;font-weight:700;letter-spacing:.4px;color:#fff;display:flex;align-items:center;gap:3px;z-index:2}
+
+/* Voir plus */
+.vod-more-wrap{display:flex;justify-content:center;padding:26px 40px 0}
+.vod-more{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:11px 28px;cursor:pointer;transition:all .18s;display:inline-flex;align-items:center;gap:8px}
+.vod-more:hover{background:var(--red);border-color:var(--red)}
+.vod-more .mc{font-size:.62rem;color:rgba(255,255,255,.4);font-weight:600}
+.vod-more:hover .mc{color:rgba(255,255,255,.85)}
+
+@media(max-width:768px){
+  .section-vod{padding:14px 0 44px}
+  .vod-controls{padding:0 14px;gap:10px}
+  .vod-type-btns{width:100%}
+  .vod-type-btn{flex:1;text-align:center;padding:7px 8px;font-size:.68rem}
+  .vod-search-wrap{max-width:100%;flex:1 1 100%;order:-1}
+  .vod-selects{width:100%}
+  .vod-field{flex:1;min-width:0}
+  .vod-select{flex:1;min-width:0;width:100%}
+  .vod-more-wrap{padding:18px 14px 0}
+  .vod-reset{order:2}
+}
+
 </style>
 </head>
 <body>
@@ -528,39 +592,63 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
   </div>
 </div>
 
-<!-- SECTION MAINTENANT DISPONIBLE -->
-<div class="section-dispo">
+<!-- ════════ SECTION CATALOGUE VOD (Xtream) ════════ -->
+<div class="section-vod">
   <div class="section-header" style="margin-bottom:14px">
     <div style="display:flex;align-items:center;gap:12px">
-      <span class="section-title">✅ MAINTENANT DISPONIBLE</span>
-      <span class="dispo-count" id="dispoCount"></span>
+      <span class="section-title">🎬 CATALOGUE VOD</span>
+      <span class="vod-count" id="vodCount"></span>
     </div>
   </div>
 
-  <!-- Controls dispo : Film/Série + Search + Catégories -->
-  <div class="dispo-controls">
-    <div class="dispo-type-btns">
-      <button class="dispo-type-btn on" id="dBtnFilm"  onclick="switchDispo('movie')">🎬 Films</button>
-      <button class="dispo-type-btn"   id="dBtnSerie" onclick="switchDispo('tv')">📺 Séries</button>
+  <div class="vod-controls">
+    <!-- Ligne 1 : type + recherche + reset -->
+    <div class="vod-row1">
+      <div class="vod-type-btns">
+        <button class="vod-type-btn on" id="vBtnFilm"  onclick="switchVod('movie')">🎬 Films</button>
+        <button class="vod-type-btn"    id="vBtnSerie" onclick="switchVod('tv')">📺 Séries</button>
+      </div>
+      <div class="vod-search-wrap">
+        <svg class="vod-search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input class="vod-search-inp" id="vodSearch" type="search" placeholder="Rechercher dans le catalogue…" autocomplete="off" autocorrect="off" spellcheck="false" inputmode="search">
+        <button class="vod-search-clr" id="vodSearchClr" aria-label="Effacer">✕</button>
+      </div>
+      <button class="vod-reset" onclick="resetVodFilters()">Réinitialiser</button>
     </div>
-    <div class="dispo-search-wrap">
-      <svg class="dispo-search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input class="dispo-search-inp" id="dSearchInp" type="search" placeholder="Rechercher…" autocomplete="off" autocorrect="off" spellcheck="false" inputmode="search">
-      <button class="dispo-search-clr" id="dSearchClr" aria-label="Effacer">✕</button>
+
+    <!-- Ligne 2 : catégorie / année / tri -->
+    <div class="vod-selects">
+      <div class="vod-field">
+        <label for="vodCat">Catégorie</label>
+        <select class="vod-select" id="vodCat" onchange="setVodFilter('cat',this.value)"><option value="all">Toutes</option></select>
+      </div>
+      <div class="vod-field">
+        <label for="vodYear">Année</label>
+        <select class="vod-select" id="vodYear" onchange="setVodFilter('year',this.value)"><option value="all">Toutes</option></select>
+      </div>
+      <div class="vod-field">
+        <label for="vodSort">Trier</label>
+        <select class="vod-select" id="vodSort" onchange="setVodFilter('sort',this.value)">
+          <option value="recent">Plus récents</option>
+          <option value="rating">Meilleure note</option>
+          <option value="az">A → Z</option>
+        </select>
+      </div>
     </div>
-    <div class="dispo-cats">
-      <button class="dispo-cat on" data-dg="all"        onclick="setDispoCat(this)">Tous</button>
-      <button class="dispo-cat" data-dg="28"             onclick="setDispoCat(this)">⚡ Action</button>
-      <button class="dispo-cat" data-dg="35"             onclick="setDispoCat(this)">😂 Comédie</button>
-      <button class="dispo-cat" data-dg="27"             onclick="setDispoCat(this)">👻 Horreur</button>
-      <button class="dispo-cat" data-dg="878"            onclick="setDispoCat(this)">🚀 SF</button>
-      <button class="dispo-cat" data-dg="superhero"      onclick="setDispoCat(this)">🦸 Super-Héros</button>
-      <button class="dispo-cat" data-dg="10751"          onclick="setDispoCat(this)">👨‍👩‍👧 Famille</button>
-      <button class="dispo-cat" data-dg="16"             onclick="setDispoCat(this)">🎨 Animation</button>
-      <button class="dispo-cat" data-dg="18"             onclick="setDispoCat(this)">🎭 Drame</button>
-      <button class="dispo-cat" data-dg="53"             onclick="setDispoCat(this)">🔪 Thriller</button>
-      <button class="dispo-cat" data-dg="12"             onclick="setDispoCat(this)">🌍 Aventure</button>
-      <button class="dispo-cat" data-dg="99"             onclick="setDispoCat(this)">📽 Documentaire</button>
+
+    <!-- Ligne 3 : pays (dynamique) -->
+    <div class="vod-chips" id="vodCountries">
+      <span class="vod-chips-label">Pays</span>
+      <button class="vod-chip on" data-c="all" onclick="setVodCountry(this)">Tous</button>
+    </div>
+
+    <!-- Ligne 4 : note -->
+    <div class="vod-chips" id="vodRatings">
+      <span class="vod-chips-label">Note</span>
+      <button class="vod-chip on" data-r="0" onclick="setVodRating(this)">Toutes</button>
+      <button class="vod-chip" data-r="6" onclick="setVodRating(this)">⭐ 6+</button>
+      <button class="vod-chip" data-r="7" onclick="setVodRating(this)">⭐ 7+</button>
+      <button class="vod-chip" data-r="8" onclick="setVodRating(this)">⭐ 8+</button>
     </div>
   </div>
 
@@ -568,13 +656,12 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
   <div class="warning" style="margin-bottom:16px">
     <span class="warning-ico">⚠️</span>
     <p>
-      <strong>Note :</strong> Les films et séries produits en France peuvent mettre <strong>plusieurs semaines (voire des mois)</strong> pour les sorties cinéma à arriver sur le catalogue.<br>
-      <strong>Qualité évolutive :</strong> Les films récemment sortis en salle commencent en <strong>SD</strong>, puis sont rapidement mis à jour vers <strong>HD</strong> puis <strong>Full HD</strong>.
+      <strong>Note :</strong> Les films récemment sortis en salle commencent en <strong>SD</strong>, puis sont rapidement mis à jour vers <strong>HD</strong> puis <strong>Full HD</strong>.<br>
+      Les miniatures, synopsis et bandes-annonces sont synchronisés avec <strong>TMDB</strong>.
     </p>
   </div>
 
-  <div class="dispo-grid" id="dispoGrid">
-    <!-- skeletons -->
+  <div class="dispo-grid" id="vodGrid">
     <div class="dskel"><div class="dskel-p"></div><div class="dskel-i"><div class="dskel-l"></div><div class="dskel-l s"></div></div></div>
     <div class="dskel"><div class="dskel-p"></div><div class="dskel-i"><div class="dskel-l"></div><div class="dskel-l s"></div></div></div>
     <div class="dskel"><div class="dskel-p"></div><div class="dskel-i"><div class="dskel-l"></div><div class="dskel-l s"></div></div></div>
@@ -584,14 +671,10 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
     <div class="dskel"><div class="dskel-p"></div><div class="dskel-i"><div class="dskel-l"></div><div class="dskel-l s"></div></div></div>
     <div class="dskel"><div class="dskel-p"></div><div class="dskel-i"><div class="dskel-l"></div><div class="dskel-l s"></div></div></div>
   </div>
+
+  <div class="vod-more-wrap" id="vodMoreWrap"></div>
 </div>
 
-  <!-- En cours de traitement -->
-  <div style="text-align:center;padding:20px 40px 8px;display:flex;align-items:center;justify-content:center;gap:8px">
-    <span style="font-size:.65rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">ou en cours de traitement</span>
-  </div>
-
-</div>
 
 <!-- MODAL -->
 <div class="modal-bg" id="modalBg" onclick="closeModal(event)">
@@ -981,26 +1064,6 @@ window.addEventListener('resize',updateArrows);
     inp.focus();
     offset=0;render();
   });
-  // Search dispo
-  const dinp=document.getElementById('dSearchInp');
-  const dclr=document.getElementById('dSearchClr');
-  if(dinp){
-    let dt=null;
-    dinp.addEventListener('input',()=>{
-      clearTimeout(dt);
-      dt=setTimeout(()=>{
-        dispoQ=dinp.value.trim();
-        dclr.classList.toggle('on',dispoQ.length>0);
-        renderDispo(DISPO_RAW);
-      },180);
-    });
-    dclr.addEventListener('click',()=>{
-      dinp.value='';dispoQ='';
-      dclr.classList.remove('on');
-      dinp.focus();
-      renderDispo(DISPO_RAW);
-    });
-  }
 
   // Touch swipe sur le slider À venir
   const outer=document.querySelector('.slider-outer');
@@ -1025,206 +1088,433 @@ window.addEventListener('resize',updateArrows);
   }
 })();
 
-// ── SECTION DISPO — fetch films récents ──
-let DISPO_DATA=[], DISPO_RAW=[], dispoType='movie', dispoCat='all', dispoQ='';
+/* ════════════════════════════════════════════════════════════════════
+   CATALOGUE VOD — Xtream Codes (via proxy Vercel) + enrichissement TMDB
+   ════════════════════════════════════════════════════════════════════ */
 
-async function fetchDispo(type){
-  const now=new Date();
-  const past60=new Date(now-60*864e5);
-  const p60=`${past60.getFullYear()}-${pad(past60.getMonth()+1)}-${pad(past60.getDate())}`;
-  const today_s=today();
-  // Délai 7 jours : on n'affiche pas les films sortis cette semaine
-  const minus7=new Date(now-7*864e5);
-  const minus7s=`${minus7.getFullYear()}-${pad(minus7.getMonth()+1)}-${pad(minus7.getDate())}`;
-  let all=[];
-  if(type==='movie'){
-    const pages=await Promise.all([1,2,3,4].map(p=>
-      fetch(
-        `https://api.themoviedb.org/3/discover/movie`+
-        `?language=fr-FR&region=FR&sort_by=popularity.desc`+
-        `&with_release_type=2|3`+
-        `&release_date.gte=${p60}&release_date.lte=${minus7s}`+
-        `&with_original_language=fr|en|es|it|de|ja|ko`+
-        `&page=${p}`,H
-      ).then(r=>r.json())
-    ));
-    pages.forEach(d=>all=all.concat((d.results||[]).map(i=>({...i,_t:'movie'}))));
-  } else {
-    const pages=await Promise.all([1,2,3,4].map(p=>
-      fetch(
-        `https://api.themoviedb.org/3/discover/tv`+
-        `?language=fr-FR&sort_by=popularity.desc`+
-        `&first_air_date.gte=${p60}&first_air_date.lte=${minus7s}`+
-        `&watch_region=FR`+
-        `&with_original_language=fr|en|es|it|de|ja|ko`+
-        `&page=${p}`,H
-      ).then(r=>r.json())
-    ));
-    pages.forEach(d=>all=all.concat((d.results||[]).map(i=>({...i,_t:'tv'}))));
-  }
-  const seen=new Set();
-  all=all.filter(i=>{if(seen.has(i.id))return false;seen.add(i.id);return true;});
-  all=all.filter(i=>i.poster_path);
-  all.sort((a,b)=>(b.popularity||0)-(a.popularity||0));
-  return all;
+// Endpoint du proxy Vercel (credentials Xtream stockés côté serveur uniquement)
+const VOD_API = 'https://accesxtv-backend-7kog.vercel.app/api/vod';
+const VOD_PAGE = 36;
+
+// ── État ──
+let vodKind   = 'movie';                              // 'movie' | 'tv'
+let vodStore  = { movie:[], tv:[] };                  // items normalisés
+let vodCats   = { movie:{}, tv:{} };                  // {category_id: name}
+let vodLoaded = { movie:false, tv:false };
+let vodF      = { cat:'all', country:'all', year:'all', rating:0, sort:'recent', q:'' };
+let vodShown  = VOD_PAGE;
+let vodGen    = 0;                                     // jeton anti-render obsolète
+const VOD_BY_ID  = new Map();                         // uid -> item
+const tmdbCache  = new Map();                          // clé -> données TMDB
+
+// ── Pays / langues (préfixes Xtream) ──
+const COUNTRIES = {
+  FR:['🇫🇷','Français'],FRENCH:['🇫🇷','Français'],VF:['🇫🇷','VF'],VFF:['🇫🇷','VFF'],TRUEFRENCH:['🇫🇷','VFF'],
+  EN:['🇬🇧','Anglais'],US:['🇺🇸','US'],UK:['🇬🇧','UK'],VO:['🇬🇧','VO'],VOSTFR:['🇬🇧','VOSTFR'],
+  AR:['🇸🇦','Arabe'],AL:['🇩🇿','Algérie'],DZ:['🇩🇿','Algérie'],MA:['🇲🇦','Maroc'],TN:['🇹🇳','Tunisie'],EG:['🇪🇬','Égypte'],
+  TR:['🇹🇷','Turc'],ES:['🇪🇸','Espagnol'],LAT:['🌎','Latino'],MX:['🇲🇽','Mexique'],
+  DE:['🇩🇪','Allemand'],IT:['🇮🇹','Italien'],PT:['🇵🇹','Portugais'],BR:['🇧🇷','Brésil'],
+  NL:['🇳🇱','Néerlandais'],RU:['🇷🇺','Russe'],IN:['🇮🇳','Inde'],HI:['🇮🇳','Hindi'],
+  KU:['🏴','Kurde'],PL:['🇵🇱','Pologne'],RO:['🇷🇴','Roumanie'],GR:['🇬🇷','Grèce'],
+  AF:['🌍','Afrique'],SE:['🇸🇪','Suède'],FI:['🇫🇮','Finlande'],NO:['🇳🇴','Norvège'],DK:['🇩🇰','Danemark'],
+};
+function countryMeta(code){ if(!code) return ['🏳️','Autre']; const c=code.toUpperCase(); return COUNTRIES[c]||['🏳️',c]; }
+
+// ── Nettoyage des noms Xtream ──
+const QUALITY_RE=/\b(4K|UHD|HDR|HD|FHD|SD|MULTI|VFF?|VF2?|VOSTFR?|VOST|VO|TRUEFRENCH|FRENCH|SUBFRENCH)\b/gi;
+function parseName(raw){
+  raw=(raw||'').trim();
+  let country=null, rest=raw;
+  let m=raw.match(/^\s*([A-Za-z]{2,5})\s*[|｜]\s*(.+)$/);
+  if(!m) m=raw.match(/^\s*([A-Z]{2,4})\s*[-–—]\s+(.+)$/);
+  if(m){ country=m[1].toUpperCase(); rest=m[2]; }
+  let year=null;
+  const ym=rest.match(/\((19|20)\d{2}\)/)||rest.match(/\b(19|20)\d{2}\b/);
+  if(ym) year=parseInt(ym[0].replace(/[()]/g,''),10);
+  let title=rest.replace(/\((19|20)\d{2}\)/g,'').replace(QUALITY_RE,'')
+    .replace(/[\[\]]/g,' ').replace(/\s{2,}/g,' ').replace(/[\s\-–—|]+$/,'').trim();
+  if(!title) title=rest.trim();
+  return {country, year, title};
 }
 
-function filterDispo(){
-  let res=DISPO_RAW;
-  if(dispoCat!=='all'){
-    if(dispoCat==='superhero'){
-      res=res.filter(i=>{const gs=i.genre_ids||[];return(gs.includes(28)||gs.includes(878)||gs.includes(12))&&(gs.includes(878)||gs.includes(14)||gs.includes(12));});
-    } else {
-      const gId=parseInt(dispoCat);
-      res=res.filter(i=>(i.genre_ids||[]).includes(gId));
+// ── Normalisation d'un item Xtream ──
+function normVod(it, kind){
+  const p   = parseName(it.name);
+  const xid = kind==='movie' ? it.stream_id : it.series_id;
+  const uid = kind+'-'+xid;
+  const tmdb= it.tmdb_id||it.tmdb||null;
+  return {
+    uid, kind, xid,
+    raw: it.name||'',
+    title: p.title || (it.name||'—'),
+    country: p.country,
+    year: p.year,
+    catId: String(it.category_id||''),
+    cover: it.stream_icon||it.cover||it.cover_big||null,
+    xRating: parseFloat(it.rating)||0,
+    added: parseInt(it.added||it.last_modified||0,10)||0,
+    tmdbId: tmdb? String(tmdb) : null,
+    poster:null, backdrop:null, overview:null, tRating:null, trailer:null, enriched:false,
+  };
+}
+
+// ── Chargement du catalogue via le proxy ──
+async function loadVod(kind){
+  vodKind=kind;
+  if(vodLoaded[kind]){ afterVodLoad(); return; }
+  showVodSkeletons();
+  const catAction = kind==='movie' ? 'get_vod_categories' : 'get_series_categories';
+  const listAction= kind==='movie' ? 'get_vod_streams'    : 'get_series';
+  try{
+    const [cats, list] = await Promise.all([
+      fetch(`${VOD_API}?action=${catAction}`).then(r=>r.json()).catch(()=>[]),
+      fetch(`${VOD_API}?action=${listAction}`).then(r=>r.json()).catch(()=>[]),
+    ]);
+    const cmap={};
+    (Array.isArray(cats)?cats:[]).forEach(c=>{ cmap[String(c.category_id)]=c.category_name; });
+    vodCats[kind]=cmap;
+    const arr=(Array.isArray(list)?list:[]).map(it=>normVod(it,kind)).filter(x=>x.xid!=null);
+    arr.forEach(x=>VOD_BY_ID.set(x.uid,x));
+    vodStore[kind]=arr;
+    vodLoaded[kind]=true;
+    afterVodLoad();
+  }catch(e){
+    document.getElementById('vodGrid').innerHTML=vodEmpty('⚠️','Catalogue indisponible','Le service VOD est momentanément injoignable. Réessayez dans un instant.');
+    document.getElementById('vodMoreWrap').innerHTML='';
+  }
+}
+
+// ── Après chargement d'un type : reconstruit filtres + rend ──
+function afterVodLoad(){
+  vodShown=VOD_PAGE;
+  buildCatOptions();
+  buildCountryChips();
+  buildYearOptions();
+  renderVod();
+}
+
+// ── Construction des filtres dynamiques ──
+function buildCatOptions(){
+  const data=vodStore[vodKind], cmap=vodCats[vodKind];
+  const counts={};
+  data.forEach(i=>{ counts[i.catId]=(counts[i.catId]||0)+1; });
+  const ids=Object.keys(counts).filter(id=>cmap[id]).sort((a,b)=>counts[b]-counts[a]);
+  const sel=document.getElementById('vodCat');
+  sel.innerHTML='<option value="all">Toutes les catégories</option>'+
+    ids.map(id=>`<option value="${id}">${escAttr(cmap[id])} (${counts[id]})</option>`).join('');
+  sel.value = vodF.cat;
+  if(sel.value!==vodF.cat){ vodF.cat='all'; sel.value='all'; }
+}
+function buildCountryChips(){
+  const data=vodStore[vodKind];
+  const counts={};
+  data.forEach(i=>{ const c=i.country||'??'; counts[c]=(counts[c]||0)+1; });
+  const codes=Object.keys(counts).filter(c=>c!=='??').sort((a,b)=>counts[b]-counts[a]);
+  const wrap=document.getElementById('vodCountries');
+  let html='<span class="vod-chips-label">Pays</span>'+
+    `<button class="vod-chip ${vodF.country==='all'?'on':''}" data-c="all" onclick="setVodCountry(this)">Tous</button>`;
+  codes.forEach(c=>{
+    const [flag,label]=countryMeta(c);
+    html+=`<button class="vod-chip ${vodF.country===c?'on':''}" data-c="${c}" onclick="setVodCountry(this)">${flag} ${label} <span class="cnt">${counts[c]}</span></button>`;
+  });
+  wrap.innerHTML=html;
+}
+function buildYearOptions(){
+  const data=vodStore[vodKind];
+  const years=[...new Set(data.map(i=>i.year).filter(Boolean))].sort((a,b)=>b-a);
+  const sel=document.getElementById('vodYear');
+  sel.innerHTML='<option value="all">Toutes</option>'+years.map(y=>`<option value="${y}">${y}</option>`).join('');
+  sel.value = years.map(String).includes(vodF.year)? vodF.year : 'all';
+  if(sel.value==='all') vodF.year='all';
+}
+
+// ── Filtrage + tri ──
+function vodFiltered(){
+  let r=vodStore[vodKind];
+  if(vodF.cat!=='all')     r=r.filter(i=>i.catId===vodF.cat);
+  if(vodF.country!=='all') r=r.filter(i=>(i.country||'??')===vodF.country);
+  if(vodF.year!=='all')    r=r.filter(i=>String(i.year||'')===vodF.year);
+  if(vodF.rating>0)        r=r.filter(i=>((i.tRating??i.xRating)||0)>=vodF.rating);
+  if(vodF.q){
+    const q=vodF.q;
+    r=r.filter(i=>i.title.toLowerCase().includes(q)||i.raw.toLowerCase().includes(q));
+  }
+  const s=vodF.sort;
+  r=[...r];
+  if(s==='recent')      r.sort((a,b)=>b.added-a.added);
+  else if(s==='rating') r.sort((a,b)=>((b.tRating??b.xRating)||0)-((a.tRating??a.xRating)||0));
+  else if(s==='az')     r.sort((a,b)=>a.title.localeCompare(b.title,'fr'));
+  return r;
+}
+
+// ── Rendu de la grille ──
+function showVodSkeletons(){
+  document.getElementById('vodGrid').innerHTML=Array(12).fill(
+    '<div class="dskel"><div class="dskel-p"></div><div class="dskel-i"><div class="dskel-l"></div><div class="dskel-l s"></div></div></div>'
+  ).join('');
+  document.getElementById('vodMoreWrap').innerHTML='';
+}
+function vodEmpty(ico,title,sub){
+  return `<div class="empty" style="grid-column:1/-1"><div class="empty-ico">${ico}</div><h3>${title}</h3><p>${sub||''}</p></div>`;
+}
+function ratingBadge(r){
+  if(!r||r<=0) return '';
+  return `<div class="dcard-rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${r}</div>`;
+}
+function vodCard(it){
+  const img = it.poster || it.cover || null;
+  const [flag,label] = it.country ? countryMeta(it.country) : ['',''];
+  const r = it.tRating ?? (it.xRating>0?it.xRating:null);
+  const meta = it.year ? it.year : (vodCats[vodKind][it.catId]||'');
+  return `<div class="dcard" data-uid="${it.uid}" onclick="openVodModal('${it.uid}')">
+    <div class="dcard-poster">
+      ${img
+        ? `<img src="${escAttr(img)}" alt="${escAttr(it.title)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.innerHTML='<div class=&quot;dcard-poster-ph&quot;>🎬</div>'+this.parentNode.innerHTML.replace(/<img[^>]*>/,'')">`
+        : `<div class="dcard-poster-ph">🎬</div>`}
+      <div class="dcard-overlay"><div class="dcard-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+      <span class="dcard-type ${it.kind==='tv'?'serie':'film'}">${it.kind==='tv'?'Série':'Film'}</span>
+      ${it.country?`<span class="dcard-country">${flag} ${it.country}</span>`:''}
+      ${ratingBadge(r)}
+    </div>
+    <div class="dcard-info">
+      <div class="dcard-title">${escHtml(it.title)}</div>
+      <div class="dcard-meta">${escHtml(String(meta))}</div>
+    </div>
+  </div>`;
+}
+function renderVod(){
+  const gen=++vodGen;
+  const filtered=vodFiltered();
+  const cnt=document.getElementById('vodCount');
+  const active = vodF.q||vodF.cat!=='all'||vodF.country!=='all'||vodF.year!=='all'||vodF.rating>0;
+  cnt.textContent = filtered.length+(active?(' résultat'+(filtered.length>1?'s':'')):' titres');
+  cnt.className = 'vod-count'+(active?' hit':'');
+
+  // recherche : indicateur dans le champ
+  const clr=document.getElementById('vodSearchClr');
+  if(clr) clr.classList.toggle('on', vodF.q.length>0);
+
+  const grid=document.getElementById('vodGrid');
+  if(!filtered.length){
+    grid.innerHTML=vodEmpty('🎬','Aucun résultat','Essayez une autre combinaison de filtres.');
+    document.getElementById('vodMoreWrap').innerHTML='';
+    return;
+  }
+  const slice=filtered.slice(0,vodShown);
+  grid.innerHTML=slice.map(vodCard).join('');
+
+  // Bouton « voir plus »
+  const more=document.getElementById('vodMoreWrap');
+  if(filtered.length>vodShown){
+    const rest=filtered.length-vodShown;
+    more.innerHTML=`<button class="vod-more" onclick="vodMore()">Afficher plus <span class="mc">+${Math.min(VOD_PAGE,rest)} / ${rest} restants</span></button>`;
+  } else more.innerHTML='';
+
+  // Enrichissement TMDB des cards affichées (miniatures + note)
+  enrichVisible(slice, gen);
+}
+function vodMore(){ vodShown+=VOD_PAGE; renderVod(); }
+
+// ── Enrichissement TMDB (cascade : tmdb_id → recherche titre) ──
+async function enrichVod(it){
+  if(it.enriched) return it;
+  const type=it.kind==='movie'?'movie':'tv';
+  const key=it.tmdbId? `id-${type}-${it.tmdbId}` : `q-${type}-${it.title.toLowerCase()}-${it.year||''}`;
+  if(tmdbCache.has(key)){ Object.assign(it,tmdbCache.get(key),{enriched:true}); return it; }
+  let data=null;
+  try{
+    if(it.tmdbId){
+      data=await fetch(`https://api.themoviedb.org/3/${type}/${it.tmdbId}?language=fr-FR`,H).then(r=>r.json());
+      if(data&&data.success===false) data=null;
+    } else if(it.title){
+      const yq=it.year?(type==='movie'?`&year=${it.year}`:`&first_air_date_year=${it.year}`):'';
+      const s=await fetch(`https://api.themoviedb.org/3/search/${type}?language=fr-FR&include_adult=false&query=${encodeURIComponent(it.title)}${yq}`,H).then(r=>r.json());
+      data=(s.results||[])[0]||null;
+      if(data) it.tmdbId=String(data.id);
+    }
+  }catch(e){ data=null; }
+  const enr={
+    poster:  data&&data.poster_path   ? W3+data.poster_path   : (it.cover||null),
+    backdrop:data&&data.backdrop_path  ? W4+data.backdrop_path : null,
+    overview:data&&data.overview       ? data.overview         : null,
+    tRating: data&&data.vote_average>0 ? Math.round(data.vote_average*10)/10 : null,
+    tmdbId:  it.tmdbId,
+    enriched:true,
+  };
+  tmdbCache.set(key,{poster:enr.poster,backdrop:enr.backdrop,overview:enr.overview,tRating:enr.tRating,tmdbId:enr.tmdbId});
+  Object.assign(it,enr);
+  return it;
+}
+async function enrichVisible(items, gen){
+  const queue=items.filter(i=>!i.enriched);
+  let idx=0;
+  const worker=async()=>{
+    while(idx<queue.length){
+      const it=queue[idx++];
+      await enrichVod(it);
+      if(gen!==vodGen) return;             // un nouveau rendu a eu lieu → on stoppe
+      patchVodCard(it);
+    }
+  };
+  await Promise.all(Array(Math.min(6,queue.length)).fill(0).map(worker));
+}
+function patchVodCard(it){
+  const el=document.querySelector(`.dcard[data-uid="${CSS.escape(it.uid)}"]`);
+  if(!el) return;
+  if(it.poster){
+    const img=el.querySelector('.dcard-poster img');
+    if(img){ if(img.getAttribute('src')!==it.poster) img.src=it.poster; }
+    else { // la card n'avait pas d'image → on en injecte une
+      const ph=el.querySelector('.dcard-poster-ph');
+      if(ph) ph.outerHTML=`<img src="${escAttr(it.poster)}" alt="${escAttr(it.title)}" loading="lazy" referrerpolicy="no-referrer">`;
     }
   }
-  if(dispoQ){
-    const ql=dispoQ.toLowerCase();
-    res=res.filter(i=>{
-      const t=(i.title||i.name||'').toLowerCase();
-      const o=(i.original_title||i.original_name||'').toLowerCase();
-      return t.includes(ql)||o.includes(ql);
-    });
+  const r=it.tRating;
+  if(r&&r>0){
+    let badge=el.querySelector('.dcard-rating');
+    if(badge) badge.innerHTML=`<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${r}`;
+    else el.querySelector('.dcard-poster').insertAdjacentHTML('beforeend',ratingBadge(r));
   }
-  return res;
 }
 
-function renderDispo(items){
-  DISPO_DATA=items;
-  const filtered=filterDispo();
-  const grid=document.getElementById('dispoGrid');
-  const cnt=document.getElementById('dispoCount');
-  if(dispoQ||dispoCat!=='all'){
-    cnt.textContent=filtered.length+' résultat'+(filtered.length>1?'s':'');
-    cnt.className='dispo-count hit';
-  } else {
-    cnt.textContent=filtered.length+' titres';
-    cnt.className='dispo-count';
-  }
-  if(!filtered.length){
-    grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-ico">🎬</div><h3>Aucun résultat</h3><p>Essayez une autre catégorie.</p></div>';
-    return;
-  }
-  const items2=filtered;
-  if(!items2.length){
-    grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-ico">🎬</div><h3>Aucun résultat</h3></div>';
-    return;
-  }
-  grid.innerHTML=items2.map((item,idx)=>{
-    const title=item.title||item.name||'—';
-    const isTV=item._t==='tv';
-    const poster=item.poster_path?W3+item.poster_path:null;
-    const ds=item.release_date||item.first_air_date||'';
-    const days=daysUntil(ds);
-    const rating=item.vote_average&&item.vote_average>0?Math.round(item.vote_average*10)/10:null;
-    const isNew=Math.abs(days)<=14; // sorti il y a moins de 2 semaines
-    const dateStr=ds?new Date(ds+'T12:00:00').toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'}):'';
-    const rEl=rating?`<div class="dcard-rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${rating}</div>`:'';
-    return `<div class="dcard" onclick="openDispoModal(${idx})">
-      <div class="dcard-poster">
-        ${poster?`<img src="${poster}" alt="${title.replace(/"/g,"'")}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=dcard-poster-ph>🎬</div>'">`:`<div class="dcard-poster-ph">🎬</div>`}
-        <div class="dcard-overlay"><div class="dcard-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-        <span class="dcard-type ${isTV?'serie':'film'}">${isTV?'Série':'Film'}</span>
-        ${isNew?'<span class="dcard-new">Nouveau</span>':''}
-        ${rEl}
-      </div>
-      <div class="dcard-info">
-        <div class="dcard-title">${title}</div>
-        <div class="dcard-meta">${dateStr}</div>
-      </div>
-    </div>`;
-  }).join('');
+// ── Petits helpers d'échappement ──
+function escHtml(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function escAttr(s){return String(s).replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+
+// ── Contrôles ──
+function switchVod(kind){
+  if(vodKind===kind&&vodLoaded[kind]) return;
+  document.getElementById('vBtnFilm').classList.toggle('on',kind==='movie');
+  document.getElementById('vBtnSerie').classList.toggle('on',kind==='tv');
+  // reset filtres propres au type
+  vodF.cat='all'; vodF.country='all'; vodF.year='all';
+  document.getElementById('vodSearch').value=''; vodF.q='';
+  document.getElementById('vodSearchClr').classList.remove('on');
+  document.querySelectorAll('#vodRatings .vod-chip').forEach(c=>c.classList.toggle('on',c.dataset.r==='0')); vodF.rating=0;
+  loadVod(kind);
+}
+function setVodFilter(key,val){ vodF[key]=val; vodShown=VOD_PAGE; renderVod(); }
+function setVodCountry(btn){
+  document.querySelectorAll('#vodCountries .vod-chip').forEach(c=>c.classList.remove('on'));
+  btn.classList.add('on'); vodF.country=btn.dataset.c; vodShown=VOD_PAGE; renderVod();
+}
+function setVodRating(btn){
+  document.querySelectorAll('#vodRatings .vod-chip').forEach(c=>c.classList.remove('on'));
+  btn.classList.add('on'); vodF.rating=parseFloat(btn.dataset.r)||0; vodShown=VOD_PAGE; renderVod();
+}
+function resetVodFilters(){
+  vodF={cat:'all',country:'all',year:'all',rating:0,sort:'recent',q:''};
+  document.getElementById('vodSearch').value='';
+  document.getElementById('vodSearchClr').classList.remove('on');
+  document.getElementById('vodSort').value='recent';
+  document.getElementById('vodCat').value='all';
+  document.getElementById('vodYear').value='all';
+  document.querySelectorAll('#vodCountries .vod-chip').forEach(c=>c.classList.toggle('on',c.dataset.c==='all'));
+  document.querySelectorAll('#vodRatings .vod-chip').forEach(c=>c.classList.toggle('on',c.dataset.r==='0'));
+  vodShown=VOD_PAGE; renderVod();
 }
 
-function openDispoModal(idx){
-  const item=DISPO_DATA[idx];if(!item)return;
-  // Réutilise la même modale
-  openModalWithTrailer(idx,null,DISPO_DATA);
-}
+// ── Recherche VOD (débounce) ──
+(function(){
+  const inp=document.getElementById('vodSearch');
+  const clr=document.getElementById('vodSearchClr');
+  if(!inp) return;
+  let t=null;
+  inp.addEventListener('input',()=>{
+    clearTimeout(t);
+    t=setTimeout(()=>{ vodF.q=inp.value.trim().toLowerCase(); vodShown=VOD_PAGE; renderVod(); },200);
+  });
+  clr.addEventListener('click',()=>{ inp.value='';vodF.q='';clr.classList.remove('on');inp.focus();vodShown=VOD_PAGE;renderVod(); });
+})();
 
-// Surcharge openModalWithTrailer pour accepter un dataset custom
-const _origOpenModal=openModalWithTrailer;
-window._dispoOpen=false;
-// Wrapper pour dispo
-function openDispoModal(idx){
-  const item=DISPO_DATA[idx];if(!item)return;
-  const title=item.title||item.name||'—';
-  const isTV=item._t==='tv';
-  const ds=item.release_date||item.first_air_date||'';
-  const rating=item.vote_average&&item.vote_average>0?Math.round(item.vote_average*10)/10:null;
-  const genres=(item.genre_ids||[]).map(g=>GENRES_MAP[g]).filter(Boolean).slice(0,4);
-  const back=item.backdrop_path?W4+item.backdrop_path:(item.poster_path?W4+item.poster_path:null);
-  const vEl=document.getElementById('mVideo');
-  vEl.innerHTML=`<div class="modal-video-ph">
-    ${back?`<img src="${back}" alt="">`:'<div style="width:100%;height:100%;background:var(--surface2)"></div>'}
+// ── MODALE VOD ──
+async function openVodModal(uid){
+  const it=VOD_BY_ID.get(uid); if(!it) return;
+  await enrichVod(it);
+  const back=it.backdrop||it.poster||it.cover||null;
+  const [flag,label]=it.country?countryMeta(it.country):['',''];
+  const r=it.tRating ?? (it.xRating>0?it.xRating:null);
+
+  // zone vidéo : backdrop + bouton lecture
+  document.getElementById('mVideo').innerHTML=`<div class="modal-video-ph">
+    ${back?`<img src="${escAttr(back)}" alt="" referrerpolicy="no-referrer">`:'<div style="width:100%;height:100%;background:var(--surface2)"></div>'}
     <div class="modal-video-ph-fade"></div>
-    <div class="modal-video-ph-btn" onclick="loadTrailerForDispo(${idx})">
+    <div class="modal-video-ph-btn" onclick="loadVodTrailer('${uid}')">
       <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
     </div>
     <span class="modal-video-ph-lbl">Voir la bande-annonce</span>
   </div>`;
-  let tags=`<span class="mtag ${isTV?'mtag-serie':'mtag-film'}">${isTV?'Série':'Film'}</span>`;
-  if(ds) tags+=`<span class="mtag mtag-date">✅ ${new Date(ds+'T12:00:00').toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</span>`;
-  genres.forEach(g=>{tags+=`<span class="mtag mtag-g">${g}</span>`});
+
+  let tags=`<span class="mtag ${it.kind==='tv'?'mtag-serie':'mtag-film'}">${it.kind==='tv'?'Série':'Film'}</span>`;
+  if(it.country) tags+=`<span class="mtag mtag-g">${flag} ${escHtml(label)}</span>`;
+  const catName=vodCats[vodKind][it.catId];
+  if(catName) tags+=`<span class="mtag mtag-g">${escHtml(catName)}</span>`;
+  if(it.year) tags+=`<span class="mtag mtag-date">${it.year}</span>`;
   document.getElementById('mTags').innerHTML=tags;
-  document.getElementById('mTitle').textContent=title;
-  document.getElementById('mRating').innerHTML=rating?`<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${rating}/10`:'';
-  document.getElementById('mOverview').textContent=item.overview||'Synopsis non disponible.';
-  document.getElementById('modal').dataset.dispoIdx=idx;
+  document.getElementById('mTitle').textContent=it.title;
+  document.getElementById('mRating').innerHTML = r&&r>0
+    ?`<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${r}/10`:'';
+  document.getElementById('mOverview').textContent = it.overview || 'Chargement du synopsis…';
+
   document.getElementById('modalBg').classList.add('on');
   document.body.style.overflow='hidden';
+
+  // Si pas de synopsis TMDB → on récupère le plot Xtream (+ trailer éventuel)
+  if(!it.overview){
+    try{
+      const act=it.kind==='movie'?'get_vod_info':'get_series_info';
+      const idp=it.kind==='movie'?`&vod_id=${it.xid}`:`&series_id=${it.xid}`;
+      const info=await fetch(`${VOD_API}?action=${act}${idp}`).then(r=>r.json());
+      const inf=info&&info.info?info.info:{};
+      it.overview = inf.plot || inf.description || 'Synopsis non disponible.';
+      if(inf.youtube_trailer) it.trailer=inf.youtube_trailer;
+      const ov=document.getElementById('mOverview');
+      if(document.getElementById('modalBg').classList.contains('on')) ov.textContent=it.overview;
+    }catch(e){
+      document.getElementById('mOverview').textContent='Synopsis non disponible.';
+    }
+  }
 }
 
-async function loadTrailerForDispo(idx){
-  const item=DISPO_DATA[idx];if(!item)return;
-  const type=item._t==='tv'?'tv':'movie';
+async function loadVodTrailer(uid){
+  const it=VOD_BY_ID.get(uid); if(!it) return;
   const vEl=document.getElementById('mVideo');
-  vEl.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#000"><div style="width:28px;height:28px;border:2px solid rgba(255,255,255,.2);border-top-color:var(--red);border-radius:50%;animation:sh 0.7s linear infinite"></div></div>';
-  try{
-    let key=null;
-    const fr=await fetch(`https://api.themoviedb.org/3/${type}/${item.id}/videos?language=fr-FR`,H).then(r=>r.json());
-    let t=(fr.results||[]).find(v=>v.type==='Trailer'&&v.site==='YouTube');
-    if(!t){const en=await fetch(`https://api.themoviedb.org/3/${type}/${item.id}/videos?language=en-US`,H).then(r=>r.json());t=(en.results||[]).find(v=>v.type==='Trailer'&&v.site==='YouTube');}
-    if(t)key=t.key;
-    if(key){vEl.innerHTML=`<iframe src="https://www.youtube.com/embed/${key}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;}
-    else{const q=encodeURIComponent((item.title||item.name)+' bande annonce officielle');window.open('https://www.youtube.com/results?search_query='+q,'_blank');vEl.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#000;color:#888;font-size:.8rem">Aucune bande-annonce trouvée</div>';}
-  }catch(e){const q=encodeURIComponent((item.title||item.name)+' bande annonce officielle');window.open('https://www.youtube.com/results?search_query='+q,'_blank');}
+  vEl.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#000"><div style="width:28px;height:28px;border:2px solid rgba(255,255,255,.2);border-top-color:var(--red);border-radius:50%;animation:sh .7s linear infinite"></div></div>';
+  let key=null;
+  // 1) Bande-annonce TMDB (cascade FR → EN)
+  if(it.tmdbId){
+    const type=it.kind==='movie'?'movie':'tv';
+    try{
+      const fr=await fetch(`https://api.themoviedb.org/3/${type}/${it.tmdbId}/videos?language=fr-FR`,H).then(r=>r.json());
+      let t=(fr.results||[]).find(v=>v.type==='Trailer'&&v.site==='YouTube')||(fr.results||[]).find(v=>v.site==='YouTube');
+      if(!t){
+        const en=await fetch(`https://api.themoviedb.org/3/${type}/${it.tmdbId}/videos?language=en-US`,H).then(r=>r.json());
+        t=(en.results||[]).find(v=>v.type==='Trailer'&&v.site==='YouTube')||(en.results||[]).find(v=>v.site==='YouTube');
+      }
+      if(t) key=t.key;
+    }catch(e){}
+  }
+  // 2) Trailer YouTube fourni par Xtream
+  if(!key && it.trailer){
+    key = /^[\w-]{11}$/.test(it.trailer) ? it.trailer : (it.trailer.match(/[?&]v=([\w-]{11})/)||[])[1] || null;
+  }
+  if(key){
+    vEl.innerHTML=`<iframe src="https://www.youtube.com/embed/${key}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
+  } else {
+    // 3) Recherche YouTube directe
+    const q=encodeURIComponent(it.title+' bande annonce '+(it.year||''));
+    window.open('https://www.youtube.com/results?search_query='+q,'_blank');
+    vEl.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#000;color:#888;font-size:.8rem">Aucune bande-annonce intégrée — ouverture sur YouTube.</div>';
+  }
 }
 
-// Synchroniser la section dispo quand on change Films/Séries
-const _origSwitch=switchType;
-// Override via monkey-patch après définition
-async function loadDispoForType(type){
-  dispoType=type;dispoCat='all';dispoQ='';
-  // Reset UI
-  document.querySelectorAll('.dispo-cat').forEach(c=>{c.classList.toggle('on',c.dataset.dg==='all')});
-  const dinp=document.getElementById('dSearchInp');
-  if(dinp){dinp.value='';document.getElementById('dSearchClr').classList.remove('on');}
-  document.getElementById('dBtnFilm').classList.toggle('on',type==='movie');
-  document.getElementById('dBtnSerie').classList.toggle('on',type==='tv');
-  document.getElementById('dispoGrid').innerHTML=Array(8).fill('<div class="dskel"><div class="dskel-p"></div><div class="dskel-i"><div class="dskel-l"></div><div class="dskel-l s"></div></div></div>').join('');
-  document.getElementById('dispoCount').textContent='';
-  try{DISPO_RAW=await fetchDispo(type);renderDispo(DISPO_RAW);}
-  catch(e){document.getElementById('dispoGrid').innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-ico">⚠️</div><h3>Erreur</h3></div>';}
-}
+// ── INIT VOD ──
+function initVod(){ loadVod('movie'); }
 
-function switchDispo(type){loadDispoForType(type);}
+// ════════════════ INIT GLOBAL ════════════════
+switchType('movie');   // section « À venir » (TMDB) — inchangée
+initVod();             // section « Catalogue VOD » (Xtream)
 
-function setDispoCat(btn){
-  document.querySelectorAll('.dispo-cat').forEach(c=>c.classList.remove('on'));
-  btn.classList.add('on');
-  dispoCat=btn.dataset.dg;
-  renderDispo(DISPO_RAW);
-}
-
-// ── INIT ──
-switchType('movie');
-loadDispoForType('movie');
-
-// Sync dispo quand on change type dans le slider À venir
-document.getElementById('btnFilm').addEventListener('click',()=>loadDispoForType('movie'));
-document.getElementById('btnSerie').addEventListener('click',()=>loadDispoForType('tv'));
 </script>
 </body>
 </html>
