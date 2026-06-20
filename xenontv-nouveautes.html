@@ -543,8 +543,8 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
   .vod-field{align-items:center;justify-content:space-between}
   .vod-field label{flex-shrink:0;min-width:62px}
   .vod-field.f-cat{flex:1 1 100%}
-  .vod-field.f-year,.vod-field.f-sort{flex:1 1 calc(50% - 4px)}
-  .vod-field.f-year label,.vod-field.f-sort label{min-width:auto}
+  .vod-field.f-sort{flex:1 1 100%}
+  .vod-field.f-sort label{min-width:62px}
   .vod-select{flex:1;min-width:0;width:100%;max-width:none;padding-top:9px;padding-bottom:9px}
   /* Chips : scroll horizontal confortable */
   .vod-chips{gap:6px}
@@ -562,7 +562,6 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
   #vodGrid{grid-template-columns:repeat(2,1fr);gap:6px}
 }
 @media(max-width:420px){
-  .vod-field.f-year,.vod-field.f-sort{flex:1 1 100%}
   .vod-field label{min-width:62px}
 }
 
@@ -676,15 +675,11 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
       <button class="vod-reset" id="vodReset" onclick="resetVodFilters()">✕ Réinitialiser</button>
     </div>
 
-    <!-- Ligne 2 : catégorie / année / tri -->
+    <!-- Ligne 2 : catégorie / tri -->
     <div class="vod-selects">
       <div class="vod-field f-cat">
         <label for="vodCat">Catégorie</label>
         <select class="vod-select" id="vodCat" onchange="setVodFilter('cat',this.value)"><option value="all">Toutes</option></select>
-      </div>
-      <div class="vod-field f-year">
-        <label for="vodYear">Année</label>
-        <select class="vod-select" id="vodYear" onchange="setVodFilter('year',this.value)"><option value="all">Toutes</option></select>
       </div>
       <div class="vod-field f-sort">
         <label for="vodSort">Trier</label>
@@ -700,15 +695,6 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
     <div class="vod-chips" id="vodCountries">
       <span class="vod-chips-label">Pays</span>
       <button class="vod-chip on" data-c="all" onclick="setVodCountry(this)">Tous</button>
-    </div>
-
-    <!-- Ligne 4 : note -->
-    <div class="vod-chips" id="vodRatings">
-      <span class="vod-chips-label">Note</span>
-      <button class="vod-chip on" data-r="0" onclick="setVodRating(this)">Toutes</button>
-      <button class="vod-chip" data-r="6" onclick="setVodRating(this)">⭐ 6+</button>
-      <button class="vod-chip" data-r="7" onclick="setVodRating(this)">⭐ 7+</button>
-      <button class="vod-chip" data-r="8" onclick="setVodRating(this)">⭐ 8+</button>
     </div>
   </div>
 
@@ -1175,7 +1161,7 @@ let vodKind   = 'movie';                              // 'movie' | 'tv'
 let vodStore  = { movie:[], tv:[] };                  // items normalisés
 let vodCats   = { movie:{}, tv:{} };                  // {category_id: name}
 let vodLoaded = { movie:false, tv:false };
-let vodF      = { cat:'all', country:'FR', year:'all', rating:0, sort:'recent', q:'' };
+let vodF      = { cat:'all', country:'FR', sort:'recent', q:'' };
 let vodShown  = VOD_PAGE;
 let vodGen    = 0;                                     // jeton anti-render obsolète
 let vodDefaultCountry = 'FR';                          // pays appliqué par défaut (FR si présent)
@@ -1196,8 +1182,20 @@ const COUNTRIES = {
 };
 function countryMeta(code){ if(!code) return ['🏳️','Autre']; const c=code.toUpperCase(); return COUNTRIES[c]||['🏳️',c]; }
 
-// ── Ordre des pays : FR TOUJOURS en premier, puis priorité, puis alpha ──
-const COUNTRY_ORDER=['FR','FRENCH','VF','VFF','EN','US','UK','VOSTFR','AR','DZ','AL','MA','TN','EG','ES','LAT','MX','IT','DE','PT','BR','TR','IN','HI','NL','RU','KU','PL','RO','GR','SE','FI','NO','DK','AF'];
+// ── Ordre des pays : FR TOUJOURS en premier ──
+const COUNTRY_ORDER=['FR','EN','AR','DZ','MA','TN','EG','ES','IT','DE','PT','TR','IN','NL','RU','KU','PL','RO','GR','AF','SE','FI','NO','DK'];
+// Normalisation : toutes les variantes francophones -> FR, anglophones -> EN, etc.
+const COUNTRY_CANON={
+  FR:'FR',FRA:'FR',FRE:'FR',FRR:'FR',FRANCE:'FR',FRENCH:'FR',FRANCAIS:'FR','FRANÇAIS':'FR',VF:'FR',VFF:'FR',VFQ:'FR',VF2:'FR',TRUEFRENCH:'FR',TF:'FR',MULTIFR:'FR',MULTI:'FR',
+  EN:'EN',ENG:'EN',ENGLISH:'EN',GB:'EN',UK:'EN',US:'EN',USA:'EN',VOSTFR:'EN',VOST:'EN',VO:'EN',
+  AR:'AR',ARA:'AR',ARABIC:'AR',ARABE:'AR',
+  DZ:'DZ',AL:'DZ',ALG:'DZ',MA:'MA',MAR:'MA',TN:'TN',TUN:'TN',EG:'EG',
+  ES:'ES',SP:'ES',SPA:'ES',SPANISH:'ES',ESP:'ES',LAT:'ES',LATINO:'ES',MX:'ES',
+  IT:'IT',ITA:'IT',DE:'DE',GER:'DE',ALL:'DE',PT:'PT',POR:'PT',BR:'PT',
+  TR:'TR',TUR:'TR',IN:'IN',HI:'IN',HIN:'IN',IND:'IN',NL:'NL',RU:'RU',RUS:'RU',
+  KU:'KU',KUR:'KU',PL:'PL',RO:'RO',GR:'GR',GRE:'GR',AF:'AF',SE:'SE',FI:'FI',NO:'NO',DK:'DK',
+};
+function canonCountry(code){ if(!code) return null; const c=String(code).toUpperCase(); return COUNTRY_CANON[c]||c; }
 function countryRank(code){ if(code==='FR') return -1; const i=COUNTRY_ORDER.indexOf(code); return i===-1?900:i; }
 function countrySort(a,b){
   if(a==='??') return 1; if(b==='??') return -1;       // « Autres » en dernier
@@ -1205,30 +1203,52 @@ function countrySort(a,b){
   if(ra!==rb) return ra-rb;
   return a.localeCompare(b);
 }
-// Extrait le préfixe pays d'un NOM DE CATÉGORIE (ex: "FR| ACTION" -> {code:'FR',label:'ACTION'})
+// Drapeau emoji -> code ISO (ex: 🇫🇷 -> FR)
+function flagToISO(str){
+  const cps=[...String(str)]; if(cps.length<2) return null;
+  const A=0x1F1E6, c0=cps[0].codePointAt(0), c1=cps[1].codePointAt(0);
+  if(c0<A||c0>A+25||c1<A||c1>A+25) return null;
+  return String.fromCharCode(65+(c0-A))+String.fromCharCode(65+(c1-A));
+}
+// Extrait un code pays + le reste depuis un nom (film OU catégorie).
+// Gère : drapeau emoji, [FR], (FR), FR|, FR -, FR:, FR>, FR. et « FR Action » (token connu).
+function extractCountry(raw){
+  const s=String(raw||'').trim();
+  const iso=flagToISO(s);
+  if(iso){
+    const rest=[...s].slice(2).join('').replace(/^[\s|｜:>\-–—.\])]+/,'').trim();
+    return {code:canonCountry(iso), rest:rest||s};
+  }
+  // [FR] Drame / (US) Thriller
+  let m=s.match(/^[\[(]\s*([A-Za-zÀ-ÿ]{2,8})\s*[\])]\s*[:|｜>．.\-–—]?\s*(.+)$/);
+  if(m) return {code:canonCountry(m[1]), rest:m[2].trim()};
+  m=s.match(/^[\[(]?\s*([A-Za-zÀ-ÿ]{2,8})\s*[\])]?\s*[|｜:>．.\-–—]\s*(.+)$/);
+  if(m) return {code:canonCountry(m[1]), rest:m[2].trim()};
+  // « FR Action » : premier mot séparé par un espace, uniquement si c'est un code connu
+  m=s.match(/^([A-Za-zÀ-ÿ]{2,8})\s+(.+)$/);
+  if(m && COUNTRY_CANON[m[1].toUpperCase()]) return {code:canonCountry(m[1]), rest:m[2].trim()};
+  return {code:null, rest:s};
+}
+// Catégorie : extrait le pays, avec recours « token connu n'importe où dans le nom »
 function parseCatCountry(name){
-  const s=String(name||'').trim();
-  let m=s.match(/^\s*([A-Za-z]{2,5})\s*[|｜]\s*(.+)$/);
-  if(!m) m=s.match(/^\s*([A-Za-z]{2,4})\s*[-–—]\s+(.+)$/);
-  if(m) return {code:m[1].toUpperCase(), label:m[2].trim()};
-  return {code:null, label:s};
+  const {code,rest}=extractCountry(name);
+  if(code) return {code, label:rest||String(name||'').trim()};
+  const toks=String(name||'').toUpperCase().split(/[^A-ZÀ-Ÿ]+/).filter(Boolean);
+  for(const t of toks){ if(COUNTRY_CANON[t]) return {code:canonCountry(t), label:String(name||'').trim()}; }
+  return {code:null, label:String(name||'').trim()};
 }
 
 // ── Nettoyage des noms Xtream ──
 const QUALITY_RE=/\b(4K|UHD|HDR|HD|FHD|SD|MULTI|VFF?|VF2?|VOSTFR?|VOST|VO|TRUEFRENCH|FRENCH|SUBFRENCH)\b/gi;
 function parseName(raw){
-  raw=(raw||'').trim();
-  let country=null, rest=raw;
-  let m=raw.match(/^\s*([A-Za-z]{2,5})\s*[|｜]\s*(.+)$/);
-  if(!m) m=raw.match(/^\s*([A-Z]{2,4})\s*[-–—]\s+(.+)$/);
-  if(m){ country=m[1].toUpperCase(); rest=m[2]; }
+  const {code,rest}=extractCountry(raw);
   let year=null;
   const ym=rest.match(/\((19|20)\d{2}\)/)||rest.match(/\b(19|20)\d{2}\b/);
   if(ym) year=parseInt(ym[0].replace(/[()]/g,''),10);
   let title=rest.replace(/\((19|20)\d{2}\)/g,'').replace(QUALITY_RE,'')
     .replace(/[\[\]]/g,' ').replace(/\s{2,}/g,' ').replace(/[\s\-–—|]+$/,'').trim();
   if(!title) title=rest.trim();
-  return {country, year, title};
+  return {country:code, year, title};
 }
 
 // ── Normalisation d'un item Xtream ──
@@ -1288,7 +1308,6 @@ function afterVodLoad(){
   if(vodF.country!=='all' && !present.has(vodF.country)) vodF.country = vodDefaultCountry;
   buildCatOptions();
   buildCountryChips();
-  buildYearOptions();
   renderVod();
 }
 
@@ -1339,22 +1358,11 @@ function buildCountryChips(){
   });
   wrap.innerHTML=html;
 }
-function buildYearOptions(){
-  const data=vodStore[vodKind];
-  const years=[...new Set(data.map(i=>i.year).filter(Boolean))].sort((a,b)=>b-a);
-  const sel=document.getElementById('vodYear');
-  sel.innerHTML='<option value="all">Toutes</option>'+years.map(y=>`<option value="${y}">${y}</option>`).join('');
-  sel.value = years.map(String).includes(vodF.year)? vodF.year : 'all';
-  if(sel.value==='all') vodF.year='all';
-}
-
 // ── Filtrage + tri ──
 function vodFiltered(){
   let r=vodStore[vodKind];
   if(vodF.cat!=='all')     r=r.filter(i=>i.catId===vodF.cat);
   if(vodF.country!=='all') r=r.filter(i=>(i.country||'??')===vodF.country);
-  if(vodF.year!=='all')    r=r.filter(i=>String(i.year||'')===vodF.year);
-  if(vodF.rating>0)        r=r.filter(i=>((i.tRating??i.xRating)||0)>=vodF.rating);
   if(vodF.q){
     const q=vodF.q;
     r=r.filter(i=>i.title.toLowerCase().includes(q)||i.raw.toLowerCase().includes(q));
@@ -1415,7 +1423,7 @@ function renderVod(){
   const gen=++vodGen;
   const filtered=vodFiltered();
   const cnt=document.getElementById('vodCount');
-  const active = vodF.q||vodF.cat!=='all'||vodF.country!==vodDefaultCountry||vodF.year!=='all'||vodF.rating>0;
+  const active = vodF.q||vodF.cat!=='all'||vodF.country!==vodDefaultCountry;
   cnt.textContent = filtered.length+(active?(' résultat'+(filtered.length>1?'s':'')):' titres');
   cnt.className = 'vod-count'+(active?' hit':'');
 
@@ -1529,10 +1537,9 @@ function switchVod(kind){
   document.getElementById('vBtnFilm').classList.toggle('on',kind==='movie');
   document.getElementById('vBtnSerie').classList.toggle('on',kind==='tv');
   // reset filtres propres au type (le pays repassera au défaut FR dans afterVodLoad)
-  vodF.cat='all'; vodF.country='FR'; vodF.year='all';
+  vodF.cat='all'; vodF.country='FR';
   document.getElementById('vodSearch').value=''; vodF.q='';
   document.getElementById('vodSearchClr').classList.remove('on');
-  document.querySelectorAll('#vodRatings .vod-chip').forEach(c=>c.classList.toggle('on',c.dataset.r==='0')); vodF.rating=0;
   loadVod(kind);
 }
 function setVodFilter(key,val){
@@ -1550,19 +1557,13 @@ function setVodCountry(btn){
   document.querySelectorAll('#vodCountries .vod-chip').forEach(c=>c.classList.remove('on'));
   btn.classList.add('on'); vodF.country=btn.dataset.c; vodShown=VOD_PAGE; renderVod();
 }
-function setVodRating(btn){
-  document.querySelectorAll('#vodRatings .vod-chip').forEach(c=>c.classList.remove('on'));
-  btn.classList.add('on'); vodF.rating=parseFloat(btn.dataset.r)||0; vodShown=VOD_PAGE; renderVod();
-}
 function resetVodFilters(){
-  vodF={cat:'all',country:vodDefaultCountry,year:'all',rating:0,sort:'recent',q:''};
+  vodF={cat:'all',country:vodDefaultCountry,sort:'recent',q:''};
   document.getElementById('vodSearch').value='';
   document.getElementById('vodSearchClr').classList.remove('on');
   document.getElementById('vodSort').value='recent';
   document.getElementById('vodCat').value='all';
-  document.getElementById('vodYear').value='all';
   document.querySelectorAll('#vodCountries .vod-chip').forEach(c=>c.classList.toggle('on',c.dataset.c===vodDefaultCountry));
-  document.querySelectorAll('#vodRatings .vod-chip').forEach(c=>c.classList.toggle('on',c.dataset.r==='0'));
   vodShown=VOD_PAGE; renderVod();
 }
 
