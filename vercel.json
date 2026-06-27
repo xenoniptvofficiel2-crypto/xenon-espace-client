@@ -1,7 +1,0 @@
-{
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    { "source": "/demande", "destination": "/xenontv-demande.html" }
-  ]
-}
