@@ -2,6 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<!-- xenon-secure-head -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Guide TV – XENON TV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -454,11 +457,15 @@ function matchQ(row,q){
   return fields.some(f=>f.toLowerCase().includes(q));
 }
 
+// Échappement anti-XSS : les titres/chaînes viennent de l'EPG tiers (xmltvfr.fr).
+// Sûr en contexte texte ET attribut double-guillemets (échappe aussi ").
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function hl(t,q){
-  if(!t||!q)return t||'';
+  t=String(t==null?'':t);
+  if(!q)return esc(t);
   const i=t.toLowerCase().indexOf(q);
-  if(i<0)return t;
-  return t.slice(0,i)+'<span class="hl">'+t.slice(i,i+q.length)+'</span>'+t.slice(i+q.length);
+  if(i<0)return esc(t);
+  return esc(t.slice(0,i))+'<span class="hl">'+esc(t.slice(i,i+q.length))+'</span>'+esc(t.slice(i+q.length));
 }
 
 function fmt(ms){
@@ -474,7 +481,7 @@ let DATA=[];
 function rowHTML(row){
   const logo=row.logo||null;
   const logoH=logo
-    ?`<div class="elogo"><img src="${logo}" alt="${row.ch}" loading="lazy" onerror="this.style.display='none'"></div>`
+    ?`<div class="elogo"><img src="${esc(logo)}" alt="${esc(row.ch)}" loading="lazy" onerror="this.style.display='none'"></div>`
     :`<div class="elogo">${ico(row.cur&&(row.cur.cat||row.cur.category))}</div>`;
 
   // current slot
@@ -485,11 +492,11 @@ function rowHTML(row){
   const nxtCat=nxt?nxt.cat||nxt.category||'':'';
 
   const curThumb=cur.icon
-    ?`<div class="thumb"><img src="${cur.icon}" alt="" loading="lazy" onerror="this.parentNode.innerHTML='${ico(curCat)}'"></div>`
+    ?`<div class="thumb"><img src="${esc(cur.icon)}" alt="" loading="lazy" onerror="this.parentNode.innerHTML='${ico(curCat)}'"></div>`
     :`<div class="thumb">${ico(curCat)}</div>`;
 
   const nxtThumb=nxt&&nxt.icon
-    ?`<div class="thumb"><img src="${nxt.icon}" alt="" loading="lazy" onerror="this.parentNode.innerHTML='${ico(nxtCat)}'"></div>`
+    ?`<div class="thumb"><img src="${esc(nxt.icon)}" alt="" loading="lazy" onerror="this.parentNode.innerHTML='${ico(nxtCat)}'"></div>`
     :`<div class="thumb">${ico(nxtCat)}</div>`;
 
   const pb=prog>0?`<div class="pbar"><div class="pbar-fill" style="width:${Math.round(prog)}%"></div></div>`:'';
@@ -550,7 +557,7 @@ function render(){
     el.innerHTML=`<div class="empty">
       <div class="empty-ico">📭</div>
       <h3>Aucun résultat</h3>
-      <p>${q?`Rien pour "<strong>${q}</strong>"`:'Aucune chaîne pour ce filtre.'}</p>
+      <p>${q?`Rien pour "<strong>${esc(q)}</strong>"`:'Aucune chaîne pour ce filtre.'}</p>
       ${q?`<button class="retry-btn" onclick="document.getElementById('sx').click()">✕ Effacer</button>`:''}
     </div>`;
     return;
@@ -584,17 +591,17 @@ function buildSlider(sportEvents){
     const dateStr=new Date(ev.start).toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
     const cat=(ev.category||'Sport').replace(/\b\w/g,l=>l.toUpperCase());
     const imgH=ev.icon
-      ?`<img class="ev-img" src="${ev.icon}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+      ?`<img class="ev-img" src="${esc(ev.icon)}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
       :'';
     const phH=`<div class="ev-ph"${ev.icon?' style="display:none"':''}>🏆</div>`;
     return`<div class="ev-card">
-      <div class="ev-badge${b.live?' live':''}">${b.t}</div>
+      <div class="ev-badge${b.live?' live':''}">${esc(b.t)}</div>
       ${imgH}${phH}
       <div class="ev-body">
-        <div class="ev-sport">${cat}</div>
-        <div class="ev-name">${ev.title||'—'}</div>
-        <div class="ev-meta">📅 ${dateStr} · 🕐 ${ev.startFmt||'--:--'}</div>
-        <div class="ev-ch">📺 ${ev.chName||''}</div>
+        <div class="ev-sport">${esc(cat)}</div>
+        <div class="ev-name">${esc(ev.title||'—')}</div>
+        <div class="ev-meta">📅 ${esc(dateStr)} · 🕐 ${esc(ev.startFmt||'--:--')}</div>
+        <div class="ev-ch">📺 ${esc(ev.chName||'')}</div>
       </div>
     </div>`;
   }).filter(Boolean).join('');

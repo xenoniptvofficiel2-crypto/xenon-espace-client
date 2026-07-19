@@ -2,6 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<!-- xenon-secure-head -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#0a0a0a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -936,9 +939,9 @@ function render(){
       <div class="bcard-body" onclick="openModal(${idx})" style="cursor:pointer">
         <div class="bcard-poster">${poster?`<img src="${poster}" alt="" loading="lazy">`:`<div class="bcard-poster-ph">🎬</div>`}</div>
         <div class="bcard-info">
-          <div class="bcard-title">${title}</div>
+          <div class="bcard-title">${escHtml(title)}</div>
           <div class="bcard-meta">${fmtDate(ds)} ${rEl}</div>
-          <div class="bcard-genres">${genres.map(g=>`<span class="bcard-genre">${g}</span>`).join('')}</div>
+          <div class="bcard-genres">${genres.map(g=>`<span class="bcard-genre">${escHtml(g)}</span>`).join('')}</div>
         </div>
       </div>
     </div>`;
@@ -1036,7 +1039,7 @@ async function openModalWithTrailer(idx,trailerKey){
   // Video zone
   const vEl=document.getElementById('mVideo');
   if(trailerKey){
-    vEl.innerHTML=`<iframe src="https://www.youtube.com/embed/${trailerKey}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
+    vEl.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${escAttr(trailerKey)}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
   } else {
     // Si pas de trailer chargé encore → on affiche backdrop + bouton play
     // On cherche le trailer en background
@@ -1053,7 +1056,7 @@ async function openModalWithTrailer(idx,trailerKey){
   // Tags
   let tags=`<span class="mtag ${isTV?'mtag-serie':'mtag-film'}">${isTV?'Série':'Film'}</span>`;
   if(ds) tags+=`<span class="mtag mtag-date">⏳ ${fmtDate(ds)}</span>`;
-  genres.forEach(g=>{tags+=`<span class="mtag mtag-g">${g}</span>`});
+  genres.forEach(g=>{tags+=`<span class="mtag mtag-g">${escHtml(g)}</span>`});
   document.getElementById('mTags').innerHTML=tags;
   document.getElementById('mTitle').textContent=title;
   document.getElementById('mRating').innerHTML=rating
@@ -1081,7 +1084,7 @@ async function loadTrailerInModal(idx){
     }
     if(t){ key=t.key; }
     if(key){
-      vEl.innerHTML=`<iframe src="https://www.youtube.com/embed/${key}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
+      vEl.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${key}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
     } else {
       const q=encodeURIComponent((item.title||item.name)+' bande annonce officielle');
       window.open('https://www.youtube.com/results?search_query='+q,'_blank');
@@ -1392,7 +1395,7 @@ function showVodLoading(){
   document.getElementById('vodMoreWrap').innerHTML='';
 }
 function vodEmpty(ico,title,sub){
-  return `<div class="empty" style="grid-column:1/-1"><div class="empty-ico">${ico}</div><h3>${title}</h3><p>${sub||''}</p></div>`;
+  return `<div class="empty" style="grid-column:1/-1"><div class="empty-ico">${ico}</div><h3>${escHtml(title)}</h3><p>${escHtml(sub||'')}</p></div>`;
 }
 function ratingBadge(r){
   if(!r||r<=0) return '';
@@ -1652,7 +1655,7 @@ async function loadVodTrailer(uid){
     key = /^[\w-]{11}$/.test(it.trailer) ? it.trailer : (it.trailer.match(/[?&]v=([\w-]{11})/)||[])[1] || null;
   }
   if(key){
-    vEl.innerHTML=`<iframe src="https://www.youtube.com/embed/${key}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
+    vEl.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${key}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
   } else {
     // 3) Recherche YouTube directe
     const q=encodeURIComponent(it.title+' bande annonce '+(it.year||''));

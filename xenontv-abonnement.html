@@ -2,6 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<!-- xenon-secure-head -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>XENON TV — Mon Abonnement</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -258,6 +261,8 @@ function navigate(url) {
 
 const sessionEmail = sessionStorage.getItem('xenon_user_email') || '';
 const sessionToken = sessionStorage.getItem('xenon_session_token') || '';
+// Échappement anti-XSS pour toute donnée rendue en HTML (username Xtream, etc.).
+const esc = s => String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
 if (sessionEmail) {
   document.getElementById('userEmail').textContent = sessionEmail;
@@ -325,7 +330,7 @@ function renderSub(idx) {
   html += `<div class="status-hero">
     <div class="status-hero-top">
       <div>
-        <div class="status-label">Statut · <strong style="color:#ccc;font-weight:700">${sub.username || ''}</strong></div>
+        <div class="status-label">Statut · <strong style="color:#ccc;font-weight:700">${esc(sub.username || '')}</strong></div>
         <div class="status-name">XENON TV</div>
 
       </div>
@@ -349,7 +354,7 @@ function renderSub(idx) {
   <div class="dates-grid">
     <div class="date-card">
       <div class="date-card-label">👤 Username</div>
-      <div class="date-card-value" style="font-family:var(--mono);font-size:0.85rem">${sub.username || '—'}</div>
+      <div class="date-card-value" style="font-family:var(--mono);font-size:0.85rem">${esc(sub.username || '—')}</div>
     </div>
     <div class="date-card">
       <div class="date-card-label">🏁 Expiration</div>
