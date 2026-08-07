@@ -19,17 +19,28 @@ accessible depuis le dashboard) permet de :
 
 1. **Supabase → SQL Editor** : exécuter le fichier
    [`supabase/device_sessions.sql`](supabase/device_sessions.sql)
-   (crée la table `device_sessions` + policies).
-2. **Supabase → Settings → API** : copier la `Project URL` et la clé `anon public`.
-3. Les coller en haut de [`session-tracker.js`](session-tracker.js)
-   (variables `SUPABASE_URL` et `SUPABASE_ANON_KEY`), puis pousser sur GitHub —
-   Vercel redéploie automatiquement.
+   (crée la table `device_sessions`, verrouillée par RLS).
+2. **Vercel → Project Settings → Environment Variables** : ajouter
+   - `SUPABASE_URL` — la `Project URL` (Supabase → Settings → API) ;
+   - `SUPABASE_SERVICE_ROLE_KEY` — la clé `service_role` (même page).
+3. Redéployer le projet Vercel. **Aucune clé n'est à mettre dans le code.**
 
 Tant que la configuration n'est pas faite, le site fonctionne normalement :
 le tracker se désactive tout seul et la page Appareils affiche les instructions.
 
-### Fonctionnement
+### Architecture & sécurité
 
+- **Aucune clé Supabase côté navigateur.** Le client (`session-tracker.js`)
+  appelle uniquement la fonction serverless [`api/sessions.js`](api/sessions.js)
+  du même déploiement Vercel.
+- Cette fonction **valide le token de session** (`X-Session-Token`) auprès du
+  backend d'authentification existant (`accesxtv-backend`) avant toute
+  opération, puis accède à Supabase avec la clé `service_role` (variable
+  d'environnement, jamais dans le code).
+- La table est **fermée au public** : RLS activé sans policy — la clé `anon`
+  ne peut ni lire ni écrire. Impossible de lister les emails ou de révoquer
+  les appareils d'autrui depuis l'extérieur ; toutes les requêtes sont
+  scopées à l'email du compte authentifié.
 - `session-tracker.js` est inclus sur toutes les pages. Il synchronise la session
   entre `sessionStorage` et `localStorage`, enregistre l'appareil (identifiant
   unique stocké en local) et envoie un battement de cœur (`last_seen`) toutes

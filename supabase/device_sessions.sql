@@ -20,30 +20,17 @@ create table if not exists public.device_sessions (
 create index if not exists device_sessions_email_idx
   on public.device_sessions (email, last_seen desc);
 
--- ── Row Level Security ──
--- NOTE : le site n'utilise pas Supabase Auth (login OTP maison via le
--- backend Vercel), donc les policies autorisent la clé anon.
--- Ces données ne sont pas sensibles (pas de token, pas de mot de passe),
--- mais pour verrouiller davantage, déplacez ces appels derrière votre
--- backend accesxtv-backend (service_role) plus tard.
+-- ── Row Level Security : table FERMÉE au public ──
+-- RLS activé sans aucune policy : les clés publiques (anon) ne peuvent
+-- ni lire ni écrire. Seule la fonction serveur /api/sessions (Vercel),
+-- qui utilise la clé service_role (laquelle contourne RLS), accède à
+-- la table — après avoir validé le token de session de l'abonné.
 alter table public.device_sessions enable row level security;
 
+-- Nettoyage d'anciennes policies si une version précédente les avait créées
 drop policy if exists "anon select sessions" on public.device_sessions;
-create policy "anon select sessions"
-  on public.device_sessions for select
-  to anon using (true);
-
 drop policy if exists "anon insert sessions" on public.device_sessions;
-create policy "anon insert sessions"
-  on public.device_sessions for insert
-  to anon with check (true);
-
 drop policy if exists "anon update sessions" on public.device_sessions;
-create policy "anon update sessions"
-  on public.device_sessions for update
-  to anon using (true) with check (true);
-
--- (Pas de policy DELETE : on révoque au lieu de supprimer.)
 
 -- ── Nettoyage automatique (optionnel) ──
 -- Supprime les sessions inactives depuis plus de 90 jours.

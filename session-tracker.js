@@ -1,24 +1,17 @@
 /* ═══════════════════════════════════════════════════════════════
-   XENON TV — Suivi de session multi-appareils (Supabase)
+   XENON TV — Suivi de session multi-appareils
    Inclure sur chaque page :  <script src="/session-tracker.js"></script>
    (avant les autres scripts de la page)
+
+   Aucune clé Supabase ici : tous les appels passent par la fonction
+   serverless /api/sessions (voir api/sessions.js), qui valide le
+   token de session et utilise la clé service_role côté serveur.
    ═══════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
-  /* ── CONFIGURATION SUPABASE ──────────────────────────────────
-     Dashboard Supabase → Settings → API :
-       - Project URL  → SUPABASE_URL
-       - anon public  → SUPABASE_ANON_KEY
-     Puis exécuter supabase/device_sessions.sql dans le SQL Editor. */
-  var SUPABASE_URL = 'https://VOTRE-PROJET.supabase.co';
-  var SUPABASE_ANON_KEY = 'VOTRE_CLE_ANON';
-  /* ───────────────────────────────────────────────────────────── */
-
-  var TABLE = 'device_sessions';
-  var HEARTBEAT_MS = 60 * 1000;        // maj "dernière activité" toutes les 60 s
-  var CONFIGURED = SUPABASE_URL.indexOf('VOTRE-PROJET') === -1 &&
-                   SUPABASE_ANON_KEY !== 'VOTRE_CLE_ANON';
+  var API = '/api/sessions';
+  var HEARTBEAT_MS = 60 * 1000; // maj "dernière activité" toutes les 60 s
 
   /* ── Persistance : synchronise sessionStorage (utilisé par les pages)
      et localStorage (survit à la fermeture du navigateur).
@@ -76,19 +69,26 @@
     return { browser: browser, os: os, type: type, ua: ua.slice(0, 500) };
   }
 
-  /* ── Appels REST Supabase ── */
-  function sb(method, query, body, prefer) {
-    var headers = {
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-      'Content-Type': 'application/json'
-    };
-    if (prefer) headers['Prefer'] = prefer;
-    return fetch(SUPABASE_URL + '/rest/v1/' + TABLE + query, {
-      method: method,
-      headers: headers,
-      body: body ? JSON.stringify(body) : undefined
-    });
+  /* ── Appel de l'API sessions ──
+     Résout {status, data} ; ne rejette jamais (status 0 = réseau). */
+  function api(action, extra) {
+    var payload = Object.assign({
+      action: action,
+      email: getEmail().toLowerCase(),
+      device_id: getDeviceId()
+    }, extra || {});
+    return fetch(API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Session-Token': getToken()
+      },
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      return r.json().catch(function () { return null; }).then(function (d) {
+        return { status: r.status, data: d };
+      });
+    }, function () { return { status: 0, data: null }; });
   }
 
   /* Déconnexion locale (efface la session de cet appareil) */
@@ -99,90 +99,84 @@
     });
   }
 
-  /* Déconnexion complète : marque la session révoquée côté Supabase + efface localement */
+  /* Déconnexion complète : marque cet appareil révoqué + efface localement */
   function logout(redirect) {
     var done = function () {
       clearLocal();
       window.location.href = (redirect === undefined) ? 'index.html' : redirect;
     };
-    if (!CONFIGURED) { done(); return; }
-    sb('PATCH', '?device_id=eq.' + encodeURIComponent(getDeviceId()),
-       { revoked: true, last_seen: new Date().toISOString() })
-      .then(done, done);
+    if (!getEmail()) { done(); return; }
+    api('revoke').then(done, done);
   }
 
-  /* Enregistre / met à jour cet appareil pour l'email connecté */
-  function upsert() {
-    var d = detect();
-    return sb('POST', '?on_conflict=device_id', {
-      device_id: getDeviceId(),
-      email: getEmail().toLowerCase(),
-      browser: d.browser,
-      os: d.os,
-      device_type: d.type,
-      user_agent: d.ua,
-      page: window.location.pathname,
-      last_seen: new Date().toISOString(),
-      revoked: false
-    }, 'resolution=merge-duplicates');
+  /* Battement de cœur : maj last_seen + détecte une révocation faite
+     depuis un autre appareil → déconnexion à distance */
+  var disabled = false;
+  var timer = null;
+
+  function handleResult(res) {
+    if (!res) return;
+    if (res.status === 501) {           // API pas encore configurée (env vars Vercel)
+      disabled = true;
+      clearInterval(timer);
+    } else if (res.status === 401) {    // token de session invalide/expiré
+      clearInterval(timer);
+      clearLocal();
+      window.location.href = 'index.html';
+    } else if (res.status === 200 && res.data && res.data.revoked === true) {
+      clearInterval(timer);             // révoqué depuis un autre appareil
+      clearLocal();
+      window.location.href = 'index.html';
+    }
+    // 503 / 0 : backend momentanément injoignable → on ne déconnecte pas
   }
 
-  /* Battement de cœur : maj last_seen + vérifie si la session a été
-     révoquée depuis un autre appareil → déconnexion à distance */
   function heartbeat() {
-    if (!getEmail()) return;
-    sb('PATCH', '?device_id=eq.' + encodeURIComponent(getDeviceId()) + '&select=revoked',
-       { last_seen: new Date().toISOString(), page: window.location.pathname },
-       'return=representation')
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (rows) {
-        if (rows && rows[0] && rows[0].revoked === true) {
-          clearLocal();
-          window.location.href = 'index.html';
-        }
-      })
-      .catch(function () {});
+    if (disabled || !getEmail()) return;
+    api('heartbeat', { page: window.location.pathname }).then(function (res) {
+      // Appareil inconnu (ligne purgée ?) → on le ré-enregistre
+      if (res.status === 200 && res.data && res.data.known === false) {
+        var d = detect();
+        api('register', {
+          browser: d.browser, os: d.os, device_type: d.type,
+          user_agent: d.ua, page: window.location.pathname
+        });
+        return;
+      }
+      handleResult(res);
+    });
   }
 
   /* ── Démarrage ── */
-  var timer = null;
   function start() {
-    if (!CONFIGURED || !getEmail()) return;
-    // Si cet appareil a été révoqué à distance, on le déconnecte avant tout
-    sb('GET', '?device_id=eq.' + encodeURIComponent(getDeviceId()) + '&select=revoked')
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (rows) {
-        if (rows && rows[0] && rows[0].revoked === true && getToken()) {
-          // Session révoquée depuis un autre appareil → logout local
-          clearLocal();
-          window.location.href = 'index.html';
-          return;
-        }
-        upsert().catch(function () {});
+    if (!getEmail() || !getToken()) return;
+    var d = detect();
+    api('register', {
+      browser: d.browser, os: d.os, device_type: d.type,
+      user_agent: d.ua, page: window.location.pathname
+    }).then(function (res) {
+      handleResult(res);
+      if (!disabled && res.status !== 401) {
         clearInterval(timer);
         timer = setInterval(heartbeat, HEARTBEAT_MS);
-      })
-      .catch(function () {});
+      }
+    });
   }
 
   document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState === 'visible' && CONFIGURED && getEmail()) heartbeat();
+    if (document.visibilityState === 'visible') heartbeat();
   });
 
   /* API publique utilisée par les pages */
   window.XenonSession = {
-    configured: CONFIGURED,
-    supabaseUrl: SUPABASE_URL,
-    supabaseKey: SUPABASE_ANON_KEY,
-    table: TABLE,
     heartbeatMs: HEARTBEAT_MS,
     getEmail: getEmail,
     getToken: getToken,
     getDeviceId: getDeviceId,
     detect: detect,
+    api: api,
     logout: logout,
-    clearLocal: clearLocal,
-    sb: sb
+    clearLocal: clearLocal
   };
 
   if (document.readyState === 'loading') {

@@ -320,12 +320,12 @@
     document.getElementById('deviceCount').textContent = 'Configuration requise';
     document.getElementById('deviceList').innerHTML = `
       <div class="notice setup">
-        <h3>⚙️ Connexion Supabase à configurer</h3>
-        <p>Le suivi multi-appareils utilise Supabase. Pour l'activer :</p>
+        <h3>⚙️ Suivi multi-appareils à configurer</h3>
+        <p>Le suivi utilise Supabase via une fonction serveur sécurisée. Pour l'activer :</p>
         <ol>
           <li>Dans Supabase, ouvrez le <strong>SQL Editor</strong> et exécutez le fichier <code>supabase/device_sessions.sql</code> du dépôt GitHub.</li>
-          <li>Dans <strong>Settings → API</strong>, copiez la <code>Project URL</code> et la clé <code>anon public</code>.</li>
-          <li>Collez-les en haut du fichier <code>session-tracker.js</code> (variables <code>SUPABASE_URL</code> et <code>SUPABASE_ANON_KEY</code>), puis poussez sur GitHub — Vercel redéploiera automatiquement.</li>
+          <li>Dans Vercel → <strong>Project Settings → Environment Variables</strong>, ajoutez <code>SUPABASE_URL</code> (Project URL) et <code>SUPABASE_SERVICE_ROLE_KEY</code> (Supabase → Settings → API → <code>service_role</code>).</li>
+          <li>Redéployez le projet Vercel. Aucune clé n'est à mettre dans le code.</li>
         </ol>
       </div>`;
   }
@@ -333,18 +333,16 @@
   let devices = [];
 
   async function loadDevices() {
-    if (!XenonSession.configured) { showSetupNotice(); return; }
-    try {
-      const r = await XenonSession.sb('GET',
-        '?email=eq.' + encodeURIComponent(email.toLowerCase()) +
-        '&revoked=eq.false&order=last_seen.desc&select=*');
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      devices = await r.json();
+    const res = await XenonSession.api('list');
+    if (res.status === 501) { showSetupNotice(); return; }
+    if (res.status === 401) { XenonSession.clearLocal(); window.location.href = 'index.html'; return; }
+    if (res.status === 200 && res.data && res.data.ok) {
+      devices = res.data.devices || [];
       render();
-    } catch (e) {
+    } else {
       document.getElementById('deviceCount').textContent = '';
       document.getElementById('deviceList').innerHTML =
-        '<div class="notice">Impossible de charger les appareils.<br>Vérifiez la configuration Supabase puis <strong>actualisez</strong>.</div>';
+        '<div class="notice">Impossible de charger les appareils pour le moment.<br>Réessayez dans quelques instants via <strong>Actualiser</strong>.</div>';
     }
   }
 
@@ -393,22 +391,14 @@
   async function revokeDevice(deviceId, btn) {
     if (deviceId === XenonSession.getDeviceId()) { XenonSession.logout(); return; }
     if (btn) { btn.disabled = true; btn.textContent = '…'; }
-    try {
-      await XenonSession.sb('PATCH', '?device_id=eq.' + encodeURIComponent(deviceId),
-        { revoked: true });
-    } catch (e) {}
+    await XenonSession.api('revoke', { device_id: deviceId });
     loadDevices();
   }
 
   async function revokeOthers() {
-    const myId = XenonSession.getDeviceId();
     const btn = document.getElementById('revokeAllBtn');
     btn.disabled = true;
-    try {
-      await XenonSession.sb('PATCH',
-        '?email=eq.' + encodeURIComponent(email.toLowerCase()) + '&device_id=neq.' + encodeURIComponent(myId),
-        { revoked: true });
-    } catch (e) {}
+    await XenonSession.api('revoke_others');
     btn.disabled = false;
     loadDevices();
   }
