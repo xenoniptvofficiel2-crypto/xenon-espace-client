@@ -37,6 +37,12 @@ le tracker se désactive tout seul et la page Appareils affiche les instructions
   backend d'authentification existant (`accesxtv-backend`) avant toute
   opération, puis accède à Supabase avec la clé `service_role` (variable
   d'environnement, jamais dans le code).
+- **L'identité (email) est déduite du token, jamais du corps de la requête.**
+  La réponse de `/api/subscription` doit contenir l'email du compte (champ
+  `email`) : c'est cet email vérifié qui scope chaque opération. Un abonné ne
+  peut donc pas cibler le compte d'un autre en envoyant un email arbitraire.
+  Si le backend ne renvoie pas d'email, l'API refuse (fail closed) plutôt que
+  de risquer un accès inter-comptes.
 - La table est **fermée au public** : RLS activé sans policy — la clé `anon`
   ne peut ni lire ni écrire. Impossible de lister les emails ou de révoquer
   les appareils d'autrui depuis l'extérieur ; toutes les requêtes sont

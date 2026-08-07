@@ -20,14 +20,37 @@ const LIST_COLUMNS = 'device_id,email,browser,os,device_type,page,first_seen,las
 const tokenCache = new Map();
 const TOKEN_TTL = 5 * 60 * 1000;
 
-/* Valide le token de session auprès du backend d'authentification existant.
-   Retourne 'ok' (token valide), 'bad' (token refusé) ou 'unknown'
-   (backend injoignable — on ne déconnecte pas l'utilisateur pour autant). */
+/* Extrait l'email propriétaire du token depuis la réponse du backend
+   d'authentification. On teste plusieurs emplacements possibles pour
+   rester compatible avec la forme exacte de /api/subscription. */
+function extractEmail(d) {
+  if (!d || typeof d !== 'object') return '';
+  var candidates = [
+    d.email, d.user_email, d.account_email,
+    d.user && d.user.email,
+    Array.isArray(d.subscriptions) && d.subscriptions[0] && d.subscriptions[0].email
+  ];
+  for (var i = 0; i < candidates.length; i++) {
+    var e = (candidates[i] || '').toString().toLowerCase().trim();
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return e;
+  }
+  return '';
+}
+
+/* Valide le token de session auprès du backend d'authentification et
+   renvoie l'IDENTITÉ liée au token (jamais l'email fourni par le client).
+   Retour : { verdict, email }
+     - verdict 'ok'      → token valide, `email` = propriétaire du token
+     - verdict 'bad'     → token refusé
+     - verdict 'unknown' → backend injoignable (on ne déconnecte pas)
+   Sécurité : c'est cet `email`, et lui seul, qui sert à scoper toutes
+   les opérations. L'email du corps de requête n'est jamais utilisé pour
+   l'autorisation (sinon un abonné pourrait cibler le compte d'un autre). */
 async function validateToken(token) {
-  if (!token || token.length > 500) return 'bad';
+  if (!token || token.length > 500) return { verdict: 'bad', email: '' };
   const hit = tokenCache.get(token);
-  if (hit && hit.exp > Date.now()) return hit.verdict;
-  let verdict = 'unknown';
+  if (hit && hit.exp > Date.now()) return { verdict: hit.verdict, email: hit.email };
+  let verdict = 'unknown', email = '';
   try {
     const r = await fetch(AUTH_BACKEND + '/api/subscription', {
       headers: { 'X-Session-Token': token },
@@ -36,14 +59,15 @@ async function validateToken(token) {
     if (r.status === 401 || r.status === 403) verdict = 'bad';
     else if (r.ok) {
       const d = await r.json().catch(() => null);
-      verdict = d && d.success ? 'ok' : 'bad';
+      if (d && d.success) { verdict = 'ok'; email = extractEmail(d); }
+      else verdict = 'bad';
     }
   } catch (e) { /* backend injoignable → unknown */ }
   if (verdict !== 'unknown') {
     if (tokenCache.size > 1000) tokenCache.clear();
-    tokenCache.set(token, { verdict, exp: Date.now() + TOKEN_TTL });
+    tokenCache.set(token, { verdict, email, exp: Date.now() + TOKEN_TTL });
   }
-  return verdict;
+  return { verdict, email };
 }
 
 function sb(method, query, body, prefer) {
@@ -75,19 +99,20 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const verdict = await validateToken(req.headers['x-session-token'] || '');
-  if (verdict === 'bad') { res.status(401).json({ error: 'invalid_session' }); return; }
-  if (verdict === 'unknown') { res.status(503).json({ error: 'auth_unavailable' }); return; }
+  const auth = await validateToken(req.headers['x-session-token'] || '');
+  if (auth.verdict === 'bad') { res.status(401).json({ error: 'invalid_session' }); return; }
+  if (auth.verdict === 'unknown') { res.status(503).json({ error: 'auth_unavailable' }); return; }
+
+  // Identité = email lié au TOKEN (source de vérité), jamais l'email du corps.
+  // Si le backend n'a pas fourni d'email vérifiable, on refuse plutôt que
+  // de risquer un accès inter-comptes (fail closed).
+  const email = auth.email;
+  if (!email) { res.status(403).json({ error: 'identity_unavailable' }); return; }
 
   const b = (typeof req.body === 'object' && req.body) || {};
   const action = clip(b.action, 30);
-  const email = clip(b.email, 200).toLowerCase().trim();
-  const deviceId = clip(b.device_id, 100);
-
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    res.status(400).json({ error: 'invalid_email' });
-    return;
-  }
+  // device_id restreint à un charset sûr (défense en profondeur côté rendu)
+  const deviceId = clip(b.device_id, 100).replace(/[^A-Za-z0-9_-]/g, '');
 
   try {
     if (action === 'register') {

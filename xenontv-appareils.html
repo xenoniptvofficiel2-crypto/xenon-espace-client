@@ -330,11 +330,26 @@
       </div>`;
   }
 
+  function showIdentityNotice() {
+    document.getElementById('deviceCount').textContent = 'Configuration requise';
+    document.getElementById('deviceList').innerHTML = `
+      <div class="notice setup">
+        <h3>⚙️ Identité du compte non fournie par le backend</h3>
+        <p>Par sécurité, la fonction <code>/api/sessions</code> lie chaque requête à
+        l'email <strong>rattaché au token de session</strong> (et non à l'email envoyé
+        par le navigateur). Pour cela, le backend d'authentification
+        (<code>accesxtv-backend</code>, endpoint <code>/api/subscription</code>) doit
+        renvoyer l'email du compte dans sa réponse JSON (champ <code>email</code>).</p>
+        <p>Ajoutez ce champ côté backend, puis actualisez cette page.</p>
+      </div>`;
+  }
+
   let devices = [];
 
   async function loadDevices() {
     const res = await XenonSession.api('list');
     if (res.status === 501) { showSetupNotice(); return; }
+    if (res.status === 403) { showIdentityNotice(); return; }
     if (res.status === 401) { XenonSession.clearLocal(); window.location.href = 'index.html'; return; }
     if (res.status === 200 && res.data && res.data.ok) {
       devices = res.data.devices || [];
@@ -381,14 +396,24 @@
             <span class="status-dot ${online ? 'online' : 'offline'}"></span>
             <span class="${online ? 'online-label' : 'offline-label'}">${online ? 'En ligne' : 'Hors ligne'}</span>
           </div>
-          <button class="device-revoke" onclick="revokeDevice('${esc(d.device_id)}', this)">
+          <button class="device-revoke" type="button" data-device-id="${esc(d.device_id)}">
             ${isMe ? 'Se déconnecter' : 'Déconnecter'}
           </button>
         </div>`;
     }).join('');
   }
 
+  // Délégation d'événement : le device_id n'est jamais injecté dans du
+  // code (évite toute exécution via un device_id malveillant), il est lu
+  // depuis l'attribut data-* du bouton cliqué.
+  document.getElementById('deviceList').addEventListener('click', function (e) {
+    const btn = e.target.closest('.device-revoke');
+    if (!btn) return;
+    revokeDevice(btn.getAttribute('data-device-id') || '', btn);
+  });
+
   async function revokeDevice(deviceId, btn) {
+    if (!deviceId) return;
     if (deviceId === XenonSession.getDeviceId()) { XenonSession.logout(); return; }
     if (btn) { btn.disabled = true; btn.textContent = '…'; }
     await XenonSession.api('revoke', { device_id: deviceId });
