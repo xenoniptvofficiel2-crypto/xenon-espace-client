@@ -117,7 +117,9 @@ module.exports = async (req, res) => {
   try {
     if (action === 'register') {
       if (!deviceId) { res.status(400).json({ error: 'missing_device_id' }); return; }
-      const r = await sb('POST', '?on_conflict=device_id', {
+      // Conflit sur (email, device_id) : un register ne peut que créer/mettre
+      // à jour la ligne DE CE compte, jamais réécrire celle d'un autre.
+      const r = await sb('POST', '?on_conflict=email,device_id', {
         device_id: deviceId,
         email,
         browser: clip(b.browser, 60),

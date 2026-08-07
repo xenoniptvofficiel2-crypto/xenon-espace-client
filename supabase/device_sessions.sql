@@ -5,7 +5,7 @@
 
 create table if not exists public.device_sessions (
   id          uuid primary key default gen_random_uuid(),
-  device_id   text not null unique,
+  device_id   text not null,
   email       text not null,
   browser     text,
   os          text,
@@ -14,7 +14,10 @@ create table if not exists public.device_sessions (
   page        text,
   first_seen  timestamptz not null default now(),
   last_seen   timestamptz not null default now(),
-  revoked     boolean not null default false
+  revoked     boolean not null default false,
+  -- Un device_id est unique PAR COMPTE (pas globalement) : ainsi un
+  -- enregistrement ne peut jamais réécrire la ligne d'un autre compte.
+  unique (email, device_id)
 );
 
 create index if not exists device_sessions_email_idx
