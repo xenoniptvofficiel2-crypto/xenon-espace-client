@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XENON TV — Appareils connectés</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #e50914;
+    --dark-red: #b20710;
+    --black: #000;
+    --bg: #141414;
+    --surface: #1a1a1a;
+    --surface2: #2d2d2d;
+    --border: #333;
+    --text: #fff;
+    --muted: #aaa;
+    --green: #22c55e;
+  }
+
+  body {
+    font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+    background: var(--black);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 56px;
+    border-bottom: 1px solid #1f1f1f;
+    background: rgba(0,0,0,0.9);
+  }
+  .topbar-left { display: flex; align-items: center; gap: 18px; }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    color: #fff;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .logo span { color: var(--red); }
+  .topbar-sep { width: 1px; height: 26px; background: #333; }
+  .topbar-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .topbar-right { display: flex; align-items: center; gap: 14px; }
+  .back-btn, .logout-btn {
+    background: transparent;
+    border: 1px solid #333;
+    color: #ccc;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .back-btn:hover { border-color: #666; color: #fff; }
+  .logout-btn:hover { border-color: rgba(229,9,20,0.6); color: #ff6b6b; }
+
+  /* ── HEADER ── */
+  .page-header { padding: 44px 56px 10px; }
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    letter-spacing: 3px;
+  }
+  .page-header h1 span { color: var(--red); }
+  .page-header p { color: var(--muted); font-size: 0.9rem; margin-top: 6px; max-width: 640px; line-height: 1.6; }
+
+  main { padding: 24px 56px 70px; max-width: 1000px; }
+
+  /* ── TOOLBAR ── */
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .device-count { font-size: 0.85rem; color: var(--muted); }
+  .device-count strong { color: #fff; }
+  .toolbar-actions { display: flex; gap: 10px; }
+  .btn-outline-red {
+    background: transparent;
+    border: 1px solid rgba(229,9,20,0.5);
+    color: #ff6b6b;
+    padding: 9px 18px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-outline-red:hover { background: rgba(229,9,20,0.12); color: #ff4444; }
+  .btn-refresh {
+    background: transparent;
+    border: 1px solid #333;
+    color: #ccc;
+    padding: 9px 16px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .btn-refresh:hover { border-color: #666; color: #fff; }
+
+  /* ── DEVICE CARDS ── */
+  .device-list { display: flex; flex-direction: column; gap: 10px; }
+  .device-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: linear-gradient(135deg, #161616 0%, #101010 100%);
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 18px 22px;
+    transition: border-color 0.2s;
+  }
+  .device-card:hover { border-color: #3a3a3a; }
+  .device-card.current { border-color: rgba(229,9,20,0.45); }
+  .device-icon {
+    font-size: 2rem;
+    width: 54px; height: 54px;
+    display: flex; align-items: center; justify-content: center;
+    background: #1e1e1e;
+    border: 1px solid #2e2e2e;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .device-info { flex: 1; min-width: 0; }
+  .device-name {
+    font-size: 0.98rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .badge-current {
+    background: rgba(229,9,20,0.15);
+    border: 1px solid rgba(229,9,20,0.4);
+    color: #ff6b6b;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .device-meta { font-size: 0.78rem; color: #888; margin-top: 4px; line-height: 1.5; }
+  .device-status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .status-dot.online { background: var(--green); box-shadow: 0 0 8px rgba(34,197,94,0.6); animation: pulse 2s infinite; }
+  .status-dot.offline { background: #555; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .online-label { color: var(--green); }
+  .offline-label { color: #888; }
+  .device-revoke {
+    background: transparent;
+    border: 1px solid #333;
+    color: #ccc;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .device-revoke:hover { border-color: rgba(229,9,20,0.6); color: #ff6b6b; background: rgba(229,9,20,0.08); }
+  .device-revoke:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ── EMPTY / NOTICE ── */
+  .notice {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 34px 28px;
+    text-align: center;
+    color: #999;
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+  .notice strong { color: #fff; }
+  .notice.setup {
+    text-align: left;
+    border-color: rgba(234,179,8,0.35);
+    background: rgba(234,179,8,0.05);
+  }
+  .notice.setup h3 { color: #fbbf24; font-size: 1rem; margin-bottom: 10px; }
+  .notice.setup ol { margin: 10px 0 0 20px; }
+  .notice.setup li { margin-bottom: 8px; }
+  .notice.setup code {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-size: 0.8rem;
+    color: #eee;
+  }
+  .skeleton-card {
+    height: 90px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #1a1a1a 25%, #242424 50%, #1a1a1a 75%);
+    background-size: 400px 100%;
+    animation: shimmer 1.4s infinite;
+  }
+  @keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .topbar { padding: 12px 18px; }
+    .logo { font-size: 1.6rem; }
+    .topbar-title { display: none; }
+    .topbar-sep { display: none; }
+    .page-header { padding: 28px 18px 6px; }
+    .page-header h1 { font-size: 1.9rem; }
+    main { padding: 18px 18px 50px; }
+    .device-card { flex-wrap: wrap; gap: 12px; padding: 16px; }
+    .device-status { order: 3; }
+    .device-revoke { order: 4; margin-left: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── TOPBAR ── -->
+<header class="topbar">
+  <div class="topbar-left">
+    <a class="logo" href="xenontv-dashboard">XENON<span>TV</span></a>
+    <div class="topbar-sep"></div>
+    <span class="topbar-title">Appareils connectés</span>
+  </div>
+  <div class="topbar-right">
+    <a class="back-btn" href="xenontv-dashboard">← Retour</a>
+    <button class="logout-btn" onclick="XenonSession.logout()">Déconnexion</button>
+  </div>
+</header>
+
+<!-- ── HEADER ── -->
+<div class="page-header">
+  <h1>MES <span>APPAREILS</span></h1>
+  <p>Retrouvez tous les appareils connectés à votre espace abonné XENON TV. Suivez leur activité en temps réel et déconnectez à distance ceux que vous ne reconnaissez pas.</p>
+</div>
+
+<main>
+  <div class="toolbar">
+    <div class="device-count" id="deviceCount">Chargement…</div>
+    <div class="toolbar-actions">
+      <button class="btn-refresh" onclick="loadDevices()">↻ Actualiser</button>
+      <button class="btn-outline-red" id="revokeAllBtn" onclick="revokeOthers()" style="display:none">Déconnecter les autres appareils</button>
+    </div>
+  </div>
+
+  <div class="device-list" id="deviceList">
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+  </div>
+</main>
+
+<script src="/session-tracker.js"></script>
+<script>
+  // ── Garde de session (même logique que le dashboard)
+  const email = XenonSession.getEmail();
+  const token = XenonSession.getToken();
+  if (!email || !token) window.location.href = 'index.html';
+
+  const REFRESH_MS = 30 * 1000;
+  const ONLINE_WINDOW_MS = 2 * XenonSession.heartbeatMs + 15000; // marge sur le heartbeat
+
+  const ICONS = { 'Mobile': '📱', 'Tablette': '📱', 'Ordinateur': '💻', 'TV': '📺' };
+
+  function relTime(iso) {
+    const diff = Date.now() - new Date(iso).getTime();
+    const min = Math.floor(diff / 60000);
+    if (min < 1) return "à l'instant";
+    if (min < 60) return 'il y a ' + min + ' min';
+    const h = Math.floor(min / 60);
+    if (h < 24) return 'il y a ' + h + ' h';
+    const d = Math.floor(h / 24);
+    return 'il y a ' + d + ' jour' + (d > 1 ? 's' : '');
+  }
+  function fmtDate(iso) {
+    return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+  function esc(s) {
+    return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function showSetupNotice() {
+    document.getElementById('deviceCount').textContent = 'Configuration requise';
+    document.getElementById('deviceList').innerHTML = `
+      <div class="notice setup">
+        <h3>⚙️ Connexion Supabase à configurer</h3>
+        <p>Le suivi multi-appareils utilise Supabase. Pour l'activer :</p>
+        <ol>
+          <li>Dans Supabase, ouvrez le <strong>SQL Editor</strong> et exécutez le fichier <code>supabase/device_sessions.sql</code> du dépôt GitHub.</li>
+          <li>Dans <strong>Settings → API</strong>, copiez la <code>Project URL</code> et la clé <code>anon public</code>.</li>
+          <li>Collez-les en haut du fichier <code>session-tracker.js</code> (variables <code>SUPABASE_URL</code> et <code>SUPABASE_ANON_KEY</code>), puis poussez sur GitHub — Vercel redéploiera automatiquement.</li>
+        </ol>
+      </div>`;
+  }
+
+  let devices = [];
+
+  async function loadDevices() {
+    if (!XenonSession.configured) { showSetupNotice(); return; }
+    try {
+      const r = await XenonSession.sb('GET',
+        '?email=eq.' + encodeURIComponent(email.toLowerCase()) +
+        '&revoked=eq.false&order=last_seen.desc&select=*');
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      devices = await r.json();
+      render();
+    } catch (e) {
+      document.getElementById('deviceCount').textContent = '';
+      document.getElementById('deviceList').innerHTML =
+        '<div class="notice">Impossible de charger les appareils.<br>Vérifiez la configuration Supabase puis <strong>actualisez</strong>.</div>';
+    }
+  }
+
+  function render() {
+    const list = document.getElementById('deviceList');
+    const count = document.getElementById('deviceCount');
+    const myId = XenonSession.getDeviceId();
+
+    count.innerHTML = '<strong>' + devices.length + '</strong> appareil' + (devices.length > 1 ? 's' : '') +
+                      ' connecté' + (devices.length > 1 ? 's' : '') + ' à <strong>' + esc(email) + '</strong>';
+    document.getElementById('revokeAllBtn').style.display = devices.length > 1 ? '' : 'none';
+
+    if (!devices.length) {
+      list.innerHTML = '<div class="notice">Aucun appareil enregistré pour le moment.<br>Les appareils apparaîtront ici dès leur prochaine connexion à l\'espace abonné.</div>';
+      return;
+    }
+
+    list.innerHTML = devices.map(d => {
+      const isMe = d.device_id === myId;
+      const online = (Date.now() - new Date(d.last_seen).getTime()) < ONLINE_WINDOW_MS;
+      return `
+        <div class="device-card${isMe ? ' current' : ''}">
+          <div class="device-icon">${ICONS[d.device_type] || '💻'}</div>
+          <div class="device-info">
+            <div class="device-name">
+              ${esc(d.browser || 'Navigateur')} · ${esc(d.os || '')}
+              ${isMe ? '<span class="badge-current">Cet appareil</span>' : ''}
+            </div>
+            <div class="device-meta">
+              ${esc(d.device_type || '')} — Dernière activité ${relTime(d.last_seen)}
+              ${d.page ? ' · page ' + esc(d.page) : ''}<br>
+              Première connexion le ${fmtDate(d.first_seen)}
+            </div>
+          </div>
+          <div class="device-status">
+            <span class="status-dot ${online ? 'online' : 'offline'}"></span>
+            <span class="${online ? 'online-label' : 'offline-label'}">${online ? 'En ligne' : 'Hors ligne'}</span>
+          </div>
+          <button class="device-revoke" onclick="revokeDevice('${esc(d.device_id)}', this)">
+            ${isMe ? 'Se déconnecter' : 'Déconnecter'}
+          </button>
+        </div>`;
+    }).join('');
+  }
+
+  async function revokeDevice(deviceId, btn) {
+    if (deviceId === XenonSession.getDeviceId()) { XenonSession.logout(); return; }
+    if (btn) { btn.disabled = true; btn.textContent = '…'; }
+    try {
+      await XenonSession.sb('PATCH', '?device_id=eq.' + encodeURIComponent(deviceId),
+        { revoked: true });
+    } catch (e) {}
+    loadDevices();
+  }
+
+  async function revokeOthers() {
+    const myId = XenonSession.getDeviceId();
+    const btn = document.getElementById('revokeAllBtn');
+    btn.disabled = true;
+    try {
+      await XenonSession.sb('PATCH',
+        '?email=eq.' + encodeURIComponent(email.toLowerCase()) + '&device_id=neq.' + encodeURIComponent(myId),
+        { revoked: true });
+    } catch (e) {}
+    btn.disabled = false;
+    loadDevices();
+  }
+
+  window.loadDevices = loadDevices;
+  window.revokeDevice = revokeDevice;
+  window.revokeOthers = revokeOthers;
+
+  loadDevices();
+  setInterval(loadDevices, REFRESH_MS);
+</script>
+
+</body>
+</html>

@@ -1357,6 +1357,11 @@
           closePopup();
           sessionStorage.setItem('xenon_session_token', data.token);
           sessionStorage.setItem('xenon_user_email', data.email);
+          // Persistance multi-appareils : la session survit à la fermeture du navigateur
+          try {
+            localStorage.setItem('xenon_session_token', data.token);
+            localStorage.setItem('xenon_user_email', data.email);
+          } catch (e) {}
           window.location.href = 'xenontv-dashboard';
         }, 2800);
       } else {

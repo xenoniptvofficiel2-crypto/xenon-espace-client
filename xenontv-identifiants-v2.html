@@ -565,6 +565,7 @@ body {
   </div>
 </div>
 
+<script src="/session-tracker.js"></script>
 <script>
   const API_URL = 'https://accesxtv-backend.vercel.app/api/proxy';
   const OLD_DOMAINS = ['benflixe.com','mega862.com','luxevpn.xyz','eldervpn.xyz','megaxeno.com','xenontv2.xyz','xenonsdns.com','xentvsat.com','xeno'];
@@ -725,6 +726,9 @@ body {
       const data = await res.json();
       document.getElementById('loaderDots').style.display = 'none';
       if (res.status === 401) {
+        // Token expiré : on efface aussi le localStorage pour éviter
+        // que session-tracker.js ne resynchronise une session invalide
+        if (window.XenonSession) XenonSession.clearLocal();
         sessionStorage.clear();
         window.location.href = 'index.html';
         return;
