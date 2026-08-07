@@ -286,6 +286,9 @@
   .bg-abonnement {
     background-image: url('https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&q=80');
   }
+  .bg-appareils {
+    background-image: url('https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=800&q=80');
+  }
 
   .tint-red { background: linear-gradient(135deg, #e50914, #b20710); }
   .tint-blue { background: linear-gradient(135deg, #1a3a6b, #0d1f3c); }
@@ -570,7 +573,7 @@
       <div class="user-avatar" id="userInitial">?</div>
       <span id="userEmail">Chargement...</span>
     </div>
-    <button class="logout-btn" onclick="sessionStorage.clear();window.location.href='index.html'">Déconnexion</button>
+    <button class="logout-btn" onclick="XenonSession.logout()">Déconnexion</button>
   </div>
 </header>
 
@@ -757,6 +760,20 @@
       </div>
     </div>
 
+    <!-- APPAREILS CONNECTÉS -->
+    <div class="menu-card" onclick="goTo('appareils')">
+      <div class="card-bg bg-appareils"></div>
+      <div class="card-tint tint-teal"></div>
+      <div class="card-overlay"></div>
+      <div class="card-badge">Temps réel</div>
+      <div class="card-content">
+        <span class="card-icon">📲</span>
+        <div class="card-title">Mes appareils connectés</div>
+        <p class="card-desc">Suivez votre session sur tous vos appareils et déconnectez-les à distance.</p>
+        <span class="card-btn">Gérer <span class="card-btn-arrow">→</span></span>
+      </div>
+    </div>
+
   </div>
 
 </main>
@@ -772,6 +789,7 @@
   </div>
 </footer>
 
+<script src="/session-tracker.js"></script>
 <script>
   // ── Vérification session
   function checkSession() {
@@ -787,6 +805,7 @@
       identifiants:  'xenontv-identifiants-v2',
       bug:           'xenontv-bug',
       abonnement:    'xenontv-abonnement',
+      appareils:     'xenontv-appareils',
       parrainage:    'https://parrainagexenon.vercel.app/',
     };
     const url = pages[section];
