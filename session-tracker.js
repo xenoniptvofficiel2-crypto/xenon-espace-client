@@ -10,7 +10,9 @@
 (function () {
   'use strict';
 
-  var API = '/api/sessions';
+  // Endpoint côté backend (accesxtv-backend) : c'est là que réside le
+  // COOKIE_SECRET qui permet de vérifier le token et d'en extraire l'email.
+  var API = 'https://accesxtv-backend.vercel.app/api/sessions';
   var HEARTBEAT_MS = 60 * 1000; // maj "dernière activité" toutes les 60 s
 
   /* ── Persistance : synchronise sessionStorage (utilisé par les pages)
@@ -72,9 +74,9 @@
   /* ── Appel de l'API sessions ──
      Résout {status, data} ; ne rejette jamais (status 0 = réseau). */
   function api(action, extra) {
+    // Note : on n'envoie PAS l'email — le serveur le déduit du token signé.
     var payload = Object.assign({
       action: action,
-      email: getEmail().toLowerCase(),
       device_id: getDeviceId()
     }, extra || {});
     return fetch(API, {

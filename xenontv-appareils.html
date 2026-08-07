@@ -330,17 +330,14 @@
       </div>`;
   }
 
-  function showIdentityNotice() {
-    document.getElementById('deviceCount').textContent = 'Configuration requise';
+  function showForbiddenNotice() {
+    document.getElementById('deviceCount').textContent = 'Domaine non autorisé';
     document.getElementById('deviceList').innerHTML = `
       <div class="notice setup">
-        <h3>⚙️ Identité du compte non fournie par le backend</h3>
-        <p>Par sécurité, la fonction <code>/api/sessions</code> lie chaque requête à
-        l'email <strong>rattaché au token de session</strong> (et non à l'email envoyé
-        par le navigateur). Pour cela, le backend d'authentification
-        (<code>accesxtv-backend</code>, endpoint <code>/api/subscription</code>) doit
-        renvoyer l'email du compte dans sa réponse JSON (champ <code>email</code>).</p>
-        <p>Ajoutez ce champ côté backend, puis actualisez cette page.</p>
+        <h3>⚙️ Domaine non autorisé</h3>
+        <p>Le backend <code>accesxtv-backend</code> n'accepte les requêtes que depuis
+        les domaines de sa liste blanche (<code>ALLOWED_ORIGINS</code>). Ajoutez-y le
+        domaine sur lequel cette page est servie, puis redéployez le backend.</p>
       </div>`;
   }
 
@@ -349,7 +346,7 @@
   async function loadDevices() {
     const res = await XenonSession.api('list');
     if (res.status === 501) { showSetupNotice(); return; }
-    if (res.status === 403) { showIdentityNotice(); return; }
+    if (res.status === 403) { showForbiddenNotice(); return; }
     if (res.status === 401) { XenonSession.clearLocal(); window.location.href = 'index.html'; return; }
     if (res.status === 200 && res.data && res.data.ok) {
       devices = res.data.devices || [];
