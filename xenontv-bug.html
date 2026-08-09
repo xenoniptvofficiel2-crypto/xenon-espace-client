@@ -808,7 +808,13 @@ function selectSouci(souci, icon, label) {
 
 
 const API_URL  = 'https://accesxtv-backend.vercel.app/api/proxy';
-const ALT_URLS = ['http://app.megsmart.xyz', 'http://app.meg1xeno.xyz', 'http://app.meg2xeno.xyz'];
+
+// ── URLs d'AFFICHAGE : 4 domaines. 1 tiré au hasard par chargement (~1 client/4),
+//    les 3 autres vont dans « Réparer ». Changement d'affichage uniquement.
+const XENON_URLS = ['http://applicationxenon-lecteur.com','http://lecteur-xenon2026.com','http://xenon2026-lecteur.com','http://appxenonplayer.com'];
+const OLD_URL = 'http://app.xentvsat.com';
+const PICKED_URL = XENON_URLS[Math.floor(Math.random() * XENON_URLS.length)];
+const REPAIR_URLS = XENON_URLS.filter(u => u !== PICKED_URL);
 
 // ── Vérification session
 // Session sans redirect
@@ -867,9 +873,9 @@ function escHtml(str) {
   // ── CREDENTIALS LOADER
 const credLoaded = {};
 function fixUrl(url) {
-  if (!url) return 'http://app.xentvsat.com';
-  try { const u = new URL(url.startsWith('http') ? url : 'http://' + url); return 'http://app.xentvsat.com' + u.pathname + u.search; }
-  catch(e) { return 'http://app.xentvsat.com'; }
+  if (!url) return PICKED_URL;
+  try { const u = new URL(url.startsWith('http') ? url : 'http://' + url); return PICKED_URL + u.pathname + u.search; }
+  catch(e) { return PICKED_URL; }
 }
 
 function loadCreds(cwId) {
@@ -904,10 +910,8 @@ function loadCreds(cwId) {
         const displayUrl = isSmart ? (smartUrl || fixedUrl) : fixedUrl;
 
         if (isM3U) {
-          let baseUrl = '';
-          try { const u = new URL(acc.url.startsWith('http') ? acc.url : 'http://' + acc.url); baseUrl = u.origin; } catch(e) { baseUrl = fixedUrl; }
           const m3uUrl = acc.username && acc.password
-            ? `${baseUrl}/get.php?username=${encodeURIComponent(acc.username)}&password=${encodeURIComponent(acc.password)}&type=m3u_plus`
+            ? `${PICKED_URL}/get.php?username=${encodeURIComponent(acc.username)}&password=${encodeURIComponent(acc.password)}&type=m3u_plus`
             : fixedUrl;
           const m3uSafe = m3uUrl.replace(/'/g, "\'");
           html += `<div class="cw-result-card"><div class="cw-result-header"><span class="cw-badge">✓ ${label}</span></div><div class="cw-rows">
@@ -933,11 +937,27 @@ function openRepair(cwId, originalUrl) {
   if (!modal) return;
   let path = '';
   try { const u = new URL(originalUrl.startsWith('http') ? originalUrl : 'http://' + originalUrl); path = u.pathname + u.search; } catch(e) {}
-  // Smart TV → wesmrt.com, autres → ALT_URLS
-  const repairUrls = cwId === 'smarttv'
+  // Smart TV → wesmrt.com (inchangé), autres → les 3 autres domaines XENON
+  const isSmart = cwId === 'smarttv';
+  const repairUrls = isSmart
     ? ['http://wesmrt.com', 'http://app.megsmart.xyz', 'http://app.meg1xeno.xyz']
-    : ALT_URLS;
+    : REPAIR_URLS;
   repairUrls.forEach((a, i) => { const el = document.getElementById(`repUrl${i+1}-${cwId}`); if (el) el.textContent = a + path; });
+  // Ancien URL barré (déprécié) — pour les fiches non Smart TV
+  if (!isSmart) {
+    const box = modal.querySelector('.modal-box');
+    const sub = box && box.querySelector('.modal-sub');
+    if (box && sub) {
+      let old = box.querySelector('.rep-old');
+      if (!old) {
+        old = document.createElement('div');
+        old.className = 'rep-old';
+        old.style.cssText = 'font-size:0.78rem;text-decoration:line-through;opacity:0.6;margin-bottom:12px;word-break:break-all';
+        sub.insertAdjacentElement('afterend', old);
+      }
+      old.textContent = OLD_URL + path;
+    }
+  }
   modal.classList.add('open');
 }
 function closeModal(id) { const el = document.getElementById(id); if (el) el.classList.remove('open'); }

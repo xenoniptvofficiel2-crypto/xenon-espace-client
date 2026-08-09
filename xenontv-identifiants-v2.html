@@ -523,24 +523,10 @@ body {
     <p class="modal-sub">Votre ancien serveur ne fonctionne plus. Utilisez les nouveaux URLs XENON TV.</p>
     <div class="url-block">
       <div class="url-block-label">Votre ancien URL</div>
-      <div class="url-old">http://app.xentvsat.com</div>
+      <div class="url-old" style="text-decoration:line-through;opacity:0.6">http://app.xentvsat.com</div>
     </div>
     <div style="text-align:center;padding:4px 0;color:var(--muted);font-size:1.1rem">↓</div>
-    <div class="url-block">
-      <div class="url-block-label">Nouvel URL recommandé — Android / iOS</div>
-      <div class="url-new">http://app.xentvsat.com</div>
-      <button class="copy-btn" onclick="copyText(this,'http://app.xentvsat.com')">Copier</button>
-    </div>
-    <div class="url-block">
-      <div class="url-block-label">Alternatif 1</div>
-      <div class="url-new">http://app.meg2xeno.xyz</div>
-      <button class="copy-btn" onclick="copyText(this,'http://app.meg2xeno.xyz')">Copier</button>
-    </div>
-    <div class="url-block">
-      <div class="url-block-label">Alternatif 2</div>
-      <div class="url-new">http://app.meg4xeno.xyz</div>
-      <button class="copy-btn" onclick="copyText(this,'http://app.meg4xeno.xyz')">Copier</button>
-    </div>
+    <div id="iosRepairList"></div>
     <div class="url-warning">⚠️ Utilisez bien <strong>http://</strong> et non https://</div>
     <button class="modal-close" onclick="closeModal('modalIos')">Fermer</button>
   </div>
@@ -569,6 +555,24 @@ body {
 <script>
   const API_URL = 'https://accesxtv-backend.vercel.app/api/proxy';
   const OLD_DOMAINS = ['benflixe.com','mega862.com','luxevpn.xyz','eldervpn.xyz','megaxeno.com','xenontv2.xyz','xenonsdns.com','xentvsat.com','xeno'];
+
+  // ── URLs d'AFFICHAGE : 4 domaines. 1 tiré au hasard par chargement (~1 client/4),
+  //    les 3 autres vont dans « Réparer ». Changement d'affichage uniquement.
+  const XENON_URLS = ['http://applicationxenon-lecteur.com','http://lecteur-xenon2026.com','http://xenon2026-lecteur.com','http://appxenonplayer.com'];
+  const OLD_URL = 'http://app.xentvsat.com';
+  const PICKED_URL = XENON_URLS[Math.floor(Math.random() * XENON_URLS.length)];
+  const REPAIR_URLS = XENON_URLS.filter(u => u !== PICKED_URL);
+  // Remplit le pop-up « Réparer » Android/iOS avec les 3 autres domaines.
+  (function fillIosRepair(){
+    const c = document.getElementById('iosRepairList');
+    if (!c) return;
+    c.innerHTML = REPAIR_URLS.map(function(u,i){
+      return '<div class="url-block"><div class="url-block-label">'
+        + (i===0 ? 'Nouvel URL recommandé — Android / iOS' : 'Alternatif ' + i)
+        + '</div><div class="url-new">' + u + '</div>'
+        + '<button class="copy-btn" onclick="copyText(this,\'' + u + '\')">Copier</button></div>';
+    }).join('');
+  })();
 
   
 // Vérification session
@@ -606,7 +610,7 @@ body {
 
   function buildCard(acc, idx, total) {
     const label = total > 1 ? `Accès ${idx+1} / ${total}` : 'Accès trouvé';
-    const displayUrl = 'http://app.xentvsat.com';
+    const displayUrl = PICKED_URL;
     const sub = getSubdomain(acc.url || '');
     const smartUrl = sub ? `http://${sub}.xenonssmart.com` : null;
 
@@ -670,9 +674,9 @@ body {
         const u = new URL(m3u.startsWith('http') ? m3u : 'http://'+m3u);
         let path = u.pathname + u.search;
         path = path.replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
-        m3u = 'http://app.xentvsat.com' + path;
+        m3u = PICKED_URL + path;
       } catch(e) {
-        m3u = m3u.replace(/^https?:\/\/[^\/]+/, 'http://app.xentvsat.com')
+        m3u = m3u.replace(/^https?:\/\/[^\/]+/, PICKED_URL)
                  .replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
       }
       m3uRow = `
