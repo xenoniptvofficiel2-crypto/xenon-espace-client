@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>XENON TV — Mon Abonnement</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -250,6 +251,9 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font);min-hei
 <script>
 const SUB_API = 'https://accesxtv-backend.vercel.app/api/subscription';
 
+// Échappement anti-XSS des données dynamiques (username issu de l'API Xtream).
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
 // Navigation avec transition propre
 function navigate(url) {
   document.querySelector('.page').classList.add('page-transition-out');
@@ -325,7 +329,7 @@ function renderSub(idx) {
   html += `<div class="status-hero">
     <div class="status-hero-top">
       <div>
-        <div class="status-label">Statut · <strong style="color:#ccc;font-weight:700">${sub.username || ''}</strong></div>
+        <div class="status-label">Statut · <strong style="color:#ccc;font-weight:700">${esc(sub.username || '')}</strong></div>
         <div class="status-name">XENON TV</div>
 
       </div>
@@ -349,7 +353,7 @@ function renderSub(idx) {
   <div class="dates-grid">
     <div class="date-card">
       <div class="date-card-label">👤 Username</div>
-      <div class="date-card-value" style="font-family:var(--mono);font-size:0.85rem">${sub.username || '—'}</div>
+      <div class="date-card-value" style="font-family:var(--mono);font-size:0.85rem">${esc(sub.username || '—')}</div>
     </div>
     <div class="date-card">
       <div class="date-card-label">🏁 Expiration</div>
