@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>XENON TV — Tutoriels</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#e50914;--red2:#ff2233;--bg:#070707;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.14);--text:#f5f5f5;--muted:#8a8a8a;--muted2:#bdbdbd;--green:#2fd573;--font:'Montserrat',sans-serif;--mono:'DM Mono',monospace;--disp:'Bebas Neue',sans-serif}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh}
+a{color:inherit;text-decoration:none}img{max-width:100%}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.4;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
+.aura{position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:560px;height:460px;max-width:120vw;border-radius:50%;background:radial-gradient(ellipse,rgba(229,9,20,.2),rgba(229,9,20,.05) 45%,transparent 70%);filter:blur(10px);z-index:0;pointer-events:none}
+.logo{font-family:var(--disp);letter-spacing:2.5px;color:#fff}.logo b{color:var(--red);font-weight:400}
+.av{width:32px;height:32px;border-radius:50%;background:linear-gradient(150deg,var(--red2),#6d0208);display:grid;place-items:center;font-size:.74rem;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 0 0 2px rgba(229,9,20,.25),0 4px 14px rgba(229,9,20,.3)}
+.btnr{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;padding:14px 20px;background:linear-gradient(140deg,var(--red2),var(--red) 55%,#7d040b);color:#fff;font:700 .72rem var(--font);letter-spacing:1.2px;text-transform:uppercase;box-shadow:0 12px 34px rgba(229,9,20,.4),inset 0 1px 0 rgba(255,255,255,.22);cursor:pointer}
+.btng{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line2);border-radius:12px;padding:14px 20px;background:rgba(255,255,255,.05);color:#e8e8e8;font:700 .72rem var(--font);letter-spacing:1.2px;text-transform:uppercase;cursor:pointer}
+.wrap{position:relative;max-width:1120px;margin:0 auto;padding:0 18px 120px}
+.ptop{display:flex;align-items:center;gap:13px;padding:16px 2px 0;position:relative;z-index:6}
+.back{width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);background:rgba(20,20,20,.6);backdrop-filter:blur(12px);display:grid;place-items:center;color:#eee;font-size:1rem;cursor:pointer}
+.ptitle{font-family:var(--disp);font-size:1.35rem;letter-spacing:2px}
+.hi{font-weight:300;font-size:1.2rem;color:#cfcfcf;margin-top:16px}
+.head{font-family:var(--disp);font-size:2.1rem;letter-spacing:1.5px;line-height:1;margin:2px 0 16px}
+.head span{color:var(--red2)}
+@media(min-width:900px){.hi{font-size:1.4rem;margin-top:22px}.head{font-size:3rem}}
+.tg{display:flex;gap:13px;align-items:flex-start;padding:15px 16px;border-radius:16px;background:linear-gradient(120deg,rgba(34,158,217,.15),rgba(255,255,255,.01) 72%);border:1px solid rgba(34,158,217,.34)}
+.tg .tic2{width:38px;height:38px;flex-shrink:0;border-radius:11px;display:grid;place-items:center;background:rgba(34,158,217,.2);color:#4cc0f0}
+.tg h4{font-size:.78rem;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tg h4 span{font-size:.5rem;letter-spacing:1.2px;text-transform:uppercase;color:#4cc0f0;border:1px solid rgba(34,158,217,.45);padding:2px 7px;border-radius:6px}
+.tg p{font-size:.64rem;color:var(--muted2);line-height:1.6;margin-top:4px}
+.tg .tbtn{flex-shrink:0;align-self:center;display:inline-flex;align-items:center;gap:7px;padding:11px 15px;border-radius:10px;background:#229ED9;color:#fff;font-size:.64rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;white-space:nowrap;cursor:pointer;border:none}
+.numdiv{display:flex;align-items:baseline;gap:12px;margin:28px 0 14px}
+.numdiv b{font-family:var(--disp);font-size:1.1rem;color:var(--red2);letter-spacing:1px}
+.numdiv p{font-size:.62rem;letter-spacing:2.2px;text-transform:uppercase;color:var(--muted2);font-weight:700}
+.numdiv i{flex:1;height:1px;background:var(--line)}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.dvc{background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}
+.dvc:hover{transform:translateY(-4px);border-color:rgba(229,9,20,.4)}
+.dvc .im{height:104px;display:grid;place-items:center;background:radial-gradient(130% 105% at 50% 0%,rgba(229,9,20,.13),transparent 60%);border-bottom:1px solid var(--line)}
+.dvc .im img{max-height:70px;max-width:76%;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.55))}
+.dvc .bd2{padding:13px 14px 14px;display:flex;flex-direction:column;gap:7px;flex:1}
+.dvc h4{font-size:.8rem;font-weight:800}
+.dvc p{font-size:.62rem;color:var(--muted);line-height:1.55}
+.dvc .ins{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:9px;padding:10px 8px;background:linear-gradient(140deg,var(--red2),#9c050e);color:#fff;font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+.deps{border-top:1px solid var(--line)}
+@media(min-width:900px){.deps{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}}
+.det{border-bottom:1px solid var(--line)}
+.det summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px;padding:15px 2px;font-size:.76rem;font-weight:700;color:#eee}
+.det summary::-webkit-details-marker{display:none}
+.det summary::after{content:'+';margin-left:auto;color:var(--muted);font-size:1.1rem;font-weight:400}
+.det[open] summary::after{content:'−'}
+.det p{padding:0 2px 15px;font-size:.68rem;line-height:1.65;color:var(--muted2)}
+.cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:28px;padding:24px 26px;border-radius:18px;background:linear-gradient(150deg,#1c0507,#101010 60%);border:1px solid rgba(229,9,20,.28)}
+.cta .t{flex:1;min-width:260px}
+.cta .t b{font-family:var(--disp);font-size:1.4rem;letter-spacing:1.5px}
+.cta .t p{font-size:.72rem;color:var(--muted2);line-height:1.6;margin-top:6px}
+.cta .b{display:flex;gap:11px;flex-wrap:wrap}
+.dock{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:calc(100% - 32px);max-width:448px;height:68px;border-radius:24px;background:rgba(16,16,16,.82);backdrop-filter:blur(24px) saturate(150%);border:1px solid rgba(255,255,255,.12);display:flex;padding:6px;z-index:40;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.dk{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#777;font-size:.52rem;font-weight:700;letter-spacing:.3px;border-radius:18px;background:none;border:none;cursor:pointer}
+.dk svg{width:20px;height:20px}
+@media(min-width:900px){.dock{display:none}.wrap{padding-bottom:60px}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="aura"></div>
+
+<div class="wrap">
+  <div class="ptop">
+    <div class="back" onclick="location.href='xenontv-dashboard'">←</div>
+    <div class="ptitle">TUTORIELS</div>
+    <div style="margin-left:auto"><div class="av" id="av">·</div></div>
+  </div>
+
+  <div class="hi">Choisissez votre appareil.</div>
+  <div class="head">ON S'OCCUPE DU RESTE<span>.</span></div>
+
+  <div class="tg">
+    <span class="tic2"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M22 3 2 10.4l6.1 2.1L20 5.5l-8.6 9.1v4.3l3.1-3 4.3 3.1z"/></svg></span>
+    <div style="min-width:0"><h4>Aide pendant l'installation <span>Réservé abonnés</span></h4><p>Un conseiller vous guide en direct jusqu'à la première chaîne — 7 j/7, en français.</p></div>
+    <button class="tbtn" onclick="assist()">Assistance</button>
+  </div>
+
+  <div class="numdiv"><b>01</b><p>Téléviseurs connectés</p><i></i></div>
+  <div class="dgrid">
+    <div class="dvc"><div class="im"><img src="https://static.wixstatic.com/media/07062c_5b5e345353c9464f94c16920525176c9~mv2.webp/v1/fit/w_440,h_260,q_85/i.webp" alt="Samsung"></div><div class="bd2"><h4>Smart TV Samsung</h4><p>TV Samsung 2016 et plus récentes.</p><span class="ins" onclick="tuto()">Installation</span></div></div>
+    <div class="dvc"><div class="im"><img src="https://static.wixstatic.com/media/07062c_bcc8b089c1664bcb8e2a3ba4c9e7b2bd~mv2.png/v1/fit/w_300,h_170,q_85/i.png" alt="LG" style="max-height:50px"></div><div class="bd2"><h4>Smart TV LG</h4><p>webOS, toutes générations.</p><span class="ins" onclick="tuto()">Installation</span></div></div>
+    <div class="dvc"><div class="im"><img src="https://static.wixstatic.com/media/07062c_9a4897300d984f1b878f38d566d2a0a0~mv2.webp/v1/fit/w_440,h_260,q_85/i.webp" alt="Android TV"></div><div class="bd2"><h4>Smart TV Android</h4><p>Sony, Philips, TCL… via Play Store.</p><span class="ins" onclick="tuto()">Installation</span></div></div>
+    <div class="dvc"><div class="im"><img src="https://static.wixstatic.com/media/07062c_0613423a1be14fdf8bbb16a54367174e~mv2.webp/v1/fit/w_440,h_260,q_85/i.webp" alt="Hisense"></div><div class="bd2"><h4>Smart TV Hisense</h4><p>VIDAA, en source directe.</p><span class="ins" onclick="tuto()">Installation</span></div></div>
+  </div>
+
+  <div class="numdiv"><b>02</b><p>Box, mobile &amp; ordinateur</p><i></i></div>
+  <div class="dgrid">
+    <div class="dvc"><div class="im"><img src="https://static.wixstatic.com/media/07062c_80202f595b024c31855c49f5d626103a~mv2.webp/v1/fit/w_440,h_260,q_85/i.webp" alt="Fire Stick"></div><div class="bd2"><h4>Amazon Fire Stick</h4><p>Sur le port HDMI de votre TV.</p><span class="ins" onclick="tuto()">Installation</span></div></div>
+    <div class="dvc"><div class="im"><img src="https://static.wixstatic.com/media/07062c_3448f6c8d71445c691d4ad053674fd95~mv2.webp/v1/fit/w_440,h_260,q_85/i.webp" alt="Apple TV"></div><div class="bd2"><h4>Apple TV · iPhone / iPad</h4><p>Une fluidité sans précédent.</p><span class="ins" onclick="tuto()">Installation</span></div></div>
+    <div class="dvc"><div class="im"><img src="https://static.wixstatic.com/media/07062c_95aa7a2aa6fd4976a32698aa33f03e02~mv2.webp/v1/fit/w_440,h_260,q_85/i.webp" alt="Android"></div><div class="bd2"><h4>Smartphone &amp; tablette</h4><p>Votre IPTV vous suit partout.</p><span class="ins" onclick="tuto()">Installation</span></div></div>
+    <div class="dvc"><div class="im"><img src="https://static.wixstatic.com/media/07062c_adc2de0926e6406699703cdc5c41f66c~mv2.webp/v1/fit/w_440,h_260,q_85/i.webp" alt="Mac"></div><div class="bd2"><h4>PC / Mac</h4><p>Toute la télé en quelques clics.</p><span class="ins" onclick="tuto()">Installation</span></div></div>
+  </div>
+
+  <div class="numdiv"><b>03</b><p>Dépannage express</p><i></i></div>
+  <div class="deps">
+    <details class="det" open><summary>L'image coupe ou charge (buffering)</summary><p>Vérifiez votre débit (15 Mbps minimum). Sur TV/box, préférez le câble Ethernet au Wi-Fi. Dans l'application, baissez la qualité de 4K à FHD.</p></details>
+    <details class="det"><summary>« Codes invalides » à la connexion</summary><p>9 fois sur 10 : un espace collé avant ou après un champ. Re-copiez URL, utilisateur et mot de passe depuis « Mes accès », sans espace. Vérifiez que l'URL commence par http:// et non https://.</p></details>
+    <details class="det"><summary>La liste des chaînes est vide</summary><p>Menu de l'application → « Recharger la playlist ». En dernier recours, supprimez le profil puis reconnectez-vous avec vos identifiants.</p></details>
+    <details class="det"><summary>Ça marchait, ça ne marche plus</summary><p>Redémarrez l'appareil et la box internet 30 secondes. Si le souci persiste, générez une URL fraîche depuis « Corriger un bug ».</p></details>
+  </div>
+
+  <div class="cta">
+    <div class="t"><b>TOUJOURS BLOQUÉ ? ON VOUS INSTALLE.</b><p>Un conseiller vous guide en direct jusqu'à la première chaîne — 7 j/7, gratuit, en français.</p></div>
+    <div class="b"><button class="btnr" onclick="location.href='xenontv-bug'">🛠️ Corriger un bug</button><button class="btng" onclick="assist()">Assistance</button></div>
+  </div>
+</div>
+
+<div class="dock">
+  <button class="dk" onclick="location.href='xenontv-dashboard'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Accueil</button>
+  <button class="dk" onclick="location.href='xenontv-programme'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8"/></svg>Programmes</button>
+  <button class="dk" onclick="location.href='xenontv-nouveautes'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m12 3 2.4 5.4 5.6.6-4.2 3.9 1.2 5.6L12 15.6l-5 2.9 1.2-5.6L4 9l5.6-.6z"/></svg>Nouveautés</button>
+  <button class="dk" onclick="location.href='xenontv-identifiants-v2'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="9" cy="12" r="4"/><path d="M13 12h8m-3 0v3"/></svg>Accès</button>
+  <button class="dk" onclick="location.href='xenontv-dashboard'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+</div>
+
+<script>
+  const TUTO_URL = 'https://www.xenoniptv.co/tutoriels'; // fiches d'installation (site vitrine)
+  const ASSIST_URL = 'https://xenontv.fr/help';          // TODO: remplacer par le lien Telegram
+  const email = sessionStorage.getItem('xenon_user_email') || '';
+  const token = sessionStorage.getItem('xenon_session_token') || '';
+  if (!email || !token) { window.location.href = 'index.html'; }
+  document.getElementById('av').textContent = (email[0] || '·').toUpperCase();
+  function tuto(){ window.open(TUTO_URL, '_blank', 'noopener'); }
+  function assist(){ window.open(ASSIST_URL, '_blank', 'noopener'); }
+</script>
+</body>
+</html>
