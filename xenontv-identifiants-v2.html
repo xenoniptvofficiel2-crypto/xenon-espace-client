@@ -556,10 +556,20 @@ body {
   const API_URL = 'https://accesxtv-backend.vercel.app/api/proxy';
   const OLD_DOMAINS = ['benflixe.com','mega862.com','luxevpn.xyz','eldervpn.xyz','megaxeno.com','xenontv2.xyz','xenonsdns.com','xentvsat.com','xeno'];
 
-  // ── URLs d'AFFICHAGE : 1 seul domaine actif (appxenonplayer.com), utilisé
-  //    pour l'URL Android/iOS ET le M3U. « Réparer » n'a donc plus d'alternative
-  //    (juste l'ancien URL barré) tant qu'on n'en rajoute pas. Affichage only.
-  const XENON_URLS = ['http://appxenonplayer.com'];
+  // ⚠️ Domaines BANNIS (HS / grillés) — NE JAMAIS remettre dans XENON_URLS.
+  //    Filet de sécurité : tout domaine listé ici est retiré automatiquement de
+  //    la rotation, même s'il est rajouté par erreur ci-dessous.
+  const BANNED_URLS = [
+    'http://app.xentvsat.com',
+    'http://xenon2026-lecteur.com',
+    'http://lecteur-xenon2026.com',
+    'http://applicationxenon-lecteur.com'
+  ];
+
+  // ── URLs d'AFFICHAGE : domaine(s) actif(s), utilisé(s) pour l'URL Android/iOS
+  //    ET le M3U. Actuellement 1 seul → « Réparer » n'a plus d'alternative (juste
+  //    l'ancien URL barré) tant qu'on n'en rajoute pas. Affichage uniquement.
+  const XENON_URLS = ['http://appxenonplayer.com'].filter(u => !BANNED_URLS.includes(u));
   const OLD_URL = 'http://app.xentvsat.com';
   const PICKED_URL = XENON_URLS[Math.floor(Math.random() * XENON_URLS.length)];
   const REPAIR_URLS = XENON_URLS.filter(u => u !== PICKED_URL);
