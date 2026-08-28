@@ -809,9 +809,9 @@ function selectSouci(souci, icon, label) {
 
 const API_URL  = 'https://accesxtv-backend.vercel.app/api/proxy';
 
-// ── URLs d'AFFICHAGE : 4 domaines. 1 tiré au hasard par chargement (~1 client/4),
-//    les 3 autres vont dans « Réparer ». Changement d'affichage uniquement.
-const XENON_URLS = ['http://applicationxenon-lecteur.com','http://lecteur-xenon2026.com','http://xenon2026-lecteur.com','http://appxenonplayer.com'];
+// ── URLs d'AFFICHAGE : 3 domaines. 1 tiré au hasard par chargement,
+//    les 2 autres vont dans « Réparer ». Changement d'affichage uniquement.
+const XENON_URLS = ['http://applicationxenon-lecteur.com','http://lecteur-xenon2026.com','http://appxenonplayer.com'];
 const OLD_URL = 'http://app.xentvsat.com';
 const PICKED_URL = XENON_URLS[Math.floor(Math.random() * XENON_URLS.length)];
 const REPAIR_URLS = XENON_URLS.filter(u => u !== PICKED_URL);
@@ -942,7 +942,14 @@ function openRepair(cwId, originalUrl) {
   const repairUrls = isSmart
     ? ['http://wesmrt.com', 'http://app.megsmart.xyz', 'http://app.meg1xeno.xyz']
     : REPAIR_URLS;
-  repairUrls.forEach((a, i) => { const el = document.getElementById(`repUrl${i+1}-${cwId}`); if (el) el.textContent = a + path; });
+  // Remplit les slots dispo et masque les blocs en trop (la liste peut varier : 2, 3, …).
+  for (let i = 1; i <= 3; i++) {
+    const el = document.getElementById(`repUrl${i}-${cwId}`);
+    if (!el) continue;
+    const block = el.closest('.modal-url-block') || el.parentElement;
+    if (repairUrls[i - 1]) { el.textContent = repairUrls[i - 1] + path; if (block) block.style.display = ''; }
+    else { el.textContent = ''; if (block) block.style.display = 'none'; }
+  }
   // Ancien URL barré (déprécié) — pour les fiches non Smart TV
   if (!isSmart) {
     const box = modal.querySelector('.modal-box');
