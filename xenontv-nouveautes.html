@@ -13,7 +13,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --red:#e50914;--red2:#ff2233;
-  --bg:#0a0a0a;--surface:#111;--surface2:#1a1a1a;
+  --bg:#070707;--surface:#111;--surface2:#1a1a1a;
   --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.15);
   --text:#fff;--muted:#888;--gold:#f5c842;
 }
@@ -24,7 +24,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
 /* ── TOPBAR ── */
 .topbar{
   position:sticky;top:0;z-index:100;
-  background:rgba(0,0,0,.93);backdrop-filter:blur(16px);
+  background:rgba(8,8,8,.72);backdrop-filter:blur(16px) saturate(150%);
   border-bottom:1px solid var(--border);
   height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;
 }
@@ -566,9 +566,20 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
   .vod-field label{min-width:62px}
 }
 
+/* ── V3 : grain + dock ── */
+.v3grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.4;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
+
+.v3dock{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:calc(100% - 32px);max-width:448px;height:68px;border-radius:24px;background:rgba(16,16,16,.82);backdrop-filter:blur(24px) saturate(150%);border:1px solid rgba(255,255,255,.12);display:flex;padding:6px;z-index:40;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.v3dk{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#777;font-size:.52rem;font-weight:700;letter-spacing:.3px;border-radius:18px;background:none;border:none;cursor:pointer;font-family:inherit}
+.v3dk svg{width:20px;height:20px}
+.v3dk.on{color:#fff;background:linear-gradient(160deg,rgba(229,9,20,.32),rgba(229,9,20,.1));box-shadow:inset 0 0 0 1px rgba(229,9,20,.4)}
+@media(min-width:900px){.v3dock{display:none}}
+@media(max-width:899px){body{padding-bottom:96px}}
+
 </style>
 </head>
 <body>
+<div class="v3grain"></div>
 
 <!-- TOPBAR -->
 <header class="topbar">
@@ -1670,5 +1681,13 @@ switchType('movie');   // section « À venir » (TMDB) — inchangée
 initVod();             // section « Catalogue VOD » (Xtream)
 
 </script>
+
+<nav class="v3dock">
+  <button class="v3dk" onclick="location.href='xenontv-dashboard'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Accueil</button>
+  <button class="v3dk" onclick="location.href='xenontv-programme'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8"/></svg>Programmes</button>
+  <button class="v3dk on" onclick="location.href='xenontv-nouveautes'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m12 3 2.4 5.4 5.6.6-4.2 3.9 1.2 5.6L12 15.6l-5 2.9 1.2-5.6L4 9l5.6-.6z"/></svg>Nouveautés</button>
+  <button class="v3dk" onclick="location.href='xenontv-identifiants-v2'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="9" cy="12" r="4"/><path d="M13 12h8m-3 0v3"/></svg>Accès</button>
+  <button class="v3dk" onclick="location.href='xenontv-dashboard'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+</nav>
 </body>
 </html>
