@@ -2,892 +2,399 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>XENON TV — Mon Espace</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --red: #e50914;
-    --red2: #ff2233;
-    --black: #000;
-    --bg: #0a0a0a;
-    --surface: #111;
-    --border: rgba(255,255,255,0.07);
-    --text: #fff;
-    --muted: #888;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Montserrat', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-  }
-
-  /* ── TOP BAR ── */
-  .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(0,0,0,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 56px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .topbar-left { display: flex; align-items: center; gap: 24px; }
-  .logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.9rem;
-    letter-spacing: 3px;
-    color: #fff;
-    text-decoration: none;
-    line-height: 1;
-  }
-  .logo span { color: var(--red); }
-  .topbar-sep { width: 1px; height: 24px; background: var(--border); }
-  .topbar-title {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .topbar-right { display: flex; align-items: center; gap: 16px; }
-  .user-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--border);
-    padding: 6px 14px 6px 8px;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: #ddd;
-  }
-  .user-avatar {
-    width: 24px; height: 24px;
-    background: var(--red);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.7rem;
-    font-weight: 800;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .logout-btn {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.15);
-    color: var(--muted);
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    transition: all 0.2s;
-  }
-  .logout-btn:hover { border-color: var(--red); color: #ff6b6b; }
-
-  /* ── HEADER ── */
-  .dashboard-header {
-    padding: 48px 56px 36px;
-    border-bottom: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(229,9,20,0.04) 0%, transparent 100%);
-  }
-  .header-greeting {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 8px;
-  }
-  .header-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3rem;
-    letter-spacing: 3px;
-    line-height: 1;
-    margin-bottom: 10px;
-  }
-  .header-sub {
-    font-size: 0.88rem;
-    color: var(--muted);
-    max-width: 500px;
-    line-height: 1.6;
-  }
-
-  /* ── MAIN GRID ── */
-  .dashboard-main {
-    padding: 40px 56px 60px;
-  }
-  .section-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 20px;
-  }
-
-  /* ── MENU CARDS GRID ── */
-  .menu-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-  .menu-grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-
-  /* ── CARD ── */
-  .menu-card {
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    min-height: 220px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    text-decoration: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .menu-card:hover { transform: scale(1.02); box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
-  .menu-card:hover .card-btn { background: var(--red2); transform: translateY(-2px); }
-
-  /* Card backgrounds */
-  .card-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.4s ease;
-  }
-  .menu-card:hover .card-bg { transform: scale(1.06); }
-
-  .card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(0,0,0,0.92) 0%,
-      rgba(0,0,0,0.5) 50%,
-      rgba(0,0,0,0.15) 100%
-    );
-  }
-
-  /* Colored tint per card */
-  .card-tint {
-    position: absolute;
-    inset: 0;
-    opacity: 0.25;
-    transition: opacity 0.3s;
-  }
-  .menu-card:hover .card-tint { opacity: 0.35; }
-
-  .card-content {
-    position: relative;
-    z-index: 2;
-    padding: 24px;
-  }
-  .card-icon {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    display: block;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
-  }
-  .card-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    letter-spacing: 2px;
-    line-height: 1.0;
-    margin-bottom: 8px;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.8);
-  }
-  .card-desc {
-    font-size: 0.78rem;
-    color: rgba(255,255,255,0.75);
-    line-height: 1.55;
-    margin-bottom: 16px;
-    max-width: 300px;
-    font-weight: 500;
-    letter-spacing: 0.2px;
-  }
-  .card-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--red);
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-    text-decoration: none;
-    pointer-events: none; /* parent handles click */
-  }
-  .card-btn-arrow { font-size: 0.9rem; }
-
-  /* Badge "24/7" */
-  .card-badge {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    z-index: 3;
-    background: rgba(229,9,20,0.9);
-    color: #fff;
-    font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 20px;
-  }
-  .card-badge.green {
-    background: rgba(22,163,74,0.9);
-  }
-
-  /* ── SPECIFIC BG IMAGES ── */
-  .bg-identifiants {
-    background-image: url('https://images.unsplash.com/photo-1614850523459-c2f4c699c52c?w=800&q=80');
-  }
-  .bg-bug {
-    background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80');
-  }
-  .bg-assistance {
-    background-image: url('https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=800&q=80');
-  }
-  .bg-tutoriels {
-    background-image: url('https://images.unsplash.com/photo-1593784991095-a205069470b6?w=800&q=80');
-  }
-  .bg-parrainage {
-    background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80');
-  }
-  .bg-abonnement {
-    background-image: url('https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&q=80');
-  }
-
-  .tint-red { background: linear-gradient(135deg, #e50914, #b20710); }
-  .tint-blue { background: linear-gradient(135deg, #1a3a6b, #0d1f3c); }
-  .tint-green { background: linear-gradient(135deg, #0f5132, #052e16); }
-  .tint-orange { background: linear-gradient(135deg, #92400e, #451a03); }
-  .tint-purple { background: linear-gradient(135deg, #4c1d95, #2e1065); }
-  .tint-teal { background: linear-gradient(135deg, #134e4a, #042f2e); }
-
-  /* ── STATUS BAR ── */
-  .status-bar {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-  }
-  .status-chip {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 16px;
-    font-size: 0.78rem;
-    flex: 1;
-    min-width: 160px;
-  }
-  .status-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .status-dot.green { background: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,0.6); }
-  .status-dot.red { background: var(--red); box-shadow: 0 0 6px rgba(229,9,20,0.6); }
-  .status-dot.yellow { background: #eab308; box-shadow: 0 0 6px rgba(234,179,8,0.6); }
-  .status-label { color: var(--muted); font-weight: 500; }
-  .status-value { color: #fff; font-weight: 700; margin-left: auto; }
-
-  /* ── FOOTER ── */
-  .dashboard-footer {
-    border-top: 1px solid var(--border);
-    padding: 24px 56px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .footer-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.2rem;
-    letter-spacing: 3px;
-    color: var(--muted);
-  }
-  .footer-logo span { color: var(--red); }
-  .footer-links { display: flex; gap: 20px; }
-  .footer-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.75rem;
-    transition: color 0.2s;
-  }
-  .footer-links a:hover { color: #fff; }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .menu-card {
-    animation: fadeUp 0.5s ease both;
-  }
-  .menu-card:nth-child(1) { animation-delay: 0.05s; }
-  .menu-card:nth-child(2) { animation-delay: 0.1s; }
-  .menu-card:nth-child(3) { animation-delay: 0.15s; }
-  .menu-card:nth-child(4) { animation-delay: 0.2s; }
-  .menu-card:nth-child(5) { animation-delay: 0.25s; }
-  .menu-card:nth-child(6) { animation-delay: 0.3s; }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    .topbar { padding: 0 20px; }
-    .dashboard-header { padding: 32px 20px 24px; }
-    .dashboard-main { padding: 24px 20px 40px; }
-    .header-title { font-size: 2.2rem; }
-    .menu-grid { grid-template-columns: 1fr; }
-    .menu-grid-3 { grid-template-columns: 1fr; }
-    .menu-card { min-height: 190px; }
-    .status-bar { flex-direction: column; }
-    .status-chip { min-width: unset; }
-    .dashboard-footer { padding: 20px; flex-direction: column; text-align: center; }
-    .topbar-title { display: none; }
-    .topbar-sep { display: none; }
-  }
-  @media (max-width: 600px) {
-    .header-title { font-size: 1.8rem; }
-    .card-title { font-size: 1.5rem; }
-  }
-
-  /* ── TV SECTION ── */
-  .tv-section {
-    margin-bottom: 32px;
-  }
-  /* ── ÉTAT DU COMPTE ── */
-  .account-section { margin-bottom: 28px; }
-  .account-card {
-    background: var(--s1);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 12px;
-    padding: 20px 22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color .2s;
-  }
-  .account-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--red), transparent);
-  }
-  .account-card:hover { border-color: rgba(229,9,20,0.35); }
-  .acc-card-left { display: flex; align-items: center; gap: 14px; }
-  .acc-card-icon {
-    width: 44px; height: 44px; border-radius: 10px;
-    background: rgba(229,9,20,0.08); border: 1px solid rgba(229,9,20,0.2);
-    display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;
-  }
-  .acc-card-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-  .acc-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; letter-spacing: 2px; color: var(--text); margin-bottom: 3px; }
-  .acc-card-sub { font-size: 0.75rem; color: var(--muted); }
-  .acc-card-sub .days { font-weight: 700; color: var(--green); }
-  .acc-card-sub .days.warn { color: var(--orange); }
-  .acc-card-sub .days.exp { color: var(--red); }
-  .acc-card-badge {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2);
-    color: var(--green); font-size: 0.68rem; font-weight: 700;
-    padding: 4px 10px; border-radius: 20px; letter-spacing: .5px;
-    white-space: nowrap;
-  }
-  .acc-card-badge.warn { background: rgba(249,115,22,0.08); border-color: rgba(249,115,22,0.2); color: var(--orange); }
-  .acc-card-badge.exp  { background: rgba(229,9,20,0.08);  border-color: rgba(229,9,20,0.2);  color: var(--red); }
-  .acc-card-badge .bdot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
-  .acc-card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-  .acc-card-btn {
-    background: var(--red); color: #fff; border: none; border-radius: 7px;
-    padding: 9px 18px; font-size: 0.72rem; font-weight: 700; font-family: var(--font);
-    letter-spacing: .8px; text-transform: uppercase; cursor: pointer;
-    transition: background .2s, transform .15s; white-space: nowrap;
-  }
-  .acc-card-btn:hover { background: #ff2233; transform: translateY(-1px); }
-  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
-  .tv-section-label {
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 12px;
-  }
-  .tv-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 14px;
-  }
-  .tv-card {
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.07);
-    background: #111;
-    min-height: 158px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    transition: border-color .2s, transform .2s;
-    cursor: default;
-  }
-  .tv-card:hover { border-color: rgba(229,9,20,0.35); transform: translateY(-2px); }
-  .tv-card-gradient {
-    position: absolute; inset: 0; z-index: 1;
-    background: linear-gradient(to top, rgba(0,0,0,.97) 0%, rgba(0,0,0,.5) 55%, transparent 100%);
-  }
-  .tv-card-body {
-    position: relative; z-index: 3;
-    padding: 14px 16px 16px;
-  }
-  .tv-card-tag {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 0.58rem; font-weight: 700; letter-spacing: 1.5px;
-    text-transform: uppercase; padding: 3px 7px; border-radius: 3px; margin-bottom: 7px;
-  }
-  .tag-live { background: rgba(229,9,20,.15); border: 1px solid rgba(229,9,20,.3); color: #ff4455; }
-  .tag-soon { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: #555; }
-  .tag-dot { width: 5px; height: 5px; border-radius: 50%; background: #ff4455; animation: tvdot 1.4s ease-in-out infinite; flex-shrink:0; }
-  @keyframes tvdot { 0%,100%{opacity:1} 50%{opacity:.1} }
-  .tv-card-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem; letter-spacing: 1.5px; line-height: 1; color: #fff; margin-bottom: 4px;
-  }
-  .tv-card-desc { font-size: 0.72rem; color: #666; line-height: 1.5; margin-bottom: 11px; }
-  .tv-btn {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 7px 14px; border-radius: 4px;
-    font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 700;
-    letter-spacing: .5px; text-decoration: none; cursor: pointer; border: none; transition: all .18s;
-  }
-  .btn-red-tv { background: var(--red); color: #fff; }
-  .btn-red-tv:hover { background: var(--red2); }
-  .btn-ghost-tv {
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.08);
-    color: #444; cursor: default;
-  }
-  /* Slider logos */
-  .ch-slider-wrap {
-    position: absolute; inset: 0; z-index: 2; overflow: hidden;
-    display: flex; flex-direction: column; justify-content: flex-start;
-    padding-top: 13px; gap: 7px; pointer-events: none;
-  }
-  .ch-row {
-    display: flex; gap: 7px; width: max-content;
-    animation: chScrollL 28s linear infinite;
-  }
-  .ch-row.rev { animation: chScrollR 32s linear infinite; }
-  @keyframes chScrollL { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-  @keyframes chScrollR { 0%{transform:translateX(-50%)} 100%{transform:translateX(0)} }
-  .ch-logo {
-    width: 44px; height: 30px; border-radius: 5px;
-    background: #1a1a1a; border: 1px solid rgba(255,255,255,.07);
-    display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;
-  }
-  .ch-logo img { width: 36px; height: 24px; object-fit: contain; opacity: .7; }
-  /* VOD posters */
-  .vod-bg {
-    position: absolute; inset: 0; z-index: 0;
-    background: linear-gradient(135deg, #0d0d1a 0%, #1a0a14 50%, #0a0a0a 100%);
-  }
-  .vod-grid {
-    position: absolute; top: 0; right: 0; bottom: 0;
-    width: 50%; z-index: 1;
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 4px; padding: 8px 8px 8px 0; align-items: center; overflow: hidden;
-  }
-  .vod-grid::before {
-    content: ''; position: absolute; top: 0; left: -1px; bottom: 0; width: 50px; z-index: 2;
-    background: linear-gradient(to right, #111, transparent);
-  }
-  .vod-poster {
-    border-radius: 4px; overflow: hidden; aspect-ratio: 2/3;
-    border: 1px solid rgba(255,255,255,.06);
-    display: flex; align-items: center; justify-content: center; font-size: 14px;
-    box-shadow: 0 3px 10px rgba(0,0,0,.5);
-  }
-  .vod-poster img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .75; }
-  .vod-poster:nth-child(2) { margin-top: -12px; }
-  .vod-poster:nth-child(4) { margin-top: 8px; }
-  .vod-poster:nth-child(6) { margin-top: -6px; }
-  @media (max-width: 768px) {
-    .tv-cards { grid-template-columns: 1fr; }
-    .tv-card { min-height: 130px; }
-    .vod-grid { display: none; }
-    .tv-card-title { font-size: 1.3rem; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#e50914;--red2:#ff2233;--bg:#070707;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.14);--text:#f5f5f5;--muted:#8a8a8a;--muted2:#bdbdbd;--green:#2fd573;--font:'Montserrat',sans-serif;--mono:'DM Mono',monospace;--disp:'Bebas Neue',sans-serif}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.4;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
+.aura{position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:560px;height:460px;max-width:120vw;border-radius:50%;background:radial-gradient(ellipse,rgba(229,9,20,.24),rgba(229,9,20,.06) 45%,transparent 70%);filter:blur(10px);z-index:0;pointer-events:none}
+/* atomes */
+.logo{font-family:var(--disp);letter-spacing:2.5px;color:#fff}.logo b{color:var(--red);font-weight:400}
+.av{width:32px;height:32px;border-radius:50%;background:linear-gradient(150deg,var(--red2),#6d0208);display:grid;place-items:center;font-size:.74rem;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 0 0 2px rgba(229,9,20,.25),0 4px 14px rgba(229,9,20,.3)}
+.dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:puls 2.2s infinite;flex-shrink:0}
+@keyframes puls{0%,100%{opacity:1}50%{opacity:.25}}
+.btnr{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;padding:15px 22px;background:linear-gradient(140deg,var(--red2),var(--red) 55%,#7d040b);color:#fff;font:700 .76rem var(--font);letter-spacing:1.2px;text-transform:uppercase;box-shadow:0 12px 34px rgba(229,9,20,.4),inset 0 1px 0 rgba(255,255,255,.22);cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btnr:hover{transform:translateY(-2px);box-shadow:0 16px 42px rgba(229,9,20,.45),inset 0 1px 0 rgba(255,255,255,.22)}
+.btng{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line2);border-radius:12px;padding:15px 22px;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);color:#e8e8e8;font:700 .76rem var(--font);letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;transition:transform .2s,border-color .2s}
+.btng:hover{transform:translateY(-2px);border-color:var(--line2)}
+/* statut pastille (async-safe) */
+.stat{display:inline-flex;align-items:center;gap:9px;height:38px;padding:0 15px 0 12px;border-radius:20px;background:rgba(20,20,20,.72);backdrop-filter:blur(14px);border:1px solid var(--line2);font-size:.7rem;font-weight:700;color:#e8e8e8;white-space:nowrap;cursor:pointer}
+.stat .g{color:var(--green)}
+.stat .o{color:#eab308}.stat .r{color:#ff5a63}
+.stat .sep{width:1px;height:14px;background:var(--line2)}
+.stat .mono{font-family:var(--mono);font-weight:500;color:var(--muted2)}
+.skl{position:relative;overflow:hidden;background:rgba(255,255,255,.08);border-radius:6px;color:transparent!important}
+.skl::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.14) 50%,transparent 80%);animation:shim 1.4s infinite}
+@keyframes shim{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+/* icon button */
+.icb{width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);background:rgba(20,20,20,.6);backdrop-filter:blur(12px);display:grid;place-items:center;color:#ccc;position:relative;flex-shrink:0}
+.icb svg{width:17px;height:17px}
+/* ═══════════ MOBILE SHELL ═══════════ */
+.wrap{position:relative;max-width:480px;margin:0 auto;padding-bottom:100px}
+.mtop{display:flex;align-items:center;gap:12px;padding:16px 20px 0;position:relative;z-index:6}
+.mtop .logo{font-size:1.55rem}
+.mtop .right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.mhead{position:relative;z-index:5;padding:22px 22px 6px}
+.mhead .hi{font-weight:300;font-size:1.5rem;color:#cfcfcf;letter-spacing:.5px}
+.mhead h1{font-family:var(--disp);font-size:2.9rem;letter-spacing:2px;line-height:.95;margin:2px 0 16px;word-break:break-word}
+.mhead h1 em{font-style:normal;color:var(--red2)}
+.mb{position:relative;z-index:5;padding:0 18px}
+.hcard{position:relative;border-radius:22px;overflow:hidden;height:210px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid rgba(255,255,255,.1);box-shadow:0 24px 60px rgba(0,0,0,.6);cursor:pointer}
+.hcard .bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1614850523459-c2f4c699c52c?w=900&q=80') center/cover;transform:scale(1.02);transition:transform .55s}
+.hcard:hover .bg{transform:scale(1.07)}
+.hcard .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,5,.96) 12%,rgba(5,5,5,.45) 55%,rgba(5,5,5,.12)),linear-gradient(120deg,rgba(229,9,20,.28),transparent 55%)}
+.hcard .cb{position:relative;z-index:2;padding:20px;display:flex;align-items:flex-end;gap:14px}
+.hcard h3{font-family:var(--disp);font-size:1.75rem;letter-spacing:1.6px;line-height:.95}
+.hcard p{font-size:.68rem;color:#bdbdbd;margin-top:4px;line-height:1.5}
+.hcard .go{margin-left:auto;flex-shrink:0;width:48px;height:48px;border-radius:50%;background:linear-gradient(140deg,var(--red2),#8a040c);display:grid;place-items:center;font-size:1.15rem;color:#fff;box-shadow:0 10px 26px rgba(229,9,20,.5),inset 0 1px 0 rgba(255,255,255,.25)}
+.hcard .bd{position:absolute;top:14px;left:14px;z-index:2;display:inline-flex;align-items:center;gap:6px;font-size:.58rem;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);border:1px solid var(--line2);padding:5px 11px;border-radius:20px}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.ac{position:relative;border-radius:18px;overflow:hidden;height:128px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid rgba(255,255,255,.09);cursor:pointer}
+.ac .bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .55s}
+.ac:hover .bg{transform:scale(1.07)}
+.ac .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,5,.95) 15%,rgba(5,5,5,.4) 60%,rgba(5,5,5,.15))}
+.ac .cb{position:relative;z-index:2;padding:13px 14px}
+.ac h4{font-family:var(--disp);font-size:1.05rem;letter-spacing:1.3px}
+.ac p{font-size:.58rem;color:#a8a8a8;margin-top:2px}
+.ac .bd{position:absolute;top:10px;right:10px;z-index:2;font-size:.52rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:4px 9px;border-radius:20px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);border:1px solid var(--line2);color:#ddd}
+.ac .bd.g{color:var(--green);border-color:rgba(47,213,115,.35)}
+.bg-id{background-image:url('https://images.unsplash.com/photo-1614850523459-c2f4c699c52c?w=700&q=80')}
+.bg-bug{background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=700&q=80')}
+.bg-aide{background-image:url('https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=700&q=80')}
+.bg-tuto{background-image:url('https://images.unsplash.com/photo-1593784991095-a205069470b6?w=700&q=80')}
+.bg-parr{background-image:url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&q=80')}
+.bg-abo{background-image:url('https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=700&q=80')}
+.bg-prog{background-image:url('https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=900&q=80')}
+.bg-vod{background-image:url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=900&q=80')}
+.bg-dem{background-image:url('https://images.unsplash.com/photo-1485846234645-a62644f84728?w=900&q=80')}
+.sh{display:flex;align-items:baseline;gap:12px;margin:26px 0 13px}
+.sh h3{font-family:var(--disp);font-size:1.3rem;letter-spacing:2px}
+.sh .more{margin-left:auto;font-size:.6rem;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted)}
+.wide{position:relative;border-radius:18px;overflow:hidden;height:118px;display:flex;align-items:flex-end;border:1px solid rgba(255,255,255,.09);margin-bottom:11px;cursor:pointer}
+.wide .bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .55s}
+.wide:hover .bg{transform:scale(1.06)}
+.wide .veil{position:absolute;inset:0;background:linear-gradient(92deg,rgba(5,5,5,.95) 30%,rgba(5,5,5,.55) 60%,rgba(5,5,5,.15))}
+.wide .cb{position:relative;z-index:2;padding:16px 18px;width:100%;display:flex;align-items:center;gap:12px}
+.wide h4{font-family:var(--disp);font-size:1.35rem;letter-spacing:1.6px}
+.wide p{font-size:.62rem;color:#b0b0b0;margin-top:3px}
+.wide .go{margin-left:auto;width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);background:rgba(255,255,255,.07);backdrop-filter:blur(8px);display:grid;place-items:center;color:#fff;font-size:.95rem;flex-shrink:0}
+.wide .lv{position:absolute;top:12px;left:14px;z-index:2;display:inline-flex;align-items:center;gap:6px;font-size:.56rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#ff7076;background:rgba(229,9,20,.16);border:1px solid rgba(229,9,20,.4);padding:4px 10px;border-radius:20px;backdrop-filter:blur(8px)}
+/* dock */
+.dock{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:calc(100% - 32px);max-width:448px;height:68px;border-radius:24px;background:rgba(16,16,16,.82);backdrop-filter:blur(24px) saturate(150%);border:1px solid rgba(255,255,255,.12);display:flex;padding:6px;z-index:40;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.dk{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#777;font-size:.52rem;font-weight:700;letter-spacing:.3px;border-radius:18px;background:none;border:none;cursor:pointer}
+.dk svg{width:20px;height:20px}
+.dk.on{color:#fff;background:linear-gradient(160deg,rgba(229,9,20,.32),rgba(229,9,20,.1));box-shadow:inset 0 0 0 1px rgba(229,9,20,.4)}
+/* menu bottom-sheet */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:44;opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:50%;transform:translateX(-50%) translateY(120%);bottom:96px;width:calc(100% - 20px);max-width:460px;z-index:46;border-radius:28px;background:rgba(18,18,18,.92);backdrop-filter:blur(26px) saturate(150%);border:1px solid rgba(255,255,255,.13);padding:12px 18px 16px;box-shadow:0 -20px 60px rgba(0,0,0,.7);transition:transform .3s ease-out}
+.sheet.open{transform:translateX(-50%) translateY(0)}
+.sheet .grab{width:44px;height:5px;border-radius:3px;background:#3c3c3c;margin:2px auto 14px;cursor:pointer}
+.sheet .who{display:flex;align-items:center;gap:12px;padding:4px 2px 14px;border-bottom:1px solid var(--line)}
+.sheet .who .nm{font-size:.8rem;font-weight:700}
+.sheet .who .em{font-family:var(--mono);font-size:.64rem;color:var(--muted);word-break:break-all}
+.sheet .who .stat{margin-left:auto;height:32px;font-size:.62rem}
+.mi{display:flex;align-items:center;gap:14px;padding:14px 2px;border-bottom:1px solid var(--line);font-size:.82rem;font-weight:600;color:#e8e8e8;cursor:pointer;width:100%;background:none;border-left:none;border-right:none;border-top:none;text-align:left}
+.mi:last-of-type{border-bottom:none}
+.mi .mic{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid var(--line);display:grid;place-items:center;font-size:.95rem;flex-shrink:0}
+.mi .ext{margin-left:auto;font-size:.62rem;color:var(--muted);font-weight:700;letter-spacing:1px}
+.mi .ar{margin-left:auto;color:#555}
+.mi.out{color:#ff6b74}
+.mi.out .mic{background:rgba(229,9,20,.1);border-color:rgba(229,9,20,.28)}
+/* ═══════════ DESKTOP SHELL ═══════════ */
+.d-shell{display:none}
+.dtop{position:relative;z-index:8;display:flex;align-items:center;gap:34px;padding:0 48px;height:72px}
+.dtop .logo{font-size:1.8rem}
+.dmenu{display:flex;gap:6px}
+.dmenu a{font-size:.74rem;font-weight:600;color:#a0a0a0;padding:9px 16px;border-radius:20px;cursor:pointer}
+.dmenu a.on{color:#fff;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+.dtop .right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.upill{display:flex;align-items:center;gap:9px;background:rgba(20,20,20,.6);backdrop-filter:blur(12px);border:1px solid var(--line2);padding:5px 15px 5px 5px;border-radius:22px;font-size:.73rem;font-weight:600;color:#ddd}
+.upill .em{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dlogout{background:none;border:1px solid var(--line2);border-radius:20px;color:#ff6b74;font-size:.68rem;font-weight:700;padding:8px 15px;letter-spacing:.5px;text-transform:uppercase;cursor:pointer}
+.dhero{position:relative;min-height:430px;display:flex;align-items:flex-end;padding:40px 48px;margin-top:-72px;overflow:hidden}
+.dhero .bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=1800&q=85') center/cover}
+/* diaporama affiches TMDB (hero) */
+.slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease}
+.m-shell{position:relative}
+.mtopbg{position:absolute;top:0;left:0;right:0;height:380px;z-index:0;overflow:hidden}
+.mtopbg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,7,7,.5),rgba(7,7,7,.8) 52%,var(--bg));z-index:2}
+/* fluidité : entrées douces */
+@keyframes fadeUp3{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.mhead{animation:fadeUp3 .5s ease both}
+.mb{animation:fadeUp3 .6s .06s ease both}
+.dhero .in{animation:fadeUp3 .6s ease both}
+.dmain{animation:fadeUp3 .6s .06s ease both}
+.hcard,.ac,.wide,.dk{transition:transform .25s ease,box-shadow .25s ease}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.dhero .veil{position:absolute;inset:0;background:linear-gradient(92deg,rgba(7,7,7,.99) 22%,rgba(7,7,7,.9) 42%,rgba(7,7,7,.45) 65%,rgba(7,7,7,.1) 88%),linear-gradient(0deg,var(--bg) 2%,transparent 50%),linear-gradient(180deg,rgba(7,7,7,.85),transparent 30%)}
+.dhero .in{position:relative;z-index:3;max-width:620px}
+.dhero .hi{font-weight:300;font-size:1.7rem;color:#cfcfcf}
+.dhero h1{font-family:var(--disp);font-size:4.4rem;letter-spacing:3px;line-height:.9;margin:4px 0 14px;word-break:break-word}
+.dhero h1 em{font-style:normal;color:var(--red2)}
+.dhero p{font-size:.9rem;color:var(--muted2);max-width:440px;line-height:1.7;margin-bottom:24px}
+.dhero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.dmain{position:relative;z-index:4;padding:8px 48px 44px}
+.dsh{display:flex;align-items:baseline;gap:12px;margin:30px 0 15px}
+.dsh h3{font-family:var(--disp);font-size:1.55rem;letter-spacing:2px}
+.dsh .more{margin-left:auto;font-size:.64rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.dagrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.dagrid .ac{height:158px;border-radius:20px}
+.dagrid .ac h4{font-size:1.28rem}
+.dagrid .ac p{font-size:.66rem}
+.dwrow{display:grid;grid-template-columns:1.45fr 1fr 1fr;gap:14px}
+.dwrow .wide{height:172px;margin:0;border-radius:20px}
+.dwrow .wide h4{font-size:1.5rem}
+.dfoot{display:flex;align-items:center;justify-content:space-between;padding:22px 48px;border-top:1px solid var(--line);flex-wrap:wrap;gap:14px}
+.dfoot .logo{font-size:1.1rem;color:var(--muted)}
+.dfoot .lk{display:flex;gap:22px;flex-wrap:wrap}
+.dfoot .lk a{color:var(--muted);font-size:.71rem}
+@media(min-width:900px){
+  .m-shell{display:none!important}
+  .d-shell{display:block!important}
+  .aura{display:none}
+}
 </style>
 </head>
 <body>
+<div class="grain"></div>
 
-<!-- ── TOPBAR ── -->
-<header class="topbar">
-  <div class="topbar-left">
-    <a class="logo" href="#">XENON<span>TV</span></a>
-    <div class="topbar-sep"></div>
-    <span class="topbar-title">Mon Espace</span>
-  </div>
-  <div class="topbar-right">
-    <div class="user-pill">
-      <div class="user-avatar" id="userInitial">?</div>
-      <span id="userEmail">Chargement...</span>
+<!-- ═══════════ MOBILE ═══════════ -->
+<div class="m-shell">
+  <div class="mtopbg" id="mtopBg"></div>
+  <div class="aura"></div>
+  <div class="wrap">
+    <div class="mtop">
+      <a class="logo" href="xenontv-dashboard">XENON<b>TV</b></a>
+      <div class="right">
+        <div class="av" id="mAv">·</div>
+      </div>
     </div>
-    <button class="logout-btn" onclick="sessionStorage.clear();window.location.href='index.html'">Déconnexion</button>
+    <div class="mhead">
+      <div class="hi" id="mHi">Bonjour,</div>
+      <h1 id="mName">MON ESPACE <em>.</em></h1>
+      <a class="stat" href="xenontv-abonnement" data-status-pill>
+        <span class="skl" style="width:8px;height:8px;border-radius:50%"></span>
+        <span class="skl">Chargement…</span><span class="sep"></span>
+        <span class="skl mono">··· jours</span>
+      </a>
+    </div>
+    <div class="mb">
+      <div class="hcard" onclick="go('xenontv-identifiants-v2')">
+        <div class="bg"></div><div class="veil"></div>
+        <span class="bd">🔑 Accès instantané</span>
+        <div class="cb"><div><h3>MES IDENTIFIANTS</h3><p>URL, utilisateur, mot de passe et M3U — copiables en un geste.</p></div><span class="go">→</span></div>
+      </div>
+      <div class="agrid">
+        <div class="ac" onclick="go('xenontv-bug')"><div class="bg bg-bug"></div><div class="veil"></div><div class="cb"><h4>CORRIGER UN BUG</h4><p>Diagnostic en 3 étapes</p></div></div>
+        <div class="ac" onclick="ext('https://xenontv.fr/help')"><div class="bg bg-aide"></div><div class="veil"></div><span class="bd g">24 / 7</span><div class="cb"><h4>ASSISTANCE</h4><p>Réponse &lt; 5 min</p></div></div>
+        <div class="ac" onclick="go('xenontv-tutoriels')"><div class="bg bg-tuto"></div><div class="veil"></div><div class="cb"><h4>TUTORIELS</h4><p>Par appareil</p></div></div>
+        <div class="ac" onclick="ext('https://parrainagexenon.vercel.app/')"><div class="bg bg-parr"></div><div class="veil"></div><span class="bd">15 € + 1 mois</span><div class="cb"><h4>PARRAINAGE</h4><p>Espace dédié ↗</p></div></div>
+      </div>
+      <div class="sh"><h3>CE SOIR SUR XENON</h3><span class="more" onclick="go('xenontv-programme')">Tout voir →</span></div>
+      <div class="wide" onclick="go('xenontv-programme')"><div class="bg bg-prog"></div><div class="veil"></div><span class="lv"><i class="dot"></i>En direct</span><div class="cb"><div style="padding-top:14px"><h4>PROGRAMMES TV</h4><p>400+ chaînes — en cours &amp; à suivre</p></div><span class="go">→</span></div></div>
+      <div class="wide" onclick="go('xenontv-nouveautes')"><div class="bg bg-vod"></div><div class="veil"></div><div class="cb"><div><h4>NOUVEAUTÉS</h4><p>Films &amp; séries ajoutés cette semaine</p></div><span class="go">→</span></div></div>
+      <div class="wide" onclick="go('xenontv-demande')"><div class="bg bg-dem"></div><div class="veil"></div><div class="cb"><div><h4>DEMANDER UN TITRE</h4><p>Un film manque ? On l'ajoute.</p></div><span class="go">→</span></div></div>
+    </div>
   </div>
-</header>
-
-<!-- ── HEADER ── -->
-<div class="dashboard-header">
-  <p class="header-greeting">Bonjour 👋</p>
-  <h1 class="header-title">MON ESPACE <span style="color:var(--red)">XENON TV</span></h1>
-  <p class="header-sub">Gérez votre abonnement, récupérez vos accès et obtenez de l'aide en quelques clics.</p>
+  <div class="dock">
+    <button class="dk on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Accueil</button>
+    <button class="dk" onclick="go('xenontv-programme')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8"/></svg>Programmes</button>
+    <button class="dk" onclick="go('xenontv-nouveautes')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m12 3 2.4 5.4 5.6.6-4.2 3.9 1.2 5.6L12 15.6l-5 2.9 1.2-5.6L4 9l5.6-.6z"/></svg>Nouveautés</button>
+    <button class="dk" onclick="go('xenontv-identifiants-v2')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="9" cy="12" r="4"/><path d="M13 12h8m-3 0v3"/></svg>Accès</button>
+    <button class="dk" onclick="openMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+  </div>
 </div>
 
-<!-- ── MAIN ── -->
-<main class="dashboard-main">
-
-  <!-- Status chips -->
-  <div class="status-bar">
-    <div class="status-chip">
-      <div class="status-dot green"></div>
-      <span class="status-label">Serveurs</span>
-      <span class="status-value">Opérationnels</span>
-    </div>
-    <div class="status-chip">
-      <div class="status-dot green"></div>
-      <span class="status-label">Assistance</span>
-      <span class="status-value">Disponible</span>
-    </div>
-    <div class="status-chip">
-      <div class="status-dot yellow"></div>
-      <span class="status-label">Nouvelles chaînes</span>
-      <span class="status-value">Mise à jour en cours</span>
-    </div>
-    <div class="status-chip">
-      <div class="status-dot green"></div>
-      <span class="status-label">VOD</span>
-      <span class="status-value">+50 000 contenus</span>
+<!-- ═══════════ DESKTOP ═══════════ -->
+<div class="d-shell">
+  <div class="dtop">
+    <a class="logo" href="xenontv-dashboard">XENON<b>TV</b></a>
+    <nav class="dmenu">
+      <a class="on">Accueil</a>
+      <a onclick="go('xenontv-programme')">Programmes</a>
+      <a onclick="go('xenontv-nouveautes')">Nouveautés</a>
+      <a onclick="go('xenontv-identifiants-v2')">Mes accès</a>
+      <a onclick="go('xenontv-abonnement')">Abonnement</a>
+      <a onclick="ext('https://xenontv.fr/help')">Aide</a>
+    </nav>
+    <div class="right">
+      <a class="stat" href="xenontv-abonnement" data-status-pill>
+        <span class="skl" style="width:8px;height:8px;border-radius:50%"></span>
+        <span class="skl">Chargement…</span><span class="sep"></span><span class="skl mono">···</span>
+      </a>
+      <div class="upill"><div class="av" style="width:28px;height:28px" id="dAv">·</div><span class="em" id="dEmail">…</span></div>
+      <button class="dlogout" onclick="logout()">Déconnexion</button>
     </div>
   </div>
-
-
-  <!-- ── ÉTAT DU COMPTE ── -->
-  <div class="tv-section">
-    <p class="tv-section-label">État du compte</p>
-    <div class="tv-cards" style="grid-template-columns:1fr">
-      <div class="tv-card" style="cursor:pointer" onclick="goTo('abonnement')">
-        <div style="position:absolute;inset:0;background-image:url('https://github.com/xenoniptvofficiel2-crypto/xenon-espace-client/blob/main/ChatGPT%20Image%201%20juin%202026,%2020_02_59.png?raw=true');background-size:cover;background-position:center;opacity:0.35"></div>
-        <div class="tv-card-gradient"></div>
-        <div class="tv-card-body">
-          <div class="tv-card-tag" style="background:rgba(229,9,20,0.15);border:1px solid rgba(229,9,20,0.35);color:#ff6b6b">
-            <span id="accBadgeDot" style="width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite;display:inline-block"></span>
-            <span id="accBadgeText">Actif</span>
-          </div>
-          <div class="tv-card-title">ÉTAT DU COMPTE</div>
-          <div class="tv-card-desc" id="accSubInfo">Voir l'état de votre abonnement et le nombre de jours restants</div>
-          <button class="tv-btn btn-red-tv" onclick="goTo('abonnement')">Accéder →</button>
-        </div>
-      </div>
+  <div class="dhero">
+    <div class="bg" id="dheroBg"></div><div class="veil"></div>
+    <div class="in">
+      <div class="hi" id="dHi">Bonjour,</div>
+      <h1 id="dName">MON ESPACE <em>.</em></h1>
+      <p>Vos accès, votre guide TV et l'assistance — tout au même endroit, sur tous vos appareils.</p>
+      <div class="cta"><button class="btnr" onclick="go('xenontv-identifiants-v2')">🔑 Mes identifiants</button><button class="btng" onclick="go('xenontv-abonnement')">Mon abonnement</button><button class="btng" onclick="ext('https://xenontv.fr/help')">Assistance 24/7</button></div>
     </div>
   </div>
-
-  <!-- ── TV & NOUVEAUTÉS ── -->
-  <div class="tv-section">
-    <p class="tv-section-label">Contenu &amp; Programmes</p>
-    <div class="tv-cards">
-
-      <!-- Programmes TV -->
-      <div class="tv-card">
-        <div class="ch-slider-wrap">
-          <div class="ch-row" id="chRow1"></div>
-          <div class="ch-row rev" id="chRow2"></div>
-        </div>
-        <div class="tv-card-gradient"></div>
-        <div class="tv-card-body">
-          <div class="tv-card-tag tag-live"><div class="tag-dot"></div>EN DIRECT</div>
-          <div class="tv-card-title">Programmes TV</div>
-          <div class="tv-card-desc">Guide des 400+ chaînes. En cours, à venir, sport en direct.</div>
-          <a href="xenontv-programme" class="tv-btn btn-red-tv">Voir le guide →</a>
-        </div>
-      </div>
-
-      <!-- Nouveautés -->
-      <div class="tv-card">
-        <div class="vod-bg"></div>
-        <div class="vod-grid" id="vodGrid"></div>
-        <div class="tv-card-gradient"></div>
-        <div class="tv-card-body">
-          <div class="tv-card-tag tag-live">✨ NOUVELLE FONCTIONNALITÉ</div>
-          <div class="tv-card-title">Nouveautés</div>
-          <div class="tv-card-desc">Films et séries récents disponibles sur XENON TV.</div>
-          <a href="xenontv-nouveautes" class="tv-btn btn-red-tv">Découvrir →</a>
-        </div>
-      </div>
-
-      <!-- Demander / Corriger -->
-      <div class="tv-card" style="background:#0a0a12;">
-        <div style="position:absolute;inset:0;background-image:url('https://raw.githubusercontent.com/xenoniptvofficiel2-crypto/xenon-espace-client/main/ChatGPT%20Image%2024%20mai%202026%2C%2018_32_52.png');background-size:cover;background-position:center right;opacity:0.45;"></div>
-        <div class="tv-card-gradient"></div>
-        <div class="tv-card-body">
-          <div class="tv-card-tag" style="background:rgba(220,30,60,0.15);color:#ff6680;border:1px solid rgba(220,30,60,0.3);display:inline-flex;align-items:center;gap:5px;">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-            DEMANDE
-          </div>
-          <div class="tv-card-title">Demander / Corriger un Film ou une Série</div>
-          <div class="tv-card-desc">Recherchez un titre et faites une demande d'ajout, ou signalez un problème de lecture.</div>
-          <a href="#" onclick="window.location.href=window.location.origin+'/xenontv-demande';return false;" class="tv-btn btn-red-tv">Accéder →</a>
-        </div>
-      </div>
-
+  <div class="dmain">
+    <div class="dsh" style="margin-top:6px"><h3>QUE SOUHAITEZ-VOUS FAIRE ?</h3></div>
+    <div class="dagrid">
+      <div class="ac" onclick="go('xenontv-identifiants-v2')"><div class="bg bg-id"></div><div class="veil"></div><div class="cb"><h4>MES IDENTIFIANTS</h4><p>URL, utilisateur, M3U — en un clic</p></div></div>
+      <div class="ac" onclick="go('xenontv-bug')"><div class="bg bg-bug"></div><div class="veil"></div><div class="cb"><h4>CORRIGER UN BUG</h4><p>Diagnostic guidé en 3 étapes</p></div></div>
+      <div class="ac" onclick="ext('https://xenontv.fr/help')"><div class="bg bg-aide"></div><div class="veil"></div><span class="bd g">24 / 7</span><div class="cb"><h4>ASSISTANCE</h4><p>Réponse en moins de 5 min</p></div></div>
+      <div class="ac" onclick="go('xenontv-tutoriels')"><div class="bg bg-tuto"></div><div class="veil"></div><div class="cb"><h4>TUTORIELS</h4><p>Installation par appareil</p></div></div>
+    </div>
+    <div class="dsh"><h3>CE SOIR SUR XENON</h3><span class="more" onclick="go('xenontv-programme')">Tout voir →</span></div>
+    <div class="dwrow">
+      <div class="wide" onclick="go('xenontv-programme')"><div class="bg bg-prog"></div><div class="veil"></div><span class="lv"><i class="dot"></i>En direct</span><div class="cb"><div style="padding-top:16px"><h4>PROGRAMMES TV</h4><p>Guide des 400+ chaînes — en cours &amp; à suivre</p></div><span class="go">→</span></div></div>
+      <div class="wide" onclick="go('xenontv-nouveautes')"><div class="bg bg-vod"></div><div class="veil"></div><div class="cb"><div><h4>NOUVEAUTÉS</h4><p>Ajouts de la semaine</p></div><span class="go">→</span></div></div>
+      <div class="wide" onclick="go('xenontv-demande')"><div class="bg bg-dem"></div><div class="veil"></div><div class="cb"><div><h4>DEMANDER UN TITRE</h4><p>Un film manque ?</p></div><span class="go">→</span></div></div>
+    </div>
+    <div class="dsh"><h3>AVANTAGES</h3></div>
+    <div class="dwrow" style="grid-template-columns:1fr 1fr">
+      <div class="wide" style="height:120px" onclick="ext('https://parrainagexenon.vercel.app/')"><div class="bg bg-parr"></div><div class="veil"></div><div class="cb"><div><h4>PARRAINAGE</h4><p>15 € cash + 1 mois offert par filleul — espace dédié ↗</p></div><span class="go">→</span></div></div>
+      <div class="wide" style="height:120px" onclick="go('xenontv-abonnement')"><div class="bg bg-abo"></div><div class="veil"></div><div class="cb"><div><h4>MON ABONNEMENT</h4><p>Dates, progression, renouvellement WhatsApp</p></div><span class="go">→</span></div></div>
     </div>
   </div>
+  <div class="dfoot"><div class="logo">XENON<b>TV</b></div><div class="lk"><a onclick="ext('https://xenontv.fr/help')">Assistance</a><a onclick="go('xenontv-tutoriels')">Tutoriels</a><a onclick="ext('https://parrainagexenon.vercel.app/')">Parrainage</a></div></div>
+</div>
 
-  <p class="section-label">Que souhaitez-vous faire ?</p>
-
-  <!-- Row 1 — 2 grandes cards -->
-  <div class="menu-grid">
-
-    <!-- IDENTIFIANTS -->
-    <div class="menu-card" onclick="goTo('identifiants')">
-      <div class="card-bg bg-identifiants"></div>
-      <div class="card-tint tint-red"></div>
-      <div class="card-overlay"></div>
-      <div class="card-content">
-        <span class="card-icon">🔑</span>
-        <div class="card-title">Récupérer mes identifiants</div>
-        <p class="card-desc">Retrouvez instantanément votre URL, nom d'utilisateur et mot de passe XENON TV.</p>
-        <span class="card-btn">Accéder <span class="card-btn-arrow">→</span></span>
-      </div>
-    </div>
-
-    <!-- BUG -->
-    <div class="menu-card" onclick="goTo('bug')">
-      <div class="card-bg bg-bug"></div>
-      <div class="card-tint tint-blue"></div>
-      <div class="card-overlay"></div>
-      <div class="card-content">
-        <span class="card-icon">🛠️</span>
-        <div class="card-title">Corriger mon bug de connexion</div>
-        <p class="card-desc">Diagnostic automatique et solutions guidées pour résoudre vos problèmes sur tous les appareils.</p>
-        <span class="card-btn">Diagnostiquer <span class="card-btn-arrow">→</span></span>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Row 2 — 3 cards -->
-  <div class="menu-grid-3">
-
-    <!-- ASSISTANCE -->
-    <div class="menu-card" onclick="window.open('https://xenontv.fr/help','_blank')">
-      <div class="card-bg bg-assistance"></div>
-      <div class="card-tint tint-green"></div>
-      <div class="card-overlay"></div>
-      <div class="card-badge">24 / 7</div>
-      <div class="card-content">
-        <span class="card-icon">💬</span>
-        <div class="card-title">Assistance en direct</div>
-        <p class="card-desc">Un agent disponible à toute heure. Réponse en moins de 5 minutes.</p>
-        <span class="card-btn">Contacter <span class="card-btn-arrow">→</span></span>
-      </div>
-    </div>
-
-    <!-- TUTORIELS -->
-    <div class="menu-card" onclick="window.open('https://www.xenoniptv.co/tutoriels','_blank')">
-      <div class="card-bg bg-tutoriels"></div>
-      <div class="card-tint tint-orange"></div>
-      <div class="card-overlay"></div>
-      <div class="card-content">
-        <span class="card-icon">📚</span>
-        <div class="card-title">Consulter les tutoriels</div>
-        <p class="card-desc">Guides vidéo et fiches pratiques pour configurer XENON TV sur chaque appareil.</p>
-        <span class="card-btn">Voir les guides <span class="card-btn-arrow">→</span></span>
-      </div>
-    </div>
-
-    <!-- PARRAINAGE -->
-    <div class="menu-card" onclick="goTo('parrainage')">
-      <div class="card-bg bg-parrainage"></div>
-      <div class="card-tint tint-purple"></div>
-      <div class="card-overlay"></div>
-      <div class="card-badge green">15 € + 1 mois</div>
-      <div class="card-content">
-        <span class="card-icon">🎁</span>
-        <div class="card-title">Parrainer un ami</div>
-        <p class="card-desc">Partagez votre lien et recevez 15 € cash + 1 mois offert pour chaque filleul.</p>
-        <span class="card-btn">Parrainer <span class="card-btn-arrow">→</span></span>
-      </div>
-    </div>
-
-  </div>
-
-</main>
-
-<!-- ── FOOTER ── -->
-<footer class="dashboard-footer">
-  <div class="footer-logo">XENON<span>TV</span></div>
-  <div class="footer-links">
-    <a href="https://xenontv.fr/help" target="_blank">Assistance</a>
-    <a href="https://www.xenoniptv.co/tutoriels" target="_blank">Tutoriels</a>
-    <a href="https://www.xenoniptv.co/abonnement-xenontv" target="_blank">Nos offres</a>
-    <a href="https://xenontv.fr/help" target="_blank">Contact</a>
-  </div>
-</footer>
+<!-- ═══════════ BOTTOM-SHEET MENU (mobile) ═══════════ -->
+<div class="scrim" id="scrim" onclick="closeMenu()"></div>
+<div class="sheet" id="sheet">
+  <div class="grab" onclick="closeMenu()"></div>
+  <div class="who"><div class="av" id="sAv">·</div><div><div class="nm" id="sName">Mon compte</div><div class="em" id="sEmail">…</div></div><span class="stat" data-status-pill style="cursor:default"><span class="skl" style="width:8px;height:8px;border-radius:50%"></span><span class="skl">…</span></span></div>
+  <button class="mi" onclick="go('xenontv-abonnement')"><span class="mic">📅</span>Mon abonnement<span class="ar">›</span></button>
+  <button class="mi" onclick="go('xenontv-bug')"><span class="mic">🛠️</span>Corriger un bug<span class="ar">›</span></button>
+  <button class="mi" onclick="ext('https://xenontv.fr/help')"><span class="mic">💬</span>Assistance 24/7<span class="ext">↗ externe</span></button>
+  <button class="mi" onclick="go('xenontv-tutoriels')"><span class="mic">📚</span>Tutoriels<span class="ar">›</span></button>
+  <button class="mi" onclick="ext('https://parrainagexenon.vercel.app/')"><span class="mic">🎁</span>Parrainage — 15 € + 1 mois<span class="ext">↗ externe</span></button>
+  <button class="mi" onclick="go('xenontv-demande')"><span class="mic">➕</span>Demander un titre<span class="ar">›</span></button>
+  <button class="mi out" onclick="logout()"><span class="mic">⏻</span>Déconnexion</button>
+</div>
 
 <script>
-  // ── Vérification session
-  function checkSession() {
-    const email = sessionStorage.getItem('xenon_user_email');
-    const token = sessionStorage.getItem('xenon_session_token');
-    if (!email || !token) { window.location.href = 'index.html'; return null; }
-    return email;
-  }
+  const API = 'https://accesxtv-backend.vercel.app';
 
-  // ── Navigation
-  function goTo(section) {
-    const pages = {
-      identifiants:  'xenontv-identifiants-v2',
-      bug:           'xenontv-bug',
-      abonnement:    'xenontv-abonnement',
-      parrainage:    'https://parrainagexenon.vercel.app/',
-    };
-    const url = pages[section];
-    if (url && url !== '#') {
-      if (url.startsWith('http')) window.open(url, '_blank');
-      else window.location.href = url;
+  // ── Session ──
+  const email = sessionStorage.getItem('xenon_user_email') || '';
+  const token = sessionStorage.getItem('xenon_session_token') || '';
+  if (!email || !token) { window.location.href = 'index.html'; }
+
+  function go(page){ window.location.href = page; }
+  function ext(url){ window.open(url, '_blank', 'noopener'); }
+  function logout(){ sessionStorage.clear(); window.location.href = 'index.html'; }
+  function openMenu(){ document.getElementById('scrim').classList.add('open'); document.getElementById('sheet').classList.add('open'); }
+  function closeMenu(){ document.getElementById('scrim').classList.remove('open'); document.getElementById('sheet').classList.remove('open'); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+  // ── Identité (dérivée de l'e-mail, aucune donnée inventée) ──
+  function displayName(mail){
+    if (!mail) return 'Mon espace';
+    const local = mail.split('@')[0];
+    const tok = (local.match(/[a-zA-Zà-ÿ]{2,}/) || [local])[0] || 'Abonné';
+    return tok.charAt(0).toUpperCase() + tok.slice(1).toLowerCase();
+  }
+  const name = displayName(email);
+  const initial = (name[0] || '·').toUpperCase();
+  const h = new Date().getHours();
+  const hi = (h >= 18 || h < 5) ? 'Bonsoir,' : 'Bonjour,';
+
+  document.getElementById('mHi').textContent = hi;
+  document.getElementById('dHi').textContent = hi;
+  document.getElementById('mName').innerHTML = esc(name.toUpperCase()) + ' <em>.</em>';
+  document.getElementById('dName').innerHTML = esc(name.toUpperCase()) + ' <em>.</em>';
+  document.getElementById('mAv').textContent = initial;
+  document.getElementById('dAv').textContent = initial;
+  document.getElementById('sAv').textContent = initial;
+  document.getElementById('sName').textContent = name;
+  document.getElementById('dEmail').textContent = email;
+  document.getElementById('sEmail').textContent = email;
+
+  function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // ── Pastille statut (asynchrone, ne bloque jamais l'écran) ──
+  function parseExp(exp){
+    if (exp == null) return null;
+    const s = String(exp);
+    if (/^\d+$/.test(s)) return Number(s) * 1000;      // timestamp Xtream (secondes)
+    const t = Date.parse(s); return isNaN(t) ? null : t;
+  }
+  function fillStatus(state, days){
+    const cls = state === 'active' ? 'g' : state === 'soon' ? 'o' : 'r';
+    const label = state === 'active' ? 'Actif' : state === 'soon' ? 'Expire bientôt' : state === 'expired' ? 'Expiré' : 'Compte';
+    let html = '<i class="dot ' + cls + '" style="color:' + (state==='active'?'var(--green)':state==='soon'?'#eab308':'#ff5a63') + '"></i>'
+      + '<span class="' + cls + '">' + label + '</span>';
+    if (typeof days === 'number' && days >= 0) {
+      html += '<span class="sep"></span><span class="mono">' + days + ' j restants</span>';
     }
+    html += '<span style="color:#666">›</span>';
+    document.querySelectorAll('[data-status-pill]').forEach(el => { el.innerHTML = html; });
   }
-
-  // ── Charger l'état du compte dans la card dashboard
-  async function loadAccountStatus() {
-    const token = sessionStorage.getItem('xenon_session_token') || '';
-    if (!token) return;
-    try {
-      const r = await fetch('https://accesxtv-backend.vercel.app/api/subscription', { cache: 'no-store', headers: { 'X-Session-Token': token } });
-      if (!r.ok) return;
-      const data = await r.json();
-      if (!data.success || !data.subscriptions || !data.subscriptions[0]) return;
-      const sub = data.subscriptions[0];
-      const expTs = sub.exp_date ? new Date(sub.exp_date) : null;
-      const remaining = expTs ? Math.ceil((expTs - Date.now()) / 86400000) : null;
-      const isExpired = remaining !== null && remaining <= 0;
-      const isSoon = remaining !== null && remaining > 0 && remaining <= 14;
-      const dot    = document.getElementById('accBadgeDot');
-      const badgeTxt = document.getElementById('accBadgeText');
-      const subInfo  = document.getElementById('accSubInfo');
-      if (isExpired) {
-        if (dot) dot.style.background = '#e50914';
-        if (badgeTxt) badgeTxt.textContent = 'Expiré';
-        if (subInfo) subInfo.textContent = 'Votre abonnement a expiré — cliquez pour renouveler';
-      } else if (isSoon) {
-        if (dot) dot.style.background = '#f97316';
-        if (badgeTxt) badgeTxt.textContent = 'Expire bientôt';
-        if (subInfo) subInfo.textContent = 'Expire dans ' + remaining + ' jour' + (remaining > 1 ? 's' : '') + ' — cliquez pour voir';
-      } else if (remaining !== null) {
-        if (dot) dot.style.background = '#22c55e';
-        if (badgeTxt) badgeTxt.textContent = 'Actif';
-        if (subInfo) subInfo.textContent = remaining + ' jours restants — cliquez pour voir le détail';
-      }
-    } catch(e) {}
+  function fillStatusRaw(text){
+    document.querySelectorAll('[data-status-pill]').forEach(el => {
+      el.innerHTML = '<i class="dot" style="color:#888"></i><span style="color:#aaa">' + esc(text) + '</span>';
+    });
   }
-  loadAccountStatus();
-
-  // ── Init
-  const email = checkSession();
-  if (email) {
-    document.getElementById('userEmail').textContent = email;
-    document.getElementById('userInitial').textContent = email.charAt(0).toUpperCase();
+  async function loadStatus(){
+    try{
+      const r = await fetch(API + '/api/subscription', { headers: { 'X-Session-Token': token } });
+      if (r.status === 401){ sessionStorage.clear(); window.location.href = 'index.html'; return; }
+      const d = await r.json();
+      const subs = (d && d.subscriptions) || [];
+      if (!subs.length){ fillStatusRaw('Compte'); return; }
+      // Abonnement avec la plus grande date d'expiration
+      let best = null, bestMs = -Infinity;
+      subs.forEach(s => { const ms = parseExp(s.exp_date); if (ms != null && ms > bestMs){ bestMs = ms; best = s; } });
+      if (!best || bestMs === -Infinity){ fillStatusRaw('Actif'); return; }
+      const days = Math.ceil((bestMs - Date.now()) / 86400000);
+      if (days <= 0) fillStatus('expired');
+      else if (days <= 14) fillStatus('soon', days);
+      else fillStatus('active', days);
+    }catch(e){ fillStatusRaw('Compte'); }
   }
+  loadStatus();
 
-  // ── TV Section : slider logos + VOD posters ──
-  (function(){
-    const LOGOS=[
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~f2b6de26acc4dc3e.png/480x480/quality/100/tf1.png',n:'TF1'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~606394a5b095653a.png/480x480/quality/100/france-2.png',n:'F2'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~46c2dbade9ac9fed.png/480x480/quality/100/m6.png',n:'M6'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~897223a57e2e8ae5.png/480x480/quality/100/canal.png',n:'Canal+'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~d6bb7624abff43ac.png/480x480/quality/100/arte.png',n:'Arte'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~9048e02338fb1134.png/480x480/quality/100/bfmtv.png',n:'BFM'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~277882f801bd3f7b.png/480x480/quality/100/eurosport-1.png',n:'Euro1'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~8884f09c3361af44.png/480x480/quality/100/bein-sports-1.png',n:'beIN1'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~e08d0f4124b46a3e.png/480x480/quality/100/rmc-sport-1.png',n:'RMC'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~2b97b0fb1264c28d.png/480x480/quality/100/canal-sport.png',n:'C+Sport'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~61eebbb6e38360ae.png/480x480/quality/100/france-3.png',n:'F3'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~5f611b705ca3f017.png/480x480/quality/100/france-5.png',n:'F5'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~15acfc705e2d4dd8.png/480x480/quality/100/w9.png',n:'W9'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~952ec4ae63b20c1b.png/480x480/quality/100/cnews.png',n:'CNews'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~1314d39cfeea2a5c.png/480x480/quality/100/lci-la-chaine-info.png',n:'LCI'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~059a8175b83117fd.png/480x480/quality/100/gulli.png',n:'Gulli'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~b2c9618d914140d0.png/480x480/quality/100/tmc.png',n:'TMC'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~71e551462d6114e5.png/480x480/quality/100/tfx.png',n:'TFX'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~335ee2c06aacae64.png/480x480/quality/100/canal-foot.png',n:'C+Foot'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~82089336e45e2d47.png/480x480/quality/100/canal-ligue-1.png',n:'C+L1'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~2fa633f39d6c3033.png/480x480/quality/100/bein-sports-2.png',n:'beIN2'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~d5aee128665b32a9.png/480x480/quality/100/bein-sports-3.png',n:'beIN3'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~196acf0142c66a68.png/480x480/quality/100/eurosport-2.png',n:'Euro2'},
-      {s:'https://www.programme-tv.net/imgre/fit/~2~channel~0b078790aeb2d121.png/480x480/quality/100/canal-cinema.png',n:'C+Ciné'},
-    ];
-    function mkL(l){return '<div class="ch-logo"><img src="'+l.s+'" alt="'+l.n+'" loading="lazy" onerror="this.style.opacity=0"></div>';}
-    const r1=LOGOS.slice(0,12),r2=LOGOS.slice(12);
-    const e1=document.getElementById('chRow1'),e2=document.getElementById('chRow2');
-    if(e1) e1.innerHTML=[...r1,...r1].map(mkL).join('');
-    if(e2) e2.innerHTML=[...r2,...r2].map(mkL).join('');
-
-    // Posters TMDB tendances
-    const TK= "";
-    const vEl=document.getElementById('vodGrid');
-    if(vEl){
-      fetch('https://accesxtv-backend.vercel.app/api/tmdb?path=trending/movie/week&language=fr-FR',{headers:{Authorization:'Bearer '+TK}})
-        .then(r=>r.json()).then(d=>{
-          vEl.innerHTML=(d.results||[]).slice(0,6).map(i=>
-            i.poster_path
-              ?'<div class="vod-poster"><img src="https://image.tmdb.org/t/p/w185'+i.poster_path+'" alt="" loading="lazy"></div>'
-              :'<div class="vod-poster" style="background:#1a1a2e">🎬</div>'
-          ).join('');
-        }).catch(()=>{vEl.innerHTML='<div class="vod-poster" style="background:#1a1a2e">🎬</div>'.repeat(6);});
-    }
-  })();
-
+  // ── Diaporama d'affiches ciné (TMDB via /api/tmdb) sur le hero ──
+  async function heroPosters(){
+    let urls = [];
+    try{
+      const r = await fetch(API + '/api/tmdb?path=trending/movie/week&language=fr-FR');
+      const d = await r.json();
+      urls = (d.results || []).map(m => m.backdrop_path).filter(Boolean).slice(0, 10).map(p => 'https://image.tmdb.org/t/p/w1280' + p);
+    }catch(e){}
+    if (urls.length < 2) return; // sinon on garde le fond statique de secours
+    ['dheroBg','mtopBg'].forEach(id => {
+      const c = document.getElementById(id);
+      if (!c) return;
+      const a = document.createElement('div'), b = document.createElement('div');
+      a.className = 'slide'; b.className = 'slide';
+      c.appendChild(a); c.appendChild(b);
+      const layers = [a, b];
+      let i = 0, cur = 0;
+      layers[0].style.backgroundImage = 'url('+urls[0]+')';
+      layers[0].style.opacity = '1';
+      setInterval(() => {
+        i = (i + 1) % urls.length;
+        const img = new Image();
+        img.onload = () => {
+          const nx = layers[1 - cur];
+          nx.style.backgroundImage = 'url('+urls[i]+')';
+          nx.style.opacity = '1';
+          layers[cur].style.opacity = '0';
+          cur = 1 - cur;
+        };
+        img.src = urls[i];
+      }, 5500);
+    });
+  }
+  heroPosters();
 </script>
-
 </body>
 </html>

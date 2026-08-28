@@ -11,9 +11,10 @@
 
   :root {
     --red: #e50914;
+    --red2: #ff2233;
     --dark-red: #b20710;
     --black: #000;
-    --bg: #141414;
+    --bg: #070707;
     --surface: #1a1a1a;
     --surface2: #2d2d2d;
     --border: #333;
@@ -890,6 +891,8 @@
 </style>
 </head>
 <body>
+<div class="v3grain"></div>
+<style>.v3grain{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.4;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}</style>
 
 <!-- ── NAV ── -->
 <nav>

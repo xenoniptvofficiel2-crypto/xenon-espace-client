@@ -2,792 +2,307 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XENON TV — Mes Identifiants</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="robots" content="noindex, nofollow">
+<title>XENON TV — Mes Accès</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --red: #e50914;
-  --red2: #ff2233;
-  --bg: #080808;
-  --s1: #111;
-  --s2: #161616;
-  --s3: #1c1c1c;
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.11);
-  --text: #f0f0f0;
-  --muted: #777;
-  --green: #22c55e;
-  --mono: 'DM Mono', monospace;
-}
-
-body {
-  font-family: 'Montserrat', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-}
-
-/* ══ TOPBAR ══ */
-.topbar {
-  position: sticky; top: 0; z-index: 50;
-  background: rgba(8,8,8,0.95);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 48px; height: 60px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; color: #fff; text-decoration: none; }
-.logo span { color: var(--red); }
-.topbar-right { display: flex; align-items: center; gap: 12px; }
-.back-btn {
-  display: flex; align-items: center; gap: 6px;
-  background: transparent; border: 1px solid var(--border2);
-  color: var(--muted); padding: 6px 16px; border-radius: 6px;
-  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px;
-  text-transform: uppercase; cursor: pointer;
-  font-family: 'Montserrat', sans-serif; text-decoration: none;
-  transition: all 0.2s;
-}
-.back-btn:hover { border-color: #fff; color: #fff; }
-.user-chip {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--s2); border: 1px solid var(--border2);
-  padding: 5px 14px 5px 6px; border-radius: 20px;
-  font-size: 0.75rem; font-weight: 600; color: #ccc;
-}
-.user-av {
-  width: 24px; height: 24px; border-radius: 50%;
-  background: var(--red); display: flex; align-items: center; justify-content: center;
-  font-size: 0.68rem; font-weight: 800; color: #fff; flex-shrink: 0;
-}
-
-/* ══ HERO BAND ══ */
-.hero-band {
-  background: linear-gradient(135deg, #110000 0%, #0a0a0a 60%, #080808 100%);
-  border-bottom: 1px solid rgba(229,9,20,0.12);
-  padding: 36px 48px 32px;
-  position: relative; overflow: hidden;
-}
-.hero-band::after {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--red) 0%, var(--red2) 40%, transparent 100%);
-}
-.hero-band::before {
-  content: '🔑';
-  position: absolute; right: 48px; top: 50%;
-  transform: translateY(-50%);
-  font-size: 6rem; opacity: 0.06;
-  pointer-events: none;
-}
-.hero-eyebrow {
-  font-size: 0.65rem; font-weight: 700; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--red); margin-bottom: 6px;
-}
-.hero-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.8rem; letter-spacing: 3px; line-height: 1;
-  margin-bottom: 8px;
-}
-.hero-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
-
-/* ══ MAIN ══ */
-.main { padding: 32px 48px 0; max-width: 820px; }
-
-/* ══ SUCCESS BANNER ══ */
-.success-banner {
-  display: flex; align-items: center; gap: 12px;
-  background: rgba(34,197,94,0.06);
-  border: 1px solid rgba(34,197,94,0.2);
-  border-radius: 10px; padding: 12px 18px;
-  margin-bottom: 28px;
-  animation: fadeDown 0.4s ease;
-}
-@keyframes fadeDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
-.success-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink:0; box-shadow: 0 0 8px rgba(34,197,94,0.5); animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-.success-text { font-size: 0.8rem; color: #4ade80; font-weight: 600; }
-.access-count {
-  margin-left: auto; background: rgba(34,197,94,0.12);
-  border: 1px solid rgba(34,197,94,0.3); color: var(--green);
-  font-size: 0.68rem; font-weight: 800; letter-spacing: 1px;
-  text-transform: uppercase; padding: 3px 12px; border-radius: 20px;
-}
-
-/* ══ ACCESS CARD ══ */
-.access-card {
-  background: var(--s1);
-  border: 1px solid var(--border2);
-  border-radius: 16px; overflow: hidden;
-  margin-bottom: 16px;
-  animation: fadeUp 0.4s ease;
-}
-@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-
-.ac-header {
-  background: var(--s2);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 22px;
-  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-}
-.ac-badge {
-  display: flex; align-items: center; gap: 5px;
-  background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25);
-  color: var(--green); font-size: 0.68rem; font-weight: 800;
-  letter-spacing: 1px; text-transform: uppercase;
-  padding: 3px 12px; border-radius: 20px;
-}
-.ac-badge::before { content:'✓'; }
-.ac-date { font-size: 0.73rem; color: var(--muted); margin-left: auto; }
-
-/* ══ SECTIONS ══ */
-.ac-body { padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; }
-.section-divider {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 0.62rem; font-weight: 800; letter-spacing: 2.5px;
-  text-transform: uppercase; color: #333;
-  margin: 6px 0 2px;
-}
-.section-divider::before, .section-divider::after {
-  content:''; flex:1; height: 1px; background: var(--border);
-}
-
-/* ══ CRED ROW ══ */
-.cred-row {
-  display: flex; align-items: center; gap: 0;
-  background: var(--s2); border: 1px solid var(--border);
-  border-radius: 10px; overflow: hidden;
-  transition: border-color 0.2s;
-}
-.cred-row:hover { border-color: rgba(229,9,20,0.2); }
-.cred-type-tag {
-  background: var(--s3);
-  border-right: 1px solid var(--border);
-  padding: 0 14px; align-self: stretch;
-  display: flex; align-items: center;
-  min-width: 44px; justify-content: center;
-  font-size: 1rem;
-}
-.cred-inner {
-  flex: 1; padding: 13px 16px; min-width: 0;
-}
-.cred-label {
-  font-size: 0.6rem; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; color: #444; margin-bottom: 4px;
-}
-.cred-value {
-  font-family: var(--mono); font-size: 0.9rem;
-  color: #e8e8e8; word-break: break-all; line-height: 1.4;
-}
-.cred-actions {
-  padding: 0 14px; display: flex; gap: 6px;
-  flex-shrink: 0; align-items: center; border-left: 1px solid var(--border);
-  align-self: stretch;
-}
-
-/* ══ M3U ROW ══ */
-.m3u-row {
-  background: rgba(34,197,94,0.03);
-  border: 1px solid rgba(34,197,94,0.12);
-  border-radius: 10px; padding: 14px 16px;
-  display: flex; align-items: flex-start; gap: 12px;
-}
-.m3u-inner { flex: 1; min-width: 0; }
-.m3u-url {
-  font-family: var(--mono); font-size: 0.75rem;
-  color: #4ade80; word-break: break-all; line-height: 1.55;
-  margin-bottom: 10px;
-}
-.m3u-dl {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25);
-  color: #4ade80; font-size: 0.72rem; font-weight: 700;
-  padding: 7px 16px; border-radius: 6px; text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
-  transition: background 0.2s;
-}
-.m3u-dl:hover { background: rgba(34,197,94,0.15); }
-
-/* ══ BUTTONS ══ */
-.copy-btn {
-  background: transparent; border: 1px solid var(--border2);
-  color: var(--muted); padding: 6px 14px; border-radius: 6px;
-  font-size: 0.7rem; font-weight: 700; cursor: pointer;
-  font-family: 'Montserrat', sans-serif; letter-spacing: 0.3px;
-  transition: all 0.2s; white-space: nowrap;
-}
-.copy-btn:hover { border-color: rgba(229,9,20,0.4); color: #fff; }
-.copy-btn.copied { border-color: var(--green); color: var(--green); background: rgba(34,197,94,0.06); }
-.repair-btn {
-  display: flex; align-items: center; gap: 5px;
-  background: linear-gradient(135deg, var(--red), var(--red2));
-  border: none; color: #fff; padding: 6px 14px; border-radius: 6px;
-  font-size: 0.7rem; font-weight: 700; cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
-  transition: opacity 0.2s; white-space: nowrap;
-}
-.repair-btn:hover { opacity: 0.85; }
-
-/* ══ NOTICE ══ */
-.ac-notice {
-  background: rgba(234,179,8,0.05); border: 1px solid rgba(234,179,8,0.18);
-  border-radius: 8px; padding: 12px 16px;
-  font-size: 0.76rem; color: #b8922a; line-height: 1.65;
-  margin-top: 8px;
-}
-.ac-notice a { color: #d4aa30; font-weight: 700; text-decoration: underline; }
-
-/* ══ BOTTOM MENU CARDS ══ */
-.bottom-section {
-  padding: 40px 48px 60px;
-  max-width: 820px;
-}
-.bottom-label {
-  font-size: 0.65rem; font-weight: 700; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--muted);
-  margin-bottom: 18px;
-  display: flex; align-items: center; gap: 10px;
-}
-.bottom-label::after { content:''; flex:1; height:1px; background: var(--border); }
-
-.bottom-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-.bottom-card {
-  position: relative; border-radius: 12px; overflow: hidden;
-  min-height: 160px; cursor: pointer; text-decoration: none;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  transition: transform 0.25s, box-shadow 0.25s;
-  color: #fff;
-}
-.bottom-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
-.bottom-card:hover .bc-btn { background: var(--red2); }
-.bc-bg {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-  transition: transform 0.35s;
-}
-.bottom-card:hover .bc-bg { transform: scale(1.06); }
-.bc-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.1) 100%);
-}
-.bc-tint { position: absolute; inset: 0; opacity: 0.22; }
-.bc-content { position: relative; z-index: 2; padding: 20px 18px; }
-.bc-icon { font-size: 1.6rem; margin-bottom: 8px; display: block; }
-.bc-title {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem;
-  letter-spacing: 1.5px; line-height: 1.1; margin-bottom: 6px;
-  color: #fff;
-}
-.bc-desc { font-size: 0.72rem; color: rgba(255,255,255,0.65); line-height: 1.5; margin-bottom: 12px; }
-.bc-btn {
-  display: inline-flex; align-items: center; gap: 5px;
-  background: var(--red); color: #fff; border: none;
-  padding: 7px 16px; border-radius: 20px;
-  font-size: 0.68rem; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase; font-family: 'Montserrat', sans-serif;
-  transition: background 0.2s; pointer-events: none;
-}
-
-/* ══ MODAL REPAIR ══ */
-.modal-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.88); z-index: 200;
-  align-items: center; justify-content: center;
-  padding: 20px; backdrop-filter: blur(4px);
-}
-.modal-overlay.open { display: flex; }
-.modal-box {
-  background: var(--s1); border: 1px solid rgba(229,9,20,0.25);
-  border-top: 3px solid var(--red); border-radius: 14px;
-  padding: 28px 24px; max-width: 460px; width: 100%;
-  animation: fadeUp 0.25s ease; max-height: 88vh; overflow-y: auto;
-}
-.modal-title { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:2px; margin-bottom:6px; }
-.modal-sub { font-size:0.8rem; color:var(--muted); margin-bottom:20px; line-height:1.6; }
-.url-block { background:var(--s2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:8px; }
-.url-block-label { font-size:0.6rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#444; margin-bottom:8px; }
-.url-old { font-family:var(--mono); font-size:0.8rem; color:#ff6666; text-decoration:line-through; word-break:break-all; }
-.url-new { font-family:var(--mono); font-size:0.85rem; color:#4ade80; word-break:break-all; margin-bottom:10px; }
-.url-warning { background:rgba(234,179,8,0.07); border:1px solid rgba(234,179,8,0.2); border-radius:8px; padding:10px 14px; font-size:0.76rem; color:#b8922a; line-height:1.6; margin:10px 0; }
-.modal-close { width:100%; margin-top:10px; background:var(--s2); border:1px solid var(--border); border-radius:8px; padding:12px; font-size:0.8rem; color:var(--muted); cursor:pointer; font-family:'Montserrat',sans-serif; font-weight:600; transition:all 0.2s; }
-.modal-close:hover { border-color:var(--red); color:#ff6b6b; }
-
-/* ══ RESPONSIVE ══ */
-
-/* Tablette */
-@media (max-width: 1024px) {
-  .main { max-width: 100%; }
-  .bottom-section { max-width: 100%; }
-}
-
-/* Mobile large */
-@media (max-width: 900px) {
-  .topbar { padding: 0 16px; }
-  .hero-band { padding: 24px 16px 20px; }
-  .hero-band::before { display: none; }
-  .hero-title { font-size: 2rem; }
-  .main { padding: 18px 16px 0; }
-  .bottom-section { padding: 24px 16px 40px; }
-  .bottom-grid { grid-template-columns: 1fr; gap: 10px; }
-  .bottom-card { min-height: 140px; }
-  .cred-actions { padding: 0 10px; }
-}
-
-/* Mobile */
-@media (max-width: 640px) {
-  /* Topbar */
-  .topbar { padding: 0 14px; height: 54px; }
-  .logo { font-size: 1.5rem; }
-  .back-btn { padding: 5px 10px; font-size: 0.68rem; }
-  .user-chip span { display: none; }
-  .user-chip { padding: 4px 8px 4px 4px; }
-
-  /* Hero */
-  .hero-band { padding: 20px 14px 18px; }
-  .hero-title { font-size: 1.7rem; letter-spacing: 2px; }
-  .hero-sub { font-size: 0.78rem; }
-
-  /* Main */
-  .main { padding: 14px 14px 0; }
-  .bottom-section { padding: 20px 14px 36px; }
-
-  /* Success banner */
-  .success-banner { padding: 10px 14px; }
-  .success-text { font-size: 0.75rem; }
-  .access-count { font-size: 0.62rem; padding: 2px 10px; }
-
-  /* Card header */
-  .ac-header { padding: 10px 14px; gap: 8px; }
-  .ac-date { margin-left: 0; }
-
-  /* Card body */
-  .ac-body { padding: 14px 14px; gap: 7px; }
-
-  /* Cred row — stack vertically */
-  .cred-row { flex-wrap: wrap; }
-  .cred-type-tag {
-    min-width: 40px; padding: 0 12px;
-    border-right: 1px solid var(--border);
-    align-self: auto; height: auto; padding: 12px;
-  }
-  .cred-inner { padding: 12px 12px; }
-  .cred-value { font-size: 0.82rem; }
-  .cred-actions {
-    border-left: none;
-    border-top: 1px solid var(--border);
-    width: 100%; padding: 8px 14px;
-    justify-content: flex-end;
-    align-self: auto;
-  }
-
-  /* M3U */
-  .m3u-row { flex-wrap: wrap; padding: 12px 14px; gap: 8px; }
-  .m3u-url { font-size: 0.7rem; }
-
-  /* Section divider */
-  .section-divider { font-size: 0.58rem; }
-
-  /* Notice */
-  .ac-notice { font-size: 0.72rem; padding: 10px 12px; }
-
-  /* Bottom cards */
-  .bottom-card { min-height: 120px; }
-  .bc-content { padding: 14px; }
-  .bc-icon { font-size: 1.3rem; margin-bottom: 5px; }
-  .bc-title { font-size: 1.15rem; }
-  .bc-desc { font-size: 0.68rem; margin-bottom: 10px; }
-  .bc-btn { font-size: 0.62rem; padding: 6px 12px; }
-
-  /* Modal */
-  .modal-box { padding: 22px 16px; }
-  .url-new { font-size: 0.78rem; }
-}
-
-/* Très petit mobile */
-@media (max-width: 380px) {
-  .hero-title { font-size: 1.5rem; }
-  .cred-value { font-size: 0.76rem; }
-  .logo { font-size: 1.35rem; }
-}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#e50914;--red2:#ff2233;--bg:#070707;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.14);--text:#f5f5f5;--muted:#8a8a8a;--muted2:#bdbdbd;--green:#2fd573;--font:'Montserrat',sans-serif;--mono:'DM Mono',monospace;--disp:'Bebas Neue',sans-serif}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh}
+a{color:inherit;text-decoration:none}img{max-width:100%}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.4;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
+.aura{position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:560px;height:460px;max-width:120vw;border-radius:50%;background:radial-gradient(ellipse,rgba(229,9,20,.2),rgba(229,9,20,.05) 45%,transparent 70%);filter:blur(10px);z-index:0;pointer-events:none}
+.logo{font-family:var(--disp);letter-spacing:2.5px;color:#fff}.logo b{color:var(--red);font-weight:400}
+.av{width:32px;height:32px;border-radius:50%;background:linear-gradient(150deg,var(--red2),#6d0208);display:grid;place-items:center;font-size:.74rem;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 0 0 2px rgba(229,9,20,.25),0 4px 14px rgba(229,9,20,.3)}
+.dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:puls 2.2s infinite;flex-shrink:0}
+@keyframes puls{0%,100%{opacity:1}50%{opacity:.25}}
+.btnr{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;padding:15px 22px;background:linear-gradient(140deg,var(--red2),var(--red) 55%,#7d040b);color:#fff;font:700 .76rem var(--font);letter-spacing:1.2px;text-transform:uppercase;box-shadow:0 12px 34px rgba(229,9,20,.4),inset 0 1px 0 rgba(255,255,255,.22);cursor:pointer;transition:transform .2s}
+.btnr:hover{transform:translateY(-2px)}
+.btng{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line2);border-radius:12px;padding:15px 22px;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);color:#e8e8e8;font:700 .76rem var(--font);letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;transition:transform .2s}
+.btng:hover{transform:translateY(-2px)}
+.wrap{position:relative;max-width:520px;margin:0 auto;padding:0 18px 110px}
+.ptop{display:flex;align-items:center;gap:13px;padding:16px 2px 0;position:relative;z-index:6}
+.back{width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);background:rgba(20,20,20,.6);backdrop-filter:blur(12px);display:grid;place-items:center;color:#eee;font-size:1rem;cursor:pointer}
+.ptitle{font-family:var(--disp);font-size:1.35rem;letter-spacing:2px}
+/* access nav */
+.accnav{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:.7rem;color:var(--muted)}
+.accnav button{width:30px;height:30px;border-radius:9px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:#ddd;cursor:pointer}
+.accnav b{color:#fff;font-weight:700;letter-spacing:.5px}
+/* segments */
+.seg{display:flex;gap:5px;background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:14px;padding:5px;margin-top:18px}
+.seg span{flex:1;text-align:center;padding:11px 4px;border-radius:10px;font-size:.66rem;font-weight:700;color:var(--muted);cursor:pointer}
+.seg span.on{background:linear-gradient(140deg,var(--red2),#9c050e);color:#fff;box-shadow:0 6px 18px rgba(229,9,20,.4)}
+.glass{background:linear-gradient(165deg,rgba(255,255,255,.055),rgba(255,255,255,.015));border:1px solid var(--line);border-radius:20px;backdrop-filter:blur(10px)}
+.crow{display:flex;flex-direction:column;gap:9px;padding:16px 0;border-bottom:1px solid var(--line)}
+.crow:last-child{border-bottom:none}
+.crow .lb{font-size:.58rem;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted)}
+.crow .vl{display:flex;align-items:center;gap:10px}
+.crow code{flex:1;min-width:0;font-family:var(--mono);font-size:.82rem;color:#fff;background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:11px;padding:13px 14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cpy{flex-shrink:0;height:44px;width:44px;border-radius:11px;border:1px solid var(--line2);background:rgba(255,255,255,.06);color:#ddd;display:grid;place-items:center;cursor:pointer}
+.cpy svg{width:16px;height:16px;pointer-events:none}
+.cpy.ok{border-color:rgba(47,213,115,.45);color:var(--green)}
+.warn{margin-top:14px;display:flex;gap:10px;padding:13px 15px;border-radius:14px;background:rgba(234,179,8,.07);border:1px solid rgba(234,179,8,.22);font-size:.66rem;color:#e8cd7a;line-height:1.55}
+.sh{display:flex;align-items:baseline;gap:12px;margin:26px 0 13px}
+.sh h3{font-family:var(--disp);font-size:1.3rem;letter-spacing:2px}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ac{position:relative;border-radius:18px;overflow:hidden;height:120px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid rgba(255,255,255,.09);cursor:pointer}
+.ac .bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.ac .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,5,.95) 15%,rgba(5,5,5,.4) 60%,rgba(5,5,5,.15))}
+.ac .cb{position:relative;z-index:2;padding:13px 14px}
+.ac h4{font-family:var(--disp);font-size:1.05rem;letter-spacing:1.3px}
+.ac p{font-size:.58rem;color:#a8a8a8;margin-top:2px}
+.ac .bd{position:absolute;top:10px;right:10px;z-index:2;font-size:.52rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:4px 9px;border-radius:20px;background:rgba(0,0,0,.55);border:1px solid var(--line2);color:var(--green)}
+.bg-bug{background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=700&q=80')}
+.bg-aide{background-image:url('https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=700&q=80')}
+/* états */
+.loadc{display:flex;flex-direction:column;align-items:center;gap:14px;padding:60px 0;color:var(--muted)}
+.ring3{width:34px;height:34px;border:3px solid rgba(255,255,255,.12);border-top-color:var(--red2);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.errbox{margin-top:24px;padding:18px;border-radius:16px;background:rgba(229,9,20,.06);border:1px solid rgba(229,9,20,.25);font-size:.8rem;color:#ffb3b8;line-height:1.6;text-align:center}
+.errbox a{color:#fff;text-decoration:underline}
+/* dock */
+.dock{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:calc(100% - 32px);max-width:448px;height:68px;border-radius:24px;background:rgba(16,16,16,.82);backdrop-filter:blur(24px) saturate(150%);border:1px solid rgba(255,255,255,.12);display:flex;padding:6px;z-index:40;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.dk{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#777;font-size:.52rem;font-weight:700;letter-spacing:.3px;border-radius:18px;background:none;border:none;cursor:pointer}
+.dk svg{width:20px;height:20px}
+.dk.on{color:#fff;background:linear-gradient(160deg,rgba(229,9,20,.32),rgba(229,9,20,.1));box-shadow:inset 0 0 0 1px rgba(229,9,20,.4)}
+/* modal réparer */
+.mov{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.85);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center}
+.mov.open{display:flex}
+@media(min-width:640px){.mov{align-items:center}}
+.mbox{width:100%;max-width:460px;background:#121212;border:1px solid #262626;border-radius:24px 24px 0 0;padding:22px 20px 26px;max-height:88vh;overflow:auto}
+@media(min-width:640px){.mbox{border-radius:22px;margin:0 14px}}
+.mbox h3{font-family:var(--disp);font-size:1.4rem;letter-spacing:1.6px;margin-bottom:6px}
+.mbox .sub{font-size:.72rem;color:var(--muted2);line-height:1.55;margin-bottom:14px}
+.ublock{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.ublock .l{font-size:.55rem;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.ublock .u{display:flex;align-items:center;gap:10px}
+.ublock code{flex:1;min-width:0;font-family:var(--mono);font-size:.8rem;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ublock.old code{text-decoration:line-through;opacity:.55}
+.mclose{width:100%;margin-top:8px;padding:13px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.05);color:#ddd;font-weight:700;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
 </style>
 </head>
 <body>
+<div class="grain"></div>
+<div class="aura"></div>
 
-<!-- TOPBAR -->
-<header class="topbar">
-  <div style="display:flex;align-items:center;gap:14px">
-    <a class="logo" href="#">XENON<span>TV</span></a>
-    <a class="back-btn" href="xenontv-dashboard">← Mon espace</a>
+<div class="wrap">
+  <div class="ptop">
+    <div class="back" onclick="location.href='xenontv-dashboard'">←</div>
+    <div class="ptitle">MES ACCÈS</div>
+    <div style="margin-left:auto"><div class="av" id="av">·</div></div>
   </div>
-  <div class="topbar-right">
-    <div class="user-chip">
-      <div class="user-av" id="userInitial">?</div>
-      <span id="userEmail">Chargement...</span>
+
+  <div id="loader" class="loadc"><div class="ring3"></div><div>Récupération de vos accès…</div></div>
+  <div id="errbox" class="errbox" style="display:none"></div>
+
+  <div id="content" style="display:none">
+    <div id="accnav" class="accnav" style="display:none">
+      <button onclick="switchAcc(-1)">‹</button><b id="accLabel">Accès 1 / 1</b><button onclick="switchAcc(1)">›</button>
     </div>
-  </div>
-</header>
-
-<!-- HERO BAND -->
-<div class="hero-band">
-  <p class="hero-eyebrow">Espace abonné</p>
-  <h1 class="hero-title">🔑 MES IDENTIFIANTS</h1>
-  <p class="hero-sub">Retrouvez vos accès XENON TV — URL, identifiants et fichier M3U.</p>
-</div>
-
-<!-- MAIN -->
-<main class="main">
-
-  <!-- Dynamic content injected by JS -->
-  <div id="loaderDots" style="display:flex;align-items:center;gap:6px;padding:40px 0;justify-content:center">
-    <div style="width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.2s ease-in-out infinite"></div>
-    <div style="width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.2s ease-in-out infinite;animation-delay:0.2s"></div>
-    <div style="width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.2s ease-in-out infinite;animation-delay:0.4s"></div>
-  </div>
-  <div id="errorBox" style="display:none">
-    <div style="background:rgba(229,9,20,0.06);border:1px solid rgba(229,9,20,0.3);border-radius:10px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
-      <div style="width:26px;height:26px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;color:#fff;flex-shrink:0">!</div>
-      <div>
-        <p style="font-size:0.88rem;font-weight:700;color:#ff6b6b;margin-bottom:4px">Erreur</p>
-        <p id="errorText" style="font-size:0.8rem;color:#cc4444;line-height:1.6">Impossible de charger vos identifiants.</p>
-      </div>
+    <div class="seg">
+      <span class="on" data-seg="android" onclick="setSeg('android')">Android / iOS</span>
+      <span data-seg="samsung" onclick="setSeg('samsung')">Samsung / LG</span>
+      <span data-seg="m3u" onclick="setSeg('m3u')">M3U</span>
     </div>
-    <div style="background:rgba(234,179,8,0.06);border:1px solid rgba(234,179,8,0.3);border-radius:10px;padding:14px 18px;margin-top:12px;font-size:0.8rem;color:#ccc;line-height:1.6">
-      💡 Besoin d'aide ? <a href="https://xenontv.fr/help" target="_blank" style="color:#fbbf24;font-weight:700;text-decoration:underline">Contactez notre support →</a>
+    <div class="glass" style="margin-top:14px;padding:6px 18px" id="credCard"></div>
+    <div class="warn">⚠️ Saisissez bien <b style="font-family:var(--mono)">http://</b> et non https:// dans votre application.</div>
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <button class="btnr" style="flex:1;padding:15px 8px;font-size:.68rem" onclick="openRepair()">🔧 Réparer mon URL</button>
+      <button class="btng" style="flex:1;padding:15px 8px;font-size:.68rem" onclick="location.href='xenontv-tutoriels'">Guide d'installation</button>
     </div>
-  </div>
-  <div id="resultContainer"></div>
-
-</main>
-
-<!-- BOTTOM MENU CARDS -->
-<div class="bottom-section">
-  <div class="bottom-label">Autres services</div>
-  <div class="bottom-grid">
-
-    <!-- Corriger ma ligne -->
-    <a class="bottom-card" href="xenontv-bug">
-      <div class="bc-bg" style="background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=75')"></div>
-      <div class="bc-tint" style="background:linear-gradient(135deg,#1a3a6b,#0d1f3c)"></div>
-      <div class="bc-overlay"></div>
-      <div class="bc-content">
-        <span class="bc-icon">🛠️</span>
-        <div class="bc-title">Corriger ma ligne</div>
-        <p class="bc-desc">Diagnostic et réparation de votre connexion IPTV.</p>
-        <span class="bc-btn">Accéder →</span>
-      </div>
-    </a>
-
-    <!-- Tutoriels -->
-    <a class="bottom-card" href="https://www.xenoniptv.co/tutoriels" target="_blank">
-      <div class="bc-bg" style="background-image:url('https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&q=75')"></div>
-      <div class="bc-tint" style="background:linear-gradient(135deg,#92400e,#451a03)"></div>
-      <div class="bc-overlay"></div>
-      <div class="bc-content">
-        <span class="bc-icon">📚</span>
-        <div class="bc-title">Tutoriels</div>
-        <p class="bc-desc">Guides d'installation pour tous vos appareils.</p>
-        <span class="bc-btn">Voir les guides →</span>
-      </div>
-    </a>
-
-    <!-- Assistance 24/7 -->
-    <a class="bottom-card" href="https://xenontv.fr/help" target="_blank">
-      <div class="bc-bg" style="background-image:url('https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=600&q=75')"></div>
-      <div class="bc-tint" style="background:linear-gradient(135deg,#0f5132,#052e16)"></div>
-      <div class="bc-overlay"></div>
-      <div class="bc-badge-24" style="position:absolute;top:14px;right:14px;z-index:3;background:rgba(229,9,20,0.9);color:#fff;font-size:0.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:20px;">24 / 7</div>
-      <div class="bc-overlay"></div>
-      <div class="bc-content">
-        <span class="bc-icon">💬</span>
-        <div class="bc-title">Assistance en direct</div>
-        <p class="bc-desc">Un agent disponible à toute heure, réponse en moins de 5 min.</p>
-        <span class="bc-btn">Contacter →</span>
-      </div>
-    </a>
-
+    <div class="sh"><h3>UN PROBLÈME ?</h3></div>
+    <div class="agrid">
+      <div class="ac" onclick="location.href='xenontv-bug'"><div class="bg bg-bug"></div><div class="veil"></div><div class="cb"><h4>CORRIGER UN BUG</h4><p>Diagnostic guidé</p></div></div>
+      <div class="ac" onclick="window.open('https://xenontv.fr/help','_blank','noopener')"><div class="bg bg-aide"></div><div class="veil"></div><span class="bd">24 / 7</span><div class="cb"><h4>ASSISTANCE</h4><p>Chat en direct</p></div></div>
+    </div>
   </div>
 </div>
 
-<!-- MODAL RÉPARER iOS/Android -->
-<div class="modal-overlay" id="modalIos" onclick="if(event.target===this)closeModal('modalIos')">
-  <div class="modal-box">
-    <div class="modal-title">🔧 Réparer mon URL</div>
-    <p class="modal-sub">Votre ancien serveur ne fonctionne plus. Utilisez les nouveaux URLs XENON TV.</p>
-    <div class="url-block">
-      <div class="url-block-label">Votre ancien URL</div>
-      <div class="url-old" style="text-decoration:line-through;opacity:0.6">http://app.xentvsat.com</div>
-    </div>
-    <div style="text-align:center;padding:4px 0;color:var(--muted);font-size:1.1rem">↓</div>
-    <div id="iosRepairList"></div>
-    <div class="url-warning">⚠️ Utilisez bien <strong>http://</strong> et non https://</div>
-    <button class="modal-close" onclick="closeModal('modalIos')">Fermer</button>
-  </div>
+<div class="dock">
+  <button class="dk" onclick="location.href='xenontv-dashboard'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Accueil</button>
+  <button class="dk" onclick="location.href='xenontv-programme'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8"/></svg>Programmes</button>
+  <button class="dk" onclick="location.href='xenontv-nouveautes'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m12 3 2.4 5.4 5.6.6-4.2 3.9 1.2 5.6L12 15.6l-5 2.9 1.2-5.6L4 9l5.6-.6z"/></svg>Nouveautés</button>
+  <button class="dk on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="9" cy="12" r="4"/><path d="M13 12h8m-3 0v3"/></svg>Accès</button>
+  <button class="dk" onclick="location.href='xenontv-dashboard'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
 </div>
 
-<!-- MODAL RÉPARER Samsung/LG -->
-<div class="modal-overlay" id="modalSmart" onclick="if(event.target===this)closeModal('modalSmart')">
-  <div class="modal-box">
-    <div class="modal-title">🔧 Réparer URL Samsung / LG</div>
-    <p class="modal-sub">Votre serveur Smart TV ne fonctionne plus. Utilisez les nouveaux URLs XENON TV.</p>
-    <div class="url-block">
-      <div class="url-block-label">Nouvel URL recommandé — Samsung / LG</div>
-      <div class="url-new">http://wesmrt.com</div>
-      <button class="copy-btn" onclick="copyText(this,'http://wesmrt.com')">Copier</button>
-    </div>
-    <div class="url-block">
-      <div class="url-block-label">URL alternatif</div>
-      <div class="url-new">http://app.megxeno.xyz</div>
-      <button class="copy-btn" onclick="copyText(this,'http://app.megxeno.xyz')">Copier</button>
-    </div>
-    <div class="url-warning">⚠️ Utilisez bien <strong>http://</strong> et non https://</div>
-    <button class="modal-close" onclick="closeModal('modalSmart')">Fermer</button>
+<!-- Modal Réparer -->
+<div class="mov" id="repairModal" onclick="if(event.target===this)closeRepair()">
+  <div class="mbox">
+    <h3 id="repairTitle">🔧 Réparer mon URL</h3>
+    <p class="sub">Votre serveur ne répond plus ? Essayez un de ces domaines de secours avec vos identifiants.</p>
+    <div class="ublock old"><div class="l">Ancien URL</div><div class="u"><code id="repairOld">http://app.xentvsat.com</code></div></div>
+    <div style="text-align:center;color:var(--muted);font-size:1.1rem;margin:2px 0">↓</div>
+    <div id="repairList"></div>
+    <button class="mclose" onclick="closeRepair()">Fermer</button>
   </div>
 </div>
 
 <script>
-  const API_URL = 'https://accesxtv-backend.vercel.app/api/proxy';
+  const API = 'https://accesxtv-backend.vercel.app';
+  const PROXY = API + '/api/proxy';
+  const DOMAINS_API = API + '/api/domains';
+  const OLD_URL = 'http://app.xentvsat.com';
   const OLD_DOMAINS = ['benflixe.com','mega862.com','luxevpn.xyz','eldervpn.xyz','megaxeno.com','xenontv2.xyz','xenonsdns.com','xentvsat.com','xeno'];
 
-  // ── Domaines d'AFFICHAGE : chargés depuis le backend (/api/domains). Le serveur
-  //    fait le tirage aléatoire et ne renvoie QUE le domaine choisi + quelques
-  //    alternatives « Réparer » (jamais tout le pool, jamais les bannis). La liste
-  //    est gérée dans l'espace admin. Replis en dur si l'API est injoignable →
-  //    la page n'est jamais cassée. Affichage uniquement.
-  const OLD_URL = 'http://app.xentvsat.com';
-  const DOMAINS_API = 'https://accesxtv-backend.vercel.app/api/domains';
-  let PICKED_URL     = 'http://appxenonplayer.com'; // Android/iOS + M3U (repli)
-  let ANDROID_REPAIR = [];                           // alternatives « Réparer »
-  let SAMSUNG_BASE   = 'xenonssmart.com';            // base Samsung/LG (repli)
+  // Replis en dur (si /api/domains échoue → la page n'est jamais cassée)
+  let PICKED_URL = 'http://appxenonplayer.com';
+  let ANDROID_REPAIR = [];
+  let SAMSUNG_BASE = 'xenonssmart.com';
 
-  async function loadDomains() {
-    try {
-      const r = await fetch(DOMAINS_API, { cache: 'no-store' });
+  // ── Session ──
+  const email = sessionStorage.getItem('xenon_user_email') || '';
+  const token = sessionStorage.getItem('xenon_session_token') || '';
+  if (!email || !token) { window.location.href = 'index.html'; }
+  document.getElementById('av').textContent = (email[0] || '·').toUpperCase();
+
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+  function getSub(url){ try { return new URL(url.startsWith('http')?url:'http://'+url).hostname.split('.')[0]; } catch(e){ return null; } }
+
+  async function loadDomains(){
+    try{
+      const r = await fetch(DOMAINS_API,{cache:'no-store'});
       const d = await r.json();
-      if (d && d.androidIos && d.androidIos.picked) {
-        PICKED_URL = d.androidIos.picked;
-        ANDROID_REPAIR = Array.isArray(d.androidIos.repair) ? d.androidIos.repair : [];
-      }
+      if (d && d.androidIos && d.androidIos.picked){ PICKED_URL = d.androidIos.picked; ANDROID_REPAIR = Array.isArray(d.androidIos.repair)?d.androidIos.repair:[]; }
       if (d && d.samsung && d.samsung.pickedBase) SAMSUNG_BASE = d.samsung.pickedBase;
-    } catch (e) { /* replis en dur conservés */ }
-    fillIosRepair();
+    }catch(e){ /* replis conservés */ }
   }
 
-  // Remplit le pop-up « Réparer » Android/iOS avec les alternatives renvoyées.
-  function fillIosRepair() {
-    const c = document.getElementById('iosRepairList');
-    if (!c) return;
-    if (!ANDROID_REPAIR.length) {
-      c.innerHTML = '<div class="url-block"><div class="url-new" style="opacity:.6">Aucune alternative disponible pour le moment.</div></div>';
-      return;
-    }
-    c.innerHTML = ANDROID_REPAIR.map(function(u,i){
-      return '<div class="url-block"><div class="url-block-label">'
-        + (i===0 ? 'Nouvel URL recommandé — Android / iOS' : 'Alternatif ' + i)
-        + '</div><div class="url-new">' + u + '</div>'
-        + '<button class="copy-btn" onclick="copyText(this,\'' + u + '\')">Copier</button></div>';
-    }).join('');
-  }
+  // ── State ──
+  let accesses = [];
+  let idx = 0;
+  let seg = 'android';
 
-  
-// Vérification session
-  function checkSession() {
-    const email = sessionStorage.getItem('xenon_user_email');
-    const token = sessionStorage.getItem('xenon_session_token');
-    if (!email || !token) { window.location.href = 'index.html'; return null; }
-    return email;
-  }
-
-  let sessionEmail = '';
-  const _s = checkSession();
-  if (_s) {
-    sessionEmail = _s;
-    if (document.getElementById('userEmail')) document.getElementById('userEmail').textContent = _s;
-    if (document.getElementById('userInitial')) document.getElementById('userInitial').textContent = _s.charAt(0).toUpperCase();
-  }
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
-  });
-
-  function getSubdomain(url) {
-    try { return new URL(url.startsWith('http') ? url : 'http://'+url).hostname.split('.')[0]; } catch(e) { return null; }
-  }
-  function needsRepair(url) { return url && OLD_DOMAINS.some(d => url.includes(d)); }
-  function formatDate(d) {
-    try { return new Date(d).toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}); } catch(e) { return d; }
-  }
-
-  function escHtml(str) {
-    if (!str) return '';
-    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  }
-
-  function buildCard(acc, idx, total) {
-    const label = total > 1 ? `Accès ${idx+1} / ${total}` : 'Accès trouvé';
-    const displayUrl = PICKED_URL;
-    const sub = getSubdomain(acc.url || '');
-    const smartUrl = sub ? `http://${sub}.${SAMSUNG_BASE}` : null;
-
-    const repairIos = needsRepair(acc.url)
-      ? `<button class="repair-btn" onclick="openModal('modalIos')">🔧 Réparer</button>` : '';
-
-    const rowUrl = `
-      <div class="cred-row">
-        <div class="cred-type-tag">📱</div>
-        <div class="cred-inner">
-          <div class="cred-label">URL — Android / iOS</div>
-          <div class="cred-value">${displayUrl}</div>
-        </div>
-        <div class="cred-actions">
-          <button class="copy-btn" onclick="copyText(this,'${displayUrl}')">Copier</button>
-          ${repairIos}
-        </div>
-      </div>`;
-
-    const rowSmart = smartUrl ? `
-      <div class="cred-row">
-        <div class="cred-type-tag">📺</div>
-        <div class="cred-inner">
-          <div class="cred-label">URL — Samsung TV / LG</div>
-          <div class="cred-value">${smartUrl}</div>
-        </div>
-        <div class="cred-actions">
-          <button class="copy-btn" onclick="copyText(this,'${smartUrl}')">Copier</button>
-          <button class="repair-btn" onclick="openModal('modalSmart')">🔧 Réparer</button>
-        </div>
-      </div>` : '';
-
-    const rowUser = acc.username ? `
-      <div class="cred-row">
-        <div class="cred-type-tag">👤</div>
-        <div class="cred-inner">
-          <div class="cred-label">Nom d'utilisateur</div>
-          <div class="cred-value">${escHtml(acc.username)}</div>
-        </div>
-        <div class="cred-actions">
-          <button class="copy-btn" onclick="copyText(this,'${escHtml(acc.username)}')">Copier</button>
-        </div>
-      </div>` : '';
-
-    const rowPass = acc.password ? `
-      <div class="cred-row">
-        <div class="cred-type-tag">🔒</div>
-        <div class="cred-inner">
-          <div class="cred-label">Mot de passe</div>
-          <div class="cred-value">${escHtml(acc.password)}</div>
-        </div>
-        <div class="cred-actions">
-          <button class="copy-btn" onclick="copyText(this,'${escHtml(acc.password)}')">Copier</button>
-        </div>
-      </div>` : '';
-
-    let m3uRow = '';
-    if (acc.m3u) {
-      let m3u = acc.m3u;
-      try {
-        const u = new URL(m3u.startsWith('http') ? m3u : 'http://'+m3u);
-        let path = u.pathname + u.search;
-        path = path.replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
-        m3u = PICKED_URL + path;
-      } catch(e) {
-        m3u = m3u.replace(/^https?:\/\/[^\/]+/, PICKED_URL)
-                 .replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
-      }
-      m3uRow = `
-        <div class="section-divider">Fichier M3U</div>
-        <div class="m3u-row">
-          <div style="font-size:1.2rem;flex-shrink:0;margin-top:2px">📂</div>
-          <div class="m3u-inner">
-            <div class="cred-label" style="margin-bottom:6px">Lien M3U</div>
-            <div class="m3u-url">${m3u}</div>
-            <a class="m3u-dl" href="${m3u}" target="_blank">⬇ Télécharger le fichier M3U</a>
-          </div>
-          <div style="flex-shrink:0">
-            <button class="copy-btn" onclick="copyText(this,'${m3u}')">Copier</button>
-          </div>
-        </div>`;
-    }
-
-    return `
-      <div class="success-banner">
-        <div class="success-dot"></div>
-        <span class="success-text">Accès trouvé et vérifié</span>
-        <span class="access-count">${total} accès</span>
-      </div>
-      <div class="access-card">
-        <div class="ac-header">
-          <span class="ac-badge">${label}</span>
-          <span style="font-size:0.72rem;color:#555;font-style:italic">${acc.subject || ''}</span>
-          <span class="ac-date">Créé le ${formatDate(acc.date)}</span>
-        </div>
-        <div class="ac-body">
-          <div class="section-divider">Connexion</div>
-          ${rowUrl}
-          ${rowSmart}
-          <div class="section-divider">Identifiants</div>
-          ${rowUser}
-          ${rowPass}
-          ${m3uRow}
-          <div class="ac-notice">
-            💡 Reconnectez-vous avec ces identifiants. Utilisez <strong>🔧 Réparer</strong> si l'URL ne fonctionne plus.
-            Support via <a href="https://xenontv.fr/help" target="_blank">notre application d'assistance</a>.
-          </div>
-        </div>
-      </div>`;
-  }
-
-
-  async function loadIdentifiants() {
-    if (!sessionEmail) { window.location.href = 'index.html'; return; }
-    await loadDomains();
+  function m3uFor(acc){
+    if (!acc.m3u) return null;
+    let m3u = acc.m3u;
     try {
-      const res = await fetch(API_URL, { headers: { 'X-Session-Token': sessionStorage.getItem('xenon_session_token') || '' } });
+      const u = new URL(m3u.startsWith('http')?m3u:'http://'+m3u);
+      let path = (u.pathname + u.search).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
+      m3u = PICKED_URL + path;
+    } catch(e){
+      m3u = m3u.replace(/^https?:\/\/[^\/]+/, PICKED_URL).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
+    }
+    return m3u;
+  }
+  function samsungUrl(acc){ const s = getSub(acc.url||''); return s ? 'http://'+s+'.'+SAMSUNG_BASE : PICKED_URL; }
+
+  function rowUrl(label, val){
+    return '<div class="crow"><div class="lb">'+label+'</div><div class="vl"><code>'+esc(val)+'</code>'
+      + '<button class="cpy" onclick="copyVal(this,\''+esc(val).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>';
+  }
+  function rowUser(acc){
+    if (!acc.username) return '';
+    return '<div class="crow"><div class="lb">Nom d\'utilisateur</div><div class="vl"><code>'+esc(acc.username)+'</code>'
+      + '<button class="cpy" onclick="copyVal(this,\''+esc(acc.username).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>';
+  }
+  function rowPass(acc){
+    if (!acc.password) return '';
+    const p = esc(acc.password).replace(/'/g,"\\'");
+    return '<div class="crow"><div class="lb">Mot de passe</div><div class="vl">'
+      + '<code data-pass="'+esc(acc.password)+'">••••••••••</code>'
+      + '<button class="cpy" onclick="togglePass(this)">'+iconEye()+'</button>'
+      + '<button class="cpy" onclick="copyVal(this,\''+p+'\')">'+iconCopy()+'</button></div></div>';
+  }
+
+  function render(){
+    const acc = accesses[idx] || {};
+    let html = '';
+    if (seg === 'android'){
+      html = rowUrl('URL du serveur', PICKED_URL) + rowUser(acc) + rowPass(acc);
+    } else if (seg === 'samsung'){
+      html = rowUrl('URL Samsung / LG', samsungUrl(acc)) + rowUser(acc) + rowPass(acc);
+    } else {
+      const m = m3uFor(acc);
+      html = m ? rowUrl('Lien M3U', m) + rowUser(acc) + rowPass(acc)
+               : '<div style="padding:20px 0;color:var(--muted);font-size:.78rem;text-align:center">Aucun lien M3U pour cet accès.</div>';
+    }
+    document.getElementById('credCard').innerHTML = html;
+  }
+
+  function setSeg(s){
+    seg = s;
+    document.querySelectorAll('.seg span').forEach(el => el.classList.toggle('on', el.getAttribute('data-seg')===s));
+    render();
+  }
+  function switchAcc(d){
+    idx = (idx + d + accesses.length) % accesses.length;
+    document.getElementById('accLabel').textContent = 'Accès '+(idx+1)+' / '+accesses.length;
+    render();
+  }
+
+  window.copyVal = function(btn, val){
+    if (!val) return;
+    navigator.clipboard.writeText(val).then(()=>{ btn.classList.add('ok'); btn.innerHTML=iconCheck(); setTimeout(()=>{ btn.classList.remove('ok'); btn.innerHTML=iconCopy(); },2000); });
+  };
+  window.togglePass = function(btn){
+    const code = btn.parentElement.querySelector('code[data-pass]');
+    if (!code) return;
+    const real = code.getAttribute('data-pass');
+    if (code.dataset.shown === '1'){ code.textContent='••••••••••'; code.dataset.shown='0'; }
+    else { code.textContent = real; code.dataset.shown='1'; }
+  };
+
+  function openRepair(){
+    const acc = accesses[idx] || {};
+    let list, title, oldUrl;
+    if (seg === 'samsung'){
+      title = '🔧 Réparer URL Samsung / LG';
+      oldUrl = samsungUrl(acc);
+      const sub = getSub(acc.url||'');
+      list = ['wesmrt.com','app.megxeno.xyz'].map(base => 'http://'+(sub?sub+'.':'')+base);
+    } else {
+      title = '🔧 Réparer mon URL';
+      oldUrl = OLD_URL;
+      list = ANDROID_REPAIR.slice();
+    }
+    document.getElementById('repairTitle').textContent = title;
+    document.getElementById('repairOld').textContent = oldUrl;
+    const c = document.getElementById('repairList');
+    if (!list.length){ c.innerHTML = '<div class="ublock"><div class="u"><code style="opacity:.6">Aucune alternative disponible pour le moment.</code></div></div>'; }
+    else {
+      c.innerHTML = list.map((u,i)=>'<div class="ublock"><div class="l">'+(i===0?'Nouvel URL recommandé':'Alternatif '+i)+'</div><div class="u"><code>'+esc(u)+'</code>'
+        + '<button class="cpy" onclick="copyVal(this,\''+esc(u).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>').join('');
+    }
+    document.getElementById('repairModal').classList.add('open');
+  }
+  function closeRepair(){ document.getElementById('repairModal').classList.remove('open'); }
+  document.addEventListener('keydown', e => { if (e.key==='Escape') closeRepair(); });
+
+  // icons
+  function iconCopy(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>'; }
+  function iconCheck(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 13 4 4L19 7"/></svg>'; }
+  function iconEye(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>'; }
+
+  // ── Load ──
+  async function init(){
+    if (!email || !token) return;
+    await loadDomains();
+    try{
+      const res = await fetch(PROXY, { headers: { 'X-Session-Token': token } });
       const data = await res.json();
-      document.getElementById('loaderDots').style.display = 'none';
-      if (res.status === 401) {
-        sessionStorage.clear();
-        window.location.href = 'index.html';
+      document.getElementById('loader').style.display = 'none';
+      if (res.status === 401){ sessionStorage.clear(); window.location.href='index.html'; return; }
+      if (!data || !data.found || !(data.accesses||[]).length){
+        const e = document.getElementById('errbox');
+        e.style.display = 'block';
+        e.innerHTML = 'Aucun accès trouvé pour <b>'+esc(email)+'</b>.<br>Besoin d\'aide ? <a href="https://xenontv.fr/help" target="_blank">Contactez le support →</a>';
         return;
       }
-      if (!data || !data.found) {
-        document.getElementById('errorBox').style.display = 'block';
-        document.getElementById('errorText').textContent = 'Aucun accès trouvé pour ' + sessionEmail + '.';
-        return;
-      }
-      const accesses = data.accesses || [];
-      document.getElementById('resultContainer').innerHTML = accesses.map((a,i) => buildCard(a, i, accesses.length)).join('');
-    } catch(e) {
-      document.getElementById('loaderDots').style.display = 'none';
-      document.getElementById('errorBox').style.display = 'block';
-      document.getElementById('errorText').textContent = 'Erreur de connexion. Vérifiez votre connexion internet.';
+      accesses = data.accesses;
+      idx = 0;
+      if (accesses.length > 1){ document.getElementById('accnav').style.display='flex'; document.getElementById('accLabel').textContent='Accès 1 / '+accesses.length; }
+      document.getElementById('content').style.display = 'block';
+      render();
+    }catch(e){
+      document.getElementById('loader').style.display = 'none';
+      const el = document.getElementById('errbox');
+      el.style.display = 'block';
+      el.innerHTML = 'Erreur de connexion. Vérifiez votre connexion internet et réessayez.';
     }
   }
-
-  document.addEventListener('DOMContentLoaded', loadIdentifiants);
-
-  window.copyText = copyText;
-  window.openModal = openModal;
-  window.closeModal = closeModal;
-
-  function copyText(btn, val) {
-    if (!val) return;
-    navigator.clipboard.writeText(val).then(() => {
-      const orig = btn.textContent;
-      btn.textContent = '✓ Copié';
-      btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
-    });
-  }
-  function openModal(id) { const el = document.getElementById(id); if (el) el.classList.add('open'); }
-  function closeModal(id) { const el = document.getElementById(id); if (el) el.classList.remove('open'); }
+  init();
 </script>
 </body>
 </html>
