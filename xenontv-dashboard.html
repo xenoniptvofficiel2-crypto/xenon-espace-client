@@ -120,6 +120,19 @@ img{max-width:100%}
 .dlogout{background:none;border:1px solid var(--line2);border-radius:20px;color:#ff6b74;font-size:.68rem;font-weight:700;padding:8px 15px;letter-spacing:.5px;text-transform:uppercase;cursor:pointer}
 .dhero{position:relative;min-height:430px;display:flex;align-items:flex-end;padding:40px 48px;margin-top:-72px;overflow:hidden}
 .dhero .bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=1800&q=85') center/cover}
+/* diaporama affiches TMDB (hero) */
+.slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease}
+.m-shell{position:relative}
+.mtopbg{position:absolute;top:0;left:0;right:0;height:380px;z-index:0;overflow:hidden}
+.mtopbg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,7,7,.5),rgba(7,7,7,.8) 52%,var(--bg));z-index:2}
+/* fluidité : entrées douces */
+@keyframes fadeUp3{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.mhead{animation:fadeUp3 .5s ease both}
+.mb{animation:fadeUp3 .6s .06s ease both}
+.dhero .in{animation:fadeUp3 .6s ease both}
+.dmain{animation:fadeUp3 .6s .06s ease both}
+.hcard,.ac,.wide,.dk{transition:transform .25s ease,box-shadow .25s ease}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .dhero .veil{position:absolute;inset:0;background:linear-gradient(92deg,rgba(7,7,7,.99) 22%,rgba(7,7,7,.9) 42%,rgba(7,7,7,.45) 65%,rgba(7,7,7,.1) 88%),linear-gradient(0deg,var(--bg) 2%,transparent 50%),linear-gradient(180deg,rgba(7,7,7,.85),transparent 30%)}
 .dhero .in{position:relative;z-index:3;max-width:620px}
 .dhero .hi{font-weight:300;font-size:1.7rem;color:#cfcfcf}
@@ -154,6 +167,7 @@ img{max-width:100%}
 
 <!-- ═══════════ MOBILE ═══════════ -->
 <div class="m-shell">
+  <div class="mtopbg" id="mtopBg"></div>
   <div class="aura"></div>
   <div class="wrap">
     <div class="mtop">
@@ -220,7 +234,7 @@ img{max-width:100%}
     </div>
   </div>
   <div class="dhero">
-    <div class="bg"></div><div class="veil"></div>
+    <div class="bg" id="dheroBg"></div><div class="veil"></div>
     <div class="in">
       <div class="hi" id="dHi">Bonjour,</div>
       <h1 id="dName">MON ESPACE <em>.</em></h1>
@@ -346,6 +360,41 @@ img{max-width:100%}
     }catch(e){ fillStatusRaw('Compte'); }
   }
   loadStatus();
+
+  // ── Diaporama d'affiches ciné (TMDB via /api/tmdb) sur le hero ──
+  async function heroPosters(){
+    let urls = [];
+    try{
+      const r = await fetch(API + '/api/tmdb?path=trending/movie/week&language=fr-FR');
+      const d = await r.json();
+      urls = (d.results || []).map(m => m.backdrop_path).filter(Boolean).slice(0, 10).map(p => 'https://image.tmdb.org/t/p/w1280' + p);
+    }catch(e){}
+    if (urls.length < 2) return; // sinon on garde le fond statique de secours
+    ['dheroBg','mtopBg'].forEach(id => {
+      const c = document.getElementById(id);
+      if (!c) return;
+      const a = document.createElement('div'), b = document.createElement('div');
+      a.className = 'slide'; b.className = 'slide';
+      c.appendChild(a); c.appendChild(b);
+      const layers = [a, b];
+      let i = 0, cur = 0;
+      layers[0].style.backgroundImage = 'url('+urls[0]+')';
+      layers[0].style.opacity = '1';
+      setInterval(() => {
+        i = (i + 1) % urls.length;
+        const img = new Image();
+        img.onload = () => {
+          const nx = layers[1 - cur];
+          nx.style.backgroundImage = 'url('+urls[i]+')';
+          nx.style.opacity = '1';
+          layers[cur].style.opacity = '0';
+          cur = 1 - cur;
+        };
+        img.src = urls[i];
+      }, 5500);
+    });
+  }
+  heroPosters();
 </script>
 </body>
 </html>
