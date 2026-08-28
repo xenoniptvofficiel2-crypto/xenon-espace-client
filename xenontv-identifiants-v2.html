@@ -556,34 +556,45 @@ body {
   const API_URL = 'https://accesxtv-backend.vercel.app/api/proxy';
   const OLD_DOMAINS = ['benflixe.com','mega862.com','luxevpn.xyz','eldervpn.xyz','megaxeno.com','xenontv2.xyz','xenonsdns.com','xentvsat.com','xeno'];
 
-  // ⚠️ Domaines BANNIS (HS / grillés) — NE JAMAIS remettre dans XENON_URLS.
-  //    Filet de sécurité : tout domaine listé ici est retiré automatiquement de
-  //    la rotation, même s'il est rajouté par erreur ci-dessous.
-  const BANNED_URLS = [
-    'http://app.xentvsat.com',
-    'http://xenon2026-lecteur.com',
-    'http://lecteur-xenon2026.com',
-    'http://applicationxenon-lecteur.com'
-  ];
-
-  // ── URLs d'AFFICHAGE : domaine(s) actif(s), utilisé(s) pour l'URL Android/iOS
-  //    ET le M3U. Actuellement 1 seul → « Réparer » n'a plus d'alternative (juste
-  //    l'ancien URL barré) tant qu'on n'en rajoute pas. Affichage uniquement.
-  const XENON_URLS = ['http://appxenonplayer.com'].filter(u => !BANNED_URLS.includes(u));
+  // ── Domaines d'AFFICHAGE : chargés depuis le backend (/api/domains). Le serveur
+  //    fait le tirage aléatoire et ne renvoie QUE le domaine choisi + quelques
+  //    alternatives « Réparer » (jamais tout le pool, jamais les bannis). La liste
+  //    est gérée dans l'espace admin. Replis en dur si l'API est injoignable →
+  //    la page n'est jamais cassée. Affichage uniquement.
   const OLD_URL = 'http://app.xentvsat.com';
-  const PICKED_URL = XENON_URLS[Math.floor(Math.random() * XENON_URLS.length)];
-  const REPAIR_URLS = XENON_URLS.filter(u => u !== PICKED_URL);
-  // Remplit le pop-up « Réparer » Android/iOS avec les 3 autres domaines.
-  (function fillIosRepair(){
+  const DOMAINS_API = 'https://accesxtv-backend.vercel.app/api/domains';
+  let PICKED_URL     = 'http://appxenonplayer.com'; // Android/iOS + M3U (repli)
+  let ANDROID_REPAIR = [];                           // alternatives « Réparer »
+  let SAMSUNG_BASE   = 'xenonssmart.com';            // base Samsung/LG (repli)
+
+  async function loadDomains() {
+    try {
+      const r = await fetch(DOMAINS_API, { cache: 'no-store' });
+      const d = await r.json();
+      if (d && d.androidIos && d.androidIos.picked) {
+        PICKED_URL = d.androidIos.picked;
+        ANDROID_REPAIR = Array.isArray(d.androidIos.repair) ? d.androidIos.repair : [];
+      }
+      if (d && d.samsung && d.samsung.pickedBase) SAMSUNG_BASE = d.samsung.pickedBase;
+    } catch (e) { /* replis en dur conservés */ }
+    fillIosRepair();
+  }
+
+  // Remplit le pop-up « Réparer » Android/iOS avec les alternatives renvoyées.
+  function fillIosRepair() {
     const c = document.getElementById('iosRepairList');
     if (!c) return;
-    c.innerHTML = REPAIR_URLS.map(function(u,i){
+    if (!ANDROID_REPAIR.length) {
+      c.innerHTML = '<div class="url-block"><div class="url-new" style="opacity:.6">Aucune alternative disponible pour le moment.</div></div>';
+      return;
+    }
+    c.innerHTML = ANDROID_REPAIR.map(function(u,i){
       return '<div class="url-block"><div class="url-block-label">'
         + (i===0 ? 'Nouvel URL recommandé — Android / iOS' : 'Alternatif ' + i)
         + '</div><div class="url-new">' + u + '</div>'
         + '<button class="copy-btn" onclick="copyText(this,\'' + u + '\')">Copier</button></div>';
     }).join('');
-  })();
+  }
 
   
 // Vérification session
@@ -623,7 +634,7 @@ body {
     const label = total > 1 ? `Accès ${idx+1} / ${total}` : 'Accès trouvé';
     const displayUrl = PICKED_URL;
     const sub = getSubdomain(acc.url || '');
-    const smartUrl = sub ? `http://${sub}.xenonssmart.com` : null;
+    const smartUrl = sub ? `http://${sub}.${SAMSUNG_BASE}` : null;
 
     const repairIos = needsRepair(acc.url)
       ? `<button class="repair-btn" onclick="openModal('modalIos')">🔧 Réparer</button>` : '';
@@ -736,6 +747,7 @@ body {
 
   async function loadIdentifiants() {
     if (!sessionEmail) { window.location.href = 'index.html'; return; }
+    await loadDomains();
     try {
       const res = await fetch(API_URL, { headers: { 'X-Session-Token': sessionStorage.getItem('xenon_session_token') || '' } });
       const data = await res.json();
