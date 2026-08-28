@@ -38,7 +38,7 @@ Chaque page protégée vérifie leur présence au chargement et redirige vers
 |---|---|
 | `index.html` | Accueil + **login OTP** (envoi code, saisie 6 chiffres, redirection dashboard). Aperçu catalogue TMDB. |
 | `xenontv-dashboard.html` | Tableau de bord : statut d'abonnement + navigation. |
-| `xenontv-identifiants-v2.html` | Récupération des identifiants IPTV (URL, username, password, M3U) via `/api/proxy`. |
+| `xenontv-identifiants-v2.html` | Récupération des identifiants IPTV (URL, username, password, M3U) via `/api/proxy`. Les **domaines d'affichage** (URL Android/iOS + M3U, base Samsung/LG, alternatives « Réparer ») sont chargés depuis `/api/domains` (tirage serveur), avec repli en dur. |
 | `xenontv-abonnement.html` | Détail de l'abonnement via `/api/subscription`. |
 | `xenontv-demande.html` | Formulaire ajout/signalement (recherche TMDB) → `/api/demande`. |
 | `xenontv-nouveautes.html` | Catalogue nouveautés (TMDB + VOD via `/api/tmdb` et `/api/vod`). |
