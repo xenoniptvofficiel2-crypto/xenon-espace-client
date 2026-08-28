@@ -265,13 +265,20 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
     else location.href = 'xenontv-dashboard';
   }
 
+  // Mappe l'appareil du wizard vers le guide d'installation in-app correspondant.
+  const GUIDE_SLUG = { fire:'fire-stick', tv:'smart-tv', pc:'pc-mac' }; // mob → catalogue (choix iPhone/Android)
   function renderSolution(){
     const prob = PROBLEMS.find(p=>p.id===selProb);
     document.getElementById('solTitle').textContent = 'La solution — ' + (DEVLABEL[selDev]||'') + ' · ' + (prob?prob.t.toLowerCase():'');
     const sols = solutionsFor(selProb, selDev);
-    document.getElementById('solList').innerHTML = sols.map((s,i)=>
+    let html = sols.map((s,i)=>
       '<div class="sol"><span class="n2">0'+(i+1)+'</span><div><h4>'+esc(s.t)+'</h4><p>'+esc(s.p)+'</p></div>'+(s.ok?'<span class="ok2">Recommandé</span>':'')+'</div>'
     ).join('');
+    // Guide d'installation complet (contenu tutoriels in-app)
+    const slug = GUIDE_SLUG[selDev];
+    const href = 'xenontv-tutoriels' + (slug ? ('?g='+slug) : '');
+    html += '<div class="sol" style="cursor:pointer" onclick="location.href=\''+href+'\'"><span class="n2">📖</span><div><h4>Réinstaller proprement</h4><p>Suivez le guide d\'installation pas-à-pas pour ' + esc(DEVLABEL[selDev]||'votre appareil') + ' — avec vos codes déjà intégrés.</p></div><span class="ok2" style="color:var(--muted)">Guide ›</span></div>';
+    document.getElementById('solList').innerHTML = html;
     loadCreds();
   }
 
