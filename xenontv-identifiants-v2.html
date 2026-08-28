@@ -556,9 +556,9 @@ body {
   const API_URL = 'https://accesxtv-backend.vercel.app/api/proxy';
   const OLD_DOMAINS = ['benflixe.com','mega862.com','luxevpn.xyz','eldervpn.xyz','megaxeno.com','xenontv2.xyz','xenonsdns.com','xentvsat.com','xeno'];
 
-  // ── URLs d'AFFICHAGE : 4 domaines. 1 tiré au hasard par chargement (~1 client/4),
-  //    les 3 autres vont dans « Réparer ». Changement d'affichage uniquement.
-  const XENON_URLS = ['http://applicationxenon-lecteur.com','http://lecteur-xenon2026.com','http://xenon2026-lecteur.com','http://appxenonplayer.com'];
+  // ── URLs d'AFFICHAGE : 3 domaines. 1 tiré au hasard par chargement,
+  //    les 2 autres vont dans « Réparer ». Changement d'affichage uniquement.
+  const XENON_URLS = ['http://applicationxenon-lecteur.com','http://lecteur-xenon2026.com','http://appxenonplayer.com'];
   const OLD_URL = 'http://app.xentvsat.com';
   const PICKED_URL = XENON_URLS[Math.floor(Math.random() * XENON_URLS.length)];
   const REPAIR_URLS = XENON_URLS.filter(u => u !== PICKED_URL);
