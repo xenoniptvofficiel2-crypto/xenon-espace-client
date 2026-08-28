@@ -8,74 +8,68 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--red:#e50914;--red2:#ff2233;--bg:#070707;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.14);--text:#f5f5f5;--muted:#8a8a8a;--muted2:#bdbdbd;--green:#2fd573;--font:'Montserrat',sans-serif;--mono:'DM Mono',monospace;--disp:'Bebas Neue',sans-serif}
+:root{--red:#e50914;--red2:#ff2233;--bg:#070707;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.14);--text:#f5f5f5;--muted:#8a8a8a;--muted2:#bdbdbd;--green:#2fd573;--orange:#f97316;--blue:#3b82f6;--font:'Montserrat',sans-serif;--mono:'DM Mono',monospace;--disp:'Bebas Neue',sans-serif}
 html,body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh}
 a{color:inherit;text-decoration:none}img{max-width:100%}
-.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.4;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
+.v3grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.4;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
 .aura{position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:560px;height:460px;max-width:120vw;border-radius:50%;background:radial-gradient(ellipse,rgba(229,9,20,.2),rgba(229,9,20,.05) 45%,transparent 70%);filter:blur(10px);z-index:0;pointer-events:none}
 .logo{font-family:var(--disp);letter-spacing:2.5px;color:#fff}.logo b{color:var(--red);font-weight:400}
 .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(150deg,var(--red2),#6d0208);display:grid;place-items:center;font-size:.74rem;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 0 0 2px rgba(229,9,20,.25),0 4px 14px rgba(229,9,20,.3)}
 .btnr{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;padding:15px 22px;background:linear-gradient(140deg,var(--red2),var(--red) 55%,#7d040b);color:#fff;font:700 .76rem var(--font);letter-spacing:1.2px;text-transform:uppercase;box-shadow:0 12px 34px rgba(229,9,20,.4),inset 0 1px 0 rgba(255,255,255,.22);cursor:pointer;transition:transform .2s}
 .btnr:hover{transform:translateY(-2px)}
-.wrap{position:relative;max-width:560px;margin:0 auto;padding:0 18px 110px}
+.wrap{position:relative;max-width:640px;margin:0 auto;padding:0 18px 110px}
 .ptop{display:flex;align-items:center;gap:13px;padding:16px 2px 0;position:relative;z-index:6}
 .back{width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);background:rgba(20,20,20,.6);backdrop-filter:blur(12px);display:grid;place-items:center;color:#eee;font-size:1rem;cursor:pointer}
 .ptitle{font-family:var(--disp);font-size:1.35rem;letter-spacing:2px}
-/* steps */
 .steps{display:flex;align-items:center;gap:0;margin:20px 0 6px}
 .stp{display:flex;align-items:center;gap:9px}
 .stp .c{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:var(--disp);font-size:.9rem;border:1px solid var(--line2);color:var(--muted);background:rgba(255,255,255,.04);flex-shrink:0}
 .stp.on .c{background:linear-gradient(140deg,var(--red2),#9c050e);border-color:transparent;color:#fff;box-shadow:0 6px 18px rgba(229,9,20,.4)}
 .stp.done .c{border-color:rgba(47,213,115,.45);color:var(--green)}
-.stp span{font-size:.58rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.stp span{font-size:.56rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
 .stp.on span{color:#fff}
-.steps .ln2{flex:1;height:1px;background:var(--line2);margin:0 10px;min-width:14px}
+@media(max-width:520px){.stp span{display:none}}
+.steps .ln2{flex:1;height:1px;background:var(--line2);margin:0 8px;min-width:12px}
 .numdiv{display:flex;align-items:baseline;gap:12px;margin:24px 0 12px}
 .numdiv b{font-family:var(--disp);font-size:1.05rem;color:var(--red2);letter-spacing:1px}
 .numdiv p{font-size:.6rem;letter-spacing:2.2px;text-transform:uppercase;color:var(--muted2);font-weight:700}
 .numdiv i{flex:1;height:1px;background:var(--line)}
-.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(min-width:720px){.pgrid{grid-template-columns:1fr 1fr 1fr}}
-.ptl{display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:14px;background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.014));border:1px solid var(--line);cursor:pointer;transition:transform .15s}
-.ptl:hover{transform:translateY(-2px)}
-.ptl.on{border-color:rgba(229,9,20,.55);background:linear-gradient(165deg,rgba(229,9,20,.14),rgba(255,255,255,.01));box-shadow:0 10px 30px rgba(229,9,20,.16)}
-.ptl .em2{font-size:1.15rem}
-.ptl h4{font-size:.7rem;font-weight:800}
-.ptl p{font-size:.56rem;color:var(--muted);line-height:1.45}
-.dvrow{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
-.dvb{display:flex;flex-direction:column;align-items:center;gap:8px;padding:13px 6px 11px;border-radius:14px;background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.014));border:1px solid var(--line);cursor:pointer;transition:transform .15s}
-.dvb:hover{transform:translateY(-2px)}
-.dvb img{height:40px;max-width:82%;object-fit:contain;filter:drop-shadow(0 6px 12px rgba(0,0,0,.5))}
-.dvb span{font-size:.56rem;font-weight:800;letter-spacing:.4px;color:var(--muted2);text-align:center}
-.dvb.on{border-color:rgba(229,9,20,.55);box-shadow:0 10px 26px rgba(229,9,20,.16)}
-.dvb.on span{color:#fff}
-.sol{display:flex;gap:14px;padding:15px 16px;border-radius:16px;background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);position:relative;overflow:hidden}
-.sol .n2{font-family:var(--disp);font-size:2.1rem;line-height:.9;color:rgba(255,255,255,.14);flex-shrink:0;width:34px}
-.sol h4{font-size:.74rem;font-weight:800}
-.sol p{font-size:.62rem;color:var(--muted2);line-height:1.6;margin-top:4px}
+.tilegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(min-width:560px){.tilegrid{grid-template-columns:1fr 1fr 1fr}}
+.tile{display:flex;flex-direction:column;gap:7px;padding:15px 13px;border-radius:14px;background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.014));border:1px solid var(--line);cursor:pointer;transition:transform .15s,border-color .15s}
+.tile:hover{transform:translateY(-2px);border-color:rgba(229,9,20,.45)}
+.tile.on{border-color:rgba(229,9,20,.55);background:linear-gradient(165deg,rgba(229,9,20,.14),rgba(255,255,255,.01));box-shadow:0 10px 30px rgba(229,9,20,.16)}
+.tile .em2{font-size:1.4rem}
+.tile h4{font-size:.74rem;font-weight:800;line-height:1.15}
+.tile p{font-size:.56rem;color:var(--muted);line-height:1.4}
+.tile .go{margin-left:auto;color:var(--muted);font-size:1rem}
+.tile.red{border-left:3px solid rgba(229,9,20,.5)}.tile.orange{border-left:3px solid rgba(249,115,22,.5)}.tile.blue{border-left:3px solid rgba(59,130,246,.5)}.tile.green{border-left:3px solid rgba(34,197,94,.5)}
+.sol{display:flex;gap:14px;padding:15px 16px;border-radius:16px;background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);position:relative}
+.sol .n2{font-family:var(--disp);font-size:2.1rem;line-height:.9;color:rgba(255,255,255,.16);flex-shrink:0;width:36px}
+.sol h4{font-size:.76rem;font-weight:800}
+.sol p{font-size:.64rem;color:var(--muted2);line-height:1.6;margin-top:4px;white-space:pre-line}
 .sol .ok2{position:absolute;top:12px;right:14px;font-size:.52rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--green)}
-.glass{background:linear-gradient(165deg,rgba(255,255,255,.055),rgba(255,255,255,.015));border:1px solid var(--line);border-radius:20px}
-.crow{display:flex;flex-direction:column;gap:9px;padding:16px 0;border-bottom:1px solid var(--line)}
+.sol.cred{border-color:rgba(229,9,20,.4);background:linear-gradient(165deg,rgba(229,9,20,.1),rgba(255,255,255,.01))}
+.glass{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:14px;padding:4px 14px;margin-top:12px}
+.crow{display:flex;flex-direction:column;gap:8px;padding:13px 0;border-bottom:1px solid var(--line)}
 .crow:last-child{border-bottom:none}
-.crow .lb{font-size:.58rem;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted)}
-.crow .vl{display:flex;align-items:center;gap:10px}
-.crow code{flex:1;min-width:0;font-family:var(--mono);font-size:.82rem;color:#fff;background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:11px;padding:13px 14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cpy{flex-shrink:0;height:44px;width:44px;border-radius:11px;border:1px solid var(--line2);background:rgba(255,255,255,.06);color:#ddd;display:grid;place-items:center;cursor:pointer}
-.cpy svg{width:16px;height:16px;pointer-events:none}
+.crow .lb{font-size:.55rem;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
+.crow .vl{display:flex;align-items:center;gap:9px}
+.crow code{flex:1;min-width:0;font-family:var(--mono);font-size:.78rem;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cpy{flex-shrink:0;height:38px;width:38px;border-radius:10px;border:1px solid var(--line2);background:rgba(255,255,255,.06);color:#ddd;display:grid;place-items:center;cursor:pointer}
+.cpy svg{width:15px;height:15px;pointer-events:none}
 .cpy.ok{border-color:rgba(47,213,115,.45);color:var(--green)}
+.warn{margin-top:12px;display:flex;gap:10px;padding:12px 14px;border-radius:12px;background:rgba(234,179,8,.07);border:1px solid rgba(234,179,8,.22);font-size:.64rem;color:#e8cd7a;line-height:1.55}
 .tg{display:flex;gap:13px;align-items:flex-start;padding:15px 16px;border-radius:16px;background:linear-gradient(120deg,rgba(34,158,217,.15),rgba(255,255,255,.01) 72%);border:1px solid rgba(34,158,217,.34);margin-top:14px}
 .tg .tic2{width:38px;height:38px;flex-shrink:0;border-radius:11px;display:grid;place-items:center;background:rgba(34,158,217,.2);color:#4cc0f0}
 .tg h4{font-size:.76rem;font-weight:800}
 .tg p{font-size:.62rem;color:var(--muted2);line-height:1.6;margin-top:4px}
 .tg .tbtn{flex-shrink:0;align-self:center;display:inline-flex;align-items:center;gap:7px;padding:10px 14px;border-radius:10px;background:#229ED9;color:#fff;font-size:.62rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;white-space:nowrap;cursor:pointer;border:none}
-.cwmsg{padding:16px;border-radius:14px;background:rgba(229,9,20,.06);border:1px solid rgba(229,9,20,.22);font-size:.72rem;color:#ffb3b8;line-height:1.5;text-align:center}
+.cwmsg{padding:14px;border-radius:12px;background:rgba(229,9,20,.06);border:1px solid rgba(229,9,20,.22);font-size:.7rem;color:#ffb3b8;line-height:1.5;text-align:center;margin-top:12px}
 .cwmsg a{color:#fff;text-decoration:underline}
-.cwload{display:flex;align-items:center;justify-content:center;gap:10px;padding:20px;color:var(--muted);font-size:.74rem}
-.ring3{width:22px;height:22px;border:3px solid rgba(255,255,255,.12);border-top-color:var(--red2);border-radius:50%;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
 .hide{display:none}
 /* modal réparer */
-.mov{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.85);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center}
+.mov{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.85);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center}
 .mov.open{display:flex}
 @media(min-width:640px){.mov{align-items:center}}
 .mbox{width:100%;max-width:460px;background:#121212;border:1px solid #262626;border-radius:24px 24px 0 0;padding:22px 20px 26px;max-height:88vh;overflow:auto}
@@ -91,16 +85,15 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
 .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:calc(100% - 32px);max-width:448px;height:68px;border-radius:24px;background:rgba(16,16,16,.82);backdrop-filter:blur(24px) saturate(150%);border:1px solid rgba(255,255,255,.12);display:flex;padding:6px;z-index:40;box-shadow:0 20px 50px rgba(0,0,0,.6)}
 .dk{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#777;font-size:.52rem;font-weight:700;letter-spacing:.3px;border-radius:18px;background:none;border:none;cursor:pointer}
 .dk svg{width:20px;height:20px}
-.dk.on{color:#fff;background:linear-gradient(160deg,rgba(229,9,20,.32),rgba(229,9,20,.1));box-shadow:inset 0 0 0 1px rgba(229,9,20,.4)}
 </style>
 </head>
 <body>
-<div class="grain"></div>
+<div class="v3grain"></div>
 <div class="aura"></div>
 
 <div class="wrap">
   <div class="ptop">
-    <div class="back" id="backBtn" onclick="goBack()">←</div>
+    <div class="back" onclick="goBack()">←</div>
     <div class="ptitle">CORRIGER UN BUG</div>
     <div style="margin-left:auto"><div class="av" id="av">·</div></div>
   </div>
@@ -111,29 +104,33 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
     <div class="stp" id="s3"><span class="c">3</span><span>Solution</span></div>
   </div>
 
-  <!-- Étape 1 -->
-  <div id="step1">
+  <!-- Étape 1 : problème -->
+  <div id="vSouci">
     <div class="numdiv"><b>1</b><p>Quel est le problème ?</p><i></i></div>
-    <div class="pgrid" id="probGrid"></div>
+    <div class="tilegrid" id="probGrid"></div>
   </div>
 
-  <!-- Étape 2 -->
-  <div id="step2" class="hide">
+  <!-- Étape 2 : appareil -->
+  <div id="vDevice" class="hide">
     <div class="numdiv"><b>2</b><p>Sur quel appareil ?</p><i></i></div>
-    <div class="dvrow" id="devRow"></div>
+    <div class="tilegrid" id="devGrid"></div>
   </div>
 
-  <!-- Étape 3 -->
-  <div id="step3" class="hide">
+  <!-- Étape 2b : application -->
+  <div id="vApp" class="hide">
+    <div class="numdiv"><b>2</b><p id="appTitle">Quelle application ?</p><i></i></div>
+    <div class="tilegrid" id="appGrid"></div>
+  </div>
+
+  <!-- Étape 3 : solution -->
+  <div id="vSolution" class="hide">
     <div class="numdiv"><b>3</b><p id="solTitle">La solution</p><i></i></div>
-    <div id="solList" style="display:flex;flex-direction:column;gap:10px"></div>
-    <div class="glass" style="margin-top:12px;padding:6px 16px" id="cwCard">
-      <div class="cwload"><div class="ring3"></div>Chargement de vos identifiants…</div>
-    </div>
+    <div id="diagList" style="display:flex;flex-direction:column;gap:10px"></div>
     <button class="btnr" style="width:100%;margin-top:12px" onclick="openRepair()">🔧 Réparer mon URL</button>
+    <div id="guideWrap"></div>
     <div class="tg">
       <span class="tic2"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M22 3 2 10.4l6.1 2.1L20 5.5l-8.6 9.1v4.3l3.1-3 4.3 3.1z"/></svg></span>
-      <div style="min-width:0"><h4>Toujours bloqué ?</h4><p>Un conseiller vous installe en direct — 7 j/7, en français.</p></div>
+      <div style="min-width:0"><h4>Toujours bloqué ?</h4><p>Un conseiller vous dépanne en direct — 7 j/7, en français.</p></div>
       <button class="tbtn" onclick="assist()">Assistance</button>
     </div>
   </div>
@@ -144,14 +141,14 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
   <button class="dk" onclick="location.href='xenontv-programme'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8"/></svg>Programmes</button>
   <button class="dk" onclick="location.href='xenontv-nouveautes'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m12 3 2.4 5.4 5.6.6-4.2 3.9 1.2 5.6L12 15.6l-5 2.9 1.2-5.6L4 9l5.6-.6z"/></svg>Nouveautés</button>
   <button class="dk" onclick="location.href='xenontv-identifiants-v2'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="9" cy="12" r="4"/><path d="M13 12h8m-3 0v3"/></svg>Accès</button>
-  <button class="dk" onclick="location.href='xenontv-dashboard'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+  <button class="dk" onclick="location.href='xenontv-tutoriels'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Guides</button>
 </div>
 
 <!-- Modal Réparer -->
 <div class="mov" id="repairModal" onclick="if(event.target===this)closeRepair()">
   <div class="mbox">
     <h3>🔧 Réparer mon URL</h3>
-    <p class="sub">Votre domaine est peut-être ralenti. Essayez une URL fraîche avec vos identifiants.</p>
+    <p class="sub">Votre domaine est peut-être ralenti ou grillé. Essayez une URL fraîche avec vos identifiants.</p>
     <div class="ublock old"><div class="l">Ancien URL</div><div class="u"><code id="repairOld">http://app.xentvsat.com</code></div></div>
     <div style="text-align:center;color:var(--muted);font-size:1.1rem;margin:2px 0">↓</div>
     <div id="repairList"></div>
@@ -159,185 +156,182 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
   </div>
 </div>
 
+<script src="tuto-guides.js"></script>
 <script>
   const API = 'https://accesxtv-backend.vercel.app';
-  const PROXY = API + '/api/proxy';
-  const DOMAINS_API = API + '/api/domains';
   const OLD_URL = 'http://app.xentvsat.com';
-  const ASSIST_URL = 'https://xenontv.fr/help'; // TODO: remplacer par le lien Telegram
+  const ASSIST_URL = 'https://xenontv.fr/help'; // TODO: lien Telegram
 
-  let PICKED_URL = 'http://appxenonplayer.com';
-  let ANDROID_REPAIR = [];
-  let SAMSUNG_BASE = 'xenonssmart.com';
-
-  // Session NON bloquante (page potentiellement embarquée)
   const email = sessionStorage.getItem('xenon_user_email') || '';
   const token = sessionStorage.getItem('xenon_session_token') || '';
   document.getElementById('av').textContent = (email[0] || '·').toUpperCase();
-
-  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
   function assist(){ window.open(ASSIST_URL, '_blank', 'noopener'); }
-  function sendHeight(){ try{ if(window.parent && window.parent!==window) window.parent.postMessage({type:'xenon-height',height:document.body.scrollHeight},'*'); }catch(e){} }
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+  function sendHeight(){ try{ if(window.parent&&window.parent!==window) window.parent.postMessage({type:'xenon-height',height:document.body.scrollHeight},'*'); }catch(e){} }
 
-  // ── Données wizard ──
+  // ── Données ──
   const PROBLEMS = [
-    {id:'buffer', em:'📶', t:"L'image coupe", s:'Buffering, chargements'},
-    {id:'codes',  em:'🔐', t:'Codes invalides', s:'Connexion refusée'},
-    {id:'empty',  em:'📺', t:'Chaînes vides', s:'Liste absente'},
-    {id:'black',  em:'⚫', t:'Écran noir', s:'Rien ne se lance'},
-    {id:'epg',    em:'🗓️', t:'Pas de guide TV', s:'EPG vide'},
-    {id:'broke',  em:'⚡', t:'Ça ne marche plus', s:"Hier oui, aujourd'hui non"}
+    {id:'codes', cls:'red',    em:'🔑', t:'Identifiants incorrects', s:'Connexion refusée'},
+    {id:'blank', cls:'red',    em:'📺', t:'Accès à rien',            s:'Rien ne se lance'},
+    {id:'buffer',cls:'orange', em:'⏳', t:'Buffering / Coupures',     s:"L'image charge"},
+    {id:'crash', cls:'blue',   em:'💥', t:"L'app ne s'ouvre pas",     s:'Plantage au lancement'},
+    {id:'nochan',cls:'blue',   em:'📡', t:'Chaînes manquantes',       s:'Liste incomplète'},
+    {id:'other', cls:'green',  em:'❓', t:'Autre problème',           s:'Je ne sais pas'}
   ];
-  const IMG = {
-    fire:'https://static.wixstatic.com/media/07062c_80202f595b024c31855c49f5d626103a~mv2.webp/v1/fit/w_440,h_260,q_85/i.webp',
-    tv:'https://static.wixstatic.com/media/07062c_5b5e345353c9464f94c16920525176c9~mv2.webp/v1/fit/w_440,h_260,q_85/i.webp',
-    mob:'https://static.wixstatic.com/media/07062c_95aa7a2aa6fd4976a32698aa33f03e02~mv2.webp/v1/fit/w_440,h_260,q_85/i.webp',
-    pc:'https://static.wixstatic.com/media/07062c_adc2de0926e6406699703cdc5c41f66c~mv2.webp/v1/fit/w_440,h_260,q_85/i.webp'
-  };
   const DEVICES = [
-    {id:'fire', img:IMG.fire, label:'Fire Stick'},
-    {id:'tv',   img:IMG.tv,   label:'Smart TV'},
-    {id:'mob',  img:IMG.mob,  label:'Mobile'},
-    {id:'pc',   img:IMG.pc,   label:'PC / Mac'}
+    {id:'ios',        em:'📱', label:'iPhone / iPad'},
+    {id:'android',    em:'🤖', label:'Android Mobile'},
+    {id:'smarttv',    em:'📺', label:'Smart TV'},
+    {id:'androidtv',  em:'🖥️', label:'Android TV'},
+    {id:'sony',       em:'📺', label:'Sony TV'},
+    {id:'firestick',  em:'🔥', label:'Fire Stick'},
+    {id:'nvidia',     em:'🎮', label:'Nvidia Shield'},
+    {id:'xiaomi',     em:'📺', label:'Xiaomi Mi TV'},
+    {id:'chromecast', em:'🔵', label:'Chromecast'},
+    {id:'pc',         em:'💻', label:'PC / Mac'}
   ];
-  const DEVLABEL = {fire:'Fire Stick', tv:'Smart TV', mob:'Mobile', pc:'PC / Mac'};
+  const A_SM={label:'IPTV Smarters Pro',em:'📺'}, A_ZEN={label:'Zen IPTV',em:'🎬'};
+  const DEVICE_APPS = {
+    ios:       [{label:'Smarters Player Lite',em:'📺',slug:'iphone-smarters'},{label:'Zen IPTV',em:'🎬',slug:'iphone-zen'}],
+    android:   [{...A_SM,slug:'android-smarters'},{...A_ZEN,slug:'android-zen'}],
+    smarttv:   [{...A_SM,slug:'smart-tv-smarters'},{label:'Smart One IPTV',em:'📡',slug:'smart-one'},{label:'HOT IPTV',em:'🔥',slug:'hot-iptv'}],
+    androidtv: [{...A_SM,slug:'android-tv-smarters'},{...A_ZEN,slug:'android-tv-zen'}],
+    sony:      [{...A_SM,slug:'android-tv-smarters'},{...A_ZEN,slug:'android-tv-zen'}],
+    firestick: [{...A_SM,slug:'fire-stick'}],
+    nvidia:    [{...A_SM,slug:'android-tv-smarters'},{...A_ZEN,slug:'android-tv-zen'}],
+    xiaomi:    [{...A_SM,slug:'android-tv-smarters'},{...A_ZEN,slug:'android-tv-zen'}],
+    chromecast:[{...A_SM,slug:'android-tv-smarters'}],
+    pc:        [{label:'IPTV Smarters / VLC',em:'💻',slug:'pc-mac'}]
+  };
+  const DIAG = {
+    codes:[
+      {t:'Vérifiez la saisie',p:"Recopiez URL, identifiant et mot de passe depuis « Mes accès », sans espace avant/après. L'URL doit commencer par http:// (et non https://)."},
+      {t:'Réparez votre URL',p:'Votre domaine est peut-être grillé : générez une URL fraîche (bouton ci-dessus) et remplacez-la dans l\'application.',ok:true}],
+    blank:[
+      {t:'Vérifiez votre connexion',p:'15 Mbps minimum. Redémarrez la box internet et l\'appareil 30 secondes.'},
+      {t:'Rechargez la playlist',p:'Menu de l\'appli → « Recharger / actualiser la liste ». Sinon, supprimez le profil et reconnectez-vous.'},
+      {t:'Réparez votre URL',p:'Générez une URL fraîche (bouton ci-dessus).',ok:true}],
+    buffer:[
+      {t:'Testez votre débit',p:'15 Mbps minimum. Préférez le câble Ethernet au Wi-Fi. Baissez la qualité de 4K à FHD dans l\'appli.'},
+      {t:'Réparez votre URL',p:'Domaine ralenti ? Générez une URL fraîche (bouton ci-dessus).',ok:true}],
+    crash:[
+      {t:'Redémarrez puis réinstallez',p:'Fermez l\'appli et redémarrez l\'appareil. Si ça persiste, désinstallez puis réinstallez l\'application via le guide ci-dessous.'},
+      {t:'Vérifiez la bonne application',p:'N\'installez que la version officielle (attention aux copies payantes/malveillantes) — voir le guide ci-dessous.'}],
+    nochan:[
+      {t:'Rechargez la liste des chaînes',p:'Menu → « Recharger la playlist ». Vérifiez que votre abonnement est bien actif.'},
+      {t:'Réparez votre URL',p:'Générez une URL fraîche (bouton ci-dessus).',ok:true}],
+    other:[
+      {t:'Redémarrez tout',p:'Éteignez l\'appareil et la box 30 secondes, rallumez, relancez l\'application.'},
+      {t:'Réparez votre URL',p:'Générez une URL fraîche (bouton ci-dessus).',ok:true},
+      {t:'Réinstallez proprement',p:'Suivez le guide d\'installation pas-à-pas ci-dessous, avec vos codes déjà intégrés.'}]
+  };
 
-  // Solutions par problème (le 3e item = réparation d'URL, recommandé)
-  function solutionsFor(prob, dev){
-    const repair = {t:'Réparez votre URL', p:"Votre domaine est peut-être ralenti ou hors service : générez une URL fraîche ci-dessous, puis remplacez-la dans votre application.", ok:true};
-    const net = {t:'Testez votre débit', p:'15 Mbps minimum requis. Sur TV/box, préférez le câble Ethernet au Wi-Fi. Redémarrez votre box internet.'};
-    const qual = {t:'Baissez la qualité de flux', p:"Dans l'application, passez de 4K à FHD. Le confort d'abord — vous pourrez remonter ensuite."};
-    const recopy = {t:'Re-saisissez vos identifiants', p:'9 fois sur 10 : un espace collé avant/après un champ. Recopiez URL, utilisateur et mot de passe depuis « Mes accès », sans espace.'};
-    const reload = {t:'Rechargez la playlist', p:"Dans le menu de l'application → « Recharger / actualiser la liste ». En dernier recours, supprimez le profil puis reconnectez-vous."};
-    const restart = {t:"Redémarrez l'appareil", p:"Éteignez complètement l'appareil et la box 30 secondes, puis rallumez. Relancez l'application."};
-    const map = {
-      buffer:[net, qual, repair],
-      codes:[recopy, {t:'Vérifiez http://', p:"L'URL doit commencer par http:// et non https:// — retirez le « s » si besoin."}, repair],
-      empty:[reload, restart, repair],
-      black:[net, restart, repair],
-      epg:[reload, {t:'Patientez quelques minutes', p:'Le guide TV se recharge périodiquement. Fermez et rouvrez l\'application après 2-3 minutes.'}, repair],
-      broke:[restart, net, repair]
-    };
-    return map[prob] || [restart, net, repair];
+  // ── Identifiants du client ──
+  let PICKED_URL='http://appxenonplayer.com', SAMSUNG_BASE='xenonssmart.com', ANDROID_REPAIR=[];
+  let acc=null, credsReady=false;
+  function m3uFor(a){ if(!a||!a.m3u) return null; let m=a.m3u; try{ const u=new URL(m.startsWith('http')?m:'http://'+m); let p=(u.pathname+u.search).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/,''); m=PICKED_URL+p; }catch(e){ m=m.replace(/^https?:\/\/[^\/]+/,PICKED_URL).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/,''); } return m; }
+  function loadDomains(){ return fetch(API+'/api/domains',{cache:'no-store'}).then(r=>r.json()).then(d=>{ if(d&&d.androidIos&&d.androidIos.picked){PICKED_URL=d.androidIos.picked;ANDROID_REPAIR=Array.isArray(d.androidIos.repair)?d.androidIos.repair:[];} if(d&&d.samsung&&d.samsung.pickedBase)SAMSUNG_BASE=d.samsung.pickedBase; }).catch(()=>{}); }
+  function loadCreds(){
+    return loadDomains().then(()=>{ if(!email||!token) return null; return fetch(API+'/api/proxy',{headers:{'X-Session-Token':token}}).then(r=>r.status===401?null:r.json()); })
+      .then(d=>{ if(d&&d.found&&(d.accesses||[]).length) acc=d.accesses[0]; }).catch(()=>{}).finally(()=>{ credsReady=true; });
   }
 
-  // ── State ──
-  let selProb = null, selDev = null, step = 1;
-
-  function renderProblems(){
-    document.getElementById('probGrid').innerHTML = PROBLEMS.map(p =>
-      '<div class="ptl" data-p="'+p.id+'" onclick="pickProblem(\''+p.id+'\')"><span class="em2">'+p.em+'</span><h4>'+p.t+'</h4><p>'+p.s+'</p></div>'
-    ).join('');
+  function iconCopy(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>'; }
+  function iconCheck(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 13 4 4L19 7"/></svg>'; }
+  function iconEye(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>'; }
+  window.copyVal=function(b,v){ if(!v)return; navigator.clipboard.writeText(v).then(()=>{ b.classList.add('ok'); b.innerHTML=iconCheck(); setTimeout(()=>{ b.classList.remove('ok'); b.innerHTML=iconCopy(); },2000); }); };
+  window.togglePass=function(b){ const c=b.parentElement.querySelector('code[data-pass]'); if(!c)return; if(c.dataset.shown==='1'){c.textContent='••••••••••';c.dataset.shown='0';}else{c.textContent=c.getAttribute('data-pass');c.dataset.shown='1';} };
+  function rowU(l,v){ return '<div class="crow"><div class="lb">'+l+'</div><div class="vl"><code>'+esc(v)+'</code><button class="cpy" onclick="copyVal(this,\''+esc(v).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>'; }
+  function credBlock(){
+    if(!credsReady) return '<div class="glass" style="text-align:center;color:var(--muted);font-size:.72rem;padding:14px">Chargement de vos codes…</div>';
+    if(!email||!token) return '<div class="cwmsg">Connectez-vous pour afficher vos codes. <a href="index.html">Accéder →</a></div>';
+    if(!acc) return '<div class="cwmsg">Identifiants introuvables. <a href="https://xenontv.fr/help" target="_blank">Support →</a></div>';
+    const m=m3uFor(acc);
+    let h='<div class="glass">'+rowU('URL du serveur',PICKED_URL);
+    if(acc.username) h+='<div class="crow"><div class="lb">Nom d\'utilisateur</div><div class="vl"><code>'+esc(acc.username)+'</code><button class="cpy" onclick="copyVal(this,\''+esc(acc.username).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>';
+    if(acc.password) h+='<div class="crow"><div class="lb">Mot de passe</div><div class="vl"><code data-pass="'+esc(acc.password)+'">••••••••••</code><button class="cpy" onclick="togglePass(this)">'+iconEye()+'</button><button class="cpy" onclick="copyVal(this,\''+esc(acc.password).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>';
+    if(m) h+=rowU('Lien M3U',m);
+    h+='</div><div class="warn">⚠️ Saisissez bien <b style="font-family:var(--mono)">http://</b> et non https://, sans espace avant/après.</div>';
+    return h;
   }
-  function renderDevices(){
-    document.getElementById('devRow').innerHTML = DEVICES.map(d =>
-      '<div class="dvb" data-d="'+d.id+'" onclick="pickDevice(\''+d.id+'\')"><img src="'+d.img+'" alt="'+d.label+'"><span>'+d.label+'</span></div>'
-    ).join('');
+
+  // ── State + navigation ──
+  let selProb=null, selDevice=null, selSlug=null, view='souci';
+  function renderProblems(){ document.getElementById('probGrid').innerHTML = PROBLEMS.map(p=>'<div class="tile '+p.cls+'" onclick="pickProblem(\''+p.id+'\')"><span class="em2">'+p.em+'</span><h4>'+p.t+'</h4><p>'+p.s+'</p></div>').join(''); }
+  function renderDevices(){ document.getElementById('devGrid').innerHTML = DEVICES.map(d=>'<div class="tile" onclick="pickDevice(\''+d.id+'\')"><span class="em2">'+d.em+'</span><h4>'+esc(d.label)+'</h4></div>').join(''); }
+  function renderApps(dev){
+    const apps=DEVICE_APPS[dev]||[];
+    document.getElementById('appTitle').textContent='Quelle application sur '+(DEVICES.find(d=>d.id===dev)||{}).label+' ?';
+    document.getElementById('appGrid').innerHTML = apps.map((a,i)=>'<div class="tile" onclick="pickApp('+i+')"><span class="em2">'+a.em+'</span><h4>'+esc(a.label)+'</h4><p>Guide + dépannage</p></div>').join('');
   }
 
+  function show(v){
+    view=v;
+    ['vSouci','vDevice','vApp','vSolution'].forEach(id=>document.getElementById(id).classList.add('hide'));
+    document.getElementById({souci:'vSouci',device:'vDevice',app:'vApp',solution:'vSolution'}[v]).classList.remove('hide');
+    setStep(v==='souci'?1:(v==='solution'?3:2));
+    window.scrollTo({top:0,behavior:'smooth'}); sendHeight();
+  }
   function setStep(n){
-    step = n;
-    document.getElementById('step1').classList.toggle('hide', n!==1);
-    document.getElementById('step2').classList.toggle('hide', n!==2);
-    document.getElementById('step3').classList.toggle('hide', n!==3);
-    upd('s1', n>1?'done':(n===1?'on':''), n>1?'✓':'1');
+    upd('s1', n>1?'done':'on', n>1?'✓':'1');
     upd('s2', n>2?'done':(n===2?'on':''), n>2?'✓':'2');
     upd('s3', n===3?'on':'', '3');
-    window.scrollTo({top:0,behavior:'smooth'});
-    sendHeight();
   }
   function upd(id,cls,num){ const el=document.getElementById(id); el.className='stp'+(cls?' '+cls:''); el.querySelector('.c').textContent=num; }
 
-  window.pickProblem = function(id){
-    selProb = id;
-    document.querySelectorAll('#probGrid .ptl').forEach(el=>el.classList.toggle('on', el.getAttribute('data-p')===id));
-    setStep(2);
+  window.pickProblem=function(id){ selProb=id; show('device'); };
+  window.pickDevice=function(id){
+    selDevice=id;
+    const apps=DEVICE_APPS[id]||[];
+    if(apps.length>1){ renderApps(id); show('app'); }
+    else { selSlug=apps[0]?apps[0].slug:null; renderSolution(); show('solution'); }
   };
-  window.pickDevice = function(id){
-    selDev = id;
-    document.querySelectorAll('#devRow .dvb').forEach(el=>el.classList.toggle('on', el.getAttribute('data-d')===id));
-    renderSolution();
-    setStep(3);
-  };
+  window.pickApp=function(i){ const apps=DEVICE_APPS[selDevice]||[]; selSlug=apps[i]?apps[i].slug:null; renderSolution(); show('solution'); };
   function goBack(){
-    if (step === 3) setStep(2);
-    else if (step === 2) setStep(1);
-    else location.href = 'xenontv-dashboard';
+    if(view==='solution'){ const apps=DEVICE_APPS[selDevice]||[]; show(apps.length>1?'app':'device'); }
+    else if(view==='app'){ show('device'); }
+    else if(view==='device'){ show('souci'); }
+    else { location.href='xenontv-dashboard'; }
   }
+  window.goBack=goBack;
 
-  // Mappe l'appareil du wizard vers le guide d'installation in-app correspondant.
-  const GUIDE_SLUG = { fire:'fire-stick', tv:'smart-tv', pc:'pc-mac' }; // mob → catalogue (choix iPhone/Android)
   function renderSolution(){
-    const prob = PROBLEMS.find(p=>p.id===selProb);
-    document.getElementById('solTitle').textContent = 'La solution — ' + (DEVLABEL[selDev]||'') + ' · ' + (prob?prob.t.toLowerCase():'');
-    const sols = solutionsFor(selProb, selDev);
-    let html = sols.map((s,i)=>
-      '<div class="sol"><span class="n2">0'+(i+1)+'</span><div><h4>'+esc(s.t)+'</h4><p>'+esc(s.p)+'</p></div>'+(s.ok?'<span class="ok2">Recommandé</span>':'')+'</div>'
-    ).join('');
-    // Guide d'installation complet (contenu tutoriels in-app)
-    const slug = GUIDE_SLUG[selDev];
-    const href = 'xenontv-tutoriels' + (slug ? ('?g='+slug) : '');
-    html += '<div class="sol" style="cursor:pointer" onclick="location.href=\''+href+'\'"><span class="n2">📖</span><div><h4>Réinstaller proprement</h4><p>Suivez le guide d\'installation pas-à-pas pour ' + esc(DEVLABEL[selDev]||'votre appareil') + ' — avec vos codes déjà intégrés.</p></div><span class="ok2" style="color:var(--muted)">Guide ›</span></div>';
-    document.getElementById('solList').innerHTML = html;
-    loadCreds();
+    const prob=PROBLEMS.find(p=>p.id===selProb)||{};
+    const dev=DEVICES.find(d=>d.id===selDevice)||{};
+    const guide = selSlug ? (window.TUTO_GUIDES||{})[selSlug] : null;
+    document.getElementById('solTitle').textContent = (prob.t||'La solution') + ' · ' + (dev.label||'') + (guide?(' · '+guide.title.replace(/^Installer sur |^IPTV |^Smarters |^Zen /,'')):'');
+    // Diagnostic ciblé
+    const diag = DIAG[selProb] || DIAG.other;
+    document.getElementById('diagList').innerHTML = diag.map((s,i)=>'<div class="sol"><span class="n2">0'+(i+1)+'</span><div style="min-width:0;flex:1"><h4>'+esc(s.t)+'</h4><p>'+esc(s.p)+'</p></div>'+(s.ok?'<span class="ok2">Recommandé</span>':'')+'</div>').join('');
+    // Guide d'installation complet (étapes réelles + codes injectés)
+    const gw=document.getElementById('guideWrap');
+    if(guide){
+      let h='<div class="numdiv" style="margin-top:22px"><b>📖</b><p>Installation pas-à-pas — '+esc(guide.title)+'</p><i></i></div><div style="display:flex;flex-direction:column;gap:10px">';
+      guide.steps.forEach((st,i)=>{
+        const isCred = guide.credentialStep && (i+1)===guide.credentialStep;
+        h+='<div class="sol'+(isCred?' cred':'')+'"><span class="n2">'+String(i+1).padStart(2,'0')+'</span><div style="min-width:0;flex:1"><h4>'+esc(st.t)+'</h4><p>'+esc(st.d)+'</p>'+(isCred?credBlock():'')+'</div></div>';
+      });
+      h+='</div>';
+      gw.innerHTML=h;
+    } else { gw.innerHTML=''; }
+    sendHeight();
   }
 
-  // ── Domaines + identifiants ──
-  let domainsLoaded = null;
-  function loadDomains(){
-    if (domainsLoaded) return domainsLoaded;
-    domainsLoaded = fetch(DOMAINS_API,{cache:'no-store'}).then(r=>r.json()).then(d=>{
-      if (d && d.androidIos && d.androidIos.picked){ PICKED_URL=d.androidIos.picked; ANDROID_REPAIR=Array.isArray(d.androidIos.repair)?d.androidIos.repair:[]; }
-      if (d && d.samsung && d.samsung.pickedBase) SAMSUNG_BASE=d.samsung.pickedBase;
-    }).catch(()=>{});
-    return domainsLoaded;
-  }
-
-  let credsDone = false;
-  function loadCreds(){
-    if (credsDone) return;
-    const card = document.getElementById('cwCard');
-    if (!email || !token){ credsDone=true; card.innerHTML='<div class="cwmsg" style="margin:10px 0">Connectez-vous pour afficher vos identifiants — <a href="index.html">Accéder à mon espace →</a></div>'; sendHeight(); return; }
-    credsDone = true;
-    loadDomains().then(()=>fetch(PROXY,{headers:{'X-Session-Token':token}})).then(r=>{
-      if (r.status===401){ card.innerHTML='<div class="cwmsg" style="margin:10px 0">Session expirée. <a href="index.html">Reconnectez-vous →</a></div>'; return null; }
-      return r.json();
-    }).then(data=>{
-      if (!data) { sendHeight(); return; }
-      const accs = (data.accesses||[]);
-      if (!data.found || !accs.length){ card.innerHTML='<div class="cwmsg" style="margin:10px 0">Identifiants introuvables. <a href="https://xenontv.fr/help" target="_blank">Contactez le support →</a></div>'; sendHeight(); return; }
-      const acc = accs[0];
-      let html = rowUrl('URL du serveur', PICKED_URL) + rowUser(acc) + rowPass(acc);
-      card.innerHTML = html;
-      sendHeight();
-    }).catch(()=>{ card.innerHTML='<div class="cwmsg" style="margin:10px 0">Erreur de connexion. Réessayez.</div>'; sendHeight(); });
-  }
-  function rowUrl(label,val){ return '<div class="crow"><div class="lb">'+label+'</div><div class="vl"><code>'+esc(val)+'</code><button class="cpy" onclick="copyVal(this,\''+esc(val).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>'; }
-  function rowUser(acc){ if(!acc.username) return ''; return '<div class="crow"><div class="lb">Nom d\'utilisateur</div><div class="vl"><code>'+esc(acc.username)+'</code><button class="cpy" onclick="copyVal(this,\''+esc(acc.username).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>'; }
-  function rowPass(acc){ if(!acc.password) return ''; const p=esc(acc.password).replace(/'/g,"\\'"); return '<div class="crow"><div class="lb">Mot de passe</div><div class="vl"><code data-pass="'+esc(acc.password)+'">••••••••••</code><button class="cpy" onclick="togglePass(this)">'+iconEye()+'</button><button class="cpy" onclick="copyVal(this,\''+p+'\')">'+iconCopy()+'</button></div></div>'; }
-
-  window.copyVal = function(btn,val){ if(!val) return; navigator.clipboard.writeText(val).then(()=>{ btn.classList.add('ok'); btn.innerHTML=iconCheck(); setTimeout(()=>{ btn.classList.remove('ok'); btn.innerHTML=iconCopy(); },2000); }); };
-  window.togglePass = function(btn){ const c=btn.parentElement.querySelector('code[data-pass]'); if(!c) return; if(c.dataset.shown==='1'){ c.textContent='••••••••••'; c.dataset.shown='0'; } else { c.textContent=c.getAttribute('data-pass'); c.dataset.shown='1'; } };
-
+  // ── Réparer ──
   function openRepair(){
-    document.getElementById('repairOld').textContent = OLD_URL;
-    const list = ANDROID_REPAIR.slice();
-    const c = document.getElementById('repairList');
-    c.innerHTML = list.length
+    document.getElementById('repairOld').textContent=OLD_URL;
+    const list=ANDROID_REPAIR.slice();
+    document.getElementById('repairList').innerHTML = list.length
       ? list.map((u,i)=>'<div class="ublock"><div class="l">'+(i===0?'Nouvel URL recommandé':'Alternatif '+i)+'</div><div class="u"><code>'+esc(u)+'</code><button class="cpy" onclick="copyVal(this,\''+esc(u).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>').join('')
       : '<div class="ublock"><div class="u"><code style="opacity:.6">Aucune alternative disponible pour le moment.</code></div></div>';
     document.getElementById('repairModal').classList.add('open');
   }
   function closeRepair(){ document.getElementById('repairModal').classList.remove('open'); }
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeRepair(); });
+  window.openRepair=openRepair; window.closeRepair=closeRepair; window.assist=assist;
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeRepair(); });
 
-  function iconCopy(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>'; }
-  function iconCheck(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 13 4 4L19 7"/></svg>'; }
-  function iconEye(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>'; }
-
-  window.goBack = goBack; window.openRepair = openRepair; window.closeRepair = closeRepair; window.assist = assist;
   renderProblems(); renderDevices();
-  loadDomains();
+  loadCreds().then(()=>{ if(view==='solution') renderSolution(); }); // ré-injecte les codes une fois chargés
   window.addEventListener('load', sendHeight);
 </script>
 </body>
