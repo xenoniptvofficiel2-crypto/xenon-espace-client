@@ -295,25 +295,19 @@ img{max-width:100%}
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
   // ── Identité (dérivée de l'e-mail, aucune donnée inventée) ──
-  function displayName(mail){
-    if (!mail) return 'Mon espace';
-    const local = mail.split('@')[0];
-    const tok = (local.match(/[a-zA-Zà-ÿ]{2,}/) || [local])[0] || 'Abonné';
-    return tok.charAt(0).toUpperCase() + tok.slice(1).toLowerCase();
-  }
-  const name = displayName(email);
-  const initial = (name[0] || '·').toUpperCase();
+  // Salutation SANS prénom (l'API n'a pas de prénom réel) : greeting selon l'heure.
+  const initial = (email[0] || '·').toUpperCase();
   const h = new Date().getHours();
-  const hi = (h >= 18 || h < 5) ? 'Bonsoir,' : 'Bonjour,';
+  const greet = (h >= 18 || h < 5) ? 'BONSOIR' : 'BONJOUR';
 
-  document.getElementById('mHi').textContent = hi;
-  document.getElementById('dHi').textContent = hi;
-  document.getElementById('mName').innerHTML = esc(name.toUpperCase()) + ' <em>.</em>';
-  document.getElementById('dName').innerHTML = esc(name.toUpperCase()) + ' <em>.</em>';
+  document.getElementById('mHi').textContent = 'Votre espace XENON TV';
+  document.getElementById('dHi').textContent = 'Votre espace XENON TV';
+  document.getElementById('mName').innerHTML = greet + ' <em>.</em>';
+  document.getElementById('dName').innerHTML = greet + ' <em>.</em>';
   document.getElementById('mAv').textContent = initial;
   document.getElementById('dAv').textContent = initial;
   document.getElementById('sAv').textContent = initial;
-  document.getElementById('sName').textContent = name;
+  document.getElementById('sName').textContent = 'Mon compte';
   document.getElementById('dEmail').textContent = email;
   document.getElementById('sEmail').textContent = email;
 
