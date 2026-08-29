@@ -29,6 +29,12 @@ img{max-width:100%}
 .stat .o{color:#eab308}.stat .r{color:#ff5a63}
 .stat .sep{width:1px;height:14px;background:var(--line2)}
 .stat .mono{font-family:var(--mono);font-weight:500;color:var(--muted2)}
+.stat .seemore{display:inline-flex;align-items:center;gap:4px;color:var(--red2);font-weight:800;letter-spacing:.2px;text-transform:uppercase;font-size:.62rem}
+.stat .seemore svg{width:13px;height:13px}
+.mhead .stat,.dtop .right .stat{border-color:rgba(229,9,20,.4);box-shadow:0 0 0 1px rgba(229,9,20,.12),0 6px 20px rgba(229,9,20,.16);animation:statPulse 2.6s ease-in-out infinite}
+@keyframes statPulse{0%,100%{box-shadow:0 0 0 1px rgba(229,9,20,.12),0 6px 20px rgba(229,9,20,.16)}50%{box-shadow:0 0 0 1px rgba(229,9,20,.28),0 8px 26px rgba(229,9,20,.28)}}
+.sheet .who .stat .seemore{display:none}
+.sheet .who .stat{animation:none;box-shadow:none;border-color:var(--line2)}
 .skl{position:relative;overflow:hidden;background:rgba(255,255,255,.08);border-radius:6px;color:transparent!important}
 .skl::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.14) 50%,transparent 80%);animation:shim 1.4s infinite}
 @keyframes shim{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
@@ -328,7 +334,7 @@ img{max-width:100%}
     if (typeof days === 'number' && days >= 0) {
       html += '<span class="sep"></span><span class="mono">' + days + ' j restants</span>';
     }
-    html += '<span style="color:#666">›</span>';
+    html += '<span class="seemore">Voir l\'état<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h13m-5-6 6 6-6 6"/></svg></span>';
     document.querySelectorAll('[data-status-pill]').forEach(el => { el.innerHTML = html; });
   }
   function fillStatusRaw(text){
