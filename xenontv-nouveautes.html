@@ -617,6 +617,10 @@ body{padding-top:46px}
 .xurl-modal p b{color:#fff}
 .xurl-cta{width:100%;padding:16px;border:none;border-radius:14px;font-weight:800;font-size:.74rem;letter-spacing:1px;text-transform:uppercase;color:#fff;cursor:pointer;background:linear-gradient(140deg,#ff2233,#e50914 55%,#7d040b);box-shadow:0 14px 34px rgba(229,9,20,.42),inset 0 1px 0 rgba(255,255,255,.22)}
 .xurl-cta:active{transform:translateY(1px)}
+
+/* XENFIX-OVERFLOW : empêche tout débordement horizontal (aura, éléments décor) */
+html,body{overflow-x:hidden;overflow-x:clip;max-width:100%}
+.aura{max-width:100%!important;left:0!important;right:0!important;transform:none!important;margin:0 auto}
 </style>
 </head>
 <body>
