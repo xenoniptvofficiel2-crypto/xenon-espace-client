@@ -55,9 +55,6 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
 .ac .bd{position:absolute;top:10px;right:10px;z-index:2;font-size:.52rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:4px 9px;border-radius:20px;background:rgba(0,0,0,.55);border:1px solid var(--line2);color:var(--green)}
 .bg-bug{background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=700&q=80')}
 .bg-aide{background-image:url('https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=700&q=80')}
-.bg-vod{background-image:url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=700&q=80')}
-.bg-dem{background-image:url('https://images.unsplash.com/photo-1485846234645-a62644f84728?w=700&q=80')}
-@media(min-width:640px){.ag3{grid-template-columns:1fr 1fr 1fr}}
 /* états */
 .loadc{display:flex;flex-direction:column;align-items:center;gap:14px;padding:60px 0;color:var(--muted)}
 .ring3{width:34px;height:34px;border:3px solid rgba(255,255,255,.12);border-top-color:var(--red2);border-radius:50%;animation:spin 1s linear infinite}
@@ -114,11 +111,10 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
       <button class="btnr" style="flex:1;padding:15px 8px;font-size:.68rem" onclick="openRepair()">🔧 Réparer mon URL</button>
       <button class="btng" style="flex:1;padding:15px 8px;font-size:.68rem" onclick="location.href='xenontv-tutoriels'">Guide d'installation</button>
     </div>
-    <div class="sh"><h3>RACCOURCIS</h3></div>
-    <div class="agrid ag3">
+    <div class="sh"><h3>UN PROBLÈME ?</h3></div>
+    <div class="agrid">
       <div class="ac" onclick="location.href='xenontv-bug'"><div class="bg bg-bug"></div><div class="veil"></div><div class="cb"><h4>CORRIGER UN BUG</h4><p>Diagnostic guidé</p></div></div>
-      <div class="ac" onclick="location.href='xenontv-nouveautes'"><div class="bg bg-vod"></div><div class="veil"></div><div class="cb"><h4>NOUVEAUTÉS</h4><p>Films &amp; séries ajoutés</p></div></div>
-      <div class="ac" onclick="location.href='xenontv-demande'"><div class="bg bg-dem"></div><div class="veil"></div><div class="cb"><h4>DEMANDER UN FILM / SÉRIE</h4><p>Un titre manque ? On l'ajoute.</p></div></div>
+      <div class="ac" onclick="window.open('https://xenontv.fr/help','_blank','noopener')"><div class="bg bg-aide"></div><div class="veil"></div><span class="bd">24 / 7</span><div class="cb"><h4>ASSISTANCE</h4><p>Chat en direct</p></div></div>
     </div>
   </div>
 </div>

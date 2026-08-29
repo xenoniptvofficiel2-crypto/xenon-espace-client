@@ -72,12 +72,12 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
 .cause .ic{font-size:1.5rem;flex-shrink:0;line-height:1}
 .cause h4{font-size:.84rem;font-weight:800;line-height:1.2}
 .cause p{font-size:.66rem;color:var(--muted2);line-height:1.5;margin-top:4px}
-.fxcard{background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);border-radius:16px;padding:4px 16px}
-.fx{display:flex;gap:13px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line)}
+.fxcard{background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);border-radius:16px;padding:6px 18px}
+.fx{display:flex;gap:15px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--line)}
 .fx:last-child{border-bottom:none}
-.fx .num{width:26px;height:26px;flex-shrink:0;border-radius:50%;background:linear-gradient(140deg,var(--red2),#9c050e);color:#fff;font-family:var(--disp);font-size:.85rem;display:grid;place-items:center;box-shadow:0 4px 12px rgba(229,9,20,.35);margin-top:1px}
-.fx h4{font-size:.76rem;font-weight:800;line-height:1.2}
-.fx p{font-size:.64rem;color:var(--muted2);line-height:1.5;margin-top:3px}
+.fx .num{width:30px;height:30px;flex-shrink:0;border-radius:50%;background:linear-gradient(140deg,var(--red2),#9c050e);color:#fff;font-family:var(--disp);font-size:.95rem;display:grid;place-items:center;box-shadow:0 4px 12px rgba(229,9,20,.35);margin-top:1px}
+.fx h4{font-size:.82rem;font-weight:800;line-height:1.35}
+.fx p{font-size:.7rem;color:var(--muted2);line-height:1.7;margin-top:6px}
 .note2{display:flex;gap:9px;padding:12px 14px;border-radius:12px;background:rgba(234,179,8,.07);border:1px solid rgba(234,179,8,.22);font-size:.64rem;color:#e8cd7a;line-height:1.55;margin-top:12px}
 .glink{display:flex;align-items:center;gap:11px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);cursor:pointer;margin-top:12px;font-size:.74rem;font-weight:700}
 .glink .ar{margin-left:auto;color:var(--muted);font-size:1rem}
@@ -236,21 +236,23 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
       ]
     },
     'hot': {
-      head:'Mettez à jour votre playlist (portail HOT)',
-      intro:'HOT IPTV se configure depuis le portail web, via l’adresse MAC de l’appareil.',
+      head:'Votre lien a changé — mettez à jour la playlist',
+      intro:'HOT IPTV se règle depuis son portail web, avec l’adresse MAC de votre TV. Rien à réinstaller.',
+      portal:['Ouvrir le portail HOT IPTV','https://hotplayer.app/fr/upload'],
       steps:[
-        {t:'Notez votre adresse MAC', d:'Elle s’affiche à l’ouverture de HOT IPTV, sur l’écran d’accueil.'},
-        {t:'Depuis votre mobile, ouvrez le portail HOT Player', d:'hotplayer.app → saisissez votre adresse MAC.'},
-        {t:'Remplacez le lien M3U', d:'Supprimez l’ancienne playlist, ajoutez le nouveau lien M3U (ci-dessous), type « Link », nom XENONTV. Enregistrez — l’appli se resynchronise.'}
+        {t:'Ouvrez HOT IPTV et notez votre adresse MAC', d:'Elle s’affiche sur l’écran d’accueil de l’application, sur votre TV.'},
+        {t:'Sur votre téléphone, ouvrez le portail hotplayer.app', d:'Renseignez l’adresse MAC affichée sur votre TV.'},
+        {t:'Renseignez le nouveau lien M3U', d:'Type « Link », nom XENONTV, puis collez le lien M3U ci-dessous. Enregistrez : HOT IPTV se resynchronise tout seul.'}
       ]
     },
     'smartone': {
-      head:'Mettez à jour votre playlist (portail Smart One)',
-      intro:'Smart One se configure depuis le portail web, via l’adresse MAC.',
+      head:'Votre lien a changé — mettez à jour la playlist',
+      intro:'Smart One se règle depuis son portail web, avec l’adresse MAC de votre TV.',
+      portal:['Ouvrir le portail Smart One','https://smartone-iptv.com/fr/plugin/smart_one/main_generate'],
       steps:[
-        {t:'Notez votre adresse MAC', d:'Elle s’affiche à l’ouverture de Smart One IPTV.'},
-        {t:'Depuis votre mobile, ouvrez le portail Smart One', d:'Saisissez votre adresse MAC.'},
-        {t:'Mettez à jour le lien M3U', d:'Remplacez l’ancien lien par le nouveau lien M3U (ci-dessous), nom XENONTV. Enregistrez — la liste se resynchronise.'}
+        {t:'Ouvrez Smart One IPTV et notez votre adresse MAC', d:'Elle s’affiche au lancement de l’application, sur votre TV.'},
+        {t:'Sur votre téléphone, ouvrez le portail Smart One', d:'Cliquez sur « M3U Playlist », puis renseignez l’adresse MAC de votre TV.'},
+        {t:'Mettez à jour le lien M3U', d:'Nom XENONTV, collez le nouveau lien M3U ci-dessous. Enregistrez : la liste se resynchronise.'}
       ]
     },
     'switch': {
@@ -287,11 +289,17 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
   window.copyVal=function(b,v){ if(!v)return; navigator.clipboard.writeText(v).then(()=>{ b.classList.add('ok'); b.innerHTML=iconCheck(); setTimeout(()=>{ b.classList.remove('ok'); b.innerHTML=iconCopy(); },2000); }); };
   window.togglePass=function(b){ const c=b.parentElement.querySelector('code[data-pass]'); if(!c)return; if(c.dataset.shown==='1'){c.textContent='••••••••••';c.dataset.shown='0';}else{c.textContent=c.getAttribute('data-pass');c.dataset.shown='1';} };
   function rowU(l,v){ return '<div class="crow"><div class="lb">'+l+'</div><div class="vl"><code>'+esc(v)+'</code><button class="cpy" onclick="copyVal(this,\''+esc(v).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>'; }
-  function credBlock(){
+  // mode 'm3u' (HOT / Smart One) → n'affiche QUE le lien M3U.
+  function credBlock(mode){
     if(!credsReady) return '<div class="glass" style="text-align:center;color:var(--muted);font-size:.72rem;padding:14px">Chargement de vos codes…</div>';
     if(!email||!token) return '<div class="cwmsg">Connectez-vous pour afficher vos codes. <a href="index.html">Accéder →</a></div>';
     if(!acc) return '<div class="cwmsg">Identifiants introuvables. <a href="https://xenontv.fr/help" target="_blank">Support →</a></div>';
     const m=m3uFor(acc);
+    if(mode==='m3u'){
+      let h='<div class="glass">'+rowU('Lien M3U',m||PICKED_URL)+'</div>';
+      h+='<div class="warn">⚠️ Collez le lien exactement, <b>sans espace</b> avant/après — il commence bien par <b style="font-family:var(--mono)">http://</b>.</div>';
+      return h;
+    }
     let h='<div class="glass">'+rowU('URL du serveur',PICKED_URL);
     if(acc.username) h+='<div class="crow"><div class="lb">Nom d\'utilisateur</div><div class="vl"><code>'+esc(acc.username)+'</code><button class="cpy" onclick="copyVal(this,\''+esc(acc.username).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>';
     if(acc.password) h+='<div class="crow"><div class="lb">Mot de passe</div><div class="vl"><code data-pass="'+esc(acc.password)+'">••••••••••</code><button class="cpy" onclick="togglePass(this)">'+iconEye()+'</button><button class="cpy" onclick="copyVal(this,\''+esc(acc.password).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>';
@@ -351,16 +359,19 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
     h += '<div class="cause"><div class="ic">🎯</div><div><h4>'+esc(fix.head)+'</h4><p>'+esc(fix.intro)+'</p></div></div>';
     // Note débit si buffering
     if(selProb==='buffer') h += '<div class="note2">📶 D’abord : 15 Mbps minimum, câble Ethernet conseillé, qualité 4K → FHD. Si ça coupe encore, votre URL est ralentie : mettez-la à jour ci-dessous.</div>';
-    // Étapes du fix (compactes)
+    const isM3u = (method==='hot' || method==='smartone');
+    // Étapes du fix (aérées)
     h += '<div class="fxcard">'+fix.steps.map((s,i)=>'<div class="fx"><div class="num">'+(i+1)+'</div><div style="min-width:0"><h4>'+esc(s.t)+'</h4><p>'+esc(s.d)+'</p></div></div>').join('')+'</div>';
+    // Bouton portail (HOT / Smart One)
+    if(fix.portal){ h += '<a class="btng" style="width:100%;margin-top:12px;box-sizing:border-box" href="'+esc(fix.portal[1])+'" target="_blank" rel="noopener">🌐 '+esc(fix.portal[0])+' ↗</a>'; }
     // Boutons de bascule (Samsung/LG)
     if(fix.switchGuides){ h += '<div style="display:flex;gap:10px;margin-top:12px">'+fix.switchGuides.map(g=>'<button class="btng" style="flex:1;padding:13px 8px;font-size:.66rem" onclick="location.href=\'xenontv-tutoriels?g='+g[0]+'\'">'+esc(g[1])+' →</button>').join('')+'</div>'; }
     // Cas « veuillez patienter »
     if(fix.stuck) h += '<div class="note2">⚠️ '+esc(fix.stuck)+'</div>';
-    // Vos codes à jour
-    h += '<div class="numdiv" style="margin:20px 0 10px"><b>🔑</b><p>Vos codes à jour</p><i></i></div>'+credBlock();
-    // Générer une URL fraîche
-    h += '<button class="btnr" style="width:100%;margin-top:14px" onclick="openRepair()">🔧 Générer un nouvel URL</button>';
+    // Codes à jour — M3U seul pour HOT / Smart One, sinon codes Xtream complets
+    h += '<div class="numdiv" style="margin:22px 0 10px"><b>🔑</b><p>'+(isM3u?'Votre lien M3U à jour':'Vos codes à jour')+'</p><i></i></div>'+credBlock(isM3u?'m3u':'');
+    // Générer un lien frais
+    h += '<button class="btnr" style="width:100%;margin-top:14px" onclick="openRepair()">🔧 '+(isM3u?'Générer un nouveau lien M3U':'Générer un nouvel URL')+'</button>';
     // Lien discret vers le guide complet
     if(window.TUTO_GUIDES && window.TUTO_GUIDES[selSlug]) h += '<div class="glink" onclick="location.href=\'xenontv-tutoriels?g='+selSlug+'\'">📖 Voir le guide d’installation complet<span class="ar">›</span></div>';
     document.getElementById('solBody').innerHTML = h;
