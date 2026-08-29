@@ -17,7 +17,7 @@ img{max-width:100%}a{color:inherit;text-decoration:none}
 .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(150deg,var(--red2),#6d0208);display:grid;place-items:center;font-size:.74rem;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 0 0 2px rgba(229,9,20,.25),0 4px 14px rgba(229,9,20,.3)}
 .btnr{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;padding:14px 20px;background:linear-gradient(140deg,var(--red2),var(--red) 55%,#7d040b);color:#fff;font:700 .72rem var(--font);letter-spacing:1.2px;text-transform:uppercase;box-shadow:0 12px 34px rgba(229,9,20,.4),inset 0 1px 0 rgba(255,255,255,.22);cursor:pointer}
 .btng{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line2);border-radius:12px;padding:14px 20px;background:rgba(255,255,255,.05);color:#e8e8e8;font:700 .72rem var(--font);letter-spacing:1.2px;text-transform:uppercase;cursor:pointer}
-.wrap{position:relative;max-width:920px;margin:0 auto;padding:0 18px 120px}
+.wrap{position:relative;max-width:940px;margin:0 auto;padding:0 18px 120px}
 .ptop{display:flex;align-items:center;gap:13px;padding:16px 2px 0;position:relative;z-index:6}
 .back{width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);background:rgba(20,20,20,.6);backdrop-filter:blur(12px);display:grid;place-items:center;color:#eee;font-size:1rem;cursor:pointer}
 .ptitle{font-family:var(--disp);font-size:1.35rem;letter-spacing:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -35,7 +35,7 @@ img{max-width:100%}a{color:inherit;text-decoration:none}
 .numdiv b{font-family:var(--disp);font-size:1.1rem;color:var(--red2);letter-spacing:1px}
 .numdiv p{font-size:.62rem;letter-spacing:2.2px;text-transform:uppercase;color:var(--muted2);font-weight:700}
 .numdiv i{flex:1;height:1px;background:var(--line)}
-.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
 .gcard{display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.012));border:1px solid var(--line);cursor:pointer;transition:transform .2s,border-color .2s}
 .gcard:hover{transform:translateY(-3px);border-color:rgba(229,9,20,.4)}
 .gcard .em{width:44px;height:44px;flex-shrink:0;border-radius:12px;display:grid;place-items:center;font-size:1.3rem;background:radial-gradient(120% 100% at 50% 0%,rgba(229,9,20,.16),transparent 65%);border:1px solid var(--line)}
@@ -43,14 +43,54 @@ img{max-width:100%}a{color:inherit;text-decoration:none}
 .gcard .tx h4{font-size:.82rem;font-weight:800;line-height:1.2}
 .gcard .tx p{font-size:.6rem;color:var(--muted);margin-top:3px}
 .gcard .ar{margin-left:auto;color:var(--muted);font-size:1.1rem;flex-shrink:0}
-/* guide view */
-.gsub{font-size:.72rem;color:var(--muted2);margin:14px 0 4px}
-.sol{display:flex;gap:14px;padding:15px 16px;border-radius:16px;background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);position:relative}
-.sol .n2{font-family:var(--disp);font-size:2.1rem;line-height:.9;color:rgba(255,255,255,.16);flex-shrink:0;width:36px}
-.sol h4{font-size:.78rem;font-weight:800}
-.sol p{font-size:.66rem;color:var(--muted2);line-height:1.65;margin-top:5px;white-space:pre-line}
-.sol.cred{border-color:rgba(229,9,20,.4);background:linear-gradient(165deg,rgba(229,9,20,.1),rgba(255,255,255,.01))}
-.glass{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:14px;padding:4px 14px;margin-top:12px}
+
+/* ── Guide illustré ── */
+.ghero{margin-top:16px;padding:24px 22px;border-radius:22px;background:linear-gradient(160deg,rgba(229,9,20,.14),rgba(255,255,255,.02) 62%);border:1px solid var(--line);position:relative;overflow:hidden}
+.ghero .ico{width:64px;height:64px;border-radius:17px;background:rgba(255,255,255,.06);border:1px solid var(--line2);display:grid;place-items:center;overflow:hidden;margin-bottom:15px;font-size:1.9rem}
+.ghero .ico img{width:100%;height:100%;object-fit:contain}
+.ghero .eyb{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--red2);font-weight:800}
+.ghero h2{font-family:var(--disp);font-size:2.3rem;letter-spacing:1px;line-height:1;margin:8px 0 12px}
+.ghero .gd{font-size:.74rem;color:var(--muted2);line-height:1.75;max-width:660px}
+.gtags{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
+.gtag{font-size:.55rem;letter-spacing:.9px;text-transform:uppercase;font-weight:700;color:#ddd;border:1px solid var(--line2);border-radius:999px;padding:5px 11px;background:rgba(255,255,255,.03)}
+@media(min-width:760px){.ghero h2{font-size:3rem}}
+
+.steps{display:flex;flex-direction:column;gap:14px;margin-top:22px}
+.srow{display:grid;grid-template-columns:1fr;gap:16px;padding:20px;border-radius:18px;background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);position:relative;overflow:hidden}
+.srow .ghostn{position:absolute;top:-14px;right:10px;font-family:var(--disp);font-size:4.8rem;line-height:1;color:rgba(255,255,255,.05);pointer-events:none;z-index:0;letter-spacing:1px}
+.srow .sbody{position:relative;z-index:1;min-width:0}
+.spill{display:inline-block;font-size:.54rem;letter-spacing:1.4px;text-transform:uppercase;font-weight:800;color:#fff;background:var(--red);border-radius:999px;padding:4px 12px;margin-bottom:11px}
+.srow h3{font-size:.96rem;font-weight:800;line-height:1.3;margin-bottom:9px}
+.srow p{font-size:.73rem;color:var(--muted2);line-height:1.75}
+.srow ul{margin:9px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.srow ul li{font-size:.71rem;color:var(--muted2);line-height:1.6;padding-left:16px;position:relative}
+.srow ul li::before{content:'';position:absolute;left:2px;top:8px;width:5px;height:5px;border-radius:50%;background:var(--red2)}
+.smedia{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#0d0d0d;aspect-ratio:16/10;position:relative;z-index:1}
+.smedia img{width:100%;height:100%;object-fit:cover;display:block}
+.smedia.err{display:grid;place-items:center;color:var(--muted);font-size:.62rem}
+.stip{margin-top:13px;display:flex;gap:9px;padding:12px 14px;border-radius:12px;background:rgba(229,9,20,.07);border-left:3px solid var(--red);font-size:.69rem;color:#f0cace;line-height:1.65}
+.stip b{color:#fff}
+.sbtn{display:inline-flex;align-items:center;gap:7px;margin-top:13px;padding:11px 16px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid var(--line2);color:#fff;font-size:.66rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;cursor:pointer}
+.sbtn:hover{border-color:rgba(229,9,20,.5);background:rgba(229,9,20,.1)}
+@media(min-width:760px){
+  .srow{grid-template-columns:1.05fr .95fr;align-items:center;padding:24px 26px;gap:24px}
+  .srow.rev .smedia{order:2}
+  .srow.nomedia{grid-template-columns:1fr}
+}
+
+/* choix d'application (hub) */
+.choices{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.appcard{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.012));border:1px solid var(--line);cursor:pointer;transition:transform .18s,border-color .18s}
+.appcard:hover{transform:translateY(-3px);border-color:rgba(229,9,20,.4)}
+.appcard .aem{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-size:1.4rem;background:radial-gradient(120% 100% at 50% 0%,rgba(229,9,20,.18),transparent 65%);border:1px solid var(--line);flex-shrink:0}
+.appcard .atx{flex:1;min-width:0}
+.appcard .atx h4{font-size:.92rem;font-weight:800;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.appcard .atx .rb{font-size:.5rem;letter-spacing:1px;text-transform:uppercase;font-weight:800;color:#fff;background:var(--red);border-radius:6px;padding:3px 8px}
+.appcard .atx p{font-size:.67rem;color:var(--muted);margin-top:4px;line-height:1.55}
+.appcard .ar{margin-left:auto;color:var(--muted);font-size:1.2rem;flex-shrink:0}
+
+/* bloc codes client */
+.glass{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:14px;padding:4px 14px;margin-top:14px}
 .crow{display:flex;flex-direction:column;gap:8px;padding:13px 0;border-bottom:1px solid var(--line)}
 .crow:last-child{border-bottom:none}
 .crow .lb{font-size:.55rem;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
@@ -60,7 +100,9 @@ img{max-width:100%}a{color:inherit;text-decoration:none}
 .cpy svg{width:15px;height:15px;pointer-events:none}
 .cpy.ok{border-color:rgba(47,213,115,.45);color:var(--green)}
 .warn{margin-top:12px;display:flex;gap:10px;padding:12px 14px;border-radius:12px;background:rgba(234,179,8,.07);border:1px solid rgba(234,179,8,.22);font-size:.64rem;color:#e8cd7a;line-height:1.55}
-.cta{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:24px;padding:22px 24px;border-radius:18px;background:linear-gradient(150deg,#1c0507,#101010 60%);border:1px solid rgba(229,9,20,.28)}
+.credtitle{font-size:.58rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--red2);font-weight:800;margin:15px 0 -2px}
+
+.cta{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:26px;padding:22px 24px;border-radius:18px;background:linear-gradient(150deg,#1c0507,#101010 60%);border:1px solid rgba(229,9,20,.28)}
 .cta .t{flex:1;min-width:240px}
 .cta .t b{font-family:var(--disp);font-size:1.3rem;letter-spacing:1.5px}
 .cta .t p{font-size:.7rem;color:var(--muted2);line-height:1.6;margin-top:6px}
@@ -136,7 +178,7 @@ img{max-width:100%}a{color:inherit;text-decoration:none}
     }catch(e){}
     try{
       const r = await fetch(API+'/api/proxy',{headers:{'X-Session-Token':token}});
-      if(r.status===401){ return; }
+      if(r.status===401){ credsReady=true; if(currentSlug) openGuide(currentSlug); return; }
       const d = await r.json();
       if(d&&d.found&&(d.accesses||[]).length) acc=d.accesses[0];
     }catch(e){}
@@ -151,14 +193,21 @@ img{max-width:100%}a{color:inherit;text-decoration:none}
   window.togglePass=function(b){ const c=b.parentElement.querySelector('code[data-pass]'); if(!c)return; if(c.dataset.shown==='1'){c.textContent='••••••••••';c.dataset.shown='0';}else{c.textContent=c.getAttribute('data-pass');c.dataset.shown='1';} };
 
   function rowU(label,val){ return '<div class="crow"><div class="lb">'+label+'</div><div class="vl"><code>'+esc(val)+'</code><button class="cpy" onclick="copyVal(this,\''+esc(val).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>'; }
-  function credBlock(){
+  // mode: 'xtream' = URL+user+pass (+M3U), 'm3u' = URL serveur + lien M3U seulement
+  function credBlock(mode){
     if(!credsReady) return '<div class="glass" style="text-align:center;color:var(--muted);font-size:.72rem;padding:14px">Chargement de vos codes…</div>';
     if(!acc) return '<div class="warn" style="margin-top:12px">Connectez-vous pour afficher vos codes ici. <a href="index.html" style="color:#fff;text-decoration:underline">Accéder →</a></div>';
     const m=m3uFor(acc);
-    let h='<div class="glass">'+rowU('URL du serveur',PICKED_URL);
+    if(mode==='m3u'){
+      let h='<div class="credtitle">Votre lien M3U XENON TV</div><div class="glass">';
+      h+= m ? rowU('Lien M3U',m) : rowU('URL du serveur',PICKED_URL);
+      h+='</div><div class="warn">⚠️ Collez le lien exactement, <b>sans espace</b> avant/après. Commence bien par <b style="font-family:var(--mono)">http://</b>.</div>';
+      return h;
+    }
+    let h='<div class="credtitle">Vos codes XENON TV à saisir</div><div class="glass">'+rowU('URL du serveur',PICKED_URL);
     if(acc.username) h+='<div class="crow"><div class="lb">Nom d\'utilisateur</div><div class="vl"><code>'+esc(acc.username)+'</code><button class="cpy" onclick="copyVal(this,\''+esc(acc.username).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>';
     if(acc.password) h+='<div class="crow"><div class="lb">Mot de passe</div><div class="vl"><code data-pass="'+esc(acc.password)+'">••••••••••</code><button class="cpy" onclick="togglePass(this)">'+iconEye()+'</button><button class="cpy" onclick="copyVal(this,\''+esc(acc.password).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>';
-    if(m) h+=rowU('Lien M3U',m);
+    if(m) h+=rowU('Lien M3U (option)',m);
     h+='</div><div class="warn">⚠️ Saisissez bien <b style="font-family:var(--mono)">http://</b> et non https://, sans espace avant/après.</div>';
     return h;
   }
@@ -175,6 +224,28 @@ img{max-width:100%}a{color:inherit;text-decoration:none}
     }).join('');
   }
 
+  // ── Rendu du texte d'une étape : paragraphe + puces (séparateur « • ») ──
+  function stepText(d){
+    d=String(d||'').trim();
+    if(!d) return '';
+    const parts=d.split('•').map(x=>x.trim()).filter(Boolean);
+    if(parts.length<=1) return '<p>'+esc(d)+'</p>';
+    const intro=parts.shift();
+    return (intro?'<p>'+esc(intro)+'</p>':'')+'<ul>'+parts.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
+  }
+
+  // ── Hero du guide ──
+  function heroHTML(g){
+    const ico = g.icon ? '<div class="ico"><img src="'+esc(g.icon)+'" alt="" onerror="this.parentNode.textContent=\'📺\'"></div>'
+                       : '<div class="ico">📺</div>';
+    const tags = (g.tags&&g.tags.length) ? '<div class="gtags">'+g.tags.map(t=>'<span class="gtag">'+esc(t)+'</span>').join('')+'</div>' : '';
+    return '<div class="ghero">'+ico
+      +(g.eyebrow?'<div class="eyb">'+esc(g.eyebrow)+'</div>':'')
+      +'<h2>'+esc(g.title)+'</h2>'
+      +(g.desc?'<div class="gd">'+esc(g.desc)+'</div>':'')
+      +tags+'</div>';
+  }
+
   // ── Guide ──
   let currentSlug=null;
   window.openGuide=function(slug){
@@ -182,12 +253,40 @@ img{max-width:100%}a{color:inherit;text-decoration:none}
     if(!g) return;
     currentSlug=slug;
     document.getElementById('ptitle').textContent=g.title.toUpperCase();
-    let h='<div class="hi" style="margin-top:14px">'+esc(g.title)+'</div><div class="gsub">'+esc(g.subtitle||'')+'</div><div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">';
-    g.steps.forEach((s,i)=>{
-      const isCred = g.credentialStep && (i+1)===g.credentialStep;
-      h+='<div class="sol'+(isCred?' cred':'')+'"><span class="n2">'+String(i+1).padStart(2,'0')+'</span><div style="min-width:0;flex:1"><h4>'+esc(s.t)+'</h4><p>'+esc(s.d)+'</p>'+(isCred?credBlock():'')+'</div></div>';
-    });
-    h+='</div>';
+
+    let h=heroHTML(g);
+
+    // Guide « hub » : choix de l'application
+    if(g.choices){
+      h+='<div class="choices">'+g.choices.map(ch=>
+        '<div class="appcard" onclick="openGuide(\''+ch.slug+'\')"><div class="aem">'+(ch.icon||'📺')+'</div>'
+        +'<div class="atx"><h4>'+esc(ch.name)+(ch.tag?'<span class="rb">'+esc(ch.tag)+'</span>':'')+'</h4><p>'+esc(ch.desc||'')+'</p></div>'
+        +'<span class="ar">›</span></div>'
+      ).join('')+'</div>';
+    } else {
+      // Guide détaillé : étapes illustrées alternées
+      const total=g.steps.length;
+      h+='<div class="steps">';
+      g.steps.forEach((s,i)=>{
+        const n=i+1;
+        const isCred = g.credentialStep && n===g.credentialStep;
+        const isM3u  = g.m3uStep && n===g.m3uStep;
+        const hasImg = !!s.img;
+        const rev = (i%2===1); // alterne : image à gauche 1 fois sur 2 (desktop)
+        let cls='srow'+(hasImg?(rev?' rev':''):' nomedia');
+        let media = hasImg
+          ? '<figure class="smedia"><img src="'+esc(s.img)+'" alt="" loading="lazy" onerror="this.parentNode.classList.add(\'err\');this.parentNode.textContent=\'Aperçu indisponible\'"></figure>'
+          : '';
+        let body='<div class="sbody"><span class="spill">Étape '+n+'/'+total+'</span><h3>'+esc(s.t)+'</h3>'+stepText(s.d);
+        if(s.tip) body+='<div class="stip">💡 '+esc(s.tip)+'</div>';
+        if(isCred) body+=credBlock('xtream');
+        else if(isM3u) body+=credBlock('m3u');
+        if(s.btn && s.btn.url) body+='<a class="sbtn" href="'+esc(s.btn.url)+'" target="_blank" rel="noopener">'+esc(s.btn.label||'Ouvrir')+' ↗</a>';
+        body+='</div>';
+        h+='<div class="'+cls+'"><span class="ghostn">'+String(n).padStart(2,'0')+'</span>'+media+body+'</div>';
+      });
+      h+='</div>';
+    }
     document.getElementById('guideBody').innerHTML=h;
     document.getElementById('catalogView').classList.add('hide');
     document.getElementById('guideView').classList.remove('hide');
@@ -196,6 +295,10 @@ img{max-width:100%}a{color:inherit;text-decoration:none}
 
   function goBack(){
     if(!document.getElementById('guideView').classList.contains('hide')){
+      // Si on est dans un guide détaillé issu d'un hub, revenir au hub
+      const g=currentSlug&&window.TUTO_GUIDES[currentSlug];
+      const parent=hubParent(currentSlug);
+      if(parent){ openGuide(parent); return; }
       document.getElementById('guideView').classList.add('hide');
       document.getElementById('catalogView').classList.remove('hide');
       document.getElementById('ptitle').textContent='TUTORIELS';
@@ -206,6 +309,11 @@ img{max-width:100%}a{color:inherit;text-decoration:none}
     }
   }
   window.goBack=goBack;
+  function hubParent(slug){
+    const G=window.TUTO_GUIDES||{};
+    for(const k in G){ if(G[k].choices && G[k].choices.some(c=>c.slug===slug)) return k; }
+    return null;
+  }
 
   renderCatalog();
   // Deep-link : xenontv-tutoriels?g=<slug> ouvre directement un guide (depuis le wizard Bug).

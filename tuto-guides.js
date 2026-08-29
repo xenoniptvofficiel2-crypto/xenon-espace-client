@@ -1,222 +1,70 @@
-/* tuto-guides.js — Données des guides d'installation XENON TV (in-app).
+/* tuto-guides.js — Guides d'installation XENON TV (in-app), design illustré.
    Utilisé par xenontv-tutoriels.html et xenontv-bug.html.
-   Le texte des étapes vient des tutoriels officiels. credentialStep = index
-   (base 1) de l'étape où le client saisit ses identifiants (on y injecte ses
-   vrais codes). */
+   Données extraites des tutoriels officiels XENON TV (texte + captures réelles).
+   credentialStep = index (base 1) de l'étape « identifiants » (injection Xtream) ;
+   m3uStep = index de l'étape « lien M3U » pour HOT / Smart One (injection M3U). */
 window.TUTO_GUIDES = {
-  "fire-stick": {
-    title: "Installer sur Fire Stick",
-    subtitle: "6 étapes, captures réelles",
-    steps: [
-      {t:"Autorisez les applications inconnues", d:"Réglages → Mon Fire TV → Options pour développeurs → activez « Installer applications inconnues » pour Downloader."},
-      {t:"Installez « Downloader »", d:"Depuis l'Appstore Amazon, recherchez et installez l'application orange « Downloader »."},
-      {t:"Entrez le code 250931 dans Downloader", d:"Ouvrez Downloader et saisissez le code 250931 : il télécharge directement IPTV Smarters Pro. Installez-la."},
-      {t:"Ouvrez l'appli → « Login with Xtream Codes API »", d:"Au lancement, choisissez le mode Xtream Codes API — surtout pas M3U : il configure chaînes, VOD et guide TV d'un coup."},
-      {t:"Saisissez vos identifiants XENON", d:"Nom (libre), puis l'URL du serveur avec son port (:8080), l'identifiant et le mot de passe — sans espace avant/après."},
-      {t:"Laissez charger, puis profitez", d:"Chaînes, VOD et guide TV se synchronisent (≈ 1 min la première fois). Épinglez XENON en façade — le VPN inclus est déjà actif côté serveur."}
-    ],
-    credentialStep: 5
-  },
-  "smart-tv": {
-    title: "Installer sur Smart TV",
-    subtitle: "Choisissez votre application — Samsung · LG · Hisense · Philips",
-    steps: [
-      {t:"IPTV Smarters Pro", d:"Guide par marque (Samsung, LG, Hisense, Philips) — reconnaître la vraie application (développeur WHMCS Smarters) et se connecter en Xtream."},
-      {t:"Smart One IPTV", d:"Très stable. Configuration par adresse MAC + lien M3U via le portail web. Licence 2€/an."},
-      {t:"HOT IPTV", d:"La meilleure interface du marché. Configuration par code MAC + lien M3U. Activation 10€. Recommandée au quotidien sur Samsung, LG et Hisense."}
-    ],
-    credentialStep: null
-  },
-  "smart-tv-smarters": {
-    title: "IPTV Smarters Pro sur Smart TV",
-    subtitle: "5 étapes · Samsung, LG, Hisense, Philips",
-    steps: [
-      {t:"Reconnaître la bonne application", d:"Attention aux copies : de nombreuses applications imitent IPTV Smarters Pro et sont payantes ou malveillantes. N'installez que la version officielle (développeur WHMCS Smarters). Samsung → « IPTV Smarters Pro » dans le Smart Hub (logo « IPTV Smarters Player ») ; LG → « IPTVSmartersPro » (sans espace) dans le LG Content Store ; Hisense / Philips (VIDAA) → « IPTV Smarters » dans le store VIDAA."},
-      {t:"Installez et lancez l'application", d:"Depuis le store de votre TV, installez IPTV Smarters Pro puis lancez l'application."},
-      {t:"Acceptez les conditions d'utilisation", d:"Au premier lancement, appuyez sur « Accept » pour continuer vers l'écran de connexion."},
-      {t:"Entrez vos codes de connexion XENON TV", d:"Nom du profil (ex : XENONTV), URL du serveur, Username et Password de votre abonnement. ⚠️ Identifiant non reconnu ? Vérifiez/corrigez votre URL ici — c'est la cause la plus fréquente ; sinon essayez une autre application (page Tutoriels)."},
-      {t:"Support et dépannage", d:"• Application introuvable : cherchez dans le store et vérifiez le développeur WHMCS Smarters. • Problèmes de connexion : vérifiez vos identifiants et votre abonnement. • Mauvaise qualité : Ethernet ou Wi-Fi 5GHz recommandé."}
-    ],
-    credentialStep: 4
-  },
-  "android": {
-    title: "Installer sur Android",
-    subtitle: "Choisissez votre application — smartphone & tablette",
-    steps: [
-      {t:"IPTV Smarters Pro", d:"La référence sur Android via Downloader (code 250931). Connexion Xtream complète : chaînes, VOD et guide TV."},
-      {t:"Zen IPTV Player", d:"Design premium. Installation par APK officiel, compte à créer, connexion Xtream identique."}
-    ],
-    credentialStep: null
-  },
-  "android-smarters": {
-    title: "IPTV Smarters Pro sur Android",
-    subtitle: "9 étapes détaillées",
-    steps: [
-      {t:"Installez Downloader depuis le Google Play Store", d:"Downloader permet de télécharger et installer des APK, dont IPTV Smarters Pro qui n'est pas sur le Play Store. Installez-la gratuitement."},
-      {t:"Activez les sources inconnues", d:"Autorisez les applications de sources inconnues : • Samsung : Paramètres → Applications → ⋮ → Accès spéciaux → Installation applis inconnues → Downloader → Autoriser • Xiaomi/MIUI : Paramètres → Confidentialité → Sources inconnues → Activer • Huawei : Paramètres → Sécurité → Sources inconnues → Activer • Android stock : Paramètres → Applications → Downloader → Installer applis inconnues → Autoriser"},
-      {t:"Ouvrez Downloader et entrez le code 250931", d:"Ouvrez Downloader, tapez le code 250931 dans la barre de recherche et appuyez sur Go."},
-      {t:"Naviguez vers IPTV Smarters Pro et cliquez sur Download", d:"Faites défiler jusqu'à IPTV Smarters Pro puis appuyez sur « Download »."},
-      {t:"Laissez l'application s'installer et ouvrez-la", d:"Appuyez sur « Installer », puis « Ouvrir »."},
-      {t:"Lancez l'application et acceptez les conditions", d:"Appuyez sur « Agree » / « J'accepte »."},
-      {t:"Sélectionnez la connexion Xtream Codes API", d:"Choisissez « Login with Xtream Codes API »."},
-      {t:"Entrez vos codes de connexion XENON TV", d:"Nom du profil (ex : XENONTV), URL du serveur, Username et Password reçus avec votre abonnement."},
-      {t:"Support et dépannage", d:"• Installation bloquée : vérifiez les sources inconnues pour Downloader. • Connexion : vérifiez vos identifiants et abonnement. • Qualité : Wi-Fi stable / Ethernet. • Plantage : réinstallez via Downloader."}
-    ],
-    credentialStep: 8
-  },
-  "android-zen": {
-    title: "Zen IPTV Player sur Android",
-    subtitle: "8 étapes détaillées",
-    steps: [
-      {t:"Téléchargez Zen IPTV Player sur Android", d:"Zen IPTV n'est pas sur le Play Store : téléchargez l'APK depuis le site officiel puis « Télécharger l'APK »."},
-      {t:"Activez les sources inconnues", d:"Autorisez les sources inconnues pour votre gestionnaire de fichiers (Samsung/Xiaomi/Huawei/Android stock — chemin selon la marque)."},
-      {t:"Installez le fichier APK depuis vos téléchargements", d:"Ouvrez le dossier « Téléchargements », appuyez sur zen-iptv.apk puis « Installer »."},
-      {t:"Créez votre compte", d:"Ouvrez Zen IPTV Player → « S'inscrire » : e-mail + mot de passe (ou compte Google)."},
-      {t:"Ajoutez une source IPTV", d:"« Ajouter une source » → « Xtream Codes »."},
-      {t:"Entrez vos codes de connexion XENON TV", d:"Nom de la source (ex : XENONTV), URL du serveur, Username et Password."},
-      {t:"Votre liste est chargée — profitez !", d:"Zen IPTV charge chaînes, films et séries en 4K/HD."},
-      {t:"Support et dépannage", d:"• Installation bloquée : sources inconnues. • Connexion : vérifiez identifiants et abonnement. • Liste vide : vérifiez l'URL. • Qualité : Wi-Fi stable ou 4G/5G."}
-    ],
-    credentialStep: 6
-  },
-  "android-tv": {
-    title: "Installer sur Android TV",
-    subtitle: "Choisissez votre application — Android TV & Google TV",
-    steps: [
-      {t:"IPTV Smarters Pro", d:"Installation via Downloader (code 250931). Le plus simple sur Android TV."},
-      {t:"Zen IPTV Player", d:"Design premium. Installation via Downloader (code 725409), compte à créer, connexion Xtream."}
-    ],
-    credentialStep: null
-  },
-  "android-tv-smarters": {
-    title: "IPTV Smarters Pro sur Android TV",
-    subtitle: "9 étapes détaillées",
-    steps: [
-      {t:"Installez Downloader depuis le Google Play Store", d:"Downloader installe des APK dont IPTV Smarters Pro (absent du Play Store). Installez-la gratuitement."},
-      {t:"Activez les sources inconnues", d:"Android TV / Google TV : Paramètres → Applications → Sécurité et restrictions → Sources inconnues → Downloader → Autoriser (Samsung Tizen / Xiaomi / Nvidia Shield : chemin équivalent)."},
-      {t:"Ouvrez Downloader et entrez le code 250931", d:"Tapez 250931 dans la barre de recherche, appuyez sur Go."},
-      {t:"Naviguez vers IPTV Smarters Pro et cliquez sur Download", d:"Faites défiler jusqu'à IPTV Smarters Pro puis « Download »."},
-      {t:"Laissez l'application s'installer et ouvrez-la", d:"« Installer » puis « Ouvrir »."},
-      {t:"Lancez l'application et acceptez les conditions", d:"« Agree » / « J'accepte »."},
-      {t:"Sélectionnez « Login with Xtream Codes API »", d:"Choisissez le mode Xtream Codes API."},
-      {t:"Entrez vos codes de connexion XENON TV", d:"Nom du profil (ex : XENONTV), URL du serveur, Username et Password."},
-      {t:"Support et dépannage", d:"• Installation bloquée : sources inconnues pour Downloader. • Connexion : identifiants + abonnement. • Qualité : Ethernet/Wi-Fi 5GHz. • Plantage : réinstallez via Downloader."}
-    ],
-    credentialStep: 8
-  },
-  "android-tv-zen": {
-    title: "Zen IPTV Player sur Android TV",
-    subtitle: "9 étapes détaillées",
-    steps: [
-      {t:"Installez Downloader sur votre Android TV", d:"Recherchez « Downloader » sur le Play Store de votre TV et installez-la."},
-      {t:"Activez les sources inconnues", d:"Paramètres → Applications → Sécurité et restrictions → Sources inconnues → Downloader → Autoriser (selon la marque)."},
-      {t:"Ouvrez Downloader et entrez le code 725409", d:"Tapez 725409, appuyez sur Go — le téléchargement de Zen IPTV démarre."},
-      {t:"Installez l'application et lancez-la", d:"« Installer » puis « Ouvrir »."},
-      {t:"Créez votre compte", d:"« Inscription » : e-mail + mot de passe (ou compte Google)."},
-      {t:"Ajoutez une source IPTV", d:"« Ajouter une source » → « Xtream Codes »."},
-      {t:"Entrez vos codes de connexion XENON TV", d:"Nom de la source (ex : XENONTV), URL du serveur, Username et Password."},
-      {t:"Validez et profitez de votre contenu", d:"Zen IPTV charge chaînes, films et séries en 4K/HD."},
-      {t:"Support et dépannage", d:"• Installation bloquée : sources inconnues. • Connexion : identifiants + abonnement. • Liste vide : vérifiez l'URL. • Qualité : Ethernet/Wi-Fi 5GHz."}
-    ],
-    credentialStep: 7
-  },
-  "iphone-ipad": {
-    title: "Installer sur iPhone / iPad",
-    subtitle: "Choisissez votre application — iPhone · iPad · Apple TV",
-    steps: [
-      {t:"Smarters Player Lite", d:"L'application la plus populaire sur iPhone, iPad et Apple TV. Rendu optimisé, connexion Xtream simple."},
-      {t:"Zen IPTV Player", d:"Nouvelle application au design premium. Interface soignée et fluide, connexion Xtream identique."},
-      {t:"IPTVX", d:"Design façon Netflix, recommandée surtout sur Apple TV. Payante et assez chère."}
-    ],
-    credentialStep: null
-  },
-  "iphone-smarters": {
-    title: "Smarters Player Lite sur iPhone",
-    subtitle: "4 étapes détaillées",
-    steps: [
-      {t:"Téléchargez Smarters Player Lite", d:"Depuis l'App Store, recherchez « Smarters Player Lite ». Gratuite et conçue pour iOS, pour une lecture fluide de vos flux IPTV."},
-      {t:"Lancez l'application et sélectionnez « Xtream Code »", d:"Ouvrez l'app, acceptez les conditions, puis appuyez sur « Xtream Code »."},
-      {t:"Saisissez vos informations de connexion IPTV", d:"Nom du profil (ex : XENONTV), Username, Password et URL du serveur de votre abonnement XENON TV."},
-      {t:"Support et dépannage", d:"• Connexion : vérifiez vos identifiants et que l'abonnement est actif. • Qualité : Wi-Fi stable ou 4G/5G. • Compatibilité : mettez iOS à jour."}
-    ],
-    credentialStep: 3
-  },
-  "iphone-zen": {
-    title: "Zen IPTV Player sur iPhone",
-    subtitle: "7 étapes détaillées",
-    steps: [
-      {t:"Téléchargez Zen IPTV Player", d:"App Store → « Zen IPTV Player ». Gratuite, interface digne des grandes plateformes, iPhone et iPad."},
-      {t:"Installez et ouvrez l'application", d:"Ouvrez Zen IPTV Player : créez un compte ou connectez-vous pour profiter de toutes les fonctionnalités."},
-      {t:"Créez votre compte", d:"« S'inscrire » : e-mail + mot de passe, ou identifiant Apple en un clic."},
-      {t:"Ajoutez une source IPTV", d:"« Ajouter une source » → « Xtream Codes »."},
-      {t:"Entrez vos codes de connexion XENON TV", d:"Nom de la source (ex : XENONTV), URL du serveur, Username et Password."},
-      {t:"Votre liste est chargée — profitez !", d:"Zen IPTV charge chaînes, films et séries en 4K/HD après quelques secondes de synchronisation."},
-      {t:"Support et dépannage", d:"• Connexion : identifiants + état de l'abonnement. • Liste vide : vérifiez l'URL et la connexion. • Qualité : Wi-Fi stable ou 4G/5G. • iOS 13 minimum."}
-    ],
-    credentialStep: 5
-  },
-  "pc-mac": {
-    title: "Installer sur PC / Mac",
-    subtitle: "6 étapes — Windows & macOS",
-    steps: [
-      {t:"Installez l'application depuis le site de l'éditeur", d:"Téléchargez IPTV Smarters (Windows ou macOS) depuis le site officiel. Alternative sans installation : VLC → Média → « Ouvrir un flux réseau », collez votre lien M3U complet (get.php…)."},
-      {t:"Ouvrez l'application et acceptez", d:"Acceptez les conditions et choisissez le français si demandé."},
-      {t:"Choisissez « Login with Xtream Codes API »", d:"Surtout pas le mode M3U : Xtream configure chaînes, films, séries ET guide TV d'un coup."},
-      {t:"Saisissez vos identifiants XENON", d:"Nom (libre), URL du serveur avec son port (:8080), identifiant et mot de passe — sans espace avant/après."},
-      {t:"Laissez la liste se charger", d:"Validez (Add Playlist / Ajouter). Synchronisation ≈ 1 min la première fois."},
-      {t:"Organisez vos favoris et profitez", d:"Ajoutez vos chaînes en favoris. Le VPN inclus est déjà actif côté serveur."}
-    ],
-    credentialStep: 4
-  },
-  "smart-one": {
-    title: "Smart One IPTV sur Smart TV",
-    subtitle: "7 étapes · licence 2€ / an",
-    steps: [
-      {t:"Installez Smart One IPTV sur votre TV", d:"Store de votre TV → « Smart One IPTV » (Samsung Apps, LG Content Store, Google Play, App Store, VIDAA)."},
-      {t:"Lancez l'app et notez votre adresse MAC", d:"Votre adresse MAC s'affiche au lancement (encadrée en rouge en haut ou en bleu au centre)."},
-      {t:"Ouvrez le site Smart One IPTV depuis votre mobile", d:"Depuis votre smartphone, ouvrez le portail de configuration Smart One IPTV."},
-      {t:"Faites défiler et cliquez sur « M3U Playlist »", d:"En bas de la page, cliquez sur « M3U Playlist »."},
-      {t:"Remplissez les informations de votre playlist", d:"TV MAC : l'adresse de votre TV (étape 2) · Playlist Name : XENONTV · Playlist M3U : votre lien M3U XENON TV · EPG : laisser vide."},
-      {t:"Activez l'application (licence 1 an — 2€)", d:"Page d'activation : entrez l'adresse MAC de votre TV, sélectionnez « 1 YEAR » à 2€."},
-      {t:"Support et dépannage", d:"• MAC introuvable : Settings → Info. • Playlist non chargée : vérifiez le lien M3U. • Qualité : Ethernet/Wi-Fi 5GHz. • Licence expirée : renouvelez pour 2€/an."}
-    ],
-    credentialStep: 5
-  },
-  "hot-iptv": {
-    title: "HOT IPTV sur Smart TV",
-    subtitle: "7 étapes · activation 10€ · recommandée",
-    steps: [
-      {t:"Installez HOT IPTV sur votre TV", d:"Store de votre TV → « HOT IPTV » (Samsung, LG, Google Play, VIDAA ; Fire TV : via Downloader code 395800)."},
-      {t:"Lancez l'app et notez votre code MAC", d:"Un code MAC unique s'affiche sur l'écran d'accueil."},
-      {t:"Ouvrez le portail HOT IPTV depuis votre mobile", d:"Depuis votre smartphone, ouvrez le portail d'activation HOT IPTV."},
-      {t:"Entrez votre adresse MAC", d:"Renseignez le champ « Votre adresse MAC » avec le code de votre TV (étape 2)."},
-      {t:"Ajoutez votre lien M3U XENON TV", d:"Type « Link » puis : Lien M3U = votre lien M3U XENON TV · Name = XENONTV."},
-      {t:"Activez l'application (10€)", d:"Page d'activation : entrez l'adresse MAC de votre TV, tarif 10€."},
-      {t:"Support et dépannage", d:"• MAC introuvable : relancez l'app. • Playlist non chargée : le lien M3U doit commencer par http://. • Qualité : Ethernet/Wi-Fi 5GHz. • Activation : hotplayer.app/fr/activation."}
-    ],
-    credentialStep: 5
-  }
+  "fire-stick": {"title": "Installer sur Fire Stick", "subtitle": "6 étapes · captures réelles", "eyebrow": "Tutoriel guidé — Amazon Fire TV Stick", "desc": "Retrouvez vos chaînes avec XENON TV sur le Fire TV Stick d'Amazon. On installe l'appli IPTV Smarters Pro via Downloader, puis on la connecte en Xtream Codes — captures d'écran réelles à chaque étape.", "steps": [{"t": "Autorisez les applications inconnues", "d": "Réglages → Mon Fire TV → Options pour développeurs → activez « Installer applications inconnues » pour Downloader.", "img": "https://static.wixstatic.com/media/5c087c_4d8458d1647f4e6b961222d2114ea447~mv2.webp"}, {"t": "Installez « Downloader »", "d": "Depuis l'Appstore Amazon, recherchez et installez l'application orange « Downloader ».", "img": "https://static.wixstatic.com/media/5c087c_6f76b803d7a349d09985a8226bb68212~mv2.webp"}, {"t": "Entrez le code 250931 dans Downloader", "d": "Ouvrez Downloader et saisissez le code 250931 : il télécharge directement IPTV Smarters Pro. Installez-la.", "img": "https://static.wixstatic.com/media/5c087c_55e5e7e8673e4160a8384ed14c4b2ffe~mv2.png"}, {"t": "Ouvrez l'appli → « Login with Xtream Codes API »", "d": "Au lancement, choisissez le mode Xtream Codes API — surtout pas M3U : il configure chaînes, VOD et guide TV d'un coup.", "img": "https://static.wixstatic.com/media/5c087c_cd4606aeda09428aa208162182331ac6~mv2.png"}, {"t": "Saisissez vos identifiants XENON", "d": "Nom (libre), puis l'URL du serveur avec son port (:8080), l'identifiant et le mot de passe reçus par e-mail — sans espace avant/après.", "img": "https://static.wixstatic.com/media/5c087c_4c59cdc95f454cee978cac823d804b4f~mv2.png"}, {"t": "Laissez charger, puis profitez", "d": "Chaînes, VOD et guide TV se synchronisent (≈ 1 min la première fois). Épinglez XENON en façade — le VPN inclus est déjà actif côté serveur."}], "icon": "https://static.wixstatic.com/media/07062c_80202f595b024c31855c49f5d626103a~mv2.webp", "tags": ["Fire TV Stick", "Fire TV Stick 4K", "Fire TV Cube"], "credentialStep": 5},
+  "smart-tv-smarters": {"title": "IPTV Smarters Pro sur Smart TV", "subtitle": "Samsung · LG · Hisense · Philips", "eyebrow": "Tutoriel guidé — Samsung · LG · Hisense · Philips", "desc": "Le guide varie selon la marque de votre téléviseur. Sélectionnez la vôtre ci-dessous — chaque onglet détaille l'installation d'IPTV Smarters Pro (application officielle WHMCS Smarters) et la connexion Xtream.", "steps": [{"t": "Reconnaître la bonne application sur Samsung", "d": "Sur le Samsung Smart Hub, recherchez « IPTV Smarters Pro ». Identifiez la version officielle : • Nom de l'application : IPTV Smarters Pro • Nom sur le logo : IPTV Smarters Player • Développeur : WHMCS Smarters", "img": "https://iptvsmartersplus.nl/wp-content/uploads/2025/10/image.png"}, {"t": "Installez et lancez IPTV Smarters Pro", "d": "Depuis le Samsung Smart Hub, installez IPTV Smarters Pro puis lancez l'application.", "img": "https://iptvquality.com/wp-content/uploads/2026/03/iptv-smarters-samsung-tv-app-store-1024x593.jpeg"}, {"t": "Acceptez les conditions d'utilisation", "d": "Au premier lancement, l'application affiche les termes et conditions. Appuyez sur « Accept » pour continuer vers l'écran de connexion."}, {"t": "Entrez vos codes de connexion XENON TV", "d": "Renseignez les identifiants fournis avec votre abonnement XENON TV : • Nom du profil : un nom de votre choix (ex : XENONTV) • URL du serveur : l'adresse du serveur IPTV de votre abonnement • Username : votre nom d'utilisateur • Password : votre mot de passe", "tip": "Vérifiez chaque champ puis appuyez sur « Add User ».", "img": "https://troypoint.com/wp-content/uploads/2023/07/iptv-smarters-pro-on-firestick-11-1.jpg.webp"}, {"t": "Support et dépannage", "d": "Solutions les plus fréquentes : • Application introuvable : cherchez dans le Smart Hub et vérifiez le développeur WHMCS Smarters. • Problèmes de connexion : vérifiez vos identifiants et votre abonnement. • Mauvaise qualité : Ethernet ou Wi-Fi 5GHz recommandé."}, {"t": "Reconnaître la bonne application sur LG", "d": "Sur le LG Content Store, recherchez « IPTVSmartersPro » (sans espace). Développeur : WHMCS Smarters.", "img": "https://www.smartersott.app/wp-content/uploads/2024/09/4-1024x571.jpeg"}, {"t": "Installez et lancez IPTVSmartersPro", "d": "Depuis le LG Content Store, installez IPTVSmartersPro puis lancez l'application."}, {"t": "Acceptez les conditions d'utilisation", "d": "Au premier lancement, l'application affiche les termes et conditions. Appuyez sur « Accept » pour continuer vers l'écran de connexion."}, {"t": "Entrez vos codes de connexion XENON TV", "d": "Renseignez les identifiants fournis avec votre abonnement XENON TV : • Nom du profil : un nom de votre choix (ex : XENONTV) • URL du serveur : l'adresse du serveur IPTV de votre abonnement • Username : votre nom d'utilisateur • Password : votre mot de passe", "tip": "Vérifiez chaque champ puis appuyez sur « Add User ».", "img": "https://troypoint.com/wp-content/uploads/2023/07/iptv-smarters-pro-on-firestick-11-1.jpg.webp"}, {"t": "Support et dépannage", "d": "Solutions les plus fréquentes : • Application introuvable : cherchez « IPTVSmartersPro » (sans espace), développeur WHMCS Smarters. • Problèmes de connexion : vérifiez vos identifiants et votre abonnement. • Mauvaise qualité : Ethernet ou Wi-Fi 5GHz recommandé."}, {"t": "Tutoriel vidéo — IPTV Smarters sur Hisense VIDAA", "d": "Suivez ce tutoriel vidéo pour installer IPTV Smarters sur votre TV Hisense VIDAA."}, {"t": "Trouvez et installez IPTV Smarters sur VIDAA", "d": "Depuis le store VIDAA, recherchez « IPTV Smarters » et installez l'application officielle."}, {"t": "Acceptez les conditions d'utilisation", "d": "Au premier lancement, l'application affiche les termes et conditions. Appuyez sur « Accept » pour continuer vers l'écran de connexion."}, {"t": "Entrez vos codes de connexion XENON TV", "d": "Renseignez les identifiants fournis avec votre abonnement XENON TV : • Nom du profil : un nom de votre choix (ex : XENONTV) • URL du serveur : l'adresse du serveur IPTV de votre abonnement • Username : votre nom d'utilisateur • Password : votre mot de passe", "tip": "Vérifiez chaque champ puis appuyez sur « Add User ».", "img": "https://troypoint.com/wp-content/uploads/2023/07/iptv-smarters-pro-on-firestick-11-1.jpg.webp"}, {"t": "Support et dépannage", "d": "Solutions les plus fréquentes : • Application introuvable : cherchez « IPTV Smarters » dans le store VIDAA (WHMCS Smarters). • Problèmes de connexion : vérifiez vos identifiants et votre abonnement. • Mauvaise qualité : Ethernet ou Wi-Fi 5GHz recommandé."}, {"t": "Tutoriel vidéo — IPTV Smarters sur Philips VIDAA", "d": "Suivez ce tutoriel vidéo pour installer IPTV Smarters sur votre TV Philips VIDAA."}, {"t": "Trouvez et installez IPTV Smarters sur VIDAA", "d": "Depuis le store VIDAA, recherchez « IPTV Smarters » et installez l'application officielle."}, {"t": "Acceptez les conditions d'utilisation", "d": "Au premier lancement, l'application affiche les termes et conditions. Appuyez sur « Accept » pour continuer vers l'écran de connexion."}, {"t": "Entrez vos codes de connexion XENON TV", "d": "Renseignez les identifiants fournis avec votre abonnement XENON TV : • Nom du profil : un nom de votre choix (ex : XENONTV) • URL du serveur : l'adresse du serveur IPTV de votre abonnement • Username : votre nom d'utilisateur • Password : votre mot de passe", "tip": "Vérifiez chaque champ puis appuyez sur « Add User ».", "img": "https://troypoint.com/wp-content/uploads/2023/07/iptv-smarters-pro-on-firestick-11-1.jpg.webp"}, {"t": "Support et dépannage", "d": "Solutions les plus fréquentes : • Application introuvable : cherchez « IPTV Smarters » dans le store VIDAA (WHMCS Smarters). • Problèmes de connexion : vérifiez vos identifiants et votre abonnement. • Mauvaise qualité : Ethernet ou Wi-Fi 5GHz recommandé."}], "icon": "https://static.wixstatic.com/media/07062c_05f4e67cf0ad43b2b7b46971e2ab8376~mv2.png/v1/fill/w_108,h_110,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/smartersplayer.png", "credentialStep": 4},
+  "smart-one": {"title": "Smart One IPTV sur Smart TV", "subtitle": "Licence 2€/an · portail web", "eyebrow": "Application payante · licence 2€ / an", "desc": "Smart One IPTV s'installe depuis le store de votre TV, puis se configure via un portail web avec l'adresse MAC de votre téléviseur et votre lien M3U XENON TV. Licence unique de 2€/an.", "steps": [{"t": "Installez Smart One IPTV sur votre TV", "d": "Rendez-vous sur le store d'applications de votre TV et recherchez « Smart One IPTV » : • Samsung : Samsung Apps (Smart Hub) • LG : LG Content Store • Android TV : Google Play Store • Apple TV : App Store • Hisense / Philips VIDAA : VIDAA App Store"}, {"t": "Lancez l'app et notez votre adresse MAC", "d": "Ouvrez Smart One IPTV : votre adresse MAC s'affiche au lancement, encadrée en rouge (en haut) ou en bleu (au centre).", "img": "https://tvblue.fr/wp-content/uploads/2023/11/adresse-mac-smartone-iptv.webp"}, {"t": "Ouvrez le site Smart One IPTV depuis votre mobile", "d": "Depuis votre smartphone ou tablette, ouvrez le portail de configuration", "btn": {"label": "Ouvrir le portail Smart One IPTV", "url": "https://smartone-iptv.com/fr/plugin/smart_one/main_generate"}}, {"t": "Faites défiler et cliquez sur « M3U Playlist »", "d": "Sur la page qui s'ouvre, faites défiler vers le bas et cliquez sur le bouton « M3U Playlist ».", "img": "https://static.wixstatic.com/media/5c087c_599953eb84534a0f80b9379d89c6c448~mv2.jpg"}, {"t": "Remplissez les informations de votre playlist", "d": "Complétez le formulaire : • TV MAC : l'adresse MAC affichée sur votre TV (étape 2) • Playlist Name : XENONTV • Playlist M3U : votre lien M3U XENON TV (ci-dessous) • EPG : laisser vide", "tip": "Une fois rempli, appuyez sur « ADD PLAYLIST » pour valider.", "img": "https://static.wixstatic.com/media/5c087c_2a351ddf95fb4bacb40248ad71ef0d29~mv2.jpg"}, {"t": "Activez l'application (licence 1 an — 2€)", "d": "Rendez-vous sur la page d'activation pour activer Smart One IPTV sur votre TV : • TV MAC : entrez l'adresse MAC de votre TV • Type of license : sélectionnez 1 YEAR à 2€", "tip": "Procédez au paiement pour activer votre licence.", "btn": {"label": "Activer Smart One IPTV", "url": "https://smartone-iptv.com/fr/plugin/smart_one/main_activate"}}, {"t": "Support et dépannage", "d": "Solutions les plus fréquentes : • MAC introuvable : Settings → Info dans l'application. • Playlist non chargée : vérifiez que votre lien M3U est correct et à jour. • Mauvaise qualité : Ethernet ou Wi-Fi 5GHz recommandé. • Licence expirée : renouvelez pour 2€/an."}], "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/1f/0b/25/1f0b25f8-37d8-9929-9657-98d5429353b3/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg", "m3uStep": 5},
+  "hot-iptv": {"title": "HOT IPTV sur Smart TV", "subtitle": "Recommandée · activation 10€", "eyebrow": "Application payante · activation 10€ · recommandée", "desc": "HOT IPTV offre la meilleure interface du marché. Installez-la depuis le store de votre TV, configurez-la via son portail web avec votre code MAC et votre lien M3U XENON TV, puis activez (10€).", "steps": [{"t": "Installez HOT IPTV sur votre TV", "d": "Rendez-vous sur le store d'applications de votre TV et recherchez « HOT IPTV » : • Samsung : Samsung Apps (Smart Hub) • LG : LG Content Store • Android TV : Google Play Store • Hisense / Philips VIDAA : VIDAA App Store • Fire TV / Fire Stick : via Downloader (code 395800)"}, {"t": "Lancez l'app et notez votre code MAC", "d": "Ouvrez HOT IPTV : un code MAC unique s'affiche sur l'écran d'accueil.", "img": "https://tvblue.fr/wp-content/uploads/2023/11/lien-m3u-hot-iptv-player.webp"}, {"t": "Ouvrez le portail HOT IPTV depuis votre mobile", "d": "Depuis votre smartphone ou tablette, ouvrez le portail d'activation", "btn": {"label": "Ouvrir le portail HOT IPTV", "url": "https://hotplayer.app/fr/upload"}}, {"t": "Entrez votre adresse MAC", "d": "Sur le portail, renseignez le champ « Votre adresse MAC » avec le code affiché sur votre TV (étape 2)."}, {"t": "Ajoutez votre lien M3U XENON TV", "d": "Choisissez le type « Link » puis remplissez : • Lien M3U : votre lien M3U XENON TV (ci-dessous) • Name : XENONTV", "tip": "Une fois rempli, cliquez sur « SAVE » pour enregistrer.", "img": "https://tvblue.fr/wp-content/uploads/2023/11/lien-m3u-hot-iptv-player.webp"}, {"t": "Activez l'application (10€)", "d": "Rendez-vous sur la page d'activation pour activer HOT IPTV : • MAC : entrez l'adresse MAC de votre TV • Tarif : 10€ pour l'activation", "tip": "Procédez au paiement pour activer votre accès.", "btn": {"label": "Activer HOT IPTV", "url": "https://hotplayer.app/fr/activation"}}, {"t": "Support et dépannage", "d": "Solutions les plus fréquentes : • MAC introuvable : relancez l'app, le code s'affiche à l'accueil. • Playlist non chargée : le lien M3U doit commencer par http://. • Mauvaise qualité : Ethernet ou Wi-Fi 5GHz recommandé. • Non activée : passez par hotplayer.app/fr/activation."}], "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1f/db/f1/1fdbf1f4-98a2-f9cd-d494-15e90df594d6/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg", "m3uStep": 5},
+  "android-tv-smarters": {"title": "IPTV Smarters Pro sur Android TV", "subtitle": "Downloader · code 250931", "eyebrow": "Tutoriel guidé — Android TV & Google TV", "desc": "Sur Android TV / Google TV (Sony, Nvidia Shield, Mi TV, Chromecast…) : installez Downloader, récupérez IPTV Smarters Pro via le code 250931, puis connectez-vous en Xtream Codes.", "steps": [{"t": "Installez Downloader depuis le Google Play Store", "d": "Downloader permet de télécharger et d'installer des APK, dont IPTV Smarters Pro qui n'est pas disponible sur le Play Store. Installez-la gratuitement via le bouton ci-dessous.", "btn": {"label": "Télécharger Downloader", "url": "https://play.google.com/store/apps/details?id=com.esaba.downloader"}, "img": "https://troypointinsider.com/uploads/default/original/3X/7/c/7c42f970f46288003a7f8f2ab935c95e1a4d9bfd.jpeg"}, {"t": "Activez les sources inconnues", "d": "Pour installer via Downloader, autorisez les applications de sources inconnues : • Android TV / Google TV : Paramètres → Applications → Sécurité et restrictions → Sources inconnues → Downloader → Autoriser • Samsung Smart TV (Tizen) : Paramètres → Général → Système → Gestionnaire d'applications externes → Activer • Xiaomi Mi TV / MIUI : Paramètres → Confidentialité → Sources inconnues → Activer • Nvidia Shield / Box Android : Paramètres → Sécurité → Sources inconnues → Activer"}, {"t": "Ouvrez Downloader et entrez le code 250931", "d": "Ouvrez Downloader, sélectionnez la barre de recherche et tapez le code : Appuyez sur Go — vous arrivez sur une page avec la liste des applications.", "img": "https://troypoint.com/wp-content/uploads/2025/04/IPTV-Smarters-Pro-on-Firestick2.jpg.webp"}, {"t": "Naviguez vers IPTV Smarters Pro et cliquez sur Download", "d": "Sur la page qui s'affiche, faites défiler jusqu'à IPTV Smarters Pro. Appuyez sur « Download » pour lancer le téléchargement de l'APK.", "img": "https://troypoint.com/wp-content/uploads/2025/04/IPTV-Smarters-Pro-on-Firestick4.jpg.webp"}, {"t": "Laissez l'application s'installer et ouvrez-la", "d": "Une fois téléchargée, l'installation démarre. Appuyez sur « Installer ». Puis sur « Ouvrir » pour lancer IPTV Smarters Pro.", "tip": "Astuce : vous pouvez fermer Downloader une fois l'installation terminée.", "img": "https://troypoint.com/wp-content/uploads/2025/04/IPTV-Smarters-Pro-on-Firestick5.jpg.webp"}, {"t": "Lancez l'application et acceptez les conditions", "d": "Au premier lancement, acceptez les termes et conditions. Appuyez sur « Agree » / « J'accepte » pour continuer vers l'écran de connexion.", "img": "https://troypoint.com/wp-content/uploads/2023/07/iptv-smarters-pro-on-firestick-9.jpg.webp"}, {"t": "Sélectionnez « Login with Xtream Codes API »", "d": "Choisissez le mode « Login with Xtream Codes API » pour connecter votre abonnement XENON TV.", "tip": "Important : pas « Load Your Playlist / M3U URL » — choisissez bien Xtream Codes API.", "img": "https://troypoint.com/wp-content/uploads/2023/07/iptv-smarters-pro-on-firestick-9.jpg.webp"}, {"t": "Entrez vos codes de connexion XENON TV", "d": "Renseignez les identifiants reçus avec votre abonnement : • Nom du profil : un nom de votre choix (ex : XENONTV) • URL du serveur : l'adresse du serveur IPTV fournie • Username : le nom d'utilisateur reçu • Password : le mot de passe associé", "tip": "Vérifiez chaque champ puis appuyez sur « Add User ». Votre service est prêt !", "img": "https://troypoint.com/wp-content/uploads/2023/07/iptv-smarters-pro-on-firestick-11.jpg.webp"}, {"t": "Support et dépannage", "d": "Solutions les plus fréquentes : • Installation bloquée : vérifiez les sources inconnues pour Downloader. • Problèmes de connexion : vérifiez vos identifiants et abonnement. • Mauvaise qualité : une connexion Ethernet ou Wi-Fi 5GHz est recommandée pour les TV. • Application qui plante : désinstallez puis réinstallez via Downloader."}], "icon": "https://static.wixstatic.com/media/07062c_05f4e67cf0ad43b2b7b46971e2ab8376~mv2.png/v1/fill/w_108,h_110,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/smartersplayer.png", "credentialStep": 8},
+  "android-tv-zen": {"title": "Zen IPTV Player sur Android TV", "subtitle": "Downloader · code 725409", "eyebrow": "Tutoriel guidé — Android TV & Google TV", "desc": "Application au design premium sur Android TV : installez Downloader, récupérez Zen IPTV via le code 725409, créez votre compte puis connectez votre abonnement XENON TV.", "steps": [{"t": "Installez Downloader sur votre Android TV", "d": "Downloader permet d'installer Zen IPTV, absent du Play Store de certaines TV. Recherchez « Downloader » sur le Play Store de votre Android TV et installez-la."}, {"t": "Activez les sources inconnues sur votre Android TV", "d": "Autorisez l'installation depuis des sources inconnues : • Android TV / Google TV : Paramètres → Applications → Sécurité et restrictions → Sources inconnues → Downloader → Autoriser • Xiaomi Mi TV / MIUI : Paramètres → Confidentialité → Sources inconnues → Activer • Nvidia Shield / Box Android : Paramètres → Sécurité → Sources inconnues → Activer"}, {"t": "Ouvrez Downloader et entrez le code 725409", "d": "Ouvrez Downloader, sélectionnez la barre de recherche et tapez le code : Appuyez sur Go — le téléchargement de Zen IPTV démarre automatiquement.", "img": "https://troypoint.com/wp-content/uploads/2025/04/IPTV-Smarters-Pro-on-Firestick2.jpg.webp"}, {"t": "Installez l'application et lancez-la", "d": "Le téléchargement terminé, appuyez sur « Installer », puis « Ouvrir ».", "tip": "Astuce : vous pouvez fermer Downloader une fois l'installation terminée."}, {"t": "Créez votre compte", "d": "Appuyez sur « Inscription » : e-mail + mot de passe, ou compte Google en un clic.", "tip": "Conseil : ce compte synchronise votre visionnage sur tous vos appareils.", "img": "https://logiciels.net/wp-content/uploads/2026/04/inscrire-1024x576.webp"}, {"t": "Ajoutez une source IPTV", "d": "Depuis l'écran principal, appuyez sur « Ajouter une source » puis « Xtream Codes ».", "img": "https://logiciels.net/wp-content/uploads/2026/04/Ajouter-une-source--1024x576.webp"}, {"t": "Entrez vos codes de connexion XENON TV", "d": "Renseignez les identifiants reçus : • Nom de la source : ex : XENONTV • URL du serveur : l'adresse fournie • Username : votre nom d'utilisateur • Password : votre mot de passe", "tip": "Vérifiez chaque champ puis appuyez sur « Valider ».", "img": "https://logiciels.net/wp-content/uploads/2026/04/Xtream-Codes-1024x576.webp"}, {"t": "Validez et profitez de votre contenu", "d": "Zen IPTV charge chaînes, films et séries en 4K/HD sur votre TV.", "tip": "Astuce : une connexion Ethernet ou Wi-Fi 5GHz est recommandée sur grand écran.", "img": "https://logiciels.net/wp-content/uploads/2026/04/votre-contenu-1024x576.webp"}, {"t": "Support et dépannage", "d": "Solutions les plus fréquentes : • Installation bloquée : vérifiez les sources inconnues pour Downloader. • Problèmes de connexion : vérifiez vos identifiants et abonnement. • Liste qui ne charge pas : vérifiez l'URL du serveur. • Mauvaise qualité : Ethernet ou Wi-Fi 5GHz recommandé."}], "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ef/52/9d/ef529d7b-4a5a-cc95-51bb-d5634fef8c97/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg", "credentialStep": 7},
+  "iphone-smarters": {"title": "Smarters Player Lite sur iPhone", "subtitle": "iPhone · iPad · Apple TV", "eyebrow": "Tutoriel guidé — iPhone · iPad · Apple TV", "desc": "L'application la plus populaire sur iPhone, iPad et Apple TV. Gratuite, conçue pour iOS, elle garantit une lecture fluide de vos flux XENON TV en mode Xtream Codes.", "steps": [{"t": "Téléchargez Smarters Players Lite", "d": "La première étape est de télécharger l'application Smarters Players Lite depuis l'App Store — recherchez-la ou cliquez sur le bouton ci-dessous. Elle est gratuite et spécialement conçue pour iOS, pour une lecture fluide et stable de vos flux IPTV.", "btn": {"label": "Télécharger l'application", "url": "https://apps.apple.com/fr/app/smarters-player-lite/id1628995509"}}, {"t": "Lancez l'application et sélectionnez « Xtream Code »", "d": "Une fois installée, ouvrez Smarters Player Lite. Au premier lancement, acceptez les termes et conditions. Appuyez ensuite sur « Xtream Code » pour configurer votre service IPTV.", "tip": "Important : ne sélectionnez pas « M3U URL » — choisissez bien Xtream Code pour une compatibilité optimale avec votre abonnement XENON TV.", "img": "https://visionnagepro.com/wp-content/uploads/2026/04/2-1024x473.webp"}, {"t": "Saisissez vos informations de connexion IPTV", "d": "Entrez les identifiants fournis lors de l'achat de votre abonnement XENON TV : • Nom du profil : un nom de votre choix (ex : XENONTV) • Username : le nom d'utilisateur reçu avec votre abonnement • Password : le mot de passe associé à votre compte • URL du serveur : l'adresse du serveur IPTV fournie avec votre abonnement", "tip": "Vérifiez chaque champ puis appuyez sur « ADD USERS ». Votre service est prêt !", "img": "https://xbackend.toolsmandu.com/static/a16502fa14a7a814b5e575cd7c8e3ccb.png"}, {"t": "Support et dépannage pour iPhone IPTV", "d": "Si vous rencontrez un problème, voici les solutions les plus fréquentes : • Problèmes de connexion : vérifiez vos identifiants et que votre abonnement est actif. • Mauvaise qualité : une connexion Wi-Fi stable ou 4G/5G est indispensable. • Compatibilité iOS : mettez votre appareil à jour pour Smarters Player Lite."}], "icon": "https://static.wixstatic.com/media/07062c_05f4e67cf0ad43b2b7b46971e2ab8376~mv2.png/v1/fill/w_108,h_110,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/smartersplayer.png", "credentialStep": 3},
+  "iphone-zen": {"title": "Zen IPTV Player sur iPhone", "subtitle": "iPhone · iPad · Apple TV", "eyebrow": "Tutoriel guidé — iPhone · iPad · Apple TV", "desc": "Nouvelle application au design premium sur iPhone, iPad, Apple TV et Mac. Interface soignée et fluide, connexion Xtream identique — gratuite.", "steps": [{"t": "Téléchargez Zen IPTV Player", "d": "Rendez-vous sur l'App Store et recherchez « Zen IPTV Player », ou appuyez sur le bouton ci-dessous. Gratuite, elle offre une interface digne des grandes plateformes de streaming, compatible iPhone et iPad.", "btn": {"label": "Télécharger l'application", "url": "https://apps.apple.com/fr/app/zen-iptv-player/id6458223193"}}, {"t": "Installez et ouvrez l'application", "d": "Une fois téléchargée, ouvrez Zen IPTV Player : vous arrivez sur l'écran d'accueil. Avant de commencer, créez un compte ou connectez-vous pour profiter de toutes les fonctionnalités.", "img": "https://logiciels.net/wp-content/uploads/2026/04/POUR-IOS-1024x576.webp"}, {"t": "Créez votre compte", "d": "Appuyez sur « S'inscrire » et renseignez votre e-mail et un mot de passe. Vous pouvez aussi vous connecter avec votre identifiant Apple en un clic.", "tip": "Conseil : ce compte synchronise votre visionnage sur tous vos appareils Apple.", "img": "https://logiciels.net/wp-content/uploads/2026/04/inscrire-POUR-IOS-1024x576.webp"}, {"t": "Ajoutez une source IPTV", "d": "Depuis l'écran principal, appuyez sur « Ajouter une source » puis sélectionnez « Xtream Codes ». C'est ici que vous reliez votre abonnement XENON TV à l'application.", "img": "https://logiciels.net/wp-content/uploads/2026/04/ajouter-une-source-POUR-IOS-1024x576.webp"}, {"t": "Entrez vos codes de connexion XENON TV", "d": "Renseignez les identifiants reçus avec votre abonnement : • Nom de la source : un nom de votre choix (ex : XENONTV) • URL du serveur : l'adresse du serveur IPTV fournie • Username : le nom d'utilisateur reçu • Password : le mot de passe associé", "tip": "Vérifiez chaque champ puis appuyez sur « Valider ».", "img": "https://logiciels.net/wp-content/uploads/2026/04/ajouter-une-source-POUR-IOS-1-1024x576.webp"}, {"t": "Votre liste est chargée — profitez !", "d": "Zen IPTV charge automatiquement chaînes, films et séries. Patientez quelques secondes le temps de la synchronisation. Vous accédez ensuite à tout votre contenu XENON TV en qualité 4K/HD.", "tip": "Astuce : si la liste met du temps, vérifiez votre connexion — un Wi-Fi stable ou une 4G/5G est recommandé.", "img": "https://logiciels.net/wp-content/uploads/2026/04/Les-programmes-1024x576.webp"}, {"t": "Support et dépannage pour Zen IPTV iPhone", "d": "Solutions les plus fréquentes : • Problèmes de connexion : vérifiez vos identifiants et l'état de votre abonnement. • Liste qui ne charge pas : vérifiez l'URL du serveur et votre connexion. • Mauvaise qualité : Wi-Fi stable ou 4G/5G indispensable. • Compatibilité iOS : iOS 13 minimum requis."}], "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ef/52/9d/ef529d7b-4a5a-cc95-51bb-d5634fef8c97/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg", "credentialStep": 5},
+  "android-smarters": {"title": "IPTV Smarters Pro sur Android", "subtitle": "Smartphone & tablette", "eyebrow": "Tutoriel guidé — smartphone & tablette Android", "desc": "La méthode standard sur Android : installez Downloader, récupérez IPTV Smarters Pro via le code 250931, puis connectez-vous en Xtream Codes.", "steps": [{"t": "Installez Downloader depuis le Google Play Store", "d": "Downloader permet de télécharger et installer des APK, dont IPTV Smarters Pro qui n'est pas sur le Play Store. Installez-la gratuitement via le bouton ci-dessous.", "btn": {"label": "Télécharger Downloader", "url": "https://play.google.com/store/apps/details?id=com.esaba.downloader"}, "img": "https://troypointinsider.com/uploads/default/original/3X/7/c/7c42f970f46288003a7f8f2ab935c95e1a4d9bfd.jpeg"}, {"t": "Activez les sources inconnues", "d": "Pour installer via Downloader, autorisez les applications de sources inconnues : • Samsung : Paramètres → Applications → ⋮ → Accès spéciaux → Installation applis inconnues → Downloader → Autoriser • Xiaomi / MIUI : Paramètres → Confidentialité → Sources inconnues → Activer • Huawei : Paramètres → Sécurité → Sources inconnues → Activer • Android stock : Paramètres → Applications → Downloader → Installer applis inconnues → Autoriser"}, {"t": "Ouvrez Downloader et entrez le code 250931", "d": "Ouvrez Downloader, sélectionnez la barre de recherche et tapez le code : Appuyez sur Go — vous arrivez sur une page avec la liste des applications.", "img": "https://troypoint.com/wp-content/uploads/2025/04/IPTV-Smarters-Pro-on-Firestick2.jpg.webp"}, {"t": "Naviguez vers IPTV Smarters Pro et cliquez sur Download", "d": "Sur la page qui s'affiche, faites défiler jusqu'à IPTV Smarters Pro. Appuyez sur « Download » pour lancer le téléchargement de l'APK.", "img": "https://troypoint.com/wp-content/uploads/2025/04/IPTV-Smarters-Pro-on-Firestick4.jpg.webp"}, {"t": "Laissez l'application s'installer et ouvrez-la", "d": "Le téléchargement terminé, l'installation démarre. Appuyez sur « Installer ». Puis « Ouvrir » pour lancer IPTV Smarters Pro.", "tip": "Astuce : vous pouvez fermer Downloader une fois l'installation terminée.", "img": "https://troypoint.com/wp-content/uploads/2025/04/IPTV-Smarters-Pro-on-Firestick5.jpg.webp"}, {"t": "Lancez l'application et acceptez les conditions", "d": "Au premier lancement, acceptez les termes et conditions. Appuyez sur « Agree » / « J'accepte » pour continuer.", "img": "https://troypoint.com/wp-content/uploads/2023/07/iptv-smarters-pro-on-firestick-9.jpg.webp?a"}, {"t": "Sélectionnez la connexion Xtream Codes API", "d": "Choisissez le mode « Login with Xtream Codes API » pour connecter votre abonnement XENON TV.", "tip": "Important : pas « Load Your Playlist / M3U URL » — choisissez bien Xtream Codes API.", "img": "https://troypoint.com/wp-content/uploads/2023/07/iptv-smarters-pro-on-firestick-9.jpg.webp"}, {"t": "Entrez vos codes de connexion XENON TV", "d": "Renseignez les identifiants reçus avec votre abonnement : • Nom du profil : un nom de votre choix (ex : XENONTV) • URL du serveur : l'adresse du serveur IPTV fournie • Username : le nom d'utilisateur reçu • Password : le mot de passe associé", "tip": "Vérifiez chaque champ puis appuyez sur « Add User ». Votre service est prêt !", "img": "https://troypoint.com/wp-content/uploads/2023/07/iptv-smarters-pro-on-firestick-11.jpg.webp"}, {"t": "Support et dépannage", "d": "Solutions les plus fréquentes : • Installation bloquée : vérifiez les sources inconnues pour Downloader. • Problèmes de connexion : vérifiez vos identifiants et abonnement. • Mauvaise qualité : Wi-Fi stable / Ethernet recommandé. • Application qui plante : réinstallez via Downloader."}], "icon": "https://static.wixstatic.com/media/07062c_05f4e67cf0ad43b2b7b46971e2ab8376~mv2.png/v1/fill/w_108,h_110,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/smartersplayer.png", "credentialStep": 8},
+  "android-zen": {"title": "Zen IPTV Player sur Android", "subtitle": "APK officiel", "eyebrow": "Tutoriel guidé — smartphone & tablette Android", "desc": "Application au design premium sur Android : téléchargez l'APK depuis le site officiel, créez votre compte, puis connectez votre abonnement XENON TV.", "steps": [{"t": "Téléchargez Zen IPTV Player sur Android", "d": "Zen IPTV n'est pas sur le Play Store : téléchargez le fichier APK depuis le site officiel. Appuyez sur le bouton, puis sur « Télécharger l'APK ».", "btn": {"label": "Télécharger l'APK Zen IPTV", "url": "https://zeniptv.app/android"}}, {"t": "Activez les sources inconnues", "d": "Pour installer un APK, autorisez les sources inconnues : • Samsung : Paramètres → Applications → ⋮ → Accès spéciaux → Installation applis inconnues → Gestionnaire de fichiers → Autoriser • Xiaomi / MIUI : Paramètres → Confidentialité → Sources inconnues → Activer • Huawei : Paramètres → Sécurité → Sources inconnues → Activer • Android stock : Paramètres → Applications → Gestionnaire de fichiers → Installer applis inconnues → Autoriser"}, {"t": "Installez le fichier APK depuis vos téléchargements", "d": "Ouvrez le gestionnaire de fichiers puis le dossier « Téléchargements ». Appuyez sur zen-iptv.apk puis « Installer ».", "tip": "Astuce : le fichier est aussi accessible depuis la barre de notifications après le téléchargement."}, {"t": "Créez votre compte", "d": "Ouvrez Zen IPTV Player et appuyez sur « S'inscrire » : e-mail + mot de passe. Vous pouvez aussi utiliser votre compte Google en un clic.", "tip": "Conseil : ce compte synchronise votre visionnage sur tous vos appareils.", "img": "https://logiciels.net/wp-content/uploads/2026/04/inscrire-1024x576.webp"}, {"t": "Ajoutez une source IPTV", "d": "Depuis l'écran principal, appuyez sur « Ajouter une source » puis « Xtream Codes ». C'est ici que vous reliez votre abonnement XENON TV.", "img": "https://logiciels.net/wp-content/uploads/2026/04/Ajouter-une-source--1024x576.webp"}, {"t": "Entrez vos codes de connexion XENON TV", "d": "Renseignez les identifiants reçus : • Nom de la source : un nom de votre choix (ex : XENONTV) • URL du serveur : l'adresse du serveur IPTV fournie • Username : le nom d'utilisateur reçu • Password : le mot de passe associé", "tip": "Vérifiez chaque champ puis appuyez sur « Valider ».", "img": "https://logiciels.net/wp-content/uploads/2026/04/Xtream-Codes-1024x576.webp"}, {"t": "Votre liste est chargée — profitez !", "d": "Zen IPTV charge automatiquement chaînes, films et séries en 4K/HD.", "tip": "Astuce : si la liste met du temps, vérifiez votre connexion (Wi-Fi stable ou 4G/5G).", "img": "https://logiciels.net/wp-content/uploads/2026/04/votre-contenu-1024x576.webp"}, {"t": "Support et dépannage pour Zen IPTV Android", "d": "Solutions les plus fréquentes : • Installation bloquée : vérifiez les sources inconnues. • Problèmes de connexion : vérifiez vos identifiants et abonnement. • Liste qui ne charge pas : vérifiez l'URL du serveur. • Mauvaise qualité : Wi-Fi stable ou 4G/5G indispensable."}], "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ef/52/9d/ef529d7b-4a5a-cc95-51bb-d5634fef8c97/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg", "credentialStep": 6},
+  "pc-mac": {"title": "Installer sur PC / Mac", "subtitle": "Windows & macOS", "eyebrow": "Tutoriel guidé — Windows & macOS", "desc": "Toute la télé sur votre ordinateur Windows ou Mac. Méthode simple avec l'application IPTV Smarters (Xtream Codes), ou via VLC avec votre lien M3U. Suivez le guide illustré.", "steps": [{"t": "Installez l'application depuis le site de l'éditeur", "d": "Téléchargez IPTV Smarters (Windows ou macOS) depuis le site officiel de l'éditeur. Recherchez « IPTV Smarters »."}, {"t": "Ouvrez l’application et acceptez", "d": "Au premier lancement, acceptez les conditions et choisissez le français si demandé."}, {"t": "Choisissez « Login with Xtream Codes API »", "d": "Surtout pas le mode M3U : Xtream configure chaînes, films, séries ET guide TV d’un seul coup.", "img": "https://static.wixstatic.com/media/5c087c_cd4606aeda09428aa208162182331ac6~mv2.png"}, {"t": "Saisissez vos identifiants XENON", "d": "Nom (libre), puis l’URL du serveur avec son port (:8080), l’identifiant et le mot de passe reçus par e-mail — sans espace avant/après.", "img": "https://static.wixstatic.com/media/5c087c_4c59cdc95f454cee978cac823d804b4f~mv2.png"}, {"t": "Laissez la liste se charger", "d": "Validez (Add Playlist / Ajouter). Chaînes, VOD et guide TV se synchronisent (≈ 1 min la première fois)."}, {"t": "Organisez vos favoris et profitez", "d": "Ajoutez vos chaînes en favoris pour zapper plus vite. Le VPN inclus est déjà actif côté serveur."}], "icon": "https://static.wixstatic.com/media/07062c_d472e9c112314250b8456b26f24b1e53~mv2.webp", "tags": ["Windows 10 / 11", "MacBook & iMac"], "credentialStep": 4},
+  "smart-tv": {"title": "Smart TV", "subtitle": "Samsung · LG · Hisense · Philips", "eyebrow": "Choisissez votre application", "desc": "Sur Samsung, LG, Hisense et Philips, privilégiez HOT IPTV ou Smart One IPTV : plus stables face aux blocages opérateurs. IPTV Smarters reste possible mais moins fiable sur ces marques.", "choices": [{"slug": "hot-iptv", "name": "HOT IPTV", "tag": "Recommandée", "desc": "La meilleure interface. Code MAC + lien M3U via portail web. Activation 10€.", "icon": "🔥"}, {"slug": "smart-one", "name": "Smart One IPTV", "tag": "Stable", "desc": "Très fiable. Adresse MAC + lien M3U. Licence 2€/an.", "icon": "📡"}, {"slug": "smart-tv-smarters", "name": "IPTV Smarters Pro", "tag": "", "desc": "Connexion Xtream classique, selon la marque de votre TV.", "icon": "📺"}]},
+  "android": {"title": "Android — mobile & tablette", "subtitle": "Smartphone & tablette", "eyebrow": "Choisissez votre application", "desc": "Sur Android, IPTV Smarters Pro (via Downloader) et Zen IPTV Player offrent tous deux une connexion Xtream complète : chaînes, VOD et guide TV.", "choices": [{"slug": "android-smarters", "name": "IPTV Smarters Pro", "tag": "Recommandée", "desc": "La référence. Installation via Downloader, connexion Xtream.", "icon": "📱"}, {"slug": "android-zen", "name": "Zen IPTV Player", "tag": "", "desc": "Design premium. APK officiel + compte, connexion Xtream.", "icon": "📱"}]},
+  "android-tv": {"title": "Android TV / Google TV", "subtitle": "Sony · Nvidia Shield · Chromecast", "eyebrow": "Choisissez votre application", "desc": "Sur Android TV et Google TV, installez via Downloader. IPTV Smarters Pro et Zen IPTV Player se connectent tous deux en Xtream Codes.", "choices": [{"slug": "android-tv-smarters", "name": "IPTV Smarters Pro", "tag": "Recommandée", "desc": "Installation via Downloader (code 250931), connexion Xtream.", "icon": "🖥️"}, {"slug": "android-tv-zen", "name": "Zen IPTV Player", "tag": "", "desc": "APK via Downloader (code 725409) + compte, Xtream.", "icon": "🖥️"}]},
+  "iphone-ipad": {"title": "iPhone / iPad", "subtitle": "iOS · iPadOS · Apple TV", "eyebrow": "Choisissez votre application", "desc": "Sur iPhone, iPad et Apple TV, Smarters Player Lite est la plus populaire (gratuite). Zen IPTV Player est une excellente alternative au design soigné.", "choices": [{"slug": "iphone-smarters", "name": "Smarters Player Lite", "tag": "Recommandée", "desc": "Gratuite, conçue pour iOS. Connexion Xtream Codes.", "icon": "📱"}, {"slug": "iphone-zen", "name": "Zen IPTV Player", "tag": "", "desc": "Design premium, compte à créer. Connexion Xtream.", "icon": "📱"}]},
 };
+
 window.TUTO_CATALOG = [
-  { category: "Téléviseurs connectés", items: [
-    { slug:"smart-tv", label:"Smart TV · Samsung, LG, Hisense…", emoji:"📺" },
-    { slug:"smart-tv-smarters", label:"Smart TV · IPTV Smarters Pro", emoji:"📺" },
-    { slug:"smart-one", label:"Smart TV · Smart One IPTV", emoji:"📡" },
-    { slug:"hot-iptv", label:"Smart TV · HOT IPTV", emoji:"🔥" },
-    { slug:"android-tv", label:"Android TV / Google TV", emoji:"🖥️" },
-    { slug:"android-tv-smarters", label:"Android TV · IPTV Smarters Pro", emoji:"🖥️" },
-    { slug:"android-tv-zen", label:"Android TV · Zen IPTV", emoji:"🖥️" }
-  ]},
-  { category: "Box & lecteurs", items: [
-    { slug:"fire-stick", label:"Amazon Fire Stick", emoji:"🔥" }
-  ]},
-  { category: "Mobile & ordinateur", items: [
-    { slug:"iphone-ipad", label:"iPhone / iPad", emoji:"📱" },
-    { slug:"iphone-smarters", label:"iPhone · Smarters Player Lite", emoji:"📱" },
-    { slug:"iphone-zen", label:"iPhone · Zen IPTV", emoji:"📱" },
-    { slug:"android", label:"Android · smartphone & tablette", emoji:"📱" },
-    { slug:"android-smarters", label:"Android · IPTV Smarters Pro", emoji:"📱" },
-    { slug:"android-zen", label:"Android · Zen IPTV", emoji:"📱" },
-    { slug:"pc-mac", label:"PC / Mac (Windows & macOS)", emoji:"💻" }
-  ]}
+  {
+    "category": "Téléviseurs connectés",
+    "items": [
+      {
+        "slug": "smart-tv",
+        "label": "Smart TV · Samsung, LG, Hisense…",
+        "emoji": "📺"
+      },
+      {
+        "slug": "android-tv",
+        "label": "Android TV / Google TV",
+        "emoji": "🖥️"
+      }
+    ]
+  },
+  {
+    "category": "Box & lecteurs",
+    "items": [
+      {
+        "slug": "fire-stick",
+        "label": "Amazon Fire Stick",
+        "emoji": "🔥"
+      }
+    ]
+  },
+  {
+    "category": "Mobile & ordinateur",
+    "items": [
+      {
+        "slug": "iphone-ipad",
+        "label": "iPhone / iPad",
+        "emoji": "📱"
+      },
+      {
+        "slug": "android",
+        "label": "Android · smartphone & tablette",
+        "emoji": "📱"
+      },
+      {
+        "slug": "pc-mac",
+        "label": "PC / Mac (Windows & macOS)",
+        "emoji": "💻"
+      }
+    ]
+  }
 ];
