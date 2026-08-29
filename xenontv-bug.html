@@ -68,6 +68,19 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
 .cwmsg{padding:14px;border-radius:12px;background:rgba(229,9,20,.06);border:1px solid rgba(229,9,20,.22);font-size:.7rem;color:#ffb3b8;line-height:1.5;text-align:center;margin-top:12px}
 .cwmsg a{color:#fff;text-decoration:underline}
 .hide{display:none}
+.cause{display:flex;gap:13px;padding:15px 16px;border-radius:16px;background:linear-gradient(150deg,rgba(229,9,20,.13),rgba(255,255,255,.01) 70%);border:1px solid rgba(229,9,20,.32);margin-bottom:14px}
+.cause .ic{font-size:1.5rem;flex-shrink:0;line-height:1}
+.cause h4{font-size:.84rem;font-weight:800;line-height:1.2}
+.cause p{font-size:.66rem;color:var(--muted2);line-height:1.5;margin-top:4px}
+.fxcard{background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);border-radius:16px;padding:4px 16px}
+.fx{display:flex;gap:13px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line)}
+.fx:last-child{border-bottom:none}
+.fx .num{width:26px;height:26px;flex-shrink:0;border-radius:50%;background:linear-gradient(140deg,var(--red2),#9c050e);color:#fff;font-family:var(--disp);font-size:.85rem;display:grid;place-items:center;box-shadow:0 4px 12px rgba(229,9,20,.35);margin-top:1px}
+.fx h4{font-size:.76rem;font-weight:800;line-height:1.2}
+.fx p{font-size:.64rem;color:var(--muted2);line-height:1.5;margin-top:3px}
+.note2{display:flex;gap:9px;padding:12px 14px;border-radius:12px;background:rgba(234,179,8,.07);border:1px solid rgba(234,179,8,.22);font-size:.64rem;color:#e8cd7a;line-height:1.55;margin-top:12px}
+.glink{display:flex;align-items:center;gap:11px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);cursor:pointer;margin-top:12px;font-size:.74rem;font-weight:700}
+.glink .ar{margin-left:auto;color:var(--muted);font-size:1rem}
 /* modal réparer */
 .mov{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.85);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center}
 .mov.open{display:flex}
@@ -125,9 +138,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
   <!-- Étape 3 : solution -->
   <div id="vSolution" class="hide">
     <div class="numdiv"><b>3</b><p id="solTitle">La solution</p><i></i></div>
-    <div id="diagList" style="display:flex;flex-direction:column;gap:10px"></div>
-    <button class="btnr" style="width:100%;margin-top:12px" onclick="openRepair()">🔧 Réparer mon URL</button>
-    <div id="guideWrap"></div>
+    <div id="solBody"></div>
     <div class="tg">
       <span class="tic2"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M22 3 2 10.4l6.1 2.1L20 5.5l-8.6 9.1v4.3l3.1-3 4.3 3.1z"/></svg></span>
       <div style="min-width:0"><h4>Toujours bloqué ?</h4><p>Un conseiller vous dépanne en direct — 7 j/7, en français.</p></div>
@@ -203,27 +214,61 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
     chromecast:[{...A_SM,slug:'android-tv-smarters'}],
     pc:        [{label:'IPTV Smarters / VLC',em:'💻',slug:'pc-mac'}]
   };
-  const DIAG = {
-    codes:[
-      {t:'Vérifiez la saisie',p:"Recopiez URL, identifiant et mot de passe depuis « Mes accès », sans espace avant/après. L'URL doit commencer par http:// (et non https://)."},
-      {t:'Réparez votre URL',p:'Votre domaine est peut-être grillé : générez une URL fraîche (bouton ci-dessus) et remplacez-la dans l\'application.',ok:true}],
-    blank:[
-      {t:'Vérifiez votre connexion',p:'15 Mbps minimum. Redémarrez la box internet et l\'appareil 30 secondes.'},
-      {t:'Rechargez la playlist',p:'Menu de l\'appli → « Recharger / actualiser la liste ». Sinon, supprimez le profil et reconnectez-vous.'},
-      {t:'Réparez votre URL',p:'Générez une URL fraîche (bouton ci-dessus).',ok:true}],
-    buffer:[
-      {t:'Testez votre débit',p:'15 Mbps minimum. Préférez le câble Ethernet au Wi-Fi. Baissez la qualité de 4K à FHD dans l\'appli.'},
-      {t:'Réparez votre URL',p:'Domaine ralenti ? Générez une URL fraîche (bouton ci-dessus).',ok:true}],
-    crash:[
-      {t:'Redémarrez puis réinstallez',p:'Fermez l\'appli et redémarrez l\'appareil. Si ça persiste, désinstallez puis réinstallez l\'application via le guide ci-dessous.'},
-      {t:'Vérifiez la bonne application',p:'N\'installez que la version officielle (attention aux copies payantes/malveillantes) — voir le guide ci-dessous.'}],
-    nochan:[
-      {t:'Rechargez la liste des chaînes',p:'Menu → « Recharger la playlist ». Vérifiez que votre abonnement est bien actif.'},
-      {t:'Réparez votre URL',p:'Générez une URL fraîche (bouton ci-dessus).',ok:true}],
-    other:[
-      {t:'Redémarrez tout',p:'Éteignez l\'appareil et la box 30 secondes, rallumez, relancez l\'application.'},
-      {t:'Réparez votre URL',p:'Générez une URL fraîche (bouton ci-dessus).',ok:true},
-      {t:'Réinstallez proprement',p:'Suivez le guide d\'installation pas-à-pas ci-dessous, avec vos codes déjà intégrés.'}]
+  // Le vrai fix : l'URL du client est périmée → il remet ses codes / met à jour la playlist.
+  // Méthode selon l'application (jamais « réinstaller »).
+  const FIX = {
+    'xtream': {
+      head:'Votre URL a changé — remettez vos codes',
+      intro:"Ne réparez pas l'ancien profil : créez-en un nouveau avec l'URL à jour (ci-dessous).",
+      steps:[
+        {t:'En haut à droite, touchez l’icône « 2 personnages »', d:'C’est la gestion des profils / utilisateurs.'},
+        {t:'« Ajouter un utilisateur » → « Login with Xtream Codes API »', d:'Surtout pas le mode M3U.'},
+        {t:'Saisissez le NOUVEL URL + vos identifiants', d:'Un nom au choix, puis l’URL, l’utilisateur et le mot de passe ci-dessous. Validez et utilisez ce nouveau profil.'}
+      ],
+      stuck:'Bloqué sur « Veuillez patienter » en ouvrant votre profil ? Débranchez/rebranchez l’appareil, ne cliquez PAS sur l’ancien profil : relancez l’appli et touchez directement « Ajouter un utilisateur » (2 personnages) pour recréer le profil avec le nouvel URL.'
+    },
+    'zen': {
+      head:'Votre URL a changé — modifiez-la',
+      intro:'Au lancement, si une erreur apparaît : inutile de tout refaire.',
+      steps:[
+        {t:'Ouvrez « Réglages » → « Modifier »', d:'Sur votre source Xtream existante.'},
+        {t:'Remplacez l’URL de connexion', d:'Collez le nouvel URL ci-dessous, gardez le même identifiant et mot de passe. Enregistrez.'}
+      ]
+    },
+    'hot': {
+      head:'Mettez à jour votre playlist (portail HOT)',
+      intro:'HOT IPTV se configure depuis le portail web, via l’adresse MAC de l’appareil.',
+      steps:[
+        {t:'Notez votre adresse MAC', d:'Elle s’affiche à l’ouverture de HOT IPTV, sur l’écran d’accueil.'},
+        {t:'Depuis votre mobile, ouvrez le portail HOT Player', d:'hotplayer.app → saisissez votre adresse MAC.'},
+        {t:'Remplacez le lien M3U', d:'Supprimez l’ancienne playlist, ajoutez le nouveau lien M3U (ci-dessous), type « Link », nom XENONTV. Enregistrez — l’appli se resynchronise.'}
+      ]
+    },
+    'smartone': {
+      head:'Mettez à jour votre playlist (portail Smart One)',
+      intro:'Smart One se configure depuis le portail web, via l’adresse MAC.',
+      steps:[
+        {t:'Notez votre adresse MAC', d:'Elle s’affiche à l’ouverture de Smart One IPTV.'},
+        {t:'Depuis votre mobile, ouvrez le portail Smart One', d:'Saisissez votre adresse MAC.'},
+        {t:'Mettez à jour le lien M3U', d:'Remplacez l’ancien lien par le nouveau lien M3U (ci-dessous), nom XENONTV. Enregistrez — la liste se resynchronise.'}
+      ]
+    },
+    'switch': {
+      head:'Sur Samsung / LG, changez d’application',
+      intro:'IPTV Smarters est de plus en plus bloqué par les opérateurs sur Samsung / LG / Philips / Hisense. Basculez sur une appli plus stable :',
+      steps:[
+        {t:'HOT IPTV — recommandée', d:'La plus stable au quotidien. Configuration par portail web + adresse MAC.'},
+        {t:'ou Smart One IPTV', d:'Alternative fiable (licence 2€/an). Même principe : portail + adresse MAC.'}
+      ],
+      switchGuides:[['hot-iptv','Guide HOT IPTV'],['smart-one','Guide Smart One']]
+    }
+  };
+  // slug d'application → méthode de fix
+  const SLUG_METHOD = {
+    'iphone-smarters':'xtream','android-smarters':'xtream','android-tv-smarters':'xtream','fire-stick':'xtream','pc-mac':'xtream',
+    'iphone-zen':'zen','android-zen':'zen','android-tv-zen':'zen',
+    'hot-iptv':'hot','smart-one':'smartone',
+    'smart-tv-smarters':'switch'
   };
 
   // ── Identifiants du client ──
@@ -296,24 +341,29 @@ a{color:inherit;text-decoration:none}img{max-width:100%}
   window.goBack=goBack;
 
   function renderSolution(){
-    const prob=PROBLEMS.find(p=>p.id===selProb)||{};
     const dev=DEVICES.find(d=>d.id===selDevice)||{};
-    const guide = selSlug ? (window.TUTO_GUIDES||{})[selSlug] : null;
-    document.getElementById('solTitle').textContent = (prob.t||'La solution') + ' · ' + (dev.label||'') + (guide?(' · '+guide.title.replace(/^Installer sur |^IPTV |^Smarters |^Zen /,'')):'');
-    // Diagnostic ciblé
-    const diag = DIAG[selProb] || DIAG.other;
-    document.getElementById('diagList').innerHTML = diag.map((s,i)=>'<div class="sol"><span class="n2">0'+(i+1)+'</span><div style="min-width:0;flex:1"><h4>'+esc(s.t)+'</h4><p>'+esc(s.p)+'</p></div>'+(s.ok?'<span class="ok2">Recommandé</span>':'')+'</div>').join('');
-    // Guide d'installation complet (étapes réelles + codes injectés)
-    const gw=document.getElementById('guideWrap');
-    if(guide){
-      let h='<div class="numdiv" style="margin-top:22px"><b>📖</b><p>Installation pas-à-pas — '+esc(guide.title)+'</p><i></i></div><div style="display:flex;flex-direction:column;gap:10px">';
-      guide.steps.forEach((st,i)=>{
-        const isCred = guide.credentialStep && (i+1)===guide.credentialStep;
-        h+='<div class="sol'+(isCred?' cred':'')+'"><span class="n2">'+String(i+1).padStart(2,'0')+'</span><div style="min-width:0;flex:1"><h4>'+esc(st.t)+'</h4><p>'+esc(st.d)+'</p>'+(isCred?credBlock():'')+'</div></div>';
-      });
-      h+='</div>';
-      gw.innerHTML=h;
-    } else { gw.innerHTML=''; }
+    const app=(DEVICE_APPS[selDevice]||[]).find(a=>a.slug===selSlug)||{};
+    const method = SLUG_METHOD[selSlug] || 'xtream';
+    const fix = FIX[method];
+    document.getElementById('solTitle').textContent = (app.label||'Solution') + ' · ' + (dev.label||'');
+    let h = '';
+    // Cause — claire, une phrase
+    h += '<div class="cause"><div class="ic">🎯</div><div><h4>'+esc(fix.head)+'</h4><p>'+esc(fix.intro)+'</p></div></div>';
+    // Note débit si buffering
+    if(selProb==='buffer') h += '<div class="note2">📶 D’abord : 15 Mbps minimum, câble Ethernet conseillé, qualité 4K → FHD. Si ça coupe encore, votre URL est ralentie : mettez-la à jour ci-dessous.</div>';
+    // Étapes du fix (compactes)
+    h += '<div class="fxcard">'+fix.steps.map((s,i)=>'<div class="fx"><div class="num">'+(i+1)+'</div><div style="min-width:0"><h4>'+esc(s.t)+'</h4><p>'+esc(s.d)+'</p></div></div>').join('')+'</div>';
+    // Boutons de bascule (Samsung/LG)
+    if(fix.switchGuides){ h += '<div style="display:flex;gap:10px;margin-top:12px">'+fix.switchGuides.map(g=>'<button class="btng" style="flex:1;padding:13px 8px;font-size:.66rem" onclick="location.href=\'xenontv-tutoriels?g='+g[0]+'\'">'+esc(g[1])+' →</button>').join('')+'</div>'; }
+    // Cas « veuillez patienter »
+    if(fix.stuck) h += '<div class="note2">⚠️ '+esc(fix.stuck)+'</div>';
+    // Vos codes à jour
+    h += '<div class="numdiv" style="margin:20px 0 10px"><b>🔑</b><p>Vos codes à jour</p><i></i></div>'+credBlock();
+    // Générer une URL fraîche
+    h += '<button class="btnr" style="width:100%;margin-top:14px" onclick="openRepair()">🔧 Générer un nouvel URL</button>';
+    // Lien discret vers le guide complet
+    if(window.TUTO_GUIDES && window.TUTO_GUIDES[selSlug]) h += '<div class="glink" onclick="location.href=\'xenontv-tutoriels?g='+selSlug+'\'">📖 Voir le guide d’installation complet<span class="ar">›</span></div>';
+    document.getElementById('solBody').innerHTML = h;
     sendHeight();
   }
 
