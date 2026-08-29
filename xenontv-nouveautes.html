@@ -642,7 +642,7 @@ html,body{overflow-x:hidden;overflow-x:clip;max-width:100%}
 <script>
   function xurlOpen(){var s=document.getElementById('xurlScrim');if(s)s.classList.add('on');}
   function xurlClose(){var s=document.getElementById('xurlScrim');if(s)s.classList.remove('on');}
-  function xurlGet(){xurlClose();if(typeof window.openRepair==='function'){window.openRepair();}else{location.href='xenontv-identifiants-v2';}}
+  function xurlGet(){xurlClose();location.href='xenontv-identifiants-v2';}
   document.addEventListener('keydown',function(e){if(e.key==='Escape')xurlClose();});
   if(window.top!==window.self){var _xb=document.querySelector('.xurlbar');if(_xb)_xb.style.display='none';try{document.body.style.paddingTop='0';}catch(e){}}
 </script>
