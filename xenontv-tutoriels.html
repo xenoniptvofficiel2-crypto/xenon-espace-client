@@ -220,7 +220,11 @@ body{padding-top:46px}
   // ── Identifiants du client (injectés dans l'étape identifiants du guide) ──
   let PICKED_URL='http://appxenonplayer.com', SAMSUNG_BASE='xenonssmart.com';
   let acc=null, credsReady=false;
-  function m3uFor(a){ if(!a||!a.m3u) return null; let m=a.m3u; try{ const u=new URL(m.startsWith('http')?m:'http://'+m); let p=(u.pathname+u.search).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/,''); m=PICKED_URL+p; }catch(e){ m=m.replace(/^https?:\/\/[^\/]+/,PICKED_URL).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/,''); } return m; }
+  // Sous-domaine réel du client (préfixe) : seulement si l'hôte a >2 labels.
+  function subPrefix(url){ try{ const h=new URL(url.startsWith('http')?url:'http://'+url).hostname; const p=h.split('.').filter(Boolean); return p.length>2?p.slice(0,p.length-2).join('.'):null; }catch(e){ return null; } }
+  function withSub(full, sub){ return sub ? full.replace(/^(https?:\/\/)/i,'$1'+sub+'.') : full; }
+  function androidUrl(a){ return withSub(PICKED_URL, subPrefix(a && a.url || '')); }
+  function m3uFor(a){ if(!a||!a.m3u) return null; const base=androidUrl(a); let m=a.m3u; try{ const u=new URL(m.startsWith('http')?m:'http://'+m); let p=(u.pathname+u.search).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/,''); m=base+p; }catch(e){ m=m.replace(/^https?:\/\/[^\/]+/,base).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/,''); } return m; }
   async function loadCreds(){
     try{
       const dr = await fetch(API+'/api/domains',{cache:'no-store'}).then(r=>r.json());
@@ -251,11 +255,11 @@ body{padding-top:46px}
     const m=m3uFor(acc);
     if(mode==='m3u'){
       let h='<div class="credtitle">Votre lien M3U XENON TV</div><div class="glass">';
-      h+= m ? rowU('Lien M3U',m) : rowU('URL du serveur',PICKED_URL);
+      h+= m ? rowU('Lien M3U',m) : rowU('URL du serveur',androidUrl(acc));
       h+='</div><div class="warn">⚠️ Collez le lien exactement, <b>sans espace</b> avant/après. Commence bien par <b style="font-family:var(--mono)">http://</b>.</div>';
       return h;
     }
-    let h='<div class="credtitle">Vos codes XENON TV à saisir</div><div class="glass">'+rowU('URL du serveur',PICKED_URL);
+    let h='<div class="credtitle">Vos codes XENON TV à saisir</div><div class="glass">'+rowU('URL du serveur',androidUrl(acc));
     if(acc.username) h+='<div class="crow"><div class="lb">Nom d\'utilisateur</div><div class="vl"><code>'+esc(acc.username)+'</code><button class="cpy" onclick="copyVal(this,\''+esc(acc.username).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>';
     if(acc.password) h+='<div class="crow"><div class="lb">Mot de passe</div><div class="vl"><code data-pass="'+esc(acc.password)+'">••••••••••</code><button class="cpy" onclick="togglePass(this)">'+iconEye()+'</button><button class="cpy" onclick="copyVal(this,\''+esc(acc.password).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>';
     if(m) h+=rowU('Lien M3U (option)',m);

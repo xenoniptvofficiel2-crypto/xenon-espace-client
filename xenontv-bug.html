@@ -327,7 +327,11 @@ body{padding-top:46px}
   // ── Identifiants du client ──
   let PICKED_URL='http://appxenonplayer.com', SAMSUNG_BASE='xenonssmart.com', ANDROID_REPAIR=[];
   let acc=null, credsReady=false;
-  function m3uFor(a){ if(!a||!a.m3u) return null; let m=a.m3u; try{ const u=new URL(m.startsWith('http')?m:'http://'+m); let p=(u.pathname+u.search).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/,''); m=PICKED_URL+p; }catch(e){ m=m.replace(/^https?:\/\/[^\/]+/,PICKED_URL).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/,''); } return m; }
+  // Sous-domaine réel du client (préfixe) : seulement si l'hôte a >2 labels.
+  function subPrefix(url){ try{ const h=new URL(url.startsWith('http')?url:'http://'+url).hostname; const p=h.split('.').filter(Boolean); return p.length>2?p.slice(0,p.length-2).join('.'):null; }catch(e){ return null; } }
+  function withSub(full, sub){ return sub ? full.replace(/^(https?:\/\/)/i,'$1'+sub+'.') : full; }
+  function androidUrl(a){ return withSub(PICKED_URL, subPrefix(a && a.url || '')); }
+  function m3uFor(a){ if(!a||!a.m3u) return null; const base=androidUrl(a); let m=a.m3u; try{ const u=new URL(m.startsWith('http')?m:'http://'+m); let p=(u.pathname+u.search).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/,''); m=base+p; }catch(e){ m=m.replace(/^https?:\/\/[^\/]+/,base).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/,''); } return m; }
   function loadDomains(){ return fetch(API+'/api/domains',{cache:'no-store'}).then(r=>r.json()).then(d=>{ if(d&&d.androidIos&&d.androidIos.picked){PICKED_URL=d.androidIos.picked;ANDROID_REPAIR=Array.isArray(d.androidIos.repair)?d.androidIos.repair:[];} if(d&&d.samsung&&d.samsung.pickedBase)SAMSUNG_BASE=d.samsung.pickedBase; }).catch(()=>{}); }
   function loadCreds(){
     return loadDomains().then(()=>{ if(!email||!token) return null; return fetch(API+'/api/proxy',{headers:{'X-Session-Token':token}}).then(r=>r.status===401?null:r.json()); })
@@ -347,11 +351,11 @@ body{padding-top:46px}
     if(!acc) return '<div class="cwmsg">Identifiants introuvables. <a href="https://xenontv.fr/help" target="_blank">Support →</a></div>';
     const m=m3uFor(acc);
     if(mode==='m3u'){
-      let h='<div class="glass">'+rowU('Lien M3U',m||PICKED_URL)+'</div>';
+      let h='<div class="glass">'+rowU('Lien M3U',m||androidUrl(acc))+'</div>';
       h+='<div class="warn">⚠️ Collez le lien exactement, <b>sans espace</b> avant/après — il commence bien par <b style="font-family:var(--mono)">http://</b>.</div>';
       return h;
     }
-    let h='<div class="glass">'+rowU('URL du serveur',PICKED_URL);
+    let h='<div class="glass">'+rowU('URL du serveur',androidUrl(acc));
     if(acc.username) h+='<div class="crow"><div class="lb">Nom d\'utilisateur</div><div class="vl"><code>'+esc(acc.username)+'</code><button class="cpy" onclick="copyVal(this,\''+esc(acc.username).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>';
     if(acc.password) h+='<div class="crow"><div class="lb">Mot de passe</div><div class="vl"><code data-pass="'+esc(acc.password)+'">••••••••••</code><button class="cpy" onclick="togglePass(this)">'+iconEye()+'</button><button class="cpy" onclick="copyVal(this,\''+esc(acc.password).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>';
     if(m) h+=rowU('Lien M3U',m);
@@ -431,8 +435,9 @@ body{padding-top:46px}
 
   // ── Réparer ──
   function openRepair(){
-    document.getElementById('repairOld').textContent=OLD_URL;
-    const list=ANDROID_REPAIR.slice();
+    const sub=subPrefix(acc && acc.url || '');
+    document.getElementById('repairOld').textContent = acc ? androidUrl(acc) : OLD_URL;
+    const list=ANDROID_REPAIR.map(u=>withSub(u, sub));
     document.getElementById('repairList').innerHTML = list.length
       ? list.map((u,i)=>'<div class="ublock"><div class="l">'+(i===0?'Nouvel URL recommandé':'Alternatif '+i)+'</div><div class="u"><code>'+esc(u)+'</code><button class="cpy" onclick="copyVal(this,\''+esc(u).replace(/'/g,"\\'")+'\')">'+iconCopy()+'</button></div></div>').join('')
       : '<div class="ublock"><div class="u"><code style="opacity:.6">Aucune alternative disponible pour le moment.</code></div></div>';

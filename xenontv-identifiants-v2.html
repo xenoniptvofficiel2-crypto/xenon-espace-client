@@ -210,6 +210,13 @@ body{padding-top:46px}
 
   function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
   function getSub(url){ try { return new URL(url.startsWith('http')?url:'http://'+url).hostname.split('.')[0]; } catch(e){ return null; } }
+  // Sous-domaine « réel » (préfixe) : uniquement si l'hôte a plus de 2 labels
+  // (ex. app.megsmart.xyz → "app" ; megsmart.xyz → null).
+  function subPrefix(url){ try { const h=new URL(url.startsWith('http')?url:'http://'+url).hostname; const p=h.split('.').filter(Boolean); return p.length>2 ? p.slice(0,p.length-2).join('.') : null; } catch(e){ return null; } }
+  // Insère le sous-domaine du client devant le domaine d'affichage tiré.
+  function withSub(full, sub){ return sub ? full.replace(/^(https?:\/\/)/i, '$1'+sub+'.') : full; }
+  // URL Android/iOS : on garde le sous-domaine du client, on ne change que le domaine.
+  function androidUrl(acc){ return withSub(PICKED_URL, subPrefix(acc && acc.url || '')); }
 
   async function loadDomains(){
     try{
@@ -227,13 +234,14 @@ body{padding-top:46px}
 
   function m3uFor(acc){
     if (!acc.m3u) return null;
+    const base = androidUrl(acc); // garde le sous-domaine du client s'il existe
     let m3u = acc.m3u;
     try {
       const u = new URL(m3u.startsWith('http')?m3u:'http://'+m3u);
       let path = (u.pathname + u.search).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
-      m3u = PICKED_URL + path;
+      m3u = base + path;
     } catch(e){
-      m3u = m3u.replace(/^https?:\/\/[^\/]+/, PICKED_URL).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
+      m3u = m3u.replace(/^https?:\/\/[^\/]+/, base).replace(/[^a-zA-Z0-9=&?_.~:\/%+-]+.*$/, '');
     }
     return m3u;
   }
@@ -261,7 +269,7 @@ body{padding-top:46px}
     const acc = accesses[idx] || {};
     let html = '';
     if (seg === 'android'){
-      html = rowUrl('URL du serveur', PICKED_URL) + rowUser(acc) + rowPass(acc);
+      html = rowUrl('URL du serveur', androidUrl(acc)) + rowUser(acc) + rowPass(acc);
     } else if (seg === 'samsung'){
       html = rowUrl('URL Samsung / LG', samsungUrl(acc)) + rowUser(acc) + rowPass(acc);
     } else {
@@ -305,8 +313,9 @@ body{padding-top:46px}
       list = ['wesmrt.com','app.megxeno.xyz'].map(base => 'http://'+(sub?sub+'.':'')+base);
     } else {
       title = '🔧 Réparer mon URL';
-      oldUrl = OLD_URL;
-      list = ANDROID_REPAIR.slice();
+      const sub = subPrefix(acc.url||'');
+      oldUrl = androidUrl(acc);
+      list = ANDROID_REPAIR.map(u => withSub(u, sub));
     }
     document.getElementById('repairTitle').textContent = title;
     document.getElementById('repairOld').textContent = oldUrl;
