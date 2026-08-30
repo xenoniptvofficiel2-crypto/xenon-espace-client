@@ -464,8 +464,11 @@ body::after {
 .warn-close:hover{color:var(--text)}
 .warn-icon{width:56px;height:56px;border-radius:50%;background:rgba(240,168,58,0.12);border:2px solid rgba(240,168,58,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:#f0a83a}
 .warn-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;color:#fff;margin-bottom:12px;line-height:1.08}
-.warn-body{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300;margin-bottom:20px}
-.warn-body strong{color:var(--text);font-weight:600}
+.warn-body{font-size:14px;color:#e2e2e2;line-height:1.6;font-weight:400;margin-bottom:20px}
+.warn-body strong{color:#fff;font-weight:700}
+.warn-hl{display:flex;gap:10px;text-align:left;margin-top:14px;padding:13px 15px;border-radius:11px;background:rgba(240,168,58,0.1);border:1px solid rgba(240,168,58,0.32);color:#f4dcb0;font-size:13px;line-height:1.6;font-weight:400}
+.warn-hl strong{color:#ffd28a;font-weight:700}
+.warn-hl svg{width:18px;height:18px;flex:none;color:#f0a83a;margin-top:1px}
 .warn-tg{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:13px;background:#229ED9;border:none;border-radius:8px;color:#fff;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s}
 .warn-tg:hover{background:#1b8ec4;transform:translateY(-1px);box-shadow:0 6px 20px rgba(34,158,217,0.32)}
 .warn-tg b{font-weight:800}
@@ -756,7 +759,11 @@ body::after {
     </div>
     <div class="warn-title" id="warnTitle">Un souci sur plusieurs titres&nbsp;?</div>
     <div class="warn-body" id="warnBody">
-      Si vos <strong>problèmes de lecture concernent beaucoup de titres</strong> — et non une demande sur un titre précis — ce formulaire n'est pas le bon canal. Contactez directement notre <strong>support sur Telegram</strong> pour un dépannage rapide et personnalisé.
+      Ce formulaire concerne <strong>un titre précis</strong> — un film ou une série.
+      <span class="warn-hl">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Si <strong>plusieurs titres</strong> ne se lancent pas ou coupent en même temps, ce n'est pas un signalement à faire ici : contactez notre <strong>support Telegram</strong>, on règle ça avec vous en direct.</span>
+      </span>
     </div>
     <a class="warn-tg" href="https://t.me/xenontvoff" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
