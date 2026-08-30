@@ -456,6 +456,23 @@ body::after {
 }
 .confirm-btn:hover { background: #16a34a; transform: translateY(-1px); }
 
+/* ── Popup avertissement (support Telegram) ── */
+.warn-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:2100;display:none;align-items:center;justify-content:center;padding:1rem}
+.warn-overlay.visible{display:flex}
+.warn-popup{background:var(--surface);border:1px solid rgba(255,255,255,0.1);border-top:3px solid #f0a83a;border-radius:12px;width:100%;max-width:440px;padding:34px 28px 26px;position:relative;text-align:center;animation:pop .25s ease}
+.warn-close{position:absolute;top:14px;right:14px;background:none;border:none;cursor:pointer;color:var(--muted);padding:4px;border-radius:4px;display:flex;transition:color .15s}
+.warn-close:hover{color:var(--text)}
+.warn-icon{width:56px;height:56px;border-radius:50%;background:rgba(240,168,58,0.12);border:2px solid rgba(240,168,58,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:#f0a83a}
+.warn-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;color:#fff;margin-bottom:12px;line-height:1.08}
+.warn-body{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300;margin-bottom:20px}
+.warn-body strong{color:var(--text);font-weight:600}
+.warn-tg{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:13px;background:#229ED9;border:none;border-radius:8px;color:#fff;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s}
+.warn-tg:hover{background:#1b8ec4;transform:translateY(-1px);box-shadow:0 6px 20px rgba(34,158,217,0.32)}
+.warn-tg b{font-weight:800}
+.warn-tg svg{width:18px;height:18px;flex:none}
+.warn-primary{margin-top:11px;width:100%;padding:12px;background:none;border:1px solid rgba(255,255,255,0.16);border-radius:8px;color:#cfcfcf;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.warn-primary:hover{border-color:var(--red2);color:#fff}
+
 .platforms-strip {
   margin-top: 10px;
   background: var(--surface);
@@ -728,6 +745,27 @@ body::after {
   </div>
 </div>
 
+<!-- POPUP AVERTISSEMENT (support Telegram) -->
+<div class="warn-overlay" id="warnOverlay">
+  <div class="warn-popup">
+    <button class="warn-close" id="warnClose" aria-label="Fermer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="warn-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <div class="warn-title" id="warnTitle">Un souci sur plusieurs titres&nbsp;?</div>
+    <div class="warn-body" id="warnBody">
+      Si vos <strong>problèmes de lecture concernent beaucoup de titres</strong> — et non une demande sur un titre précis — ce formulaire n'est pas le bon canal. Contactez directement notre <strong>support sur Telegram</strong> pour un dépannage rapide et personnalisé.
+    </div>
+    <a class="warn-tg" href="https://t.me/xenontvoff" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+      Contacter le support · <b>@xenontvoff</b>
+    </a>
+    <button class="warn-primary" id="warnPrimary">J'ai compris</button>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -882,9 +920,9 @@ btnSignaler.addEventListener('click', () => {
 popupClose.addEventListener('click', () => overlay.classList.remove('visible'));
 overlay.addEventListener('click', e => { if(e.target===overlay) overlay.classList.remove('visible'); });
 
-btnValider.addEventListener('click', () => {
+// Envoi réel du signalement (appelé après l'avertissement Telegram).
+function doSubmitSignalement(){
   const issues = [...document.querySelectorAll('.check-item input:checked')].map(c => c.value);
-  if(!issues.length && !commentArea.value.trim()){ showToast('Cochez au moins une case', 'err'); return; }
   saveRequest('signalement', {
     title: selected ? selected.title : 'Non précisé',
     year: selected ? selected.year : '',
@@ -895,10 +933,41 @@ btnValider.addEventListener('click', () => {
   document.getElementById('confirmTitle').textContent = 'Signalement enregistré';
   document.getElementById('confirmBody').innerHTML = '<strong>Votre signalement a bien été enregistré.</strong><br><br>Chaque demande est traitée au fur et à mesure par notre équipe VOD.<br>Merci pour votre patience et votre contribution !';
   document.getElementById('confirmOverlay').classList.add('visible');
+}
+
+btnValider.addEventListener('click', () => {
+  const issues = [...document.querySelectorAll('.check-item input:checked')].map(c => c.value);
+  if(!issues.length && !commentArea.value.trim()){ showToast('Cochez au moins une case', 'err'); return; }
+  // Signalement (bug) : on affiche l'avertissement Telegram avant de valider.
+  openWarn('presubmit');
 });
 
+// ── Popup avertissement Telegram (arrivée + garde avant envoi d'un signalement) ──
+const warnOverlay = $('warnOverlay'), warnClose = $('warnClose'), warnPrimary = $('warnPrimary'), warnTitle = $('warnTitle');
+let warnMode = 'arrival';
+function openWarn(mode){
+  warnMode = mode;
+  if(mode === 'presubmit'){
+    warnTitle.textContent = 'Avant d’envoyer votre signalement';
+    warnPrimary.textContent = 'Envoyer quand même mon signalement';
+  } else {
+    warnTitle.innerHTML = 'Un souci sur plusieurs titres&nbsp;?';
+    warnPrimary.textContent = 'J’ai compris';
+  }
+  warnOverlay.classList.add('visible');
+}
+function closeWarn(){ warnOverlay.classList.remove('visible'); }
+warnClose.addEventListener('click', closeWarn);
+warnOverlay.addEventListener('click', e => { if(e.target === warnOverlay) closeWarn(); });
+warnPrimary.addEventListener('click', () => {
+  closeWarn();
+  if(warnMode === 'presubmit') doSubmitSignalement();
+});
+// À l'arrivée sur la page : avertissement (petit délai pour laisser la page s'afficher).
+setTimeout(() => openWarn('arrival'), 450);
+
 document.addEventListener('keydown', e => {
-  if(e.key==='Escape'){ overlay.classList.remove('visible'); resultsList.classList.remove('visible'); }
+  if(e.key==='Escape'){ overlay.classList.remove('visible'); resultsList.classList.remove('visible'); warnOverlay.classList.remove('visible'); }
 });
 
 
